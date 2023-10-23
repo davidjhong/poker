@@ -21,9 +21,24 @@
 ## Project Description
  > Your project description should summarize the project you are proposing. Be sure to include:
  > * Why is it important or interesting to you?
+ * We believe that translating the physicality of a card game into a program will be an interesting challenge, but also fun to code.  Dealing with the logic behind hand combinations and determining the winner and rankings will be an exciting challenge.
  > * What languages/tools/technologies do you plan to use? (This list may change over the course of the project)
+ * C++, CMake, MAYBE Socket++
  > * What will be the input/output of your project?
+ * Command line interface with cin and cout
+ * Users will type in responses based on scenario
+ * input: current hand of each player, number of chips, scores, number of chip bet, check / fold / raise,
+ * output: player's cards (hands), declaration of winner, current chip amount per player, current pot amount, middle cards, ASCII art for visual representation of cards
  > * What are the features that the project provides?
+ * Poker (texas holdem), MAYBE other game modes
+ * Combo comparison
+ * Start menu with customization where users can customize the poker rules (blind amount, minimum raise)
+ * Option to choose player count, starting amount, player names, pick random card (lowest card starts)
+ * Displays little blind, big blind, dealer
+ * Automated handling of chips, selecting bet amounts
+ * ASCII Card art for clarity
+ * Displays what each users' best "combo" is
+ * Option to display cards at the end of round
  > This description should be in enough detail that the TA/instructor can determine the complexity of the project and if it is sufficient for the team members to complete in the time allotted. 
  > 
  > You also need to set up an empty project board using GitHub projects (board view). Make sure you add the board under your project repository. You should also have a Product Backlog and In testing columns added.
