@@ -30,7 +30,38 @@
  * input: current hand of each player, number of chips, scores, number of chip bet, check / fold / raise,
  * output: player's cards (hands), declaration of winner, current chip amount per player, current pot amount, middle cards, ASCII art for visual representation of cards
  > * What are the features that the project provides?
+ * Classes
+   * Player
+     * Name
+     * Hand
+     * Chips
+     * bet()
+     * call()
+     * fold()
+   * Deck
+     * Cards
+     * shuffle()
+     * dealCard()
+   * Card
+     * Suit
+     * Value
+   * Hand
+     * Cards
+     * determineHand
+   * Game
+     * startGame()
+     * startRound()
+     * dealHands()
+     * reset()
+   * Settings
+     * startingChips
+     * blindStart
  * Poker (texas holdem)
+ * Displays little blind, big blind, dealer
+   * Implement a Table class which controls what happens in a round
+   * Utilize functions such as a startRound() in the class
+   * Store the players in the class in a vector
+   * Store the little blind, big blind, and dealer as an integer
  * Dealing
    * Utilize class for the entire deck
    * Utilize class for the center cards
@@ -48,8 +79,6 @@
    * The user enters the rules they want, such as the total starting chips, the big and small blind amount, and the minimum amount to raise.
  * Option to choose player count, starting amount, player names
    * Create a player class that holds the player's current hand, player name, current chip count.
- * Displays little blind, big blind, dealer
-   * Implement a round/table class which controls what happens in a round
  * Automated handling of chips, selecting bet amounts
    * Create a class for pot handling, and chip distribution
    * Player class hold the number of chips a user has
