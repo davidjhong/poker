@@ -30,15 +30,35 @@
  * input: current hand of each player, number of chips, scores, number of chip bet, check / fold / raise,
  * output: player's cards (hands), declaration of winner, current chip amount per player, current pot amount, middle cards, ASCII art for visual representation of cards
  > * What are the features that the project provides?
- * Poker (texas holdem), MAYBE other game modes
+ * Poker (texas holdem)
+ * Dealing
+   * Utilize class for the entire deck
+   * Utilize class for the center cards
+   * Utilize class for player hand
+   * Utilize random function and seed to determine card draws
+ * Turn Functionality
+   * To avoid multiple players from viewing the cards of others, utilize a timer library to allow players to switch turns
+   * Displays the opponents current pot
+ * Card setup
+   * Each card has its own class which determine its own strength and suite
+   * Each card has its own value assigned to it, based on its suite and number.
  * Combo comparison
+   * Separate functions for checking straights, flush, high card, pair, triple, four of a kind.
  * Start menu with customization where users can customize the poker rules (blind amount, minimum raise)
- * Option to choose player count, starting amount, player names, pick random card (lowest card starts)
+   * The user enters the rules they want, such as the total starting chips, the big and small blind amount, and the minimum amount to raise.
+ * Option to choose player count, starting amount, player names
+   * Create a player class that holds the player's current hand, player name, current chip count.
  * Displays little blind, big blind, dealer
+   * Implement a round/table class which controls what happens in a round
  * Automated handling of chips, selecting bet amounts
+   * Create a class for pot handling, and chip distribution
+   * Player class hold the number of chips a user has
+   * Player class will have functions that allow them to check, call, fold.
  * ASCII Card art for clarity
  * Displays what each users' best "combo" is
+   * Function that weighs the strongest combination that the current player has displays it.
  * Option to display cards at the end of round
+   * Prompts user input whether or not they want to show their cards at the end of the round.
  > This description should be in enough detail that the TA/instructor can determine the complexity of the project and if it is sufficient for the team members to complete in the time allotted. 
  > 
  > You also need to set up an empty project board using GitHub projects (board view). Make sure you add the board under your project repository. You should also have a Product Backlog and In testing columns added.
