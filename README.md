@@ -30,64 +30,32 @@
  * input: current hand of each player, number of chips, scores, number of chip bet, check / fold / raise,
  * output: player's cards (hands), declaration of winner, current chip amount per player, current pot amount, middle cards, ASCII art for visual representation of cards
  > * What are the features that the project provides?
- * Classes
-   * Player
-     * Name
-     * Hand
-     * Chips
-     * bet()
-     * call()
-     * fold()
-   * Deck
-     * Cards
-     * shuffle()
-     * dealCard()
-   * Card
-     * Suit
-     * Value
-   * Hand
-     * Cards
-     * determineHand
-   * Game
-     * startGame()
-     * startRound()
-     * dealHands()
-     * reset()
-   * Settings
-     * startingChips
-     * blindStart
  * Poker (texas holdem)
- * Displays little blind, big blind, dealer
-   * Implement a Table class which controls what happens in a round
-   * Utilize functions such as a startRound() in the class
-   * Store the players in the class in a vector
-   * Store the little blind, big blind, and dealer as an integer
- * Dealing
-   * Utilize class for the entire deck
-   * Utilize class for the center cards
-   * Utilize class for player hand
-   * Utilize random function and seed to determine card draws
- * Turn Functionality
-   * To avoid multiple players from viewing the cards of others, utilize a timer library to allow players to switch turns
-   * Displays the opponents current pot
- * Card setup
-   * Each card has its own class which determine its own strength and suite
-   * Each card has its own value assigned to it, based on its suite and number.
- * Combo comparison
-   * Separate functions for checking straights, flush, high card, pair, triple, four of a kind.
- * Start menu with customization where users can customize the poker rules (blind amount, minimum raise)
-   * The user enters the rules they want, such as the total starting chips, the big and small blind amount, and the minimum amount to raise.
- * Option to choose player count, starting amount, player names
-   * Create a player class that holds the player's current hand, player name, current chip count.
- * Automated handling of chips, selecting bet amounts
-   * Create a class for pot handling, and chip distribution
-   * Player class hold the number of chips a user has
-   * Player class will have functions that allow them to check, call, fold.
- * ASCII Card art for clarity
- * Displays what each users' best "combo" is
-   * Function that weighs the strongest combination that the current player has displays it.
- * Option to display cards at the end of round
-   * Prompts user input whether or not they want to show their cards at the end of the round.
+   * Uses a standard 52-card deck
+   * General gameplay
+     * 2 to 7 players
+     * Each player starts with a select number of chips, chosen by the user. eg. the user wants everyone to start with 500 chips, everyone starts with 500 chips.
+     * Each player receives two random cards from the deck and there will be five random cards in the community cards, which are hidden at first.  They are not allowed to view other players' cards but are able to see the cards in the community hand when they are revealed later.
+       * A "hand" is the current pair of cards that a player has and this hand can be used along with the cards in the community hand to create a combination of cards.
+       * The strength of the cards are rated with these rules: [Poker Hand Rating](https://www.primedope.com/official-poker-hands-ranking-chart/)
+     * Two consecutive players each round of the poker start as the "big blind" and "little blind".  The big blind must enter a select number of chips, which is initially chosen by the user at the beginning of the game, and the small blind must enter half of that amount.
+     * The round starts and in consecutive order, each player gets to decide whether they "call", "raise, "check", or "fold".
+       * "Call" is to match the highest entry that another player has bet.  They must call, raise, or fold if another player has bet more chips than them.
+       * "Fold" is when a player chooses to abandon what they have already bet and exit the round, losing the possibility of winning the entire pot.
+       * "Raise" is to increase the highest entry that another player has bet, causing all other players to make the decision to match that bet(call), increase that bet(raise), or exit the round(fold).
+       * "Check" is when a player has already bet the same amount as the highest bet and they choose to pass their turn and not raise the bet amount.
+     * After each player has gotten their chance to call, raise, check, or fold, three of the community cards are revealed.
+     * Each player gets to decide their choice of calling, raising, checking, or folding again.
+     * One more community card is revealed.
+     * Each player makes their final choice of calling, raising, checking, or folding.
+     * The last community card is revealed.
+     * Players can now choose to either reveal their hand or not show their hand
+       * If a player reveals their hand, they are "in the running" to win the pot
+       * If a player chooses not to reveal their hand, they exit the pot.
+     * The player with the strongest hand wins the pot and receives all the chips in the pot.
+     * A new round starts and play again until one person has all the chips in the game, or when players choose to exit the game.
+  
+   
  > This description should be in enough detail that the TA/instructor can determine the complexity of the project and if it is sufficient for the team members to complete in the time allotted. 
  > 
  > You also need to set up an empty project board using GitHub projects (board view). Make sure you add the board under your project repository. You should also have a Product Backlog and In testing columns added.
