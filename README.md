@@ -1,86 +1,60 @@
- > As you complete each section you **must** remove the prompt text. Every *turnin* of this project includes points for formatting of this README so keep it clean and keep it up to date. 
- > Prompt text is any lines beginning with "\>"
- > Replace anything between \<...\> with your project specifics and remove angle brackets. For example, you need to name your project and replace the header right below this line with that title (no angle brackets). 
 # Poker
- > Your author list below should include links to all members GitHub (remove existing author).
- 
- > Authors: [Kevin He](https://github.com/kevinhehee/) [Jason An](https://github.com/jasonan18/)
+Authors: [Kevin He](https://github.com/kevinhehee/) [Jason An](https://github.com/jasonan18/)
 [David Hong](https://github.com/davidjhong)
 [Chloe Tang](https://github.com/chloetang085)
 
-
- > You will be forming a group of **FOUR** students and working on an interesting project. The project has 4 phases, each one with specific requirements. A list of proposed project ideas that have been successful in previous quarters is listed in the project specifications document on Canvas. You can select an idea from the list and start thinking about the features you will implement. If you want to propose your own original idea, you will have to contact your instructor to discuss the project and obtain written permission before you submit your project proposal (Phase 1). The project work should be divided almost equally among team members. You can of course help each other, but it needs to be clear who will be responsible for which features. Additionally, you are expected to follow Scrum patterns, specifically the use of a Scrum (Project) board, Sprints, and Scrum meetings.
-
- > ## Expectations
- > * The backend of your project should be implemented in C++. If you wish to choose anoher programming language (e.g. Java, Python), please discuss with your lab TA to obtain permission.
- > * You can incorporate additional technologies/tools but they must be approved (in writing) by the instructor or the TA.
- > * Each member of the group **must** be committing code regularly and make sure their code is correctly attributed to them. We will be checking attributions to determine if there was equal contribution to the project.
- > * **Each member of the group must actively participate in the Github Project board, writing unit tests, and reviewing commited code.**
-> * All project phases are to be submitted to this GitHub repository. You should modify this README file to reflect the different phases of the project. In addition, you should regularly hold sprint meetings with your group. You will need to hold two to three scrum/check-in meetings with your lab TA/reader at different times in addition to the final demo.
-
 ## Project Description
- > Your project description should summarize the project you are proposing. Be sure to include:
- > * Why is it important or interesting to you?
  * We believe that translating the physicality of a card game into a program will be an interesting challenge, but also fun to code.  Dealing with the logic behind hand combinations and determining the winner and rankings will be an exciting challenge.
- > * What languages/tools/technologies do you plan to use? (This list may change over the course of the project)
- * C++, CMake, MAYBE Socket++
- > * What will be the input/output of your project?
- * Command line interface with cin and cout
- * Users will type in responses based on scenario
- * input: current hand of each player, number of chips, scores, number of chip bet, check / fold / raise,
- * output: player's cards (hands), declaration of winner, current chip amount per player, current pot amount, middle cards, ASCII art for visual representation of cards
- > * What are the features that the project provides?
- * Poker (texas holdem)
+ * We will be using C++ for the backend of this project and CMake to build it.  The program will be in the CLI.
+ * Input/Output
+   * Command line interface with cin and cout
+   * Users will type in responses based on scenario
+   * input: current hand of each player, number of chips, scores, number of chip bet, check / fold / raise,
+   * output: player's cards (hands), declaration of winner, current chip amount per player, current pot amount, middle cards, ASCII art for visual representation of cards
+### Features
+The main feature is the ability to play Poker (texas holdem).
    * Uses a standard 52-card deck
    * General gameplay
-     * 2 to 7 players
-     * Each player starts with a select number of chips, chosen by the user. eg. the user wants everyone to start with 500 chips, everyone starts with 500 chips.
-     * Each player receives two random cards from the deck and there will be five random cards in the community cards, which are hidden at first.  They are not allowed to view other players' cards but are able to see the cards in the community hand when they are revealed later.
-       * A "hand" is the current pair of cards that a player has and this hand can be used along with the cards in the community hand to create a combination of cards.
-       * The strength of the cards are rated with these rules: [Poker Hand Rating](https://www.primedope.com/official-poker-hands-ranking-chart/)
-     * Two consecutive players each round of the poker start as the "big blind" and "little blind".  The big blind must enter a select number of chips, which is initially chosen by the user at the beginning of the game, and the small blind must enter half of that amount.
-     * The round starts and in consecutive order, each player gets to decide whether they "call", "raise, "check", or "fold".
-       * "Call" is to match the highest entry that another player has bet.  They must call, raise, or fold if another player has bet more chips than them.
-       * "Fold" is when a player chooses to abandon what they have already bet and exit the round, losing the possibility of winning the entire pot.
-       * "Raise" is to increase the highest entry that another player has bet, causing all other players to make the decision to match that bet(call), increase that bet(raise), or exit the round(fold).
-       * "Check" is when a player has already bet the same amount as the highest bet and they choose to pass their turn and not raise the bet amount.
-     * After each player has gotten their chance to call, raise, check, or fold, three of the community cards are revealed.
-     * Each player gets to decide their choice of calling, raising, checking, or folding again.
-     * One more community card is revealed.
-     * Each player makes their final choice of calling, raising, checking, or folding.
-     * The last community card is revealed.
-     * Players can now choose to either reveal their hand or not show their hand
-       * If a player reveals their hand, they are "in the running" to win the pot
-       * If a player chooses not to reveal their hand, they exit the pot.
-     * The player with the strongest hand wins the pot and receives all the chips in the pot.
-     * A new round starts and play again until one person has all the chips in the game, or when players choose to exit the game.
-  
+   * 2 to 7 players
+   * Each player starts with a select number of chips, chosen by the user. eg. the user wants everyone to start with 500 chips, everyone starts with 500 chips.
+   * Each player receives two random cards from the deck and there will be five random cards in the community cards, which are hidden at first.  They are not allowed to view other players' cards but are able to see the cards in the community hand when they are revealed later.
+   * A "hand" is the current pair of cards that a player has and this hand can be used along with the cards in the community hand to create a combination of cards.
+   * The strength of the cards are rated with these rules: [Poker Hand Rating](https://www.primedope.com/official-poker-hands-ranking-chart/)
+   * Two consecutive players each round of the poker start as the "big blind" and "little blind".  The big blind must enter a select number of chips, which is initially chosen by the user at the beginning of the game, and the small blind must enter half of that amount.
+   * The round starts and in consecutive order, each player gets to decide whether they "call", "raise, "check", or "fold".
+   * "Call" is to match the highest entry that another player has bet.  They must call, raise, or fold if another player has bet more chips than them.
+   * "Fold" is when a player chooses to abandon what they have already bet and exit the round, losing the possibility of winning the entire pot.
+   * "Raise" is to increase the highest entry that another player has bet, causing all other players to make the decision to match that bet(call), increase that bet(raise), or exit the round(fold).
+   * "Check" is when a player has already bet the same amount as the highest bet and they choose to pass their turn and not raise the bet amount.
+   * After each player has gotten their chance to call, raise, check, or fold, three of the community cards are revealed.
+   * Each player gets to decide their choice of calling, raising, checking, or folding again.
+   * One more community card is revealed.
+   * Each player makes their final choice of calling, raising, checking, or folding.
+   * The last community card is revealed.
+   * Players can now choose to either reveal their hand or not show their hand
+   * If a player reveals their hand, they are "in the running" to win the pot
+   * If a player chooses not to reveal their hand, they exit the pot.
+   * The player with the strongest hand wins the pot and receives all the chips in the pot.
+   * A new round starts and plays again until one person has all the chips in the game, or when players choose to exit the game.
+
+   * The user can create a save file after a round that can be loaded to obtain the previous game state
+   * The player(s) can play against bot(s) that make arbitrary decisions or maybe some smart decisions
    
- > This description should be in enough detail that the TA/instructor can determine the complexity of the project and if it is sufficient for the team members to complete in the time allotted. 
- > 
- > You also need to set up an empty project board using GitHub projects (board view). Make sure you add the board under your project repository. You should also have a Product Backlog and In testing columns added.
- > ## Phase II
- > In addition to completing the "User Interface Specification" and "Class Diagram" sections below, you will need to:
- > * Create an "Epic" (note) for each feature. Place these epics in the `Product Backlog` column
- > * Complete your first *sprint planning* meeting to plan out the next 7 days of work.
- >   * Break down the "Epics" into smaller actionable user stories (i.e. smaller development tasks). Convert them into issues and assign them to team members. Place these in the `TODO` (aka Sprint Backlog) column.
- >   * These cards should represent roughly 7 days worth of development time for your team. Then, once the sprint is over you should be repeating these steps to plan a new sprint, taking you until your second scrum meeting with the reader in phase III.
- > * Schedule two check-ins using Calendly. You need to pick both time slots on Tuesday of week 6. The check-ins will occur on Zoom. Your entire team must be present for both check-ins.
- >   * The first check-in needs to be scheduled with your lab TA. During that meeting, you will discuss your project design/class diagram from phase II.
- >   * The second check-in should be scheduled with a reader. During that meeting you will discuss:
- >     * The tasks you are planning for the first sprint
- >     * How work will be divided between the team members
 ## User Interface Specification
- > Include a navigation diagram for your screens and the layout of each of those screens as desribed below. For all the layouts/diagrams, you can use any tool such as PowerPoint or a drawing program. (Specification requirement is adapted from [this template](https://redirect.cs.umbc.edu/~mgrass2/cmsc345/Template_UI.doc))
 
 ### Navigation Diagram
-> Draw a diagram illustrating how the user can navigate from one screen to another. Here is an [example](https://creately.com/diagram/example/ikfqudv82/user-navigation-diagram-classic?r=v). It can be useful to label each symbol that represents a screen so that you can reference the screens in the next section or the rest of the document if necessary. Give a brief description of what the diagram represents.
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/0f54a2e8-a31c-453c-aaf3-db04cd0e659d)
+
+
 
 ### Screen Layouts
-> Include the layout of each of your screens. The layout should describe the screen’s major components such as menus and prompts for user inputs, expected output, and buttons (if applicable). Explain what is on the layout, and the purpose of each menu item, button, etc. If many screens share the same layout, start by describing the general layout and then list the screens that will be using that layout and the differences between each of them.
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/d93dbc78-6a24-4ad4-8864-e423ce038475)
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/98fc0369-a62d-4660-be56-23cdbbf0815a)
+
+
 
 ## Class Diagram
- > Include a **class diagram(s)** for your project and a **description** of the diagram(s). Your class diagram(s) should include all the main classes you plan for the project. This should be in sufficient detail that another group could pick up the project this point and successfully complete it. Use proper UML notation (as discussed in the course slides).
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/6f91de1a-e260-4b38-8580-98c8119d7c90)
  
  > ## Phase III
  > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on Zoom and should be conducted by Wednesday of week 8.
