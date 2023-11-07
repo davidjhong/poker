@@ -48,11 +48,13 @@ Authors: [Kevin He](https://github.com/kevinhehee/) [Jason An](https://github.co
 
 ### Screen Layouts
 ![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/d93dbc78-6a24-4ad4-8864-e423ce038475)
+
 ![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/98fc0369-a62d-4660-be56-23cdbbf0815a)
 
 ## Class Diagram
-![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/6f91de1a-e260-4b38-8580-98c8119d7c90)
- 
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/f180b8bb-d792-43a2-82e7-c4a43ebe2d68)
+
+
  > ## Phase III
  > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on Zoom and should be conducted by Wednesday of week 8.
  
