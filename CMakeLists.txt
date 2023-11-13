@@ -7,12 +7,14 @@ ADD_EXECUTABLE(poker
     main.cpp
     lib/handRank.cpp
     lib/Card.cpp
+    lib/Deck.cpp
 )
 
 ADD_EXECUTABLE(test
     tests/test.cpp
     lib/handRank.cpp
     lib/Card.cpp
+    lib/Deck.cpp
 )
 
 TARGET_LINK_LIBRARIES(test gtest)
