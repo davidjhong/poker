@@ -1,4 +1,5 @@
 #include "../include/Hand.h"
+#include "../include/handRank.h"
 #include <iostream>
 #include <assert.h>
 
@@ -6,6 +7,20 @@
 Hand::Hand()
 {
     this->strength = 0;
+}
+
+int Hand::getStrength() const
+{
+    return this->strength;
+}
+
+void Hand::calculateStrength()
+{
+    HandRank* handRanker = new HandRank();
+    
+    this->strength = handRanker->getFinalRank(this->hand);
+
+    delete handRanker;
 }
 
 void Hand::addCard(Card* newCard)

@@ -235,6 +235,23 @@ TEST(handTests, clearHandTest)
   EXPECT_EQ(testHand->getHand(), cards);
 }
 
+TEST(handTests, getStrengthTest)
+{
+  Hand* testHand = new Hand();
+
+  Card* card1 = new Card(3, "Spades", "Three of Spades");
+  Card* card2 = new Card(5, "Spades", "Five of Spades");
+  Card* card3 = new Card(10, "Spades", "Ten of Spades");
+
+  testHand->addCard(card1);
+  testHand->addCard(card2);
+  testHand->addCard(card3);
+
+  testHand->calculateStrength();
+  EXPECT_EQ(testHand->getStrength(), 50);
+
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
