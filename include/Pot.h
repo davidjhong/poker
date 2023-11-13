@@ -13,5 +13,5 @@ class Pot {
  private:
     
    //  void splitPot(const vector<Player>&);
-   int totalPot = 0;
+   int totalPot;
 };

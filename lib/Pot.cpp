@@ -1,6 +1,8 @@
 #include "../include/Pot.h"
 
-
+Pot::Pot() {
+    this->totalPot = 0;
+}
 
 Pot::~Pot() {
     //delete Pot;
