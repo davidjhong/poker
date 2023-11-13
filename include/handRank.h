@@ -10,11 +10,11 @@ using namespace std;
 
 class HandRank {
     private:
-        int rankValue = 0;
+        int rankValue;
         vector<Card*> cards;
 
     public:
-    
+        HandRank();
         int getRank() const;
         int getFinalRank(vector<Card*>);
 

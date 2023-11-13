@@ -9,6 +9,11 @@ bool comp(Card* card1, Card* card2)
     return card1->getRank() < card2->getRank();
 }
 
+HandRank::HandRank()
+{
+    this->rankValue = 0;
+}
+
 bool HandRank::hasHighCard() const {
     return true; // All hands have a high card. Issue is to determine which high card has a higher value.
 }
