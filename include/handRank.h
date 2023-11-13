@@ -13,8 +13,10 @@ class HandRank {
         vector<int> cards;
 
     public:
-        HandRank(const vector<int>& cards);
+    
         int getRank() const;
+        int getFinalRank() const;
+
         bool hasHighCard() const;
         bool hasPair() const;
         bool hasTwoPair() const;
