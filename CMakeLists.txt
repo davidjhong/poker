@@ -5,11 +5,14 @@ ADD_SUBDIRECTORY(googletest)
 
 ADD_EXECUTABLE(poker
     main.cpp
+    lib/Player.cpp
 )
 
 ADD_EXECUTABLE(test
     tests/test.cpp
+    lib/Player.cpp
 )
+
 
 TARGET_LINK_LIBRARIES(test gtest)
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)

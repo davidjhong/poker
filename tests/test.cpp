@@ -1,7 +1,10 @@
 #include "gtest/gtest.h"
+#include "../include/Player.h"
 
-TEST(testUnit, testHello) {
-    EXPECT_EQ("hello world", "hello world");
+TEST(playerTests, playerInitTest) {
+  Player* testPlayer = new Player("Jason", 100);
+  EXPECT_EQ(testPlayer->getBalance(), 100);
+  EXPECT_EQ(testPlayer->getName(), "Jason");
 }
 
 int main(int argc, char **argv) {
