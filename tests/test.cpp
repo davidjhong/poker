@@ -11,7 +11,7 @@ TEST(CardTests, typicalCardTest) {
 }
 
 TEST(PotTest, addToPotTest) {
-  Pot *testPot = new Pot;
+  Pot *testPot = new Pot();
   EXPECT_EQ(testPot->getPot(), 0);
   testPot->addToPot(100);
   EXPECT_EQ(testPot->getPot(), 100);
