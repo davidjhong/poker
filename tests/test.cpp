@@ -10,28 +10,55 @@ TEST(CardTests, typicalCardTest) {
     EXPECT_EQ(testCard->getName(), "Three of Spades");
 }
 
-class stubHand {
+class StubHand {
     private: 
       vector<Card*> hand;
-      handRank handRanker;
     public:
-      stubHand() {
-        Card* card1 = new Card(1, "Spades", "One of Spades")
-        Card* card2 = new Card(2, "Spades", "Two of Spades")
-        Card* card3 = new Card(5, "Hearts", "Five of Hearts")
-        Card* card4 = new Card(5, "Spades", "Five of Spades")
-        
-        hand.push_back(card1);
-        hand.push_back(card2);
-        hand.push_back(card3);
-        hand.push_back(card4);  
+      StubHand(vector<Card*> testCards) {
+
+        for (int i = 0; i < testCards.size(); i++)
+        {
+          hand.push_back(testCards[i]);
+        }
+      }
+      vector<Card*> getCurrentHand() const {
+        return this->hand;
       }
 };
 
 TEST(HandRankTests, hasPairTest) {
-    stubHand testHand = new stubHand();
+
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades");
+    Card* card2 = new Card(5, "Spades", "Five of Spades");
+    Card* card3 = new Card(6, "Hearts", "Six of Hearts");
+    Card* card4 = new Card(5, "Spades", "Five of Spades");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(testHand.handRanker.getFinalRank(), 100);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 100);
+}
+
+TEST(HandRankTests, hasTwoPairTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades");
+    Card* card2 = new Card(5, "Spades", "Five of Spades");
+    Card* card3 = new Card(1, "Hearts", "One of Hearts");
+    Card* card4 = new Card(5, "Spades", "Five of Spades");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 150);
 }
 
 int main(int argc, char **argv) {

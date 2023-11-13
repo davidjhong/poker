@@ -4,18 +4,19 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "Card.h"
 
 using namespace std;
 
 class HandRank {
     private:
         int rankValue = 0;
-        vector<int> cards;
+        vector<Card*> cards;
 
     public:
     
         int getRank() const;
-        int getFinalRank() const;
+        int getFinalRank(vector<Card*>);
 
         bool hasHighCard() const;
         bool hasPair() const;
