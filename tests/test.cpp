@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "../include/Player.h"
 #include "../include/Card.h"
+#include "../include/Pot.h"
 #include "../include/Deck.h"
 
 TEST(playerTests, playerInitTest) {
@@ -15,6 +16,13 @@ TEST(CardTests, typicalCardTest) {
     EXPECT_EQ(testCard->getRank(), 3);
     EXPECT_EQ(testCard->getSuit(), "Spades");
     EXPECT_EQ(testCard->getName(), "Three of Spades");
+}
+
+TEST(PotTest, addToPotTest) {
+  Pot *testPot = new Pot();
+  EXPECT_EQ(testPot->getPot(), 0);
+  testPot->addToPot(100);
+  EXPECT_EQ(testPot->getPot(), 100);
 }
 
 TEST(DeckTests, constructorTest) {

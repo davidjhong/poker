@@ -5,6 +5,7 @@ ADD_SUBDIRECTORY(googletest)
 
 ADD_EXECUTABLE(poker
     main.cpp
+    lib/Pot.cpp
     lib/Player.cpp
     lib/handRank.cpp
     lib/Card.cpp
@@ -13,6 +14,7 @@ ADD_EXECUTABLE(poker
 
 ADD_EXECUTABLE(test
     tests/test.cpp
+    lib/Pot.cpp
     lib/Player.cpp
     lib/handRank.cpp
     lib/Card.cpp
