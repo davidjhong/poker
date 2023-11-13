@@ -5,10 +5,12 @@ ADD_SUBDIRECTORY(googletest)
 
 ADD_EXECUTABLE(poker
     main.cpp
+    lib/Pot.cpp
 )
 
 ADD_EXECUTABLE(test
     tests/test.cpp
+    lib/Pot.cpp
 )
 
 TARGET_LINK_LIBRARIES(test gtest)
