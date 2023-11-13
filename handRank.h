@@ -8,8 +8,6 @@
 class HandRank {
     private:
         int rankValue = 0;
-        // vector<int> boardCards; implement when other classes are implemented
-        // vector<int> handCards;
         vector<int> cards;
 
     public:

@@ -29,13 +29,13 @@ bool HandRank::hasTwoPair() const {
 }
 
 int HandRank::getRank() const {
-    if (hasHighCard()) {
-        return 50;
+    if (hasTwoPair()) {
+        return 150;
     }
     else if (hasPair()) {
         return 100;
     }
-    else if (hasTwoPair()) {
-        return 150;
+    else if (hasHighCard) {
+        return 50;
     }
 }
