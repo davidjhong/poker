@@ -3,18 +3,22 @@
 
 
 Pot::~Pot() {
-    delete Pot;
+    //delete Pot;
 }
 
 
-void Pot::addToPot(const unsigned int amount) {
-    totalPot+= amount;
+void Pot::addToPot(int amount) {
+    totalPot = totalPot + amount;
+}
+
+int Pot::getPot() {
+    return totalPot;
 }
 
 
 // how is the pot split if the "chips" are odd?
 // the player closest to the dealer (left of little blind) will get the remaining odd "chips"
-void Pot::splitPot(const vector<Player>& playerVec) {
+/*void Pot::splitPot(const vector<Player>& playerVec) {
     int numWinners = playerVec.size();
     double potTot = getPot();
     if(potTot % numWinners != 0) { // double cast to
@@ -26,4 +30,4 @@ void Pot::splitPot(const vector<Player>& playerVec) {
             playerVec.at(i).addToBalance(splitAmount);
         }
     }
-}
+}*/

@@ -7,10 +7,11 @@ class Pot {
  public: 
     Pot();
     ~Pot();
-    const unsigned int getPot();
+   int getPot();
+    void addToPot(int);
 
  private:
-    void addToPot(const unsigned int);
+    
    //  void splitPot(const vector<Player>&);
-    int totalPot = 0;
+   int totalPot = 0;
 };

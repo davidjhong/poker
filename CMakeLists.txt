@@ -15,6 +15,7 @@ ADD_EXECUTABLE(test
     lib/Pot.cpp
     lib/handRank.cpp
     lib/Card.cpp
+
 )
 
 TARGET_LINK_LIBRARIES(test gtest)
