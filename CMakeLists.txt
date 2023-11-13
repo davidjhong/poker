@@ -5,10 +5,12 @@ ADD_SUBDIRECTORY(googletest)
 
 ADD_EXECUTABLE(poker
     main.cpp
+    lib/handRank.cpp
 )
 
 ADD_EXECUTABLE(test
     tests/test.cpp
+    lib/handRank.cpp
 )
 
 TARGET_LINK_LIBRARIES(test gtest)

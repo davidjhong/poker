@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 class HandRank {
     private:
         int rankValue = 0;

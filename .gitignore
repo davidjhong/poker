@@ -9,3 +9,4 @@ test
 /lib/libgtest.a
 /lib/stgp4zcu
 /CMakeFiles
+/bin

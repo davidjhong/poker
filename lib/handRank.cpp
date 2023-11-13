@@ -1,4 +1,7 @@
-#include "handRank.h"
+#include "../include/handRank.h"
+#include <vector>
+
+using namespace std;
 
 HandRank::HandRank(const vector<int>& cards) {
     // Fill in the cards. However, need to implement a function to use the combination of Hands (2 Cards) and the Board (3, 4, or 5 cards).
@@ -35,7 +38,7 @@ int HandRank::getRank() const {
     else if (hasPair()) {
         return 100;
     }
-    else if (hasHighCard) {
+    else if (hasHighCard()) {
         return 50;
     }
 }
