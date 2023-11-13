@@ -1,10 +1,12 @@
 #include "../include/handRank.h"
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-HandRank::HandRank(const vector<int>& cards) {
-    // Fill in the cards. However, need to implement a function to use the combination of Hands (2 Cards) and the Board (3, 4, or 5 cards).
+bool comp(Card* card1, Card* card2)
+{
+    return card1->getRank() < card2->getRank();
 }
 
 bool HandRank::hasHighCard() const {
@@ -13,7 +15,7 @@ bool HandRank::hasHighCard() const {
 
 bool HandRank::hasPair() const {
     for (int i = 0; i < cards.size()-1; i++) {
-        if (cards[i] == cards[i+1]) {
+        if (cards[i]->getRank() == cards[i+1]->getRank()) {
             return true;
         }
     }
@@ -23,7 +25,7 @@ bool HandRank::hasPair() const {
 bool HandRank::hasTwoPair() const {
     int numPairs = 0;
     for (int i = 0; i < cards.size()-1; i++) {
-        if (cards[i] == cards[i+1]) {
+        if (cards[i]->getRank() == cards[i+1]->getRank()) {
             numPairs++;
             ++i; // Move to next i
         }
@@ -31,7 +33,10 @@ bool HandRank::hasTwoPair() const {
     return numPairs >= 2; // No such thing as three pair, four pair, or so on... 
 }
 
-int HandRank::getRank() const {
+int HandRank::getFinalRank(vector<Card*> hand) {
+    this->cards = hand;
+    sort(cards.begin(), cards.end(), comp);
+
     if (hasTwoPair()) {
         return 150;
     }
