@@ -1,10 +1,10 @@
 #include "gtest/gtest.h"
-#include "../include/Player.h"
-#include "../include/Card.h"
-#include "../include/handRank.h"
-#include "../include/Pot.h"
-#include "../include/Deck.h"
-#include "../include/Hand.h"
+#include "../header/Player.h"
+#include "../header/Card.h"
+#include "../header/handRank.h"
+#include "../header/Pot.h"
+#include "../header/Deck.h"
+#include "../header/Hand.h"
 
 // Player Test Suite
 

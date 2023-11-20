@@ -1,4 +1,4 @@
-#include "../include/Pot.h"
+#include "../header/Pot.h"
 
 Pot::Pot() {
     this->totalPot = 0;

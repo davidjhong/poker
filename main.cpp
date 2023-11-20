@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "./include/Deck.h"
+#include "./header/Deck.h"
 
 using namespace std;
 

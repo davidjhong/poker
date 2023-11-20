@@ -1,5 +1,5 @@
-#include "../include/Hand.h"
-#include "../include/handRank.h"
+#include "../header/Hand.h"
+#include "../header/handRank.h"
 #include <iostream>
 #include <assert.h>
 
