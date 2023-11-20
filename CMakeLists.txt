@@ -11,6 +11,7 @@ ADD_EXECUTABLE(poker
     src/Card.cpp
     src/Deck.cpp
     src/Hand.cpp
+    src/Settings.cpp
 )
 
 ADD_EXECUTABLE(test
@@ -21,6 +22,7 @@ ADD_EXECUTABLE(test
     src/Card.cpp
     src/Deck.cpp
     src/Hand.cpp
+    src/Settings.cpp
 )
 
 
