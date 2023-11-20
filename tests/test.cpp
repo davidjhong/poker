@@ -5,6 +5,7 @@
 #include "../header/Pot.h"
 #include "../header/Deck.h"
 #include "../header/Hand.h"
+#include "../header/Settings.h"
 
 // Player Test Suite
 
@@ -250,6 +251,35 @@ TEST(handTests, getStrengthTest)
   testHand->calculateStrength();
   EXPECT_EQ(testHand->getStrength(), 50);
 
+}
+
+// Settings Test Suite
+
+TEST(settingsTest, defaultSettingsTest)
+{
+  Settings* testSettings = new Settings();
+
+  EXPECT_EQ(testSettings->getNumPlayers(), 2);
+  EXPECT_EQ(testSettings->getStartingChips(), 1000);
+  EXPECT_EQ(testSettings->getBigBlindAmt(), 50);
+  EXPECT_EQ(testSettings->getLittleBlindAmt(), 25);
+  EXPECT_EQ(testSettings->getNumOfRounds(), 5);
+}
+
+TEST(settingsTest, tooLittlePlayersTest)
+{
+  Settings* testSettings = new Settings();
+
+  unsigned int playerOverflow = 1;
+  EXPECT_DEATH(testSettings->setNumPlayers(playerOverflow), "Tried setting to less than 2 players");
+}
+
+TEST(settingsTest, tooManyPlayersTest)
+{
+  Settings* testSettings = new Settings();
+
+  unsigned int playerOverflow = 8;
+  EXPECT_DEATH(testSettings->setNumPlayers(playerOverflow), "Tried setting to more than 7 players");
 }
 
 
