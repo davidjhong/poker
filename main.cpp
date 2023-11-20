@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "./header/GameHandler.h"
 #include "./header/Deck.h"
 
 using namespace std;
@@ -7,7 +8,9 @@ using namespace std;
 
 int main()
 {
-    Deck* deck;
+    GameHandler game;
+
+    game.startGame();
     
     return 0;
 }
