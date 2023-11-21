@@ -4,10 +4,11 @@
 Player::Player(const string name, unsigned int balance) {
     setName(name);
     setBalance(balance);
+    this->hand = new Hand();
 }
 
 Player::~Player() {
- //   delete hand;
+    delete hand;
 }
 
 void Player::call(unsigned int num) {
@@ -23,12 +24,17 @@ int Player::getBestHand() {
     return bestHand;
 }
 
- int Player::getBalance() {
+int Player::getBalance() {
     return balance;
 }
 
- string Player::getName() {
+string Player::getName() {
     return name;
+}
+
+Hand* Player::getHand()
+{
+    return this->hand;
 }
 
 void Player::setBalance(unsigned int bal) {
