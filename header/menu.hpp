@@ -11,22 +11,15 @@ class Display
     private:
     string playerName;
     int balance;
-    Player* player;
 
     public:
         void displayMenu(ostream& out);
         void displayCardRankings(ostream& out);
         void displayRules(ostream& out);
         void displayCardCombinations(ostream& out);
-        void displayPlayerBets(ostream& out, Player* player);
-        string getName()
-        {
-            return playerName;
-        }
-        int getBalance()
-        {
-            return balance;
-        }
+        void displayPlayerStats(ostream& out, Player* player, Hand* hand, Pot* pot);
+        void displayGameStatus(std::ostream& out, Player* player, Pot* pot)
+        
 };
 
 #endif

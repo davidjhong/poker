@@ -8,7 +8,6 @@ using namespace std;
 
 void Display::displayMenu(std::ostream& out)
 {
-    string userInput;
     out << "-------------- START MENU -----------------" << endl;
     out << "select 1 to see rules" << endl;
     out << "select 2 to see card rankings" << endl;
@@ -130,10 +129,22 @@ void Display::displayCardRankings(std::ostream& out)
     out << "* Note that in Texas Hold' em, all suits are equally ranked" << endl;
 }
 
-void Display::displayPlayerBets(std::ostream& out, Player* player)
+void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, Pot* pot)
 {
     out << player->getName() << ", it's your turn!" << endl;
     out << "You have " << player->getBalance() << " chips" << endl;
+    out << "Pot: " << pot->getPot() << endl;
+    //best combo out << "Best combo: " << 
+    out << hand->getHand() << endl;
+    out << "1. call \n"
+    out << "2. raise \n"
+    out << "3. check \n"
+    out << "4. fold \n"
 }
 
+void Display::displayGameStatus(std::ostream& out, Player* player, Pot* pot)
+{
+    out << player->getName() << "raised to "; // << bet raised
+    out << "Pot: " << pot->getPot() << endl;
+}
 
