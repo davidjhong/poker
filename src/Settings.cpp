@@ -39,14 +39,15 @@ unsigned int Settings::getNumOfRounds() const
 
 void Settings::setNumPlayers(unsigned int newNumPlayers)
 {
-    assert(newNumPlayers > 2 && "Tried setting to less than 2 players");
+    assert(newNumPlayers >= 2 && "Tried setting to less than 2 players");
     assert(newNumPlayers <= 7 && "Tried setting to more than 7 players");
     this->numPlayers = newNumPlayers;
 }
 
 void Settings::setStartingChips(unsigned int newStartingChips)
 {
-    assert(newStartingChips < 50000 && "Only up to 50000 starting chips");
+    assert(newStartingChips >= 1 && "Must have at least one starting chip");
+    assert(newStartingChips <= 50000 && "Only up to 50000 starting chips");
     this->startingChips = newStartingChips;
 }
 
@@ -62,6 +63,7 @@ void Settings::setLittleBlindAmt(unsigned int newLittleBlindAmt)
 
 void Settings::setNumOfRounds(unsigned int newNumOfRounds)
 {
+    assert(newNumOfRounds >= 1 && "At least 1 round must be played");
     assert(newNumOfRounds <= 100 && "Up to 100 rounds");
     this->numOfRounds = newNumOfRounds;
 }

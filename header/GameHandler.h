@@ -4,6 +4,7 @@
 // #include "Display.h"
 #include "RoundHandler.h"
 #include "Player.h"
+#include "Settings.h"
 #include <ostream>
 #include <vector>
 
@@ -11,10 +12,11 @@
 class GameHandler
 {
     private:
-        // settings
+        Settings* settings;
         // RoundHandler* roundHandler;
         vector<Player*> playerList;
         // Display* display;
+        bool gameRunning;
 
         void menuOptions(ostream&);
     public:
@@ -22,11 +24,9 @@ class GameHandler
         ~GameHandler();
         void startGame();
 
-        void setSettings();
+        void settingsMenu(ostream&);
+        void rulesMenu(ostream&);
         void addPlayer(const string &playerName);
-
-
-        void getPlayers() const;
 };
 
 #endif

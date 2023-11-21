@@ -44,7 +44,7 @@ vector<Card*> Hand::getHand()
 vector<string> Hand::getCardNames()
 {
     vector<string> cardNames;
-    for (auto card: hand)
+    for (Card* card: hand)
     {
         cardNames.push_back(card->getName());
     }
