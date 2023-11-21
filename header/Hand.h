@@ -12,6 +12,8 @@ class Hand {
         vector<Card*> hand;
     public:
         Hand();
+        ~Hand();
+        Hand(vector<Card*> cards);
         void addCard(Card*);
         void clearHand();
 
@@ -19,6 +21,7 @@ class Hand {
         void calculateStrength();
 
         vector<Card*> getHand();
+        Card* getCard(int i) const;
         vector<string> getCardNames();
 };
 
