@@ -13,7 +13,7 @@ class GameHandler
 {
     private:
         Settings* settings;
-        // RoundHandler* roundHandler;
+        RoundHandler* roundHandler;
         vector<Player*> playerList;
         // Display* display;
         bool gameRunning;

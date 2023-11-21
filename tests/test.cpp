@@ -18,7 +18,7 @@ TEST(playerTests, playerInitTest) {
 TEST(playerTests, playerHandConstructorTest) {
   Player* testPlayer = new Player("Kevin", 0);
   EXPECT_EQ(testPlayer->getBalance(), 0);
-  EXPECT_EQ(testPlayer->hand->getStrength(), 0);
+  EXPECT_EQ(testPlayer->getHand()->getStrength(), 0);
 }
 
 // Card Test Suite

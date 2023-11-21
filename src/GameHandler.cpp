@@ -1,4 +1,5 @@
 #include "../header/GameHandler.h"
+#include "../header/RoundHandler.h"
 #include "../header/Player.h"
 #include "../header/Settings.h"
 
@@ -20,6 +21,7 @@ void clearScreen() {
 GameHandler::GameHandler()
 {
     // this->display = new Display();
+    this->roundHandler = new RoundHandler();
     this->gameRunning = true;
     this->settings = new Settings();
 }
@@ -31,6 +33,7 @@ GameHandler::~GameHandler()
         delete playerList.at(i);
     }
     delete this->settings;
+    delete this->roundHandler;
 }
 
 
@@ -106,12 +109,12 @@ void GameHandler::menuOptions(ostream &os)
     
         if (input == "1")
         {
-            // unsigned int numOfRounds = settings->getRounds();
+            unsigned int numOfRounds = settings->getNumOfRounds();
 
-            // for (int currRound = 1; currRound <= numOfRounds; currRound++)
-            // {
-            //      roundHandler->startRound();
-            // }
+            for (int currRound = 1; currRound <= numOfRounds; currRound++)
+            {
+                roundHandler->startRound(playerList);
+            }
         }
         else if (input == "2")
         {
