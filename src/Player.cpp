@@ -1,4 +1,4 @@
-#include "../include/Player.h"
+#include "../header/Player.h"
 
 
 Player::Player(const string name, unsigned int balance) {

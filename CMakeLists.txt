@@ -5,21 +5,32 @@ ADD_SUBDIRECTORY(googletest)
 
 ADD_EXECUTABLE(poker
     main.cpp
-    lib/Player.cpp
-    lib/handRank.cpp
-    lib/Card.cpp
-    lib/Deck.cpp
+    src/Pot.cpp
+    src/Player.cpp
+    src/handRank.cpp
+    src/Card.cpp
+    src/Deck.cpp
+    src/Hand.cpp
+    src/RoundHandler.cpp
+    src/GameHandler.cpp
+    src/Settings.cpp
 )
 
 ADD_EXECUTABLE(test
     tests/test.cpp
-    lib/Player.cpp
-    lib/handRank.cpp
-    lib/Card.cpp
-    lib/Deck.cpp
+    src/Pot.cpp
+    src/Player.cpp
+    src/handRank.cpp
+    src/Card.cpp
+    src/Deck.cpp
+    src/Hand.cpp
+    src/RoundHandler.cpp
+    src/GameHandler.cpp
+    src/Settings.cpp
 )
 
 
 TARGET_LINK_LIBRARIES(test gtest)
 # target_link_libraries(test gtest_main)
+
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)

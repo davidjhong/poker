@@ -5,7 +5,7 @@
 #include <vector>
 #include <queue>
 #include <string>
-#include "../include/Deck.h"
+#include "../header/Deck.h"
 
 using namespace std;
 

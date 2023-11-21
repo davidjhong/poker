@@ -1,13 +1,16 @@
 #include <iostream>
 
-#include "./include/Deck.h"
+#include "./header/GameHandler.h"
+#include "./header/Deck.h"
 
 using namespace std;
 
 
 int main()
 {
-    Deck* deck;
+    GameHandler game;
+
+    game.startGame();
     
     return 0;
 }
