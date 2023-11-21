@@ -8,6 +8,7 @@ ADD_EXECUTABLE(poker
     lib/Player.cpp
     lib/handRank.cpp
     lib/Card.cpp
+    lib/Deck.cpp
 )
 
 ADD_EXECUTABLE(test
@@ -15,6 +16,7 @@ ADD_EXECUTABLE(test
     lib/Player.cpp
     lib/handRank.cpp
     lib/Card.cpp
+    lib/Deck.cpp
 )
 
 

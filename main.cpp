@@ -1,11 +1,13 @@
 #include <iostream>
 
+#include "./include/Deck.h"
+
 using namespace std;
 
 
 int main()
 {
-    cout << "Test" << endl;
+    Deck* deck;
     
     return 0;
 }
