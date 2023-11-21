@@ -6,9 +6,6 @@
 #include <sstream>
 #include <ostream>
 
-#ifndef DISPLAY_H
-#define DISPLAY_H
-
 using namespace std;
 
 class Display
