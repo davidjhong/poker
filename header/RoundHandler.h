@@ -5,19 +5,16 @@
 #include "Deck.h"
 #include "Card.h"
 #include "Pot.h"
-#include "GameHandler.h"
 
 class RoundHandler {
     private:
-        unsigned int dealer;
+        unsigned int dealerIndex;
         Pot* pot;
         Deck* deck;
         vector<Card*> communityCards;
     public:
         RoundHandler();
-        void startRound();
+        void startRound(vector<Player*>);
 };
-
-
 
 #endif

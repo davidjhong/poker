@@ -24,12 +24,17 @@ int Player::getBestHand() {
     return bestHand;
 }
 
- int Player::getBalance() {
+int Player::getBalance() {
     return balance;
 }
 
- string Player::getName() {
+string Player::getName() {
     return name;
+}
+
+Hand* Player::getHand()
+{
+    return this->hand;
 }
 
 void Player::setBalance(unsigned int bal) {

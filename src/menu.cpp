@@ -16,41 +16,8 @@ void Display::displayMenu(std::ostream& out)
     out << "set starting amount" << endl;
     out << "start game" << endl;
     out << "-------------------------------------------" << endl;
-        
-        while (true)
-        {
-            getline(cin, userInput);
+}
 
-            if (userInput == "rules")
-            {
-                displayRules();
-                break;
-            }
-            else if (userInput == "card rankings" || userInput == "cr")
-            {
-                displayCardRankings();
-                break;
-            }
-            else if (userInput == "card combinations" || userInput == "cc")
-            {
-                displayCardCombinations();
-                break;
-            }
-            else if (userInput == "set starting amount" || userInput == "starting amount")
-            {
-                out << "todo" << endl;
-                break;
-            }
-            else if (userInput == "start game" || userInput == "start")
-            {
-                out << "todo" << endl;
-                break;
-            }
-            else
-            {
-                out << "re-enter start menu option" << endl;
-            }
-    }
 void Display::displayRules(std::ostream& out)
     {
         out << endl;
