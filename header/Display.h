@@ -1,13 +1,19 @@
+#ifndef DISPLAY_H
+#define DISPLAY_H
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <ostream>
+
 #ifndef DISPLAY_H
 #define DISPLAY_H
+
 using namespace std;
 
 class Display
 {
+
     private:
     string playerName;
     int balance;
@@ -23,3 +29,4 @@ class Display
 };
 
 #endif
+

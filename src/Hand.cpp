@@ -9,9 +9,29 @@ Hand::Hand()
     this->strength = 0;
 }
 
+Hand::~Hand(){
+    int handSize = hand.size();
+    handSize--;
+    for(int i = handSize; i <= 0; i--) {
+        delete hand.at(i);
+    }
+}
+
+Hand::Hand(vector<Card*> cards) {
+    for (int i = 0; i < cards.size(); i++) {
+        hand.push_back(cards[i]);
+    }
+}
+
 int Hand::getStrength() const
 {
     return this->strength;
+}
+
+Card* Hand::getCard(int i) const {
+    if(i >= 0 && i < hand.size()) {
+        return hand.at(i);
+    }
 }
 
 void Hand::calculateStrength()
@@ -28,6 +48,7 @@ void Hand::addCard(Card* newCard)
     assert(hand.size() < 7 && "Tried adding card to a hand of 7 cards, which is the max");
 
     this->hand.push_back(newCard);
+    
     return;
 }
 
@@ -44,7 +65,7 @@ vector<Card*> Hand::getHand()
 vector<string> Hand::getCardNames()
 {
     vector<string> cardNames;
-    for (auto card: hand)
+    for (Card* card: hand)
     {
         cardNames.push_back(card->getName());
     }

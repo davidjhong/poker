@@ -15,6 +15,12 @@ TEST(playerTests, playerInitTest) {
   EXPECT_EQ(testPlayer->getName(), "Jason");
 }
 
+TEST(playerTests, playerHandConstructorTest) {
+  Player* testPlayer = new Player("Kevin", 0);
+  EXPECT_EQ(testPlayer->getBalance(), 0);
+  EXPECT_EQ(testPlayer->getHand()->getStrength(), 0);
+}
+
 // Card Test Suite
 
 TEST(CardTests, typicalCardTest) {
@@ -153,6 +159,19 @@ TEST(handTests, emptyHandTest)
   EXPECT_EQ(testHand->getCardNames(), cards);
 }
 
+TEST(handTests, handConstructorTest) {
+  Card* jack = new Card(11, "Spades", "Jack of Spades");
+  Card* queen = new Card(12, "Heart", "Queen of Hearts");
+  vector<Card*> jackQueen = {jack, queen};
+
+
+
+  Hand *testHand = new Hand(jackQueen);
+
+  EXPECT_EQ(testHand->getCard(0), jack);
+  EXPECT_EQ(testHand->getCard(1), queen);
+}
+
 TEST(handTests, getHandFilledHandTest)
 {
   Hand* testHand = new Hand();
@@ -266,6 +285,14 @@ TEST(settingsTest, defaultSettingsTest)
   EXPECT_EQ(testSettings->getNumOfRounds(), 5);
 }
 
+TEST(settingsTest, setGetPlayersTest)
+{
+  Settings* testSettings = new Settings();
+
+  testSettings->setNumPlayers(4);
+  EXPECT_EQ(testSettings->getNumPlayers(), 4);
+}
+
 TEST(settingsTest, tooLittlePlayersTest)
 {
   Settings* testSettings = new Settings();
@@ -280,6 +307,28 @@ TEST(settingsTest, tooManyPlayersTest)
 
   unsigned int playerOverflow = 8;
   EXPECT_DEATH(testSettings->setNumPlayers(playerOverflow), "Tried setting to more than 7 players");
+}
+
+TEST(settingsTest, setGetStartingChipsTest)
+{
+  Settings* testSettings = new Settings();
+
+  testSettings->setStartingChips(40000);
+  EXPECT_EQ(testSettings->getStartingChips(), 40000);
+}
+
+TEST(settingsTest, tooManyStartingChipsTest)
+{
+  Settings* testSettings = new Settings();
+
+  EXPECT_DEATH(testSettings->setStartingChips(50001), "Only up to 50000 starting chips");
+}
+
+TEST(settingsTest, tooLittleStartingChipsTest)
+{
+  Settings* testSettings = new Settings();
+
+  EXPECT_DEATH(testSettings->setStartingChips(0), "Must have at least one starting chip");
 }
 
 

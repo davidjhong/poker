@@ -4,13 +4,13 @@
 
 
 class Pot {
- public: 
-    Pot();
-    ~Pot();
+public: 
+   Pot();
+   ~Pot();
    int getPot();
-    void addToPot(int);
+   void addToPot(int);
 
- private:
+private:
     
    //  void splitPot(const vector<Player>&);
    int totalPot;
