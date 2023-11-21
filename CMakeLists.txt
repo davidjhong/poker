@@ -13,6 +13,7 @@ ADD_EXECUTABLE(poker
     src/Hand.cpp
     src/RoundHandler.cpp
     src/GameHandler.cpp
+    src/Settings.cpp
 )
 
 ADD_EXECUTABLE(test
@@ -25,6 +26,7 @@ ADD_EXECUTABLE(test
     src/Hand.cpp
     src/RoundHandler.cpp
     src/GameHandler.cpp
+    src/Settings.cpp
 )
 
 
