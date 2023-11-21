@@ -56,6 +56,9 @@ void GameHandler::startGame()
     {
         menuOptions(cout);
 
+        // gameSetup();
+
+
         // if (input == "1")
         // {
         //     // unsigned int numOfRounds = settings->getRounds();
@@ -91,30 +94,31 @@ void GameHandler::startGame()
 
 void GameHandler::menuOptions(ostream &os)
 {
-    // display->menuScreen(os);
-
     bool inMenu = true;
     string input;
 
     while (inMenu)
     {
-        // display->menuScreen(os);
+        clearScreen();
+        display->displayMenu(os);
 
-        os << "select 1 for play\n";
-        os << "select 2 for settings\n";
-        os << "select 3 for rules\n";
-        os << "select 4 for quit\n";
+        // os << "select 1 for play\n";
+        // os << "select 2 for settings\n";
+        // os << "select 3 for rules\n";
+        // os << "select 4 for quit\n";
 
         cin >> input;
     
         if (input == "1")
         {
-            unsigned int numOfRounds = settings->getNumOfRounds();
+            // gameSetup(os);
+            inMenu = false;
+            // unsigned int numOfRounds = settings->getNumOfRounds();
 
-            for (int currRound = 1; currRound <= numOfRounds; currRound++)
-            {
-                roundHandler->startRound(playerList);
-            }
+            // for (int currRound = 1; currRound <= numOfRounds; currRound++)
+            // {
+            //     roundHandler->startRound(playerList);
+            // }
         }
         else if (input == "2")
         {
@@ -126,6 +130,14 @@ void GameHandler::menuOptions(ostream &os)
             // display->Rules(cout);
         }
         else if (input == "4")
+        {
+            cardRankingMenu(cout);
+        }
+        else if (input == "5")
+        {
+            cardComboMenu(cout);
+        }
+        else if (input == "q")
         {
             // display->Credits(cout);
             inMenu = false;
@@ -162,13 +174,13 @@ void GameHandler::settingsMenu(ostream &os)
     while (inSettings)
     {
         clearScreen();
-        // display->settingsScreen(os);
-        os << "select 1 to change player count\n";
-        os << "select 2 to change starting chips\n";
-        os << "select 3 to change big blind amount\n";
-        os << "select 4 to change small blind amount\n";
-        os << "select 5 to change number of rounds\n";
-        os << "enter q to save and exit\n\n";
+        display->displaySettings(os);
+        // os << "select 1 to change player count\n";
+        // os << "select 2 to change starting chips\n";
+        // os << "select 3 to change big blind amount\n";
+        // os << "select 4 to change small blind amount\n";
+        // os << "select 5 to change number of rounds\n";
+        // os << "enter q to save and exit\n\n";
 
         cin >> input;
 
@@ -329,5 +341,40 @@ void GameHandler::settingsMenu(ostream &os)
 
 void GameHandler::rulesMenu(ostream &os)
 {
+    string input;
+
+    while (input != "q")
+    {
+        display->displayRules(os);
+
+        cin >> input;
+
+        // if (input != "q)")
+
+    }
     
+}
+
+void GameHandler::cardComboMenu(ostream &os)
+{
+    string input;
+    while (input != "q")
+    {
+        display->displayCardCombinations(os);
+
+        cin >> input;
+
+    }
+}
+
+void GameHandler::cardRankingMenu(ostream &os)
+{
+    string input;
+    while (input != "q")
+    {
+        display->displayCardRankings(os);
+
+        cin >> input;
+
+    }
 }
