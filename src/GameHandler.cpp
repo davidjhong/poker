@@ -228,7 +228,6 @@ void GameHandler::settingsMenu(ostream &os)
         }
         else if (input == "3")
         {
-
             unsigned int bigBlindAmt = 0;
             bool failedOnce = false;
 
@@ -285,7 +284,6 @@ void GameHandler::settingsMenu(ostream &os)
         }
         else if (input == "5")
         {
-
             unsigned int numOfRounds = 0;
             bool failedOnce = false;
 
@@ -307,11 +305,9 @@ void GameHandler::settingsMenu(ostream &os)
                 }
 
                 failedOnce = true;
-
             }
 
             settings->setNumOfRounds(numOfRounds);
-            
         }
         else if (input == "q")
         {
