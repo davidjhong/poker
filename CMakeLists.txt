@@ -11,7 +11,8 @@ ADD_EXECUTABLE(poker
     src/Card.cpp
     src/Deck.cpp
     src/Hand.cpp
-    src/Settings.cpp
+    src/RoundHandler.cpp
+    src/GameHandler.cpp
 )
 
 ADD_EXECUTABLE(test
@@ -22,10 +23,12 @@ ADD_EXECUTABLE(test
     src/Card.cpp
     src/Deck.cpp
     src/Hand.cpp
-    src/Settings.cpp
+    src/RoundHandler.cpp
+    src/GameHandler.cpp
 )
 
 
 TARGET_LINK_LIBRARIES(test gtest)
 # target_link_libraries(test gtest_main)
+
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
