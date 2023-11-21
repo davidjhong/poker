@@ -12,7 +12,7 @@ void Display::displayMenu(std::ostream& out)
     out << "select 1 to see rules" << endl;
     out << "select 2 to see card rankings" << endl;
     out << "select 3 to see card combinations" << endl;
-
+    //possible option 4
     out << "select 5 start game" << endl;
     out << "-------------------------------------------" << endl;
 }  
