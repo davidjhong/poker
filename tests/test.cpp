@@ -153,6 +153,19 @@ TEST(handTests, emptyHandTest)
   EXPECT_EQ(testHand->getCardNames(), cards);
 }
 
+TEST(handTests, handConstructorTest) {
+  Card* jack = new Card(11, "Spades", "Jack of Spades");
+  Card* queen = new Card(12, "Heart", "Queen of Hearts");
+  vector<Card*> jackQueen = {jack, queen};
+
+
+
+  Hand *testHand = new Hand(jackQueen);
+
+  EXPECT_EQ(testHand->getCard(0), jack);
+  EXPECT_EQ(testHand->getCard(1), queen);
+}
+
 TEST(handTests, getHandFilledHandTest)
 {
   Hand* testHand = new Hand();

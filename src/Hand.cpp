@@ -9,9 +9,29 @@ Hand::Hand()
     this->strength = 0;
 }
 
+Hand::~Hand(){
+    int handSize = hand.size();
+    handSize--;
+    for(int i = handSize; i <= 0; i--) {
+        delete hand.at(i);
+    }
+}
+
+Hand::Hand(vector<Card*> cards) {
+    for (int i = 0; i < cards.size(); i++) {
+        hand.push_back(cards[i]);
+    }
+}
+
 int Hand::getStrength() const
 {
     return this->strength;
+}
+
+Card* Hand::getCard(int i) const {
+    if(i >= 0 && i < hand.size()) {
+        return hand.at(i);
+    }
 }
 
 void Hand::calculateStrength()
