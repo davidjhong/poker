@@ -41,7 +41,6 @@ void GameHandler::addPlayer(const string &playerName)
 
     Player* newPlayer = new Player(playerName, chips);
     playerList.push_back(newPlayer);
-    
 }
 
 
