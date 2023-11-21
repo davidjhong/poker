@@ -1,5 +1,6 @@
 #include "../header/GameHandler.h"
 #include "../header/Player.h"
+#include "../header/Settings.h"
 
 #include <vector>
 #include <iostream>
@@ -7,13 +8,20 @@
 #include <assert.h>
 
 
+#include <cstdlib>
+
 using namespace std;
 
-
+//https://stackoverflow.com/questions/17335816/clear-screen-using-c 
+void clearScreen() {
+    cout << "\033[2J\033[1;1H";
+}
 
 GameHandler::GameHandler()
 {
     // this->display = new Display();
+    this->gameRunning = true;
+    this->settings = new Settings();
 }
 
 GameHandler::~GameHandler()
@@ -22,17 +30,17 @@ GameHandler::~GameHandler()
     {
         delete playerList.at(i);
     }
+    delete this->settings;
 }
 
 
 void GameHandler::addPlayer(const string &playerName)
 {
     assert(playerList.size() == 7 && "Seven players maximum");
-    // unsigned int chips = settings->getStartAmount();
+    unsigned int chips = settings->getStartingChips();
 
-    // Player* newPlayer = new Player(playerName, balance);
-    // playerList.push_back(newPlayer);
-    
+    Player* newPlayer = new Player(playerName, chips);
+    playerList.push_back(newPlayer);
 }
 
 
@@ -40,36 +48,34 @@ void GameHandler::startGame()
 {
 
     string input;
-    bool gameRunning = true;
-
 
     while (gameRunning)
     {
         menuOptions(cout);
-        cin >> input;
 
-        if (input == "1")
-        {
-            // unsigned int numOfRounds = settings->getRounds();
+        // if (input == "1")
+        // {
+        //     // unsigned int numOfRounds = settings->getRounds();
 
-            // for (int currRound = 1; currRound <= numOfRounds; currRound++)
-            // {
-
-            // }
-        }
-        else if (input == "2")
-        {
-
-        }
-        else if (input == "3")
-        {
-            // display->Rules(cout);
-        }
-        else if (input == "4")
-        {
-            // display->Credits(cout);
-            gameRunning = false;
-        }
+        //     // for (int currRound = 1; currRound <= numOfRounds; currRound++)
+        //     // {
+        //     //      roundHandler->startRound();
+        //     // }
+        // }
+        // else if (input == "2")
+        // {
+        //     settingsMenu(cout);
+        // }
+        // else if (input == "3")
+        // {
+        //     rulesMenu(cout);
+        //     // display->Rules(cout);
+        // }
+        // else if (input == "4")
+        // {
+        //     // display->Credits(cout);
+        //     gameRunning = false;
+        // }
     }
 
     
@@ -82,10 +88,53 @@ void GameHandler::startGame()
 
 void GameHandler::menuOptions(ostream &os)
 {
-    os << "select 1 for play\n";
-    os << "select 2 for settings\n";
-    os << "select 3 for rules\n";
-    os << "select 4 for quit\n";
+    // display->menuScreen(os);
+
+    bool inMenu = true;
+    string input;
+
+    while (inMenu)
+    {
+        // display->menuScreen(os);
+
+        os << "select 1 for play\n";
+        os << "select 2 for settings\n";
+        os << "select 3 for rules\n";
+        os << "select 4 for quit\n";
+
+        cin >> input;
+    
+        if (input == "1")
+        {
+            // unsigned int numOfRounds = settings->getRounds();
+
+            // for (int currRound = 1; currRound <= numOfRounds; currRound++)
+            // {
+            //      roundHandler->startRound();
+            // }
+        }
+        else if (input == "2")
+        {
+            settingsMenu(cout);
+        }
+        else if (input == "3")
+        {
+            rulesMenu(cout);
+            // display->Rules(cout);
+        }
+        else if (input == "4")
+        {
+            // display->Credits(cout);
+            inMenu = false;
+            gameRunning = false;
+        }
+    }
+
+    
+    // os << "select 1 for play\n";
+    // os << "select 2 for settings\n";
+    // os << "select 3 for rules\n";
+    // os << "select 4 for quit\n";
     // while (input != "1" && input != "2" && input != "3" && input != "4")
     // {
     //     // display->mainMenu(os);
@@ -178,6 +227,7 @@ void GameHandler::settingsMenu(ostream &os)
         }
         else if (input == "3")
         {
+
             unsigned int bigBlindAmt = 0;
             bool failedOnce = false;
 
@@ -234,6 +284,7 @@ void GameHandler::settingsMenu(ostream &os)
         }
         else if (input == "5")
         {
+
             unsigned int numOfRounds = 0;
             bool failedOnce = false;
 
@@ -255,9 +306,11 @@ void GameHandler::settingsMenu(ostream &os)
                 }
 
                 failedOnce = true;
+
             }
 
             settings->setNumOfRounds(numOfRounds);
+            
         }
         else if (input == "q")
         {
