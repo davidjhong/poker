@@ -39,7 +39,7 @@ unsigned int Settings::getNumOfRounds() const
 
 void Settings::setNumPlayers(unsigned int newNumPlayers)
 {
-    assert(newNumPlayers > 2 && "Tried setting to less than 2 players");
+    assert(newNumPlayers >= 2 && "Tried setting to less than 2 players");
     assert(newNumPlayers <= 7 && "Tried setting to more than 7 players");
     this->numPlayers = newNumPlayers;
 }
