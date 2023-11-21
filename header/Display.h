@@ -8,9 +8,6 @@ using namespace std;
 
 class Display
 {
-    private:
-    string playerName;
-    int balance;
 
     public:
         void displayMenu(ostream& out);

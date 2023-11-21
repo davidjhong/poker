@@ -36,6 +36,7 @@ void Display::displayRules(std::ostream& out)
     out << "Finally, the dealer will reveal the last community card. This fourth round of betting will continue until all players have folded, called or raised." << endl;
     out << "At this point, all remaining players will show their best hand from their two hole cards and 5 community cards. The player with the highest " << endl << "ranked combination wins the pot." << endl;
     out << "If players tie, the highest hole card that isn't a part of their best hand is used to decide the winner." << endl;
+    out << "q) back to menu \n"
 }
 
 void Display::displayCardCombinations(std::ostream& out)
@@ -106,7 +107,8 @@ void Display::displayCardCombinations(std::ostream& out)
     out <<  " ----"   <<  "  ----" << "  ----" << "  ----" << "  ----" << endl;
     out << "| ♢  |"  << "| ♡  |" << "| ♤  |" << "| ♡  |" << "| ♤  |" << " high card: no combination, only a single high ranked card" << endl;
     out << "|  A |"  << "|  8 |" << "|  6 |" << "|  4 |" << "|  2 |" << endl;
-     out <<  " ----"  << "  ----" << "  ----" << "  ----"<< "  ----" << endl;
+    out <<  " ----"  << "  ----" << "  ----" << "  ----"<< "  ----" << endl;
+    out << "q) back to menu \n"
 
 }
     
@@ -127,6 +129,7 @@ void Display::displayCardRankings(std::ostream& out)
     out << "K (king)" << endl;
     out << "A (ace)" << endl;
     out << "* Note that in Texas Hold' em, all suits are equally ranked" << endl;
+    out << "q) back to menu \n"
 }
 
 void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, Pot* pot)
