@@ -4,10 +4,11 @@
 Player::Player(const string name, unsigned int balance) {
     setName(name);
     setBalance(balance);
+    this->hand = new Hand();
 }
 
 Player::~Player() {
- //   delete hand;
+    delete hand;
 }
 
 void Player::call(unsigned int num) {

@@ -15,6 +15,12 @@ TEST(playerTests, playerInitTest) {
   EXPECT_EQ(testPlayer->getName(), "Jason");
 }
 
+TEST(playerTests, playerHandConstructorTest) {
+  Player* testPlayer = new Player("Kevin", 0);
+  EXPECT_EQ(testPlayer->getBalance(), 0);
+  EXPECT_EQ(testPlayer->hand->getStrength(), 0);
+}
+
 // Card Test Suite
 
 TEST(CardTests, typicalCardTest) {

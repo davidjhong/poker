@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+
+#include "Hand.h"
 using namespace std;
 
 class Player {
@@ -14,7 +16,7 @@ class Player {
     const void fold();
     const void check();
 
-   // Hand hand; // !
+    Hand* hand;
     
     int getBestHand();
     int getBalance();
