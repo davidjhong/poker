@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <ostream>
-#include "../header/menu.hpp"
+#include "../header/Display.h"
 
 using namespace std;
 

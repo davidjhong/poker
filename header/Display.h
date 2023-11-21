@@ -2,8 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <ostream>
-#ifndef MENU_HPP
-#define MENU_HPP
+#ifndef DISPLAY_H
+#define DISPLAY_H
 using namespace std;
 
 class Display
