@@ -5,6 +5,7 @@ Player::Player(const string name, unsigned int balance) {
     setName(name);
     setBalance(balance);
     this->hand = new Hand();
+    this->isPlaying = true;
 }
 
 Player::~Player() {
@@ -26,6 +27,16 @@ int Player::getBestHand() {
 
 int Player::getBalance() {
     return balance;
+}
+
+bool Player::isPlayingStatus() const
+{
+    return this->isPlaying;
+}
+
+void Player::setPlayingStatus(bool isPlaying)
+{
+    this->isPlaying = isPlaying;
 }
 
 string Player::getName() {

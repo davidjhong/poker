@@ -19,12 +19,12 @@ class GameHandler
         Display* display;
         bool gameRunning;
 
-
         void settingsMenu(ostream&);
         void rulesMenu(ostream&);
         void menuOptions(ostream&);
         void cardRankingMenu(ostream&);
         void cardComboMenu(ostream&);
+        void gameSetup(ostream&);
     public:
         GameHandler();
         ~GameHandler();

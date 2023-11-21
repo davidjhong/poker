@@ -1,6 +1,5 @@
 #include "../header/RoundHandler.h"
 
-
 using namespace std;
 
 
@@ -13,7 +12,6 @@ RoundHandler::RoundHandler()
 
 void RoundHandler::startRound(vector<Player*> playerList)
 {
-
     // for (int i = 0; i < playerList.size(); i++)
     // {
     //     // playerList[i]->
@@ -29,6 +27,8 @@ void RoundHandler::startRound(vector<Player*> playerList)
             currentHand->addCard(nextCard);
         }
     }
+
+
 
     
 

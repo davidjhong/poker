@@ -111,8 +111,8 @@ void GameHandler::menuOptions(ostream &os)
     
         if (input == "1")
         {
-            // gameSetup(os);
-            inMenu = false;
+            gameSetup(os);
+            // inMenu = false;
             // unsigned int numOfRounds = settings->getNumOfRounds();
 
             // for (int currRound = 1; currRound <= numOfRounds; currRound++)
@@ -164,6 +164,25 @@ void GameHandler::menuOptions(ostream &os)
     // }
 
 
+}
+
+void GameHandler::gameSetup(ostream &os)
+{
+    int playerCount = settings->getNumPlayers();
+    int startingChips = settings->getStartingChips();
+
+    string name;
+    for (int i = 1; i <= playerCount; i++)
+    {
+        os << "Enter player " << i << "'s username: \n";
+        cin >> name;
+        
+        Player* newPlayer = new Player(name, startingChips);
+
+        this->playerList.push_back(newPlayer);
+    }
+
+    
 }
 
 void GameHandler::settingsMenu(ostream &os)

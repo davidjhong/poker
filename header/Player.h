@@ -18,6 +18,8 @@ public:
 
    int getBestHand();
    int getBalance();
+   bool isPlayingStatus() const;
+   void setPlayingStatus(bool);
    Hand* getHand();
    string getName();
 
@@ -26,6 +28,7 @@ private:
    int bestHand;
    int balance;
    string name;
+   bool isPlaying;
    void setBalance(unsigned int);
    void setName(string);
    void addToBalance(unsigned int);
