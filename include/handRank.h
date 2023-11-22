@@ -21,6 +21,13 @@ class HandRank {
         bool hasHighCard() const;
         bool hasPair() const;
         bool hasTwoPair() const;
+        bool hasThreeOfKind() const;
+        bool hasStraight() const;
+        bool hasFlush() const;
+        bool hasFullHouse() const;
+        bool hasFourOfKind() const;
+        bool hasStraightFlush() const;
+        bool hasRoyalFlush() const;
 };
 
 #endif // __HANDRANK_H__
