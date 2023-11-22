@@ -1,13 +1,13 @@
 #include "../header/Pot.h"
-
+#include <assert.h>
 
 Pot::Pot() {
     this->totalPot = 0;
 }
 
-Pot::Pot(vector<Player*> pVec) {
+/*Pot::Pot(vector<Player*> pVec) {
     potPlayerVec = pVec;
-}
+}*/
 
 Pot::~Pot() {
     //delete Pot;

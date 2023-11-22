@@ -1,4 +1,5 @@
 #include "../header/Player.h"
+#include <assert.h>
 
 
 Player::Player(const string name, unsigned int balance) {
@@ -60,7 +61,7 @@ void Player::setCurrentBet(int b) {
     currentBet = b;
 }
 
-void Player::getCurrentBet() {
+int Player::getCurrentBet() {
     return currentBet;
 }
 

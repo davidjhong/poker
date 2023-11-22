@@ -2,11 +2,10 @@
 #include "Player.h"
 #include <vector>
 
-
 class Pot {
 public: 
    Pot();
-   Pot(vector<Player*> pVec);
+  // Pot(vector<Player*> pVec);
    ~Pot();
    int getPot();
 
