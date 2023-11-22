@@ -57,9 +57,16 @@ The class diagram includes all the classes required to make the Poker game. Game
 ![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/f180b8bb-d792-43a2-82e7-c4a43ebe2d68)
 
 
- > ## Phase III
- > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on Zoom and should be conducted by Wednesday of week 8.
- 
+## Class Diagram Updates
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/1668717c-0399-450c-a9aa-dce33f59bc9f)
+The new diagram includes the creation of the MenuHandler class which improves the design of project by following the single-responsibility principle.  Originally, the GameHandler class handled all the menu functionality, which was very different from the rest of the class.  Instead, the MenuHandler class now takes control of the menu functionality and deals with the new additions to it, adhering to the open-closed principle.
+
+The creation of the SettingsHandler changes the design to help follow the single responsibility principle by changing the responsibility to editing the settings class to the SettingsHandler class.  This helps separate the responsibility of changing the settings to the SettingsHandler class and keeps the Settings class's responsibility to store the different settings that the game will use. 
+
+Another update was with the Hand class, which expanded upon the functions in Hand class so that Player class was separated from the Hand class to follow the single responsibility principle.  Rather than have a function in the Player class that handles the current Hand, the player class will store a Hand object that contains the cards within the player's Hand.  Then, the Hand can call its own functions that regarding the details in its own class.  This helped make the code more readable it separated the functions of the Hand class from the functions of the Player class, which was unclear at first.
+
+
+>  
  > BEFORE the meeting you should do the following:
  > * Update your class diagram from Phase II to include any feedback you received from your TA/grader.
  > * Considering the SOLID design principles, reflect back on your class diagram and think about how you can use the SOLID principles to improve your design. You should then update the README.md file by adding the following:
