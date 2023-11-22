@@ -5,12 +5,14 @@
 #include <iostream>
 
 #include "Hand.h"
+#include "Pot.h"
 using namespace std;
 
 class Player {
 public:
    Player(const string name, unsigned int balance);
    ~Player();
+   void placeBet(int);
    void call(unsigned int);
    void raise(unsigned int);
    const void fold();
@@ -21,6 +23,9 @@ public:
    Hand* getHand();
    string getName();
 
+   int getCurrentBet();
+   void setCurrentBet(int);
+
 private:
    Hand* hand;
    int bestHand;
@@ -30,6 +35,7 @@ private:
    void setName(string);
    void addToBalance(unsigned int);
 
+   int currentBet;
 
 
 };

@@ -11,13 +11,21 @@ Player::~Player() {
     delete hand;
 }
 
+void Player::placeBet(int bet) {
+    assert(bet > balance && "Can't bet more than your balance");
+    assert(bet <= 0 && "Can't bet zero chips");
+    currentBet = bet;
+}
+
+
 void Player::call(unsigned int num) {
+    
     // in a vector of players, "raise" current bet
     // to previous player's bet. add to pot accordingly
 }
 
 void Player::raise(unsigned int num) {
-    // add to Pot of num
+    
 }
 
 int Player::getBestHand() {
@@ -46,3 +54,13 @@ void Player::setName(string name) {
 void Player::addToBalance(unsigned int amount) {
     this->balance += amount;
 }
+
+
+void Player::setCurrentBet(int b) {
+    currentBet = b;
+}
+
+void Player::getCurrentBet() {
+    return currentBet;
+}
+
