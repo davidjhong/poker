@@ -58,12 +58,15 @@ The class diagram includes all the classes required to make the Poker game. Game
 
 
 ## Class Diagram Updates
-![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/1668717c-0399-450c-a9aa-dce33f59bc9f)
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/83392ca5-6832-4de2-b664-45d4aab81f74)
+
 The new diagram includes the creation of the MenuHandler class which improves the design of project by following the single-responsibility principle.  Originally, the GameHandler class handled all the menu functionality, which was very different from the rest of the class.  Instead, the MenuHandler class now takes control of the menu functionality and deals with the new additions to it, adhering to the open-closed principle.
 
 The creation of the SettingsHandler changes the design to help follow the single responsibility principle by changing the responsibility to editing the settings class to the SettingsHandler class.  This helps separate the responsibility of changing the settings to the SettingsHandler class and keeps the Settings class's responsibility to store the different settings that the game will use. 
 
 Another update was with the Hand class, which expanded upon the functions in Hand class so that Player class was separated from the Hand class to follow the single responsibility principle.  Rather than have a function in the Player class that handles the current Hand, the player class will store a Hand object that contains the cards within the player's Hand.  Then, the Hand can call its own functions that regarding the details in its own class.  This helped make the code more readable it separated the functions of the Hand class from the functions of the Player class, which was unclear at first.
+
+There are other functions being added to the Player and Pot classes in order to ensure they are compatible and work together. For instance, when players wish to raise, there needs to be something in order to keep track of what the highest bet in the current round is. Thus there is the addition of the int highestBet that will do that job. And also a clearPot() function to help the Roundhandler make sure that pot is reset to 0 every round.
 
 
 >  
