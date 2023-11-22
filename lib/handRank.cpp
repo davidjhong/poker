@@ -49,7 +49,21 @@ bool HandRank::hasThreeOfKind() const
 
 bool HandRank::hasStraight() const 
 {
+    int count = 0;
+    for (int i = 0; i < cards.size() + 1; ++i) {
+        if (i == 0) {
+            continue;
+        }
+        int currRank = cards[i-1]->getRank();
+        if ((currRank + 1) == cards[i]->getRank()) {
+            ++count;
+            if (count == 5) {
+                return true;
+            }
+        }
+    }
 
+    return false;
 }
 
 bool HandRank::hasFlush() const 
