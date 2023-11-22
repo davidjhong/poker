@@ -37,34 +37,44 @@ bool HandRank::hasTwoPair() const
     return numPairs >= 2; // No such thing as three pair, four pair, or so on... 
 }
 
-bool HandRank::hasThreeOfKind() const {
-    if (cards.size() < 3) {
-        return false; // If card size is less than 3 three of a kind is not possible
-    }
+bool HandRank::hasThreeOfKind() const 
+{
+    for (int i = 0; i < cards.size()-2; i++) {
+        if (cards[i]->getRank() == cards[i+1]->getRank() == cards[i+2]->getRank()) {
+            return true;
+        }
+    } 
+    return false;
 }
 
-bool HandRank::hasFlush() const {
+bool HandRank::hasStraight() const 
+{
 
+}
+
+bool HandRank::hasFlush() const 
+{
+    return false;
 }
 
 bool HandRank::hasFullHouse() const
 {
-
+    return false;
 }
 
 bool HandRank::hasFourOfKind() const
 {
-
+    return false;
 }
 
 bool HandRank::hasStraightFlush() const
 {
-
+    return false;
 }
 
 bool HandRank::hasRoyalFlush() const 
 {
-
+    return false;
 }
 
 int HandRank::getFinalRank(vector<Card*> hand) 
