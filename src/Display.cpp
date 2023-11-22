@@ -151,4 +151,9 @@ void Display::displayGameStatus(std::ostream& out, Player* player, Pot* pot)
     out << "Pot: " << pot->getPot() << endl;
 }
 
+void Display::displayGameOver(std::ostream& out)
+{
+    out << "POKER++ \n";
+    out << "Thanks for playing! \n :3"
+}
 

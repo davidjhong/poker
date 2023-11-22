@@ -33,6 +33,6 @@ ADD_EXECUTABLE(test
 
 
 TARGET_LINK_LIBRARIES(test gtest)
-# target_link_libraries(test gtest_main)
+target_link_libraries(test gtest_main)
 
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
