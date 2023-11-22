@@ -66,6 +66,8 @@ The creation of the SettingsHandler changes the design to help follow the single
 
 Another update was with the Hand class, which expanded upon the functions in Hand class so that Player class was separated from the Hand class to follow the single responsibility principle.  Rather than have a function in the Player class that handles the current Hand, the player class will store a Hand object that contains the cards within the player's Hand.  Then, the Hand can call its own functions that regarding the details in its own class.  This helped make the code more readable it separated the functions of the Hand class from the functions of the Player class, which was unclear at first.
 
+One more update was with the Combination Comparator class, which has been converted into handRank class. handRank class now also follows the single responsibility principle, reflecting its own functions to compute the final rank instead of inheriting the functions from Hand class. This helped to identify the handRank class more thoroughly and readable, and made the class's purpose more clear as it was not definitive before. 
+
 There are other functions being added to the Player and Pot classes in order to ensure they are compatible and work together. For instance, when players wish to raise, there needs to be something in order to keep track of what the highest bet in the current round is. Thus there is the addition of the int highestBet that will do that job. And also a clearPot() function to help the Roundhandler make sure that pot is reset to 0 every round.
 
 The Display class functions were updated to reflect more similarly to what the screen layout looks like (drawn above), passing variables from the Player, Pot and Hand class. 
