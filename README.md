@@ -68,6 +68,8 @@ Another update was with the Hand class, which expanded upon the functions in Han
 
 There are other functions being added to the Player and Pot classes in order to ensure they are compatible and work together. For instance, when players wish to raise, there needs to be something in order to keep track of what the highest bet in the current round is. Thus there is the addition of the int highestBet that will do that job. And also a clearPot() function to help the Roundhandler make sure that pot is reset to 0 every round.
 
+The Display class functions were updated to reflect more similarly to what the screen layout looks like (drawn above), passing variables from the Player, Pot and Hand class. 
+
 
 >  
  > BEFORE the meeting you should do the following:
