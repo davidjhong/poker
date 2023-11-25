@@ -2,17 +2,19 @@
 #include "Player.h"
 #include <vector>
 
+using namespace std;
+
+class Player;
+
 class Pot {
 public: 
    Pot();
-  // Pot(vector<Player*> pVec);
+   Pot(vector<Player*> pVec);
    ~Pot();
    int getPot();
 
    void resetPot();
    void addToPot(int);
-
-   vector<Player*> potPlayerVec;
 
    int highestBet = 0;
 
