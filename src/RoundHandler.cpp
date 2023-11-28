@@ -44,7 +44,7 @@ void RoundHandler::call(ostream& out, Player* currPlayer) {
     }
 
     // If the current highest bet is too much for the player to afford
-    if (pot->highestBet - currPlayer->getCurrentBet() > currPlayer->getBalance()) {
+    if (pot->getHighestBet() - currPlayer->getCurrentBet() > currPlayer->getBalance()) {
         out << "ALL IN." << endl;
         
         // add to pot
@@ -58,11 +58,22 @@ void RoundHandler::call(ostream& out, Player* currPlayer) {
     else {  // typical bet
         
         // add to pot
-        pot->addToPot(pot->highestBet - currPlayer->getCurrentBet());
+        pot->addToPot(pot->getHighestBet() - currPlayer->getCurrentBet());
         
         // subtract from player balance
-        currPlayer->setCurrentBet(pot->highestBet);
+        currPlayer->setCurrentBet(pot->getHighestBet());
 
         out << "Current balance: " << currPlayer->getBalance() << endl;
     }
+}
+
+bool RoundHandler::check(ostream &out, Player* currPlayer)
+{
+    if (currPlayer->getCurrentBet() < pot->getHighestBet())
+    {
+        out << "You must raise, call, or fold" << endl;
+        return false;
+    }
+
+    return true;
 }
