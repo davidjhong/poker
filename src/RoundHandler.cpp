@@ -66,3 +66,27 @@ void RoundHandler::call(ostream& out, Player* currPlayer) {
         out << "Current balance: " << currPlayer->getBalance() << endl;
     }
 }
+
+
+bool RoundHandler::raise(istream& is, ostream& out, Player* p) {
+    int raiseTo;
+    out << "How much would you like to raise?" << endl;
+    // is >> raiseTo;
+    // raise has to be bigger than highestBet
+    while(!(is >> raiseTo)) {
+        is.clear();
+        is.ignore(256, '\n');
+        out << "Please enter a valid number." << endl;
+    } 
+
+    if(raiseTo > pot->getHighestBet()) {
+        p->setCurrentBet(raiseTo);
+        pot->addToPot(raiseTo - p->getCurrentBet());
+    }
+    else {
+        out << "Can't raise. " << raiseTo << " isn't the highest bet." << endl;
+        return false;
+    }
+    return true;
+    
+}
