@@ -13,9 +13,9 @@ public:
    Player(const string name, unsigned int balance);
    ~Player();
    // void placeBet(int);
-   void raise(unsigned int);
-   const void fold();
-   const void check();
+  // void raise(unsigned int);
+   //const void fold();
+   //const void check();
 
 
    
