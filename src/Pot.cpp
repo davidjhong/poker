@@ -1,8 +1,13 @@
 #include "../header/Pot.h"
+#include <assert.h>
 
 Pot::Pot() {
     this->totalPot = 0;
 }
+
+/*Pot::Pot(vector<Player*> pVec) {
+    potPlayerVec = pVec;
+}*/
 
 Pot::~Pot() {
     //delete Pot;
@@ -10,11 +15,19 @@ Pot::~Pot() {
 
 
 void Pot::addToPot(int amount) {
+    
     totalPot = totalPot + amount;
+    if(amount > highestBet) {
+        highestBet = amount;
+    }
 }
 
 int Pot::getPot() {
     return totalPot;
+}
+
+void Pot::resetPot() {
+    totalPot = 0;
 }
 
 

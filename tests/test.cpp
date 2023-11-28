@@ -332,6 +332,24 @@ TEST(settingsTest, tooLittleStartingChipsTest)
 }
 
 
+// TEST(roundHandlerTests, callTest)
+// {
+//   ostream os;
+//   vector<Player*> testPlayers = {new Player("Kevin", 200), new Player("Jason", 300)};
+//   // Player* testPlayer1 = new Player("Kevin", 200);
+//   // Player* testPlayer2 = new Player("Jason", 300);
+
+//   RoundHandler* testHandler = new RoundHandler(os, testPlayers);
+
+//   // testHandler->
+// }
+
+
+
+
+
+
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
