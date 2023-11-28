@@ -2,6 +2,7 @@
 #include "../header/RoundHandler.h"
 #include "../header/Player.h"
 #include "../header/Settings.h"
+#include "../header/Display.h"
 
 #include <vector>
 #include <iostream>
@@ -174,7 +175,7 @@ void GameHandler::settingsMenu(ostream &os)
     while (inSettings)
     {
         clearScreen();
-        display->displaySettings(os);
+        display->displaySettings(os, settings);
         // os << "select 1 to change player count\n";
         // os << "select 2 to change starting chips\n";
         // os << "select 3 to change big blind amount\n";

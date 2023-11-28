@@ -8,7 +8,7 @@
 #include "../header/Pot.h"
 #include "../header/Player.h"
 #include "../header/Settings.h"
-#include "../header/GameHandler.h"
+
 
 using namespace std;
 

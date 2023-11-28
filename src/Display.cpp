@@ -20,7 +20,7 @@ void Display::displayMenu(std::ostream& out)
 
 void Display::displayRules(std::ostream& out)
 {
-    out << "\nOverview: \n" 
+    out << "\nOverview: \n";
     out << "Each player will be dealt two hole cards, followed by five community cards which will be dealt face up in intervals. \n";
     out << "*Note that hole cards are cards that are kept face down throughtout the entire game, and can only be seen by the player that holds them. \n";
     out << "The objective of the game is to make the best five-card poker hand using any combination of the player's hole cards and community cards\n"; 
