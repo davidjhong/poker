@@ -12,6 +12,8 @@ class RoundHandler {
         Pot* pot;
         Deck* deck;
         vector<Card*> communityCards;
+
+        void call(ostream&, Player*);
     public:
         RoundHandler();
         void startRound(vector<Player*>);

@@ -22,67 +22,25 @@ Player::~Player() {
 // when raising with betPlaced, balance = (num - currBet), currBet = num
 // when raising with no betPlaced, balance -= num, currBet = num
 
-void Player::placeBet(int bet) {
-    assert(bet > balance && "Can't bet more than your balance");
-    assert(bet <= 0 && "Can't bet zero chips");
-    currentBet = bet;
-    betPlaced = true;
-}
+// void Player::placeBet(int bet) {
+//     assert(bet > balance && "Can't bet more than your balance");
+//     assert(bet <= 0 && "Can't bet zero chips");
+//     currentBet = bet;
+//     betPlaced = true;
+// }
 
-
-void Player::call(ostream& out) {
-    assert(highestBet != 0 && "Can't call when there has been no bet");
-    assert(getCurrentBet() + balance < highestBet)
-    if(highestBet > balance ) {
-        string response;
-        out << "Are you sure you'd like to all in? Y/N (Balance is less than call.)" << endl;
-        cin >> response;
-        while(response == "Y" || response == "y" || response == "N" || response == "n") {
-            if(response == "Y" || response == "y") {
-                out << "ALL IN." << endl;
-                if(betPlaced) {
-                    currentBet = balance + currentBet;
-                    placeBet(balance);
-                }
-                else {
-                    currentBet = balance;
-                    placeBet(balance);
-                }
-                betPlaced = true;
-            }
-            // how to make sure it goes back to regular options?
-            else if(response == "N" || response == "n") {
-                out << "Choose another option." << endl;
-                break;
-            }
-            else {
-                out << "Invalid option. Type Y/N." << endl;
-            }
-        }
-        
-    }
-    else {
-        placeBet(highestBet - currentBet);
-        betPlaced = true;
-    }
-
-    betPlaced = true;
-    // in a vector of players, "raise" current bet
-    // to previous player's bet. add to pot accordingly
-}
-
-void Player::raise(unsigned int num) {
-    assert((getCurrentBet() + balance) < num && "Can't raise more than your balance.");
-    if(betPlaced) {
-        currentBet = num;
-        placeBet(num - currentBet);
-    }
-    else{
-        currentBet = num;
-        placeBet(num);
-    }
-    betPlaced = true;
-}
+// void Player::raise(unsigned int num) {
+//     assert((getCurrentBet() + balance) < num && "Can't raise more than your balance.");
+//     if(betPlaced) {
+//         currentBet = num;
+//         placeBet(num - currentBet);
+//     }
+//     else{
+//         currentBet = num;
+//         placeBet(num);
+//     }
+//     betPlaced = true;
+// }
 
 int Player::getBestHand() {
     return bestHand;
@@ -112,16 +70,13 @@ void Player::addToBalance(unsigned int amount) {
 }
 
 
-void Player::setCurrentBet(int b) {
-    currentBet = b;
+void Player::setCurrentBet(int newBet) {
+    this->balance -= newBet - currentBet;
+    this->currentBet = newBet;
 }
 
 int Player::getCurrentBet() {
     return currentBet;
-}
-
-void Player::clearBetStatus() {
-    betPlaced = false;
 }
 
 void Player::clearCurrentBet() {

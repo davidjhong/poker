@@ -58,6 +58,19 @@ void GameHandler::startGame()
 
         // gameSetup();
 
+        //
+        // for (int i = 0; i < settings->getNumOfRounds(); i++)
+        // {
+        //     this->roundHandler->startRound(this->playerList);
+        // }
+
+
+
+
+
+
+
+
 
         // if (input == "1")
         // {
@@ -102,17 +115,17 @@ void GameHandler::menuOptions(ostream &os)
         clearScreen();
         display->displayMenu(os);
 
-        // os << "select 1 for play\n";
-        // os << "select 2 for settings\n";
-        // os << "select 3 for rules\n";
-        // os << "select 4 for quit\n";
 
         cin >> input;
     
         if (input == "1")
         {
-            // gameSetup(os);
+            // game should start
             inMenu = false;
+
+
+
+            // gameSetup(os);
             // unsigned int numOfRounds = settings->getNumOfRounds();
 
             // for (int currRound = 1; currRound <= numOfRounds; currRound++)
