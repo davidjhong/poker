@@ -9,7 +9,7 @@
 
 
 TEST(playerPotTests, potConstructorTest) {
-    
+    //add smt
 
 }
 
