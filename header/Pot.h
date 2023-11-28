@@ -15,11 +15,12 @@ public:
 
    void resetPot();
    void addToPot(int);
+   int getHighestBet() const;
 
-   int highestBet = 0;
 
 private:
     
    //  void splitPot(const vector<Player>&);
+   int highestBet = 0;
    int totalPot = 0;
 };

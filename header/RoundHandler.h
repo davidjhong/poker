@@ -14,7 +14,9 @@ class RoundHandler {
         vector<Card*> communityCards;
 
         void call(ostream&, Player*);
+  
         bool raise(istream&, ostream&, Player*);
+        bool check(ostream&, Player*);
     public:
         RoundHandler();
         void startRound(vector<Player*>);
