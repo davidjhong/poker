@@ -88,6 +88,8 @@ bool RoundHandler::raise(istream& is, ostream& out, Player* p) {
         return false;
     }
     return true;
+
+}
     
 
 bool RoundHandler::check(ostream &out, Player* currPlayer)
