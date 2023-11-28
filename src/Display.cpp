@@ -20,22 +20,21 @@ void Display::displayMenu(std::ostream& out)
 
 void Display::displayRules(std::ostream& out)
 {
-    out << endl;
-    out << "Overview: " << endl;
-    out << "Each player will be dealt two hole cards, followed by five community cards which will be dealt face up in intervals. " << endl;
-    out << "*Note that hole cards are cards that are kept face down throughtout the entire game, and can only be seen by the player that holds them. " << endl;
-    out << "The objective of the game is to make the best five-card poker hand using any combination of the player's hole cards and community cards" << endl;
-    out << endl << "Texas Hold' em - in depth: " << endl;
-    out << "At the start of the round, before any cards are dealt, players will place their initial bets. The player to the dealer's left will poutt " << endl << "the small blind, then the player to their left will poutt the big blind, which is double the value of the small blind. ";
-    out << "2 hole cards will be dealt to each player. " << endl << "The starting player may now chooute to fold, call or raise. " << endl;
-    out << "   fold: discard hand and put no more chips in the pot" << endl;
-    out << "   call: add the call amount to the pot" << endl;
-    out << "   raise: increase the call amount for the current round" << endl;
-    out << "Following this player's first move, each player will take their turn to call, raise or fold until every player has gone. After every player " << endl << "has folded, called or raised, the dealer will deal the first 3 community cards face up. The players may now use these three cards to decide upon their next move. " << endl;
-    out << "Each player will again chooute to fold, call or raise. Then, the dealer will show the fourth community card, and each player will again chooute " << endl << "to fold, call or raise.";
-    out << "Finally, the dealer will reveal the last community card. This fourth round of betting will continue until all players have folded, called or raised." << endl;
-    out << "At this point, all remaining players will show their best hand from their two hole cards and 5 community cards. The player with the highest " << endl << "ranked combination wins the pot." << endl;
-    out << "If players tie, the highest hole card that isn't a part of their best hand is used to decide the winner." << endl;
+    out << "\nOverview: \n" 
+    out << "Each player will be dealt two hole cards, followed by five community cards which will be dealt face up in intervals. \n";
+    out << "*Note that hole cards are cards that are kept face down throughtout the entire game, and can only be seen by the player that holds them. \n";
+    out << "The objective of the game is to make the best five-card poker hand using any combination of the player's hole cards and community cards\n"; 
+    out << "\nTexas Hold' em - in depth: \n";
+    out << "At the start of the round, before any cards are dealt, players will place their initial bets. The player to the dealer's left will be \nthe small blind, then the player to their left will be the big blind, which is double the value of the small blind. ";
+    out << "2 hole cards will be dealt to each player. \nThe starting player may now chooute to fold, call or raise. \n";
+    out << "   fold: discard hand and put no more chips in the pot\n";
+    out << "   call: add the call amount to the pot\n";
+    out << "   raise: increase the call amount for the current round\n";
+    out << "Following this player's first move, each player will take their turn to call, raise or fold until every player has gone. After every player \nhas folded, called or raised, the dealer will deal the first 3 community cards face up. The players may now use these three cards to decide upon their next move. \n";
+    out << "Each player will again chooute to fold, call or raise. Then, the dealer will show the fourth community card, and each player will again chooute \nto fold, call or raise.";
+    out << "Finally, the dealer will reveal the last community card. This fourth round of betting will continue until all players have folded, called or raised.\n";
+    out << "At this point, all remaining players will show their best hand from their two hole cards and 5 community cards. The player with the highest \nranked combination wins the pot.\n";
+    out << "If players tie, the highest hole card that isn't a part of their best hand is used to decide the winner.\n";
     out << "q) back to menu \n";
 }
 
