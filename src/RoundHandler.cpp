@@ -88,7 +88,7 @@ bool RoundHandler::raise(istream& is, ostream& out, Player* p) {
         return false;
     }
     return true;
-    
+}
 
 bool RoundHandler::check(ostream &out, Player* currPlayer)
 {
@@ -97,6 +97,12 @@ bool RoundHandler::check(ostream &out, Player* currPlayer)
         out << "You must raise, call, or fold" << endl;
         return false;
     }
+
+    return true;
+}
+
+bool RoundHandler::fold(Player* currPlayer) {
+    delete currPlayer;
 
     return true;
 }
