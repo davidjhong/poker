@@ -14,8 +14,6 @@ class HandRank {
         vector<Card*> cards;
 
     public:
-    
-        int getRank() const;
         int getFinalRank(vector<Card*>);
 
         bool hasHighCard() const;
