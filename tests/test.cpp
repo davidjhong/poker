@@ -100,6 +100,41 @@ TEST(HandRankTests, hasTwoPairTest) {
     EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 150);
 }
 
+TEST(HandRankTests, hasThreeOfKindTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades");
+    Card* card2 = new Card(1, "Clubs", "One of Clubs");
+    Card* card3 = new Card(1, "Hearts", "One of Hearts");
+    Card* card4 = new Card(5, "Spades", "Five of Spades");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 200);
+}
+
+TEST(HandRankTests, hasStraightTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades");
+    Card* card2 = new Card(2, "Clubs", "Two of Clubs");
+    Card* card3 = new Card(3, "Hearts", "Three of Hearts");
+    Card* card4 = new Card(4, "Spades", "Four of Spades");
+    Card* card5 = new Card(5, "Spades", "Five of Spades");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 250);
+}
 
 
 // Pot Test Suite

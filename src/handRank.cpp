@@ -40,7 +40,7 @@ bool HandRank::hasTwoPair() const
 bool HandRank::hasThreeOfKind() const 
 {
     for (int i = 0; i < cards.size()-2; i++) {
-        if (cards[i]->getRank() == cards[i+1]->getRank() == cards[i+2]->getRank()) {
+        if (cards[i]->getRank() == cards[i+1]->getRank() && cards[i+1]->getRank() == cards[i+2]->getRank()) {
             return true;
         }
     } 
@@ -50,12 +50,10 @@ bool HandRank::hasThreeOfKind() const
 bool HandRank::hasStraight() const 
 {
     int count = 0;
-    for (int i = 0; i < cards.size() + 1; ++i) {
-        if (i == 0) {
-            continue;
-        }
-        int currRank = cards[i-1]->getRank();
-        if ((currRank + 1) == cards[i]->getRank()) {
+    for (int i = 0; i < cards.size() - 1; ++i) {
+
+        int currRank = cards[i]->getRank();
+        if ((currRank + 1) == cards[i+1]->getRank()) {
             ++count;
             if (count == 5) {
                 return true;
@@ -99,6 +97,7 @@ int HandRank::getFinalRank(vector<Card*> hand)
     if (hasStraight()) {
         return 250;
     }
+
     else if (hasThreeOfKind()) {
         return 200;
     }
