@@ -6,6 +6,7 @@
 #include "../header/Deck.h"
 #include "../header/Hand.h"
 #include "../header/Settings.h"
+#include "../header/Display.h"
 
 // Player Test Suite
 
@@ -331,6 +332,21 @@ TEST(settingsTest, tooLittleStartingChipsTest)
   EXPECT_DEATH(testSettings->setStartingChips(0), "Must have at least one starting chip");
 }
 
+// DISPLAY TESTS
+
+TEST(displayTest, displayMenuTest)
+{
+  ostringstream out; 
+  Display display; 
+  display.displayMenu(out);
+  EXPECT_EQ(out.str(),
+    "-------------- START MENU -----------------\n" 
+    "select 1 to see rules\n"
+    "select 2 to see card rankings\n" 
+    "select 3 to see card combinations\n" 
+    "select 4 start game\n" 
+    "-------------------------------------------\n");
+}
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

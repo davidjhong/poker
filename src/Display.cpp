@@ -4,6 +4,7 @@
 #include <ostream>
 #include "../header/Display.h"
 
+
 using namespace std;
 
 void Display::displayMenu(std::ostream& out)
@@ -12,8 +13,7 @@ void Display::displayMenu(std::ostream& out)
     out << "select 1 to see rules" << endl;
     out << "select 2 to see card rankings" << endl;
     out << "select 3 to see card combinations" << endl;
-    //possible option 4
-    out << "select 5 start game" << endl;
+    out << "select 4 start game" << endl;
     out << "-------------------------------------------" << endl;
 }  
 
@@ -36,7 +36,7 @@ void Display::displayRules(std::ostream& out)
     out << "Finally, the dealer will reveal the last community card. This fourth round of betting will continue until all players have folded, called or raised." << endl;
     out << "At this point, all remaining players will show their best hand from their two hole cards and 5 community cards. The player with the highest " << endl << "ranked combination wins the pot." << endl;
     out << "If players tie, the highest hole card that isn't a part of their best hand is used to decide the winner." << endl;
-    out << "q) back to menu \n"
+    out << "q) back to menu \n";
 }
 
 void Display::displayCardCombinations(std::ostream& out)
@@ -108,7 +108,7 @@ void Display::displayCardCombinations(std::ostream& out)
     out << "| ♢  |"  << "| ♡  |" << "| ♤  |" << "| ♡  |" << "| ♤  |" << " high card: no combination, only a single high ranked card" << endl;
     out << "|  A |"  << "|  8 |" << "|  6 |" << "|  4 |" << "|  2 |" << endl;
     out <<  " ----"  << "  ----" << "  ----" << "  ----"<< "  ----" << endl;
-    out << "q) back to menu \n"
+    out << "q) back to menu \n";
 
 }
     
@@ -129,7 +129,7 @@ void Display::displayCardRankings(std::ostream& out)
     out << "K (king)" << endl;
     out << "A (ace)" << endl;
     out << "* Note that in Texas Hold' em, all suits are equally ranked" << endl;
-    out << "q) back to menu \n"
+    out << "q) back to menu \n";
 }
 
 void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, Pot* pot)
@@ -138,11 +138,15 @@ void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, 
     out << "You have " << player->getBalance() << " chips" << endl;
     out << "Pot: " << pot->getPot() << endl;
     //best combo out << "Best combo: " << 
-    out << hand->getHand() << endl;
-    out << "1. call \n"
-    out << "2. raise \n"
-    out << "3. check \n"
-    out << "4. fold \n"
+    for (const Card* card: hand -> getHand())
+    {
+        out << card -> getName() << " " << card -> getSuit() << endl;
+    }
+
+    out << "1. call \n";
+    out << "2. raise \n";
+    out << "3. check \n";
+    out << "4. fold \n";
 }
 
 void Display::displayGameStatus(std::ostream& out, Player* player, Pot* pot)
@@ -154,6 +158,20 @@ void Display::displayGameStatus(std::ostream& out, Player* player, Pot* pot)
 void Display::displayGameOver(std::ostream& out)
 {
     out << "POKER++ \n";
-    out << "Thanks for playing! \n :3"
+    out << "Thanks for playing! \n :3";
 }
 
+void Display::displaySettings(std::ostream& out, Settings* settings)
+{
+    out << settings->getNumPlayers() << endl;
+    out << settings->getStartingChips() << endl; 
+    out << settings->getBigBlindAmt() << endl;
+    out << settings-> getLittleBlindAmt() << endl;
+    out << settings -> getNumOfRounds() << endl;
+    out << "select 1 to change player count\n";
+    out << "select 2 to change starting chips\n";
+    out << "select 3 to change big blind amount\n";
+    out << "select 4 to change small blind amount\n";
+    out << "select 5 to change number of rounds\n";
+    out << "enter q to save and exit\n\n";
+}
