@@ -1,4 +1,4 @@
-#include "../include/handRank.h"
+#include "../header/handRank.h"
 #include <vector>
 #include <algorithm>
 
@@ -96,7 +96,7 @@ int HandRank::getFinalRank(vector<Card*> hand)
     this->cards = hand;
     sort(cards.begin(), cards.end(), comp);
 
-    else if (hasStraight()) {
+    if (hasStraight()) {
         return 250;
     }
     else if (hasThreeOfKind()) {
