@@ -1,4 +1,4 @@
-#include "../include/handRank.h"
+#include "../header/handRank.h"
 #include <vector>
 #include <algorithm>
 
