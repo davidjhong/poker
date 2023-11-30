@@ -10,7 +10,8 @@ using namespace std;
 
 class Player {
 public:
-   Player(const string name, unsigned int balance);
+   Player();
+   Player(string name, int balance);
    ~Player();
    // void placeBet(int);
   // void raise(unsigned int);

@@ -24,17 +24,18 @@ GameHandler::GameHandler()
     this->roundHandler = new RoundHandler();
     this->gameRunning = true;
     this->settings = new Settings();
+    this->playerList = new vector<Player*>;
 }
 
 GameHandler::~GameHandler()
 {
-    // cout << playerList.size() << endl;
-    // for (int i = 0; i < 1; i++)
-    // {
-    //     delete playerList.at(i);
-    // }
-    // delete playerList.at(0);
+    for (int i = playerList->size() - 1; i >= 0; i--)
+    {
+        // cout << playerList->size() << endl;
+        delete playerList->at(i);
+    }
     
+    delete playerList;
     delete this->settings;
     delete this->roundHandler;
 }
@@ -42,11 +43,12 @@ GameHandler::~GameHandler()
 
 void GameHandler::addPlayer(const string &playerName)
 {
-    assert(playerList.size() < 7 && "Seven players maximum");
+    assert(playerList->size() < 7 && "Seven players maximum");
     unsigned int chips = settings->getStartingChips();
 
     Player* newPlayer = new Player(playerName, chips);
-    playerList.push_back(newPlayer);
+    playerList->push_back(newPlayer);
+
 }
 
 
@@ -66,43 +68,13 @@ void GameHandler::startGame()
 
         gameSetup(cin, cout);
 
+
         //
         // for (int i = 0; i < settings->getNumOfRounds(); i++)
         // {
         //     this->roundHandler->startRound(this->playerList);
         // }
 
-
-
-
-
-
-
-
-
-        // if (input == "1")
-        // {
-        //     // unsigned int numOfRounds = settings->getRounds();
-
-        //     // for (int currRound = 1; currRound <= numOfRounds; currRound++)
-        //     // {
-        //     //      roundHandler->startRound();
-        //     // }
-        // }
-        // else if (input == "2")
-        // {
-        //     settingsMenu(cout);
-        // }
-        // else if (input == "3")
-        // {
-        //     rulesMenu(cout);
-        //     // display->Rules(cout);
-        // }
-        // else if (input == "4")
-        // {
-        //     // display->Credits(cout);
-        //     gameRunning = false;
-        // }
     }
 }
 
