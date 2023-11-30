@@ -103,6 +103,7 @@ bool RoundHandler::check(ostream &out, Player* currPlayer)
 
 bool RoundHandler::fold(Player* currPlayer) {
     delete currPlayer;
+    currPlayer;
 
     return true;
 }

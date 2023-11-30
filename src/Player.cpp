@@ -6,6 +6,7 @@ Player::Player(const string name, unsigned int balance) {
     setName(name);
     setBalance(balance);
     this->hand = new Hand();
+    this->isPlaying = true;
 }
 
 Player::~Player() {
@@ -81,4 +82,14 @@ int Player::getCurrentBet() {
 
 void Player::clearCurrentBet() {
     currentBet = 0;
+}
+
+bool Player::getIsPlaying() const
+{
+    return this->isPlaying;
+}
+
+void Player::setIsPlaying(bool status)
+{
+    this->isPlaying = status;
 }

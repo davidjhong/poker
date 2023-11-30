@@ -16,8 +16,6 @@ public:
   // void raise(unsigned int);
    //const void fold();
    //const void check();
-
-
    
    void setBalance(unsigned int);
    void setName(string);
@@ -31,14 +29,14 @@ public:
    void setCurrentBet(int);
    void clearCurrentBet();
 
+   bool getIsPlaying() const;
+   void setIsPlaying(bool);
+
 private:
    int currentBet = 0;
    Hand* hand;
    int bestHand;
    int balance;
+   bool isPlaying;
    string name;
-
-   
-
-
 };
