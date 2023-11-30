@@ -2,9 +2,14 @@
 #include <assert.h>
 
 
-Player::Player(const string name, unsigned int balance) {
-    setName(name);
-    setBalance(balance);
+Player::Player() {
+    name = "";
+    balance = 0;
+}
+
+Player::Player(string name, int balance) {
+    this->name = name;
+    this->balance = balance;
     this->hand = new Hand();
     this->isPlaying = true;
 }
@@ -12,36 +17,6 @@ Player::Player(const string name, unsigned int balance) {
 Player::~Player() {
     delete hand;
 }
-
-// when player places bet, calls, or raises
-// make sure to change currentBet, as well as betPlaced
-// when betting with betPlaced, this can't be possible, they have to call
-// when betting with noBetPlaced, make sure that prev Player hasn't already bet,
-// and if so, make sure they can either call or raise
-// when calling with betPlaced, balance = (num - currBet), currBet = num
-// when calling with no betPlaced, balance -= num, currBet = num
-// when raising with betPlaced, balance = (num - currBet), currBet = num
-// when raising with no betPlaced, balance -= num, currBet = num
-
-// void Player::placeBet(int bet) {
-//     assert(bet > balance && "Can't bet more than your balance");
-//     assert(bet <= 0 && "Can't bet zero chips");
-//     currentBet = bet;
-//     betPlaced = true;
-// }
-
-// void Player::raise(unsigned int num) {
-//     assert((getCurrentBet() + balance) < num && "Can't raise more than your balance.");
-//     if(betPlaced) {
-//         currentBet = num;
-//         placeBet(num - currentBet);
-//     }
-//     else{
-//         currentBet = num;
-//         placeBet(num);
-//     }
-//     betPlaced = true;
-// }
 
 int Player::getBestHand() {
     return bestHand;
