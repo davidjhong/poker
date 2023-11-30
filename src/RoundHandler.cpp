@@ -11,6 +11,13 @@ RoundHandler::RoundHandler()
     this->pot = new Pot();
 }
 
+RoundHandler::~RoundHandler()
+{
+    // this->dealerIndex = 0;
+    delete this->deck;
+    delete this->pot;
+}
+
 void RoundHandler::startRound(vector<Player*> playerList)
 {
 
