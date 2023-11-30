@@ -44,11 +44,11 @@ void Hand::calculateStrength()
 
 void Hand::addCard(Card* newCard)
 {
+    cout << hand.size() << endl;
     assert(hand.size() < 7 && "Tried adding card to a hand of 7 cards, which is the max");
 
     this->hand.push_back(newCard);
     
-    return;
 }
 
 void Hand::clearHand()

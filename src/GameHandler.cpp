@@ -35,7 +35,7 @@ GameHandler::~GameHandler()
         delete playerList->at(i);
     }
     
-    delete playerList;
+    delete this->playerList;
     delete this->settings;
     delete this->roundHandler;
 }
@@ -68,6 +68,8 @@ void GameHandler::startGame()
 
         gameSetup(cin, cout);
 
+        startGame(cin, cout);
+
 
         //
         // for (int i = 0; i < settings->getNumOfRounds(); i++)
@@ -78,7 +80,7 @@ void GameHandler::startGame()
     }
 }
 
-void GameHandler::gameSetup(istream& is, ostream& os)
+void GameHandler::gameSetup(istream &is, ostream &os)
 {
     const unsigned int playerCount = this->settings->getNumPlayers();
     string username;
@@ -91,6 +93,30 @@ void GameHandler::gameSetup(istream& is, ostream& os)
         addPlayer(username);
     }
 
+}
+
+void GameHandler::startGame(istream &is, ostream &os)
+{
+    const unsigned int numOfRounds = this->settings->getNumOfRounds();
+
+    for (int i = 0; i < numOfRounds; i++)
+    {
+        clearScreen();
+        cout << "Round " << i + 1 << "!" << endl;
+        this->roundHandler->startRound(is, os, this->playerList, this->display);
+
+        resetPlayers();
+
+    }
+
+}
+
+void GameHandler::resetPlayers()
+{
+    for (Player* player: *playerList)
+    {
+        player->resetHand();
+    }
 }
 
 

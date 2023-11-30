@@ -18,7 +18,7 @@ RoundHandler::~RoundHandler()
     delete this->pot;
 }
 
-void RoundHandler::startRound(vector<Player*> playerList)
+void RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList, Display* display)
 {
 
     // for (int i = 0; i < playerList.size(); i++)
@@ -28,7 +28,8 @@ void RoundHandler::startRound(vector<Player*> playerList)
     // }
 
     // Deals two cards to each player
-    for (Player* currentPlayer: playerList)
+
+    for (Player* currentPlayer: *playerList)
     {
         Hand* currentHand = currentPlayer->getHand();
 
@@ -37,6 +38,27 @@ void RoundHandler::startRound(vector<Player*> playerList)
             Card* nextCard = this->deck->nextCard();
             currentHand->addCard(nextCard);
         }
+    }
+
+    /*
+    void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, Pot* pot)
+    {
+        out << player->getName() << ", it's your turn!" << endl;
+        out << "You have " << player->getBalance() << " chips" << endl;
+    //  out << "Pot: " << pot->getPot() << endl;
+    //  out << hand->getHand() << endl;
+        out << "1. call" << endl;
+        out << "2. raise" << endl;
+        out << "3. check" << endl;
+        out << "4. fold" << endl;
+    }
+*/
+    int choice = 0;
+    for (Player* currentPlayer: *playerList)
+    {
+        // cout << currentPlayer->getName() << "'s turn" << endl;
+        display->displayPlayerStats(os, currentPlayer, currentPlayer->getHand(), pot);
+        is >> choice;
     }
 
     // Deals the first three cards to the communityCards

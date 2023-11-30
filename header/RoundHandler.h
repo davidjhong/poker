@@ -5,6 +5,7 @@
 #include "Deck.h"
 #include "Card.h"
 #include "Pot.h"
+#include "Display.h"
 
 class RoundHandler {
     private:
@@ -22,7 +23,7 @@ class RoundHandler {
     public:
         RoundHandler();
         ~RoundHandler();
-        void startRound(vector<Player*>);
+        void startRound(istream&, ostream&, vector<Player*>*, Display*);
 };
 
 #endif
