@@ -19,7 +19,7 @@ class GameHandler
         Display* display;
         bool gameRunning;
 
-
+        void gameSetup(istream&, ostream&);
         void settingsMenu(ostream&);
         void rulesMenu(ostream&);
         void menuOptions(ostream&);

@@ -21,6 +21,7 @@ class RoundHandler {
         bool fold(Player*);
     public:
         RoundHandler();
+        ~RoundHandler();
         void startRound(vector<Player*>);
 };
 
