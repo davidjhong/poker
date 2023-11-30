@@ -17,6 +17,8 @@ class RoundHandler {
   
         bool raise(istream&, ostream&, Player*);
         bool check(ostream&, Player*);
+
+        bool fold(Player*);
     public:
         RoundHandler();
         void startRound(vector<Player*>);

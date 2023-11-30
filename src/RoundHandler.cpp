@@ -88,8 +88,10 @@ bool RoundHandler::raise(istream& is, ostream& out, Player* p) {
         return false;
     }
     return true;
-    
+}
 
+// If the player's current bet is lower than the pot's highest bet, check failed
+// Otherwise, check succeeds
 bool RoundHandler::check(ostream &out, Player* currPlayer)
 {
     if (currPlayer->getCurrentBet() < pot->getHighestBet())
@@ -98,5 +100,11 @@ bool RoundHandler::check(ostream &out, Player* currPlayer)
         return false;
     }
 
+    return true;
+}
+
+// Sets the player's isPlaying status to false
+bool RoundHandler::fold(Player* currPlayer) {
+    currPlayer->setIsPlaying(false);
     return true;
 }
