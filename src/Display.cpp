@@ -154,7 +154,7 @@ void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, 
     //best combo out << "Best combo: " << 
     for (const Card* card: hand -> getHand())
     {
-       // out << card -> getName() << " " << card -> getSuit() << endl;
+       out << card -> getName() << " " << card -> getSuit() << endl;
     }
 
     out << "1. call" << endl;;
