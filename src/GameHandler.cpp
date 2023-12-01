@@ -2,6 +2,7 @@
 #include "../header/RoundHandler.h"
 #include "../header/Player.h"
 #include "../header/Settings.h"
+#include "../header/Display.h"
 
 #include <vector>
 #include <iostream>
