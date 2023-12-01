@@ -20,7 +20,7 @@ class HandRank {
         int hasPair();
         int hasTwoPair();
         int hasThreeOfKind();
-        bool hasStraight() const;
+        int hasStraight();
         bool hasFlush() const;
         bool hasFullHouse() const;
         bool hasFourOfKind() const;

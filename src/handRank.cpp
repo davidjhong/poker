@@ -63,21 +63,25 @@ int HandRank::hasThreeOfKind()
     return -1;
 }
 
-bool HandRank::hasStraight() const 
+int HandRank::hasStraight() 
 {
-    int count = 0;
-    for (int i = 0; i < cards.size() - 1; ++i) {
+    if (cards.size() < 5) {
+        return -1;
+    }
 
-        int currRank = cards[i]->getRank();
-        if ((currRank + 1) == cards[i+1]->getRank()) {
-            ++count;
-            if (count == 5) {
-                return true;
-            }
+    for (int i = 0; i < cards.size() - 4; ++i) { // Check if the ranks are in a straight order... ex. 1,2,3,4,5
+        if (
+            cards[i]->getRank() + 1 == cards[i+1]->getRank() &&
+            cards[i]->getRank() + 2 == cards[i+2]->getRank() &&
+            cards[i]->getRank() + 3 == cards[i+3]->getRank() &&
+            cards[i]->getRank() + 4 == cards[i+4]->getRank()
+           ) 
+        {
+            return (cards[i]->getRank() + 4) + 200;
         }
     }
 
-    return false;
+    return -1;
 }
 
 bool HandRank::hasFlush() const 
@@ -114,8 +118,13 @@ int HandRank::getFinalRank(vector<Card*> hand)
     int pairVal = hasPair();
     int twoPairVal = hasTwoPair();
     int threeOfKindVal = hasThreeOfKind();
+    int straightVal = hasStraight();
 
-    if (threeOfKindVal != -1)
+    if (straightVal != -1) {
+        return straightVal;
+    }
+
+    else if (threeOfKindVal != -1)
     {
         return threeOfKindVal;
     }
