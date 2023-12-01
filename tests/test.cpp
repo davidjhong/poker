@@ -6,6 +6,7 @@
 #include "../header/Deck.h"
 #include "../header/Hand.h"
 #include "../header/Settings.h"
+#include "../header/Display.h"
 
 // Player Test Suite
 
@@ -93,7 +94,7 @@ TEST(HandRankTests, hasHighCardTest) {
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 50);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 9);
 }
 
 
@@ -112,7 +113,7 @@ TEST(HandRankTests, hasPairTest) {
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 100);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 55);
 }
 
 TEST(HandRankTests, hasTwoPairTest) {
@@ -121,32 +122,37 @@ TEST(HandRankTests, hasTwoPairTest) {
     Card* card2 = new Card(5, "Spades", "Five of Spades");
     Card* card3 = new Card(1, "Hearts", "One of Hearts");
     Card* card4 = new Card(5, "Spades", "Five of Spades");
+    Card* card5 = new Card(8, "Spades", "Eight of Spades");
     testCards.push_back(card1);
     testCards.push_back(card2);
     testCards.push_back(card3);
     testCards.push_back(card4);
+    testCards.push_back(card5);
 
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 150);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 105);
 }
 
 TEST(HandRankTests, hasThreeOfKindTest) {
     vector<Card*> testCards;
     Card* card1 = new Card(1, "Spades", "One of Spades");
     Card* card2 = new Card(1, "Clubs", "One of Clubs");
-    Card* card3 = new Card(1, "Hearts", "One of Hearts");
+    Card* card3 = new Card(6, "Spades", "Six of Spades");
     Card* card4 = new Card(5, "Spades", "Five of Spades");
+    Card* card5 = new Card(1, "Hearts", "One of Hearts");
+
     testCards.push_back(card1);
     testCards.push_back(card2);
     testCards.push_back(card3);
     testCards.push_back(card4);
+    testCards.push_back(card5);
 
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 200);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 151);
 }
 
 TEST(HandRankTests, hasStraightTest) {
@@ -165,7 +171,28 @@ TEST(HandRankTests, hasStraightTest) {
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 250);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 205);
+}
+
+TEST(HandRankTests, hasFourOfKind) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(2, "Spades", "Two of Spades");
+    Card* card2 = new Card(2, "Clubs", "Two of Clubs");
+    Card* card3 = new Card(2, "Hearts", "Two of Hearts");
+    Card* card4 = new Card(2, "Diamonds", "Two of Diamonds");
+    Card* card5 = new Card(6, "Spades", "Six of Spades");
+    Card* card6 = new Card(5, "Spades", "Five of Spades");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+    testCards.push_back(card6);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 352);
 }
 
 
@@ -339,6 +366,7 @@ TEST(handTests, getStrengthTest)
   testHand->calculateStrength(emptyCommunityCards);
   EXPECT_EQ(testHand->getStrength(), 50);
 
+
 }
 
 // Settings Test Suite
@@ -418,7 +446,78 @@ TEST(settingsTest, tooLittleStartingChipsTest)
 
 
 
+// DISPLAY TESTS
 
+TEST(displayTest, displayMenuTest)
+{
+  ostringstream out; 
+  Display display; 
+  display.displayMenu(out);
+  EXPECT_EQ(out.str(),
+    "-------------- START MENU -----------------\n" 
+    "select 1 to start game\n"
+    "select 2 for settings\n" 
+    "select 3 to see rules\n" 
+    "select 4 to see card rankings\n" 
+    "select 5 to see card combinations\n"
+    "-------------------------------------------\n");
+}
+
+TEST(displayTest, displayBetweenTurnsTest)
+{
+  ostringstream out;
+  Display displayTurns;
+  displayTurns.displayBetweenTurns(out);
+  EXPECT_EQ(out.str(),
+    "Next Player's turn...\n"
+    "don't look!");
+}
+
+
+TEST(displayTest, displayRulesTest)
+{
+  ostringstream out;
+  Display displayru;
+  displayru.displayRules(out);
+  EXPECT_EQ(out.str(),
+    "\nOverview: \n" 
+    "Each player will be dealt two hole cards, followed by five community cards which will be dealt face up in intervals. \n"
+    "*Note that hole cards are cards that are kept face down throughtout the entire game, and can only be seen by the player that holds them. \n"
+    "The objective of the game is to make the best five-card poker hand using any combination of the player's hole cards and community cards\n"
+    "\nTexas Hold' em - in depth: \n"
+    "At the start of the round, before any cards are dealt, players will place their initial bets. The player to the dealer's left will be \nthe small blind, then the player to their left will be the big blind, which is double the value of the small blind. "
+    "2 hole cards will be dealt to each player. \nThe starting player may now chooute to fold, call or raise. \n"
+    "   fold: discard hand and put no more chips in the pot\n"
+    "   call: add the call amount to the pot\n"
+    "   raise: increase the call amount for the current round\n"
+    "Following this player's first move, each player will take their turn to call, raise or fold until every player has gone. After every player \nhas folded, called or raised, the dealer will deal the first 3 community cards face up. The players may now use these three cards to decide upon their next move. \n"
+    "Each player will again chooute to fold, call or raise. Then, the dealer will show the fourth community card, and each player will again chooute \nto fold, call or raise."
+    "Finally, the dealer will reveal the last community card. This fourth round of betting will continue until all players have folded, called or raised.\n"
+    "At this point, all remaining players will show their best hand from their two hole cards and 5 community cards. The player with the highest \nranked combination wins the pot.\n"
+    "If players tie, the highest hole card that isn't a part of their best hand is used to decide the winner.\n"
+    "q) back to menu \n");
+
+}
+
+// TEST(displayTest, displaySettingsTest)
+// {
+//   ostringstream out;
+//   Display displaySett;
+//   Settings* settings;
+//   displaySett.displaySettings(out, settings);
+//   EXPECT_EQ(out.str(),
+//   settings->getNumPlayers() << endl;
+//     settings->getStartingChips() << endl; 
+//     settings->getBigBlindAmt() << endl;
+//     settings-> getLittleBlindAmt() << endl;
+//     settings -> getNumOfRounds() << endl;
+//     "select 1 to change player count\n";
+//     "select 2 to change starting chips\n";
+//     "select 3 to change big blind amount\n";
+//     "select 4 to change small blind amount\n";
+//     "select 5 to change number of rounds\n";
+//     "enter q to save and exit\n\n";);
+// }
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

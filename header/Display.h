@@ -5,26 +5,28 @@
 #include <fstream>
 #include <sstream>
 #include <ostream>
+#include "../header/Pot.h"
+#include "../header/Player.h"
+#include "../header/Settings.h"
 
-#include "Player.h"
-#include "Hand.h"
-#include "Pot.h"
 
 using namespace std;
 
 class Display
 {
 
-
     public:
-        void displayMenu(ostream& out);
-        void displaySettings(ostream&);
-        void displayCardRankings(ostream& out);
-        void displayRules(ostream& out);
-        void displayCardCombinations(ostream& out);
-        void displayPlayerStats(ostream& out, Player* player, Hand* hand, Pot* pot);
-        void displayGameStatus(std::ostream& out, Player* player, Pot* pot);
-        
+        void displayMenu(ostream&);
+        void displayCardRankings(ostream&);
+        void displayRules(ostream&);
+        void displayCardCombinations(ostream&);
+        void displayPlayerStats(ostream&, Player*, Hand* , Pot*);
+        void displayGameStatus(std::ostream&, Player*, Pot*);
+        void displayGameOver(std::ostream&);
+        void displaySettings(std::ostream&);
+        void displayBetweenTurns(std::ostream&);
+        // void displayWinner(std:: ostream&);
+
 };
 
 #endif
