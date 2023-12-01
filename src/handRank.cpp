@@ -10,22 +10,31 @@ bool comp(Card* card1, Card* card2)
     return card1->getRank() < card2->getRank(); // For sorting cards in order
 }
 
-bool HandRank::hasHighCard() const 
+int HandRank::hasHighCard() 
 {
-    return true; // All hands have a high card. Issue is to determine which high card has a higher value.
+    int highestCard = 0;
+    int currRank = 0;
+    for (int i = 0; i < cards.size(); i++) {
+        currRank = cards[i]->getRank();
+        if (currRank > highestCard) {
+            highestCard = cards[i]->getRank();
+        }
+    }
+    
+    return highestCard; // All hands have a high card. Issue is to determine which high card has a higher value.
 }
 
-bool HandRank::hasPair() const 
+int HandRank::hasPair()  
 {
     for (int i = 0; i < cards.size()-1; i++) {
         if (cards[i]->getRank() == cards[i+1]->getRank()) {
-            return true;
+            return cards[i]->getRank() + 50;
         }
     }
-    return false;
+    return -1;
 }
 
-bool HandRank::hasTwoPair() const 
+int HandRank::hasTwoPair() 
 {
     int numPairs = 0;
     for (int i = 0; i < cards.size()-1; i++) {
@@ -33,18 +42,25 @@ bool HandRank::hasTwoPair() const
             numPairs++;
             ++i; // Move to next i
         }
+
+    if (numPairs == 2) {
+        return cards[i]->getRank() + 100;
+    }
+
     } 
-    return numPairs >= 2; // No such thing as three pair, four pair, or so on... 
+
+
+    return -1; // No such thing as three pair, four pair, or so on... 
 }
 
-bool HandRank::hasThreeOfKind() const 
+int HandRank::hasThreeOfKind() 
 {
     for (int i = 0; i < cards.size()-2; i++) {
         if (cards[i]->getRank() == cards[i+1]->getRank() && cards[i+1]->getRank() == cards[i+2]->getRank()) {
-            return true;
+            return cards[i]->getRank() + 150;
         }
     } 
-    return false;
+    return -1;
 }
 
 bool HandRank::hasStraight() const 
@@ -94,20 +110,28 @@ int HandRank::getFinalRank(vector<Card*> hand)
     this->cards = hand;
     sort(cards.begin(), cards.end(), comp);
 
-    if (hasStraight()) {
-        return 250;
+    int highCard = hasHighCard();
+    int pairVal = hasPair();
+    int twoPairVal = hasTwoPair();
+    int threeOfKindVal = hasThreeOfKind();
+
+    if (threeOfKindVal != -1)
+    {
+        return threeOfKindVal;
     }
 
-    else if (hasThreeOfKind()) {
-        return 200;
+    else if (twoPairVal != -1) 
+    {
+        return twoPairVal;
     }
-    else if (hasTwoPair()) {
-        return 150;
+
+    else if (pairVal != -1) 
+    {
+        return pairVal;
     }
-    else if (hasPair()) {
-        return 100;
-    }
-    else if (hasHighCard()) {
-        return 50;
+
+    else 
+    {
+        return highCard;
     }
 }
