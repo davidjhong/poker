@@ -10,16 +10,48 @@
 
 // Player Test Suite
 
-TEST(playerTests, playerInitTest) {
+TEST(playerTests, playerConstructorTest) {
   Player* testPlayer = new Player("Jason", 100);
   EXPECT_EQ(testPlayer->getBalance(), 100);
   EXPECT_EQ(testPlayer->getName(), "Jason");
+}
+
+TEST(playerTests, playerBalanceTest) {
+  Player* testPlayer = new Player("Jason", 1000);
+
+  testPlayer->setBalance(800);
+  EXPECT_EQ(testPlayer->getBalance(), 800);
+
+  testPlayer->addToBalance(500);
+  EXPECT_EQ(testPlayer->getBalance(), 1300);
 }
 
 TEST(playerTests, playerHandConstructorTest) {
   Player* testPlayer = new Player("Kevin", 0);
   EXPECT_EQ(testPlayer->getBalance(), 0);
   EXPECT_EQ(testPlayer->getHand()->getStrength(), 0);
+}
+
+TEST(playerTests, isPlayingTest) {
+  Player* testPlayer = new Player("Kevin", 0);
+  EXPECT_TRUE(testPlayer->getIsPlaying());
+
+  testPlayer->setIsPlaying(false);
+  EXPECT_FALSE(testPlayer->getIsPlaying());
+}
+
+TEST(playerTests, currentBetTests) {
+  Player* testPlayer = new Player("Kevin", 500);
+
+  EXPECT_EQ(testPlayer->getBalance(), 500);
+  EXPECT_EQ(testPlayer->getCurrentBet(), 0);
+  
+  testPlayer->setCurrentBet(250);
+  EXPECT_EQ(testPlayer->getCurrentBet(), 250);
+
+  testPlayer->clearCurrentBet();
+  EXPECT_EQ(testPlayer->getCurrentBet(), 0);
+  
 }
 
 // Card Test Suite
@@ -101,6 +133,41 @@ TEST(HandRankTests, hasTwoPairTest) {
     EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 150);
 }
 
+TEST(HandRankTests, hasThreeOfKindTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades");
+    Card* card2 = new Card(1, "Clubs", "One of Clubs");
+    Card* card3 = new Card(1, "Hearts", "One of Hearts");
+    Card* card4 = new Card(5, "Spades", "Five of Spades");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 200);
+}
+
+TEST(HandRankTests, hasStraightTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades");
+    Card* card2 = new Card(2, "Clubs", "Two of Clubs");
+    Card* card3 = new Card(3, "Hearts", "Three of Hearts");
+    Card* card4 = new Card(4, "Spades", "Four of Spades");
+    Card* card5 = new Card(5, "Spades", "Five of Spades");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 250);
+}
 
 
 // Pot Test Suite
@@ -331,6 +398,24 @@ TEST(settingsTest, tooLittleStartingChipsTest)
 
   EXPECT_DEATH(testSettings->setStartingChips(0), "Must have at least one starting chip");
 }
+
+// Round Handler Test Suite
+
+// TEST(roundHandlerTests, callTest)
+// {
+//   ostream os;
+//   vector<Player*> testPlayers = {new Player("Kevin", 200), new Player("Jason", 300)};
+//   // Player* testPlayer1 = new Player("Kevin", 200);
+//   // Player* testPlayer2 = new Player("Jason", 300);
+
+//   RoundHandler* testHandler = new RoundHandler(os, testPlayers);
+
+//   // testHandler->
+// }
+
+
+
+
 
 // DISPLAY TESTS
 

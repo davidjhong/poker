@@ -25,14 +25,18 @@ GameHandler::GameHandler()
     this->roundHandler = new RoundHandler();
     this->gameRunning = true;
     this->settings = new Settings();
+    this->playerList = new vector<Player*>;
 }
 
 GameHandler::~GameHandler()
 {
-    for (int i = 0; i < playerList.size(); i++)
+    for (int i = playerList->size() - 1; i >= 0; i--)
     {
-        delete playerList.at(i);
+        // cout << playerList->size() << endl;
+        delete playerList->at(i);
     }
+    
+    delete playerList;
     delete this->settings;
     delete this->roundHandler;
 }
@@ -40,11 +44,12 @@ GameHandler::~GameHandler()
 
 void GameHandler::addPlayer(const string &playerName)
 {
-    assert(playerList.size() == 7 && "Seven players maximum");
+    assert(playerList->size() < 7 && "Seven players maximum");
     unsigned int chips = settings->getStartingChips();
 
     Player* newPlayer = new Player(playerName, chips);
-    playerList.push_back(newPlayer);
+    playerList->push_back(newPlayer);
+
 }
 
 
@@ -57,41 +62,39 @@ void GameHandler::startGame()
     {
         menuOptions(cout);
 
-        // gameSetup();
+        if (!gameRunning)
+        {
+            return;
+        }
+
+        gameSetup(cin, cout);
 
 
-        // if (input == "1")
+        //
+        // for (int i = 0; i < settings->getNumOfRounds(); i++)
         // {
-        //     // unsigned int numOfRounds = settings->getRounds();
+        //     this->roundHandler->startRound(this->playerList);
+        // }
 
-        //     // for (int currRound = 1; currRound <= numOfRounds; currRound++)
-        //     // {
-        //     //      roundHandler->startRound();
-        //     // }
-        // }
-        // else if (input == "2")
-        // {
-        //     settingsMenu(cout);
-        // }
-        // else if (input == "3")
-        // {
-        //     rulesMenu(cout);
-        //     // display->Rules(cout);
-        // }
-        // else if (input == "4")
-        // {
-        //     // display->Credits(cout);
-        //     gameRunning = false;
-        // }
+    }
+}
+
+void GameHandler::gameSetup(istream& is, ostream& os)
+{
+    const unsigned int playerCount = this->settings->getNumPlayers();
+    string username;
+
+    for (unsigned int i = 1; i <= playerCount; i++)
+    {
+        os << "Enter player " << i << "'s username: \n";
+        cin >> username;
+
+        addPlayer(username);
     }
 
-    
-
-
-
-
-
 }
+
+
 
 void GameHandler::menuOptions(ostream &os)
 {
@@ -103,17 +106,15 @@ void GameHandler::menuOptions(ostream &os)
         clearScreen();
         display->displayMenu(os);
 
-        // os << "select 1 for play\n";
-        // os << "select 2 for settings\n";
-        // os << "select 3 for rules\n";
-        // os << "select 4 for quit\n";
 
         cin >> input;
     
         if (input == "1")
         {
-            // gameSetup(os);
+            // game should start
             inMenu = false;
+
+            // gameSetup(os);
             // unsigned int numOfRounds = settings->getNumOfRounds();
 
             // for (int currRound = 1; currRound <= numOfRounds; currRound++)
@@ -379,3 +380,4 @@ void GameHandler::cardRankingMenu(ostream &os)
 
     }
 }
+

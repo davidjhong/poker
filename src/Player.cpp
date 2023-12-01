@@ -1,23 +1,21 @@
 #include "../header/Player.h"
+#include <assert.h>
 
 
-Player::Player(const string name, unsigned int balance) {
-    setName(name);
-    setBalance(balance);
+Player::Player() {
+    name = "";
+    balance = 0;
+}
+
+Player::Player(string name, int balance) {
+    this->name = name;
+    this->balance = balance;
     this->hand = new Hand();
+    this->isPlaying = true;
 }
 
 Player::~Player() {
     delete hand;
-}
-
-void Player::call(unsigned int num) {
-    // in a vector of players, "raise" current bet
-    // to previous player's bet. add to pot accordingly
-}
-
-void Player::raise(unsigned int num) {
-    // add to Pot of num
 }
 
 int Player::getBestHand() {
@@ -45,4 +43,28 @@ void Player::setName(string name) {
 }
 void Player::addToBalance(unsigned int amount) {
     this->balance += amount;
+}
+
+
+void Player::setCurrentBet(int newBet) {
+    this->balance -= newBet - currentBet;
+    this->currentBet = newBet;
+}
+
+int Player::getCurrentBet() {
+    return currentBet;
+}
+
+void Player::clearCurrentBet() {
+    currentBet = 0;
+}
+
+bool Player::getIsPlaying() const
+{
+    return this->isPlaying;
+}
+
+void Player::setIsPlaying(bool status)
+{
+    this->isPlaying = status;
 }

@@ -10,13 +10,27 @@ using namespace std;
 void Display::displayMenu(std::ostream& out)
 {
     out << "-------------- START MENU -----------------" << endl;
-    out << "select 1 to start game" << endl;
-    out << "select 2 for settings" << endl;
-    out << "select 3 to see rules" << endl;
-    out << "select 4 to see card rankings" << endl;
-    out << "select 5 to see card combinations" << endl;
+    out << "1) Start game" << endl;
+    out << "2) Settings" << endl;
+    out << "3) Rules" << endl;
+    out << "4) Card rankings" << endl;
+    out << "5) Card combinations" << endl;
+    out << "q) Quit" << endl;
+    out << "Enter an option" << endl;
     out << "-------------------------------------------" << endl;
 }  
+
+void Display::displaySettings(ostream &os)
+{
+    os << "-------------- SETTINGS -----------------" << endl;
+    os << "1) Change player count\n";
+    os << "2) Change starting chips\n";
+    os << "3) Change big blind amount\n";
+    os << "4) Change small blind amount\n";
+    os << "5) Change number of rounds\n";
+    os << "q) Save and exit\n\n";
+    os << "----------------------------------------" << endl;
+}
 
 
 void Display::displayRules(std::ostream& out)
@@ -136,17 +150,17 @@ void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, 
 {
     out << player->getName() << ", it's your turn!" << endl;
     out << "You have " << player->getBalance() << " chips" << endl;
-    out << "Pot: " << pot->getPot() << endl;
+ //   out << "Pot: " << pot->getPot() << endl;
     //best combo out << "Best combo: " << 
     for (const Card* card: hand -> getHand())
     {
-        out << card -> getName() << " " << card -> getSuit() << endl;
+       // out << card -> getName() << " " << card -> getSuit() << endl;
     }
 
-    out << "1. call \n";
-    out << "2. raise \n";
-    out << "3. check \n";
-    out << "4. fold \n";
+    out << "1. call" << endl;;
+    out << "2. raise" << endl;;
+    out << "3. check" << endl;;
+    out << "4. fold" << endl;;
 }
 
 void Display::displayGameStatus(std::ostream& out, Player* player, Pot* pot)

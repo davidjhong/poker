@@ -26,6 +26,7 @@ class Display
         void displaySettings(std::ostream&, Settings*);
         void displayBetweenTurns(std::ostream&);
         // void displayWinner(std:: ostream&);
+
 };
 
 #endif

@@ -11,8 +11,7 @@ Hand::Hand()
 
 Hand::~Hand(){
     int handSize = hand.size();
-    handSize--;
-    for(int i = handSize; i <= 0; i--) {
+    for(int i = handSize - 1; i >= 0; i--) {
         delete hand.at(i);
     }
 }
