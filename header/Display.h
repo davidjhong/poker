@@ -23,7 +23,7 @@ class Display
         void displayPlayerStats(ostream&, Player*, Hand* , Pot*);
         void displayGameStatus(std::ostream&, Player*, Pot*);
         void displayGameOver(std::ostream&);
-        void displaySettings(std::ostream&, Settings*);
+        void displaySettings(std::ostream&);
         void displayBetweenTurns(std::ostream&);
         // void displayWinner(std:: ostream&);
 

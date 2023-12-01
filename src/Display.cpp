@@ -20,16 +20,16 @@ void Display::displayMenu(std::ostream& out)
     out << "-------------------------------------------" << endl;
 }  
 
-void Display::displaySettings(ostream &os)
+void Display::displaySettings(ostream &out)
 {
-    os << "-------------- SETTINGS -----------------" << endl;
-    os << "1) Change player count\n";
-    os << "2) Change starting chips\n";
-    os << "3) Change big blind amount\n";
-    os << "4) Change small blind amount\n";
-    os << "5) Change number of rounds\n";
-    os << "q) Save and exit\n\n";
-    os << "----------------------------------------" << endl;
+    out << "-------------- SETTINGS -----------------" << endl;
+    out << "1) Change player count\n";
+    out << "2) Change starting chips\n";
+    out << "3) Change big blind amount\n";
+    out << "4) Change small blind amount\n";
+    out << "5) Change number of rounds\n";
+    out << "q) Save and exit\n\n";
+    out << "----------------------------------------" << endl;
 }
 
 
@@ -175,20 +175,20 @@ void Display::displayGameOver(std::ostream& out)
     out << "Thanks for playing! \n :3";
 }
 
-void Display::displaySettings(std::ostream& out, Settings* settings)
-{
-    out << settings->getNumPlayers() << endl;
-    out << settings->getStartingChips() << endl; 
-    out << settings->getBigBlindAmt() << endl;
-    out << settings-> getLittleBlindAmt() << endl;
-    out << settings -> getNumOfRounds() << endl;
-    out << "select 1 to change player count\n";
-    out << "select 2 to change starting chips\n";
-    out << "select 3 to change big blind amount\n";
-    out << "select 4 to change small blind amount\n";
-    out << "select 5 to change number of rounds\n";
-    out << "enter q to save and exit\n\n";
-}
+// void Display::displaySettings(std::ostream& out, Settings* settings)
+// {
+//     out << settings->getNumPlayers() << endl;
+//     out << settings->getStartingChips() << endl; 
+//     out << settings->getBigBlindAmt() << endl;
+//     out << settings-> getLittleBlindAmt() << endl;
+//     out << settings -> getNumOfRounds() << endl;
+//     out << "select 1 to change player count\n";
+//     out << "select 2 to change starting chips\n";
+//     out << "select 3 to change big blind amount\n";
+//     out << "select 4 to change small blind amount\n";
+//     out << "select 5 to change number of rounds\n";
+//     out << "enter q to save and exit\n\n";
+// }
 
 // void Display::displayWinner(std::ostream& out)
 // {

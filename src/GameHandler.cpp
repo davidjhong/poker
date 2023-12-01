@@ -176,7 +176,7 @@ void GameHandler::settingsMenu(ostream &os)
     while (inSettings)
     {
         clearScreen();
-        display->displaySettings(os, settings);
+        display->displaySettings(os);
         // os << "select 1 to change player count\n";
         // os << "select 2 to change starting chips\n";
         // os << "select 3 to change big blind amount\n";

@@ -8,7 +8,6 @@ using namespace std;
 class Bot
 {
     private:
-        string name;
         vector<int> actions = { 1, 1, 1, 1, 1,1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2,2, 2, 3, 3, 3, 3, 4 };
 
     public:
