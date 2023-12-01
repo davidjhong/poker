@@ -17,16 +17,20 @@ class RoundHandler {
         Deck* deck;
         vector<Card*> communityCards;
 
-        void blindInput(Player*, int);
+        bool startBettingStage(istream&, ostream&, vector<Player*>*, int);
 
-        void call(ostream&, Player*);
+        Player* lookForWinner(vector<Player*>*);
+        void blindInput(Player*, int);
+        void cardInsert(int);
+
+        bool call(ostream&, Player*);
         bool raise(istream&, ostream&, Player*);
         bool check(ostream&, Player*);
         bool fold(Player*);
     public:
         RoundHandler();
         ~RoundHandler();
-        void startRound(istream&, ostream&, vector<Player*>*);
+        Player* startRound(istream&, ostream&, vector<Player*>*);
         void setSettings(Settings*);
 };
 

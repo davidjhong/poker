@@ -107,7 +107,7 @@ void GameHandler::startGame(istream &is, ostream &os)
         os << "Round " << i + 1 << "!" << endl;
         this->roundHandler->startRound(is, os, this->playerList);
 
-        // resetPlayers();
+        resetPlayers();
 
     }
 
@@ -117,7 +117,9 @@ void GameHandler::resetPlayers()
 {
     for (Player* player: *playerList)
     {
+        player->clearCurrentBet();
         player->resetHand();
+        player->setIsPlaying(true);
     }
 }
 
