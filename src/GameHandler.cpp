@@ -99,13 +99,15 @@ void GameHandler::startGame(istream &is, ostream &os)
 {
     const unsigned int numOfRounds = this->settings->getNumOfRounds();
 
+    this->roundHandler->setSettings(this->settings);
+    
     for (int i = 0; i < numOfRounds; i++)
     {
         clearScreen();
-        cout << "Round " << i + 1 << "!" << endl;
-        this->roundHandler->startRound(is, os, this->playerList, this->display);
+        os << "Round " << i + 1 << "!" << endl;
+        this->roundHandler->startRound(is, os, this->playerList);
 
-        resetPlayers();
+        // resetPlayers();
 
     }
 

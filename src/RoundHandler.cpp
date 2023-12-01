@@ -4,6 +4,7 @@
 using namespace std;
 
 
+
 RoundHandler::RoundHandler()
 {
     this->dealerIndex = 0;
@@ -18,51 +19,110 @@ RoundHandler::~RoundHandler()
     delete this->pot;
 }
 
-void RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList, Display* display)
+void RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
 {
-
-    // for (int i = 0; i < playerList.size(); i++)
-    // {
-    //     // playerList[i]->
-    //     Player* currentPlayer;
-    // }
-
+    // clearScreen();
+    // os << "\n\n\n\n\n\n\n\n\n" << endl;
     // Deals two cards to each player
 
-    for (Player* currentPlayer: *playerList)
-    {
-        Hand* currentHand = currentPlayer->getHand();
+    const unsigned int playerCount = playerList->size();
 
-        for (int i = 0; i < 2; i++)
+    int smallBlindIndex = (dealerIndex + 1) % playerCount;
+    int bigBlindIndex = (dealerIndex + 2) % playerCount;
+
+    Player* smallBlindPlayer = playerList->at(smallBlindIndex);
+    Player* bigBlindPlayer = playerList->at(bigBlindIndex);
+
+
+    blindInput(smallBlindPlayer, settings->getLittleBlindAmt());
+    blindInput(bigBlindPlayer, settings->getBigBlindAmt());
+
+
+    // os << smallBlindPlayer->getName() << " " << bigBlindPlayer->getName() << endl;
+
+    for (int i = 0; i < playerList->size(); i++)
+    {
+        Player* currPlayer = playerList->at(i);
+
+        Hand* currHand = currPlayer->getHand();
+
+        for (int cardCount = 0; i < 2; i++)
         {
             Card* nextCard = this->deck->nextCard();
-            currentHand->addCard(nextCard);
+            currHand->addCard(nextCard);
         }
+
     }
 
-    /*
-    void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, Pot* pot)
-    {
-        out << player->getName() << ", it's your turn!" << endl;
-        out << "You have " << player->getBalance() << " chips" << endl;
-    //  out << "Pot: " << pot->getPot() << endl;
-    //  out << hand->getHand() << endl;
-        out << "1. call" << endl;
-        out << "2. raise" << endl;
-        out << "3. check" << endl;
-        out << "4. fold" << endl;
-    }
-*/
+    int currPlayerIndex = (bigBlindIndex + 1) % playerCount;
+
+    int foldCount = 0;
+
     int choice = 0;
-    for (Player* currentPlayer: *playerList)
+    // betting stage
+    for (int i = 0; i < playerCount; i++)
     {
-        // cout << currentPlayer->getName() << "'s turn" << endl;
-        display->displayPlayerStats(os, currentPlayer, currentPlayer->getHand(), pot);
-        is >> choice;
+        
+        // os << "index: " << currPlayerIndex << endl;
+        Player* currPlayer = playerList->at(currPlayerIndex);
+
+        os << currPlayer->getName() << "'s balance: " << currPlayer->getBalance() << endl;
+
+        if (!currPlayer->getIsPlaying())
+        {
+            continue;
+        }
+
+        display->displayPlayerStats(os, currPlayer, currPlayer->getHand(), pot);
+        
+        while (!(is >> choice) || (choice != 1 && choice != 2 && choice != 3 && choice != 4))
+        {
+            os << "Invalid input, enter a valid choice" << endl;
+
+            is.clear();
+            is.ignore(256, '\n');
+        }
+
+        if (choice == 1)
+        {
+            call(os, currPlayer);
+        }
+        else if (choice == 2)
+        {
+            raise(is, os, currPlayer);
+        }
+        else if (choice == 3)
+        {
+            check(os, currPlayer);
+        }
+        else if (choice == 4)
+        {
+            fold(currPlayer);
+            foldCount++;
+        }
+
+        currPlayerIndex = (currPlayerIndex + 1) % playerCount;
+        
     }
 
-    // Deals the first three cards to the communityCards
+
+    dealerIndex++;
 }
+
+
+void RoundHandler::blindInput(Player* currPlayer, int amount)
+{
+    pot->addToPot(amount);
+    currPlayer->setCurrentBet(amount);
+}
+
+
+
+
+
+
+
+
 
 void RoundHandler::call(ostream& out, Player* currPlayer) {
 
@@ -97,7 +157,7 @@ void RoundHandler::call(ostream& out, Player* currPlayer) {
 }
 
 
-bool RoundHandler::raise(istream& is, ostream& out, Player* p) {
+bool RoundHandler::raise(istream& is, ostream& out, Player* currPlayer) {
     int raiseTo;
     out << "How much would you like to raise?" << endl;
     // is >> raiseTo;
@@ -109,8 +169,11 @@ bool RoundHandler::raise(istream& is, ostream& out, Player* p) {
     } 
 
     if(raiseTo > pot->getHighestBet()) {
-        p->setCurrentBet(raiseTo);
-        pot->addToPot(raiseTo - p->getCurrentBet());
+        cout << endl;
+        // cout << raiseTo - currPlayer->getCurrentBet() << endl;
+        pot->addToPot(raiseTo - pot->getHighestBet());
+        currPlayer->setCurrentBet(raiseTo);
+        out << "New highest bet: " << pot->getHighestBet() << endl;
     }
     else {
         out << "Can't raise. " << raiseTo << " isn't the highest bet." << endl;
@@ -136,4 +199,9 @@ bool RoundHandler::check(ostream &out, Player* currPlayer)
 bool RoundHandler::fold(Player* currPlayer) {
     currPlayer->setIsPlaying(false);
     return true;
+}
+
+void RoundHandler::setSettings(Settings *givenSettings)
+{
+    this->settings = givenSettings;
 }
