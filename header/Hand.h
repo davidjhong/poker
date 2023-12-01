@@ -18,7 +18,7 @@ class Hand {
         void clearHand();
 
         int getStrength() const;
-        void calculateStrength();
+        void calculateStrength(vector<Card*>&);
 
         vector<Card*> getHand();
         Card* getCard(int i) const;

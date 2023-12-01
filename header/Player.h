@@ -30,6 +30,8 @@ public:
    void setCurrentBet(int);
    void clearCurrentBet();
 
+   void resetHand();
+
    bool getIsPlaying() const;
    void setIsPlaying(bool);
 

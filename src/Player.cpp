@@ -18,6 +18,10 @@ Player::~Player() {
     delete hand;
 }
 
+void Player::resetHand() {
+    this->hand->clearHand();
+}
+
 int Player::getBestHand() {
     return bestHand;
 }

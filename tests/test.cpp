@@ -361,8 +361,11 @@ TEST(handTests, getStrengthTest)
   testHand->addCard(card2);
   testHand->addCard(card3);
 
-  testHand->calculateStrength();
-  EXPECT_EQ(testHand->getStrength(), 10);
+  vector<Card*> emptyCommunityCards;
+
+  testHand->calculateStrength(emptyCommunityCards);
+  EXPECT_EQ(testHand->getStrength(), 50);
+
 
 }
 
