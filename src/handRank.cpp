@@ -24,6 +24,7 @@ int HandRank::hasHighCard()
     return highestCard; // All hands have a high card. Issue is to determine which high card has a higher value.
 }
 
+// The cards are sorted in ascending order before calling the functions
 int HandRank::hasPair()  
 {
     for (int i = 0; i < cards.size()-1; i++) {
@@ -37,7 +38,8 @@ int HandRank::hasPair()
 int HandRank::hasTwoPair() 
 {
     int numPairs = 0;
-    for (int i = 0; i < cards.size()-1; i++) {
+    for (int i = 0; i < cards.size()-1; i++) 
+    {
         if (cards[i]->getRank() == cards[i+1]->getRank()) {
             numPairs++;
             ++i; // Move to next i
@@ -56,8 +58,9 @@ int HandRank::hasTwoPair()
 int HandRank::hasThreeOfKind() 
 {
     for (int i = 0; i < cards.size()-2; i++) {
-        if (cards[i]->getRank() == cards[i+1]->getRank() && cards[i+1]->getRank() == cards[i+2]->getRank()) {
-            return cards[i]->getRank() + 150;
+        if (cards[i]->getRank() == cards[i+1]->getRank() && cards[i+1]->getRank() == cards[i+2]->getRank()) 
+        {
+            return cards[i]->getRank() + 150; // Return true if there are three of the same rank in the board and hand
         }
     } 
     return -1;
@@ -74,10 +77,10 @@ int HandRank::hasStraight()
             cards[i]->getRank() + 1 == cards[i+1]->getRank() &&
             cards[i]->getRank() + 2 == cards[i+2]->getRank() &&
             cards[i]->getRank() + 3 == cards[i+3]->getRank() &&
-            cards[i]->getRank() + 4 == cards[i+4]->getRank()
+            cards[i]->getRank() + 4 == cards[i+4]->getRank() 
            ) 
         {
-            return (cards[i]->getRank() + 4) + 200;
+            return (cards[i]->getRank() + 4) + 200; // Get the value of the strongest card in the straight draw.
         }
     }
 
@@ -94,9 +97,16 @@ bool HandRank::hasFullHouse() const
     return false;
 }
 
-bool HandRank::hasFourOfKind() const
+int HandRank::hasFourOfKind() 
 {
-    return false;
+    for (int i = 0; i < cards.size()-3; i++) {
+        if (cards[i]->getRank() == cards[i+1]->getRank() && cards[i+1]->getRank() == cards[i+2]->getRank() && cards[i+2]->getRank() == cards[i+3]->getRank()) 
+        {
+            return cards[i]->getRank() + 350; // Return true if there are three of the same rank in the board and hand
+        }
+    } 
+
+    return -1;
 }
 
 bool HandRank::hasStraightFlush() const
@@ -112,15 +122,24 @@ bool HandRank::hasRoyalFlush() const
 int HandRank::getFinalRank(vector<Card*> hand) 
 {
     this->cards = hand;
-    sort(cards.begin(), cards.end(), comp);
+    sort(cards.begin(), cards.end(), comp); // sort the cards in ascending order
 
+    // highcard - lowest ranking, royal flush - highest ranking
     int highCard = hasHighCard();
     int pairVal = hasPair();
     int twoPairVal = hasTwoPair();
     int threeOfKindVal = hasThreeOfKind();
     int straightVal = hasStraight();
 
-    if (straightVal != -1) {
+    int fourOfKindVal = hasFourOfKind();
+
+    if (fourOfKindVal != -1)
+    {
+        return fourOfKindVal;
+    }
+
+    else if (straightVal != -1) 
+    {
         return straightVal;
     }
 

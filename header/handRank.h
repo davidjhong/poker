@@ -23,7 +23,7 @@ class HandRank {
         int hasStraight();
         bool hasFlush() const;
         bool hasFullHouse() const;
-        bool hasFourOfKind() const;
+        int hasFourOfKind();
         bool hasStraightFlush() const;
         bool hasRoyalFlush() const;
 };

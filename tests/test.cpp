@@ -106,12 +106,15 @@ TEST(HandRankTests, hasThreeOfKindTest) {
     vector<Card*> testCards;
     Card* card1 = new Card(1, "Spades", "One of Spades");
     Card* card2 = new Card(1, "Clubs", "One of Clubs");
-    Card* card3 = new Card(1, "Hearts", "One of Hearts");
+    Card* card3 = new Card(6, "Spades", "Six of Spades");
     Card* card4 = new Card(5, "Spades", "Five of Spades");
+    Card* card5 = new Card(1, "Hearts", "One of Hearts");
+
     testCards.push_back(card1);
     testCards.push_back(card2);
     testCards.push_back(card3);
     testCards.push_back(card4);
+    testCards.push_back(card5);
 
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
@@ -136,6 +139,27 @@ TEST(HandRankTests, hasStraightTest) {
     HandRank* handRanker = new HandRank();
     
     EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 205);
+}
+
+TEST(HandRankTests, hasFourOfKind) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(2, "Spades", "Two of Spades");
+    Card* card2 = new Card(2, "Clubs", "Two of Clubs");
+    Card* card3 = new Card(2, "Hearts", "Two of Hearts");
+    Card* card4 = new Card(2, "Diamonds", "Two of Diamonds");
+    Card* card5 = new Card(6, "Spades", "Six of Spades");
+    Card* card6 = new Card(5, "Spades", "Five of Spades");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+    testCards.push_back(card6);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 352);
 }
 
 
