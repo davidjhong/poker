@@ -24,7 +24,8 @@ class Display
         void displayGameStatus(std::ostream&, Player*, Pot*);
         void displayGameOver(std::ostream&);
         void displaySettings(std::ostream&, Settings*);
-        
+        void displayBetweenTurns(std::ostream&);
+        // void displayWinner(std:: ostream&);
 };
 
 #endif

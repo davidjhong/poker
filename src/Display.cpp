@@ -175,3 +175,18 @@ void Display::displaySettings(std::ostream& out, Settings* settings)
     out << "select 5 to change number of rounds\n";
     out << "enter q to save and exit\n\n";
 }
+
+// void Display::displayWinner(std::ostream& out)
+// {
+//     out << player->getName() << ", it's your turn!" << endl;
+// }
+// winner (player1?) ->getBestHand << " > " <<player2?->getBesthand()
+// winner (player1?) ->getBestHand << " " <<player2?->getBesthand()
+//out << "Pot: " << pot->getPot() << endl;
+// winner(player1?)->getName << "wins!";
+
+void Display::displayBetweenTurns(std::ostream& out)
+{
+    out << "Next Player's turn...\n";
+    out << "don't look!";
+}
