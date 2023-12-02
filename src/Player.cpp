@@ -24,10 +24,6 @@ void Player::resetHand() {
     this->hand->clearHand();
 }
 
-int Player::getBestHand() {
-    return bestHand;
-}
-
 int Player::getBalance() {
     return balance;
 }
