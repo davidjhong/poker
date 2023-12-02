@@ -4,6 +4,7 @@
 #include <vector>
 #include <ostream>
 #include "Card.h"
+#include "../header/handRank.h"
 
 
 class Hand {

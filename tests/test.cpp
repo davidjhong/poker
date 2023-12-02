@@ -527,6 +527,25 @@ TEST(displayTest, displayRulesTest)
 
 }
 
+// COMBO NAME TEST
+
+TEST(handTests, getComboNameTest)
+{
+  Hand* hand = new Hand();
+
+  Card* card1 = new Card(3, "Spades", "Three of Spades");
+  Card* card2 = new Card(5, "Spades", "Five of Spades");
+  Card* card3 = new Card(10, "Spades", "Ten of Spades");
+
+  hand->addCard(card1);
+  hand->addCard(card2);
+  hand->addCard(card3);
+
+  hand->calculateStrength();
+  EXPECT_EQ(hand->getComboName(), "High Card");
+
+}
+
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
