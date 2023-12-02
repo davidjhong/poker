@@ -417,7 +417,7 @@ TEST(settingsTest, tooLittleStartingChipsTest)
 // DISPLAY TESTS
 
 
-TEST(DisplayTest, displayPlayerStatsTest)
+TEST(DisplayTest, displayGameStatusTest)
 {
   Player* player = new Player();
   player -> setName("chloe");
@@ -425,24 +425,34 @@ TEST(DisplayTest, displayPlayerStatsTest)
 
   // set up the hand with some cards
   Hand* hand = new Hand();
+  // vector<Card*> communityCards;
   
   Card* card1 = new Card(1, "♤", "Ace of Spades");
-  Card* card2 = new Card(2, "♤", "Two of Spades");
- 
-
+  Card* card2 = new Card(5, "♤", "Two of Spades");
+  Card* card3 = new Card(11, "♢", "Three of Diamonds");
+  Card* card4 = new Card(6, "♢", "Five of Diamonds");
+  Card* card5 = new Card(3, "♡", "Ten of Hearts");
+  Card* card6 = new Card(12, "♡", "Nine of Hearts");
+  Card* card7 = new Card(10, "♧", "Eight of Clovers");
+  
   hand->addCard(card1);
   hand->addCard(card2);
+  hand->addCard(card3);
+  hand->addCard(card4);
+  hand->addCard(card5);
+  hand->addCard(card6);
+  hand->addCard(card7);
 
 
   vector<Card*> cards = {card1, card2};
-
+  vector<Card*> communityCards = {card3, card4, card5, card6, card7};
   // //set up the pot
   Pot* pot = new Pot();
   pot->addToPot(100);
 
   ostringstream out; 
   Display displayStats;
-  displayStats.displayPlayerStats(out, player, hand, pot);
+  displayStats.displayGameStatus(out, cards, communityCards, player, hand, pot);
 
   EXPECT_EQ(out.str(),
     "chloe, it's your turn!\n"
@@ -453,6 +463,7 @@ TEST(DisplayTest, displayPlayerStatsTest)
     "| ♤ |\n"
     "| A |\n"
     " ----\n"
+    "Community cards:"
     " ----\n"
     "| ♤ |\n"
     "| 2 |\n"
