@@ -8,6 +8,7 @@
 #include "../header/Pot.h"
 #include "../header/Player.h"
 #include "../header/Settings.h"
+#include "../header/Hand.h"
 
 
 using namespace std;
@@ -20,11 +21,12 @@ class Display
         void displayCardRankings(ostream&);
         void displayRules(ostream&);
         void displayCardCombinations(ostream&);
-        void displayPlayerStats(ostream&, Player*, Hand* , Pot*);
-        void displayGameStatus(std::ostream&, Player*, Pot*);
+        void displayGameStatus(ostream&,  vector<Card*> cards, vector<Card*> communityCards, Player*, Hand*, Pot*);
+        void displayBalanceChanges(std::ostream&, Player*, Pot*);
         void displayGameOver(std::ostream&);
         void displaySettings(std::ostream&);
         void displayBetweenTurns(std::ostream&);
+     
         // void displayWinner(std:: ostream&);
 
 };

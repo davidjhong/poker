@@ -28,7 +28,7 @@ void Display::displaySettings(ostream &out)
     out << "3) Change big blind amount\n";
     out << "4) Change small blind amount\n";
     out << "5) Change number of rounds\n";
-    out << "q) Save and exit\n\n";
+    out << "q) Save and exit\n";
     out << "----------------------------------------" << endl;
 }
 
@@ -146,24 +146,118 @@ void Display::displayCardRankings(std::ostream& out)
     out << "q) back to menu \n";
 }
 
-void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, Pot* pot)
+void Display::displayGameStatus(std::ostream& out, vector<Card*> cards, vector<Card*> communityCards, Player* player, Hand* hand, Pot* pot)
 {
     out << player->getName() << ", it's your turn!" << endl;
     out << "You have " << player->getBalance() << " chips" << endl;
- //   out << "Pot: " << pot->getPot() << endl;
-    //best combo out << "Best combo: " << 
-    for (const Card* card: hand -> getHand())
-    {
-       out << card -> getName() << " " << card -> getSuit() << endl;
+    out << "Pot: " << pot->getPot() << endl;
+    out << "Your hand:\n";
+    
+    for (int i = 0; i < 2; i++) { 
+        out << "-----" << "     " ; 
+    } 
+    out << "\n"; 
+ 
+    for(const Card* card: cards) { 
+        if(card->getRank() == 10 ) { 
+            out << "|  " << card->getSuit() << "  |" << "   "; 
+        } 
+ 
+        else { 
+            out << "| " << card->getSuit() << " |" << "     "; 
+        } 
+    }
+    out << "\n"; 
+   
+    for (const Card* card: cards) { 
+        if(card->getRank() == 10 ) { 
+          out << "| " << card->getRank() << " |" << "    "; 
+        } 
+        else if (card ->getRank() == 1)
+        {
+            out << "| " << "A" << " |" << "     ";
+        }
+        else if (card ->getRank() == 11)
+        {
+            out << "| " << "J" << " |" << "     ";
+        }
+        else if (card ->getRank() == 12)
+        {
+            out << "| " << "Q" << " |" << "     ";
+        }
+        else if (card ->getRank() == 13)
+        {
+            out << "| " << "K" << " |" << "     ";
+        }
+        else { 
+          out << "| " << card->getRank() << " |" << "     "; 
+     } 
+} 
+    out << "\n"; 
+    for (int i = 0; i < 2; i++) { 
+        out << "-----" << "     "; 
+    } 
+    out << "\n"; 
+    // out << "Best combo: " << 
+    out << "Community cards:\n"; 
+    for (int i = 0; i < (int)communityCards.size(); i++) { 
+        out << "-----" << "     " ; 
+    } 
+    out << "\n"; 
+  
+    for(const Card* card: communityCards) { 
+        if(card->getRank() == 10 ) { 
+            out << "| " << card->getSuit() << "  | " << "   "; 
+        } 
+       
+        else { 
+            out << "| " << card->getSuit() << " |" << "     "; 
+        } 
     }
 
-    out << "1. call" << endl;;
-    out << "2. raise" << endl;;
-    out << "3. check" << endl;;
-    out << "4. fold" << endl;;
+    out << "\n"; 
+    
+
+    for (const Card* card: communityCards) { 
+        if(card->getRank() == 10 ) { 
+          out << "| " << card->getRank() << " |" << "    "; 
+        } 
+        else if (card ->getRank() == 1)
+        {
+            out << "| " << "A" << " |" << "     ";
+        }
+        else if (card ->getRank() == 11)
+        {
+            out << "| " << "J" << " |" << "     ";
+        }
+        else if (card ->getRank() == 12)
+        {
+            out << "| " << "Q" << " |" << "     ";
+        }
+        else if (card ->getRank() == 13)
+        {
+            out << "| " << "K" << " |" << "     ";
+        }
+        else { 
+          out << "| " << card->getRank() << " |" << "     "; 
+        } 
+    }
+    out << "\n"; 
+    for (int i = 0; i < (int)communityCards.size(); i++) { 
+        out << "-----" << "     "; 
+    } 
+    out << "\n";
+    
+    out << "1. call" << endl;
+    out << "2. raise" << endl;
+    out << "3. check" << endl;
+    out << "4. fold" << endl;
+
 }
 
-void Display::displayGameStatus(std::ostream& out, Player* player, Pot* pot)
+
+
+void Display::displayBalanceChanges(std::ostream& out, Player* player, Pot* pot)
 {
     out << player->getName() << "raised to "; // << bet raised
     out << "Pot: " << pot->getPot() << endl;
@@ -175,20 +269,6 @@ void Display::displayGameOver(std::ostream& out)
     out << "Thanks for playing! \n :3";
 }
 
-// void Display::displaySettings(std::ostream& out, Settings* settings)
-// {
-//     out << settings->getNumPlayers() << endl;
-//     out << settings->getStartingChips() << endl; 
-//     out << settings->getBigBlindAmt() << endl;
-//     out << settings-> getLittleBlindAmt() << endl;
-//     out << settings -> getNumOfRounds() << endl;
-//     out << "select 1 to change player count\n";
-//     out << "select 2 to change starting chips\n";
-//     out << "select 3 to change big blind amount\n";
-//     out << "select 4 to change small blind amount\n";
-//     out << "select 5 to change number of rounds\n";
-//     out << "enter q to save and exit\n\n";
-// }
 
 // void Display::displayWinner(std::ostream& out)
 // {
