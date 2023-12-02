@@ -14,9 +14,11 @@ int HandRank::hasHighCard()
 {
     int highestCard = 0;
     int currRank = 0;
-    for (int i = 0; i < cards.size(); i++) {
+    for (int i = 0; i < cards.size(); i++) 
+    {
         currRank = cards[i]->getRank();
-        if (currRank > highestCard) {
+        if (currRank > highestCard) 
+        {
             highestCard = cards[i]->getRank();
         }
     }
@@ -27,8 +29,10 @@ int HandRank::hasHighCard()
 // The cards are sorted in ascending order before calling the functions
 int HandRank::hasPair()  
 {
-    for (int i = 0; i < cards.size()-1; i++) {
-        if (cards[i]->getRank() == cards[i+1]->getRank()) {
+    for (int i = 0; i < cards.size()-1; i++) 
+    {
+        if (cards[i]->getRank() == cards[i+1]->getRank()) 
+        {
             return cards[i]->getRank() + 50;
         }
     }
@@ -40,12 +44,14 @@ int HandRank::hasTwoPair()
     int numPairs = 0;
     for (int i = 0; i < cards.size()-1; i++) 
     {
-        if (cards[i]->getRank() == cards[i+1]->getRank()) {
+        if (cards[i]->getRank() == cards[i+1]->getRank()) 
+        {
             numPairs++;
             ++i; // Move to next i
         }
 
-    if (numPairs == 2) {
+    if (numPairs == 2) 
+    {
         return cards[i]->getRank() + 100;
     }
 
@@ -57,7 +63,8 @@ int HandRank::hasTwoPair()
 
 int HandRank::hasThreeOfKind() 
 {
-    for (int i = 0; i < cards.size()-2; i++) {
+    for (int i = 0; i < cards.size()-2; i++) 
+    {
         if (cards[i]->getRank() == cards[i+1]->getRank() && cards[i+1]->getRank() == cards[i+2]->getRank()) 
         {
             return cards[i]->getRank() + 150; // Return true if there are three of the same rank in the board and hand
@@ -68,11 +75,13 @@ int HandRank::hasThreeOfKind()
 
 int HandRank::hasStraight() 
 {
-    if (cards.size() < 5) {
+    if (cards.size() < 5) 
+    {
         return -1;
     }
 
-    for (int i = 0; i < cards.size() - 4; ++i) { // Check if the ranks are in a straight order... ex. 1,2,3,4,5
+    for (int i = 0; i < cards.size() - 4; ++i) 
+    { // Check if the ranks are in a straight order... ex. 1,2,3,4,5
         if (
             cards[i]->getRank() + 1 == cards[i+1]->getRank() &&
             cards[i]->getRank() + 2 == cards[i+2]->getRank() &&
@@ -92,14 +101,42 @@ bool HandRank::hasFlush() const
     return false;
 }
 
-bool HandRank::hasFullHouse() const
+int HandRank::hasFullHouse()
 {
-    return false;
+    int threeOfKindVal = hasThreeOfKind();
+
+    if (threeOfKindVal != -1) // we have a three of kind
+    {
+        // Check remaining cards for a pair. If there is a pair, there is a full house.
+        for (int i = 0; i < cards.size(); i++)
+        {
+            if ((cards[i]->getRank() + 150) == threeOfKindVal)
+            {
+                continue; // Skip three of kind value
+            }
+
+            for (int j = i+1; j < cards.size(); j++)
+            {
+                if ((cards[i]->getRank() + 150) == threeOfKindVal)
+                {
+                    continue; // Skip three of kind value
+                }
+                
+                if (cards[i]->getRank() == cards[j]->getRank())
+                {
+                    return cards[i]->getRank() + (threeOfKindVal - 150) + 300;
+                }
+            }
+        }
+    }
+
+    return -1;
 }
 
 int HandRank::hasFourOfKind() 
 {
-    for (int i = 0; i < cards.size()-3; i++) {
+    for (int i = 0; i < cards.size()-3; i++) 
+    {
         if (cards[i]->getRank() == cards[i+1]->getRank() && cards[i+1]->getRank() == cards[i+2]->getRank() && cards[i+2]->getRank() == cards[i+3]->getRank()) 
         {
             return cards[i]->getRank() + 350; // Return true if there are three of the same rank in the board and hand
@@ -130,12 +167,19 @@ int HandRank::getFinalRank(vector<Card*> hand)
     int twoPairVal = hasTwoPair();
     int threeOfKindVal = hasThreeOfKind();
     int straightVal = hasStraight();
+    
+    int fullHouseVal = hasFullHouse();
 
     int fourOfKindVal = hasFourOfKind();
 
     if (fourOfKindVal != -1)
     {
         return fourOfKindVal;
+    }
+
+    else if (fullHouseVal != -1)
+    {
+        return fullHouseVal;
     }
 
     else if (straightVal != -1) 
