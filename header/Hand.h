@@ -20,6 +20,8 @@ class Hand {
         int getStrength() const;
         void calculateStrength();
 
+        string getComboName();
+        
         vector<Card*> getHand();
         Card* getCard(int i) const;
         vector<string> getCardNames();
