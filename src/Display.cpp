@@ -159,7 +159,7 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> cards, vector<C
     out << "\n"; 
  
     for(const Card* card: cards) { 
-        if(card->getRank() >= 10 ) { 
+        if(card->getRank() == 10 ) { 
             out << "|  " << card->getSuit() << "  |" << "   "; 
         } 
  
@@ -170,26 +170,26 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> cards, vector<C
     out << "\n"; 
    
     for (const Card* card: cards) { 
-        if(card->getRank() >= 10 ) { 
+        if(card->getRank() == 10 ) { 
           out << "| " << card->getRank() << " |" << "    "; 
         } 
-        // if (card ->getRank() == 1)
-        // {
-        //     out << "| " << "A" << " |" << "     ";
-        // }
-        // if (card ->getRank() == 11)
-        // {
-        //     out << "| " << "J" << " |" << "     ";
-        // }
-        // if (card ->getRank() == 12)
-        // {
-        //     out << "| " << "Q" << " |" << "     ";
-        // }
-        // if (card ->getRank() == 13)
-        // {
-        //     out << "| " << "K" << " |" << "     ";
-        // }
-     else { 
+        else if (card ->getRank() == 1)
+        {
+            out << "| " << "A" << " |" << "     ";
+        }
+        else if (card ->getRank() == 11)
+        {
+            out << "| " << "J" << " |" << "     ";
+        }
+        else if (card ->getRank() == 12)
+        {
+            out << "| " << "Q" << " |" << "     ";
+        }
+        else if (card ->getRank() == 13)
+        {
+            out << "| " << "K" << " |" << "     ";
+        }
+        else { 
           out << "| " << card->getRank() << " |" << "     "; 
      } 
 } 
@@ -206,7 +206,7 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> cards, vector<C
     out << "\n"; 
   
     for(const Card* card: communityCards) { 
-        if(card->getRank() >= 10 ) { 
+        if(card->getRank() == 10 ) { 
             out << "| " << card->getSuit() << "  | " << "   "; 
         } 
        
@@ -219,25 +219,25 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> cards, vector<C
     
 
     for (const Card* card: communityCards) { 
-        if(card->getRank() >= 10 ) { 
+        if(card->getRank() == 10 ) { 
           out << "| " << card->getRank() << " |" << "    "; 
         } 
-        // if (card ->getRank() == 1)
-        // {
-        //     out << "| " << "A" << " |" << "     ";
-        // }
-        // if (card ->getRank() == 11)
-        // {
-        //     out << "| " << "J" << " |" << "     ";
-        // }
-        // if (card ->getRank() == 12)
-        // {
-        //     out << "| " << "Q" << " |" << "     ";
-        // }
-        // if (card ->getRank() == 13)
-        // {
-        //     out << "| " << "K" << " |" << "     ";
-        // }
+        else if (card ->getRank() == 1)
+        {
+            out << "| " << "A" << " |" << "     ";
+        }
+        else if (card ->getRank() == 11)
+        {
+            out << "| " << "J" << " |" << "     ";
+        }
+        else if (card ->getRank() == 12)
+        {
+            out << "| " << "Q" << " |" << "     ";
+        }
+        else if (card ->getRank() == 13)
+        {
+            out << "| " << "K" << " |" << "     ";
+        }
         else { 
           out << "| " << card->getRank() << " |" << "     "; 
         } 
