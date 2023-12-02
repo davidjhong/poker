@@ -3,7 +3,10 @@
 
 using namespace std;
 
-
+//https://stackoverflow.com/questions/17335816/clear-screen-using-c 
+void RoundHandler::clearScreen() {
+    cout << "\033[2J\033[1;1H";
+}
 
 RoundHandler::RoundHandler()
 {
@@ -34,26 +37,14 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
     Player* bigBlindPlayer = playerList->at(bigBlindIndex);
 
 
-    // os << smallBlindPlayer->getName() << " balance: " << smallBlindPlayer->getBalance() << endl;
-    // os << bigBlindPlayer->getName() << " balance: " << bigBlindPlayer->getBalance() << endl;
-
     blindInput(smallBlindPlayer, settings->getLittleBlindAmt());
     blindInput(bigBlindPlayer, settings->getBigBlindAmt());
-
-
-    // os << smallBlindPlayer->getName() << " balance: " << smallBlindPlayer->getBalance() << endl;
-    // os << bigBlindPlayer->getName() << " balance: " << bigBlindPlayer->getBalance() << endl;
-
-    for (auto &player: *playerList)
-    {
-        os << player->getName() << " balance: " << player->getBalance() << endl;
-    }
 
     for (int i = 0; i < playerList->size(); i++)
     {
         Player* currPlayer = playerList->at(i);
 
-        // Hand* currHand = currPlayer->getHand();
+        Hand* currHand = currPlayer->getHand();
 
         for (int cardCount = 0; cardCount < 2; cardCount++)
         {
@@ -113,10 +104,6 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
         return lookForWinner(playerList);
     }
 
-
-
-    pot->resetPot();
-    dealerIndex++;
 }
 
 Player* RoundHandler::lookForWinner(vector<Player*> *playerList)
@@ -127,6 +114,21 @@ Player* RoundHandler::lookForWinner(vector<Player*> *playerList)
         {
             return player;
         }
+    }
+}
+
+void RoundHandler::resetRound(vector<Player*> *playerList)
+{
+    this->communityCards.clear();
+    this->pot->resetPot();
+    this->dealerIndex = (dealerIndex + 1) % playerList->size();
+    this->deck->shuffleDeck(true);
+
+    for (Player* player: *playerList)
+    {
+        player->clearCurrentBet();
+        player->resetHand();
+        player->setIsPlaying(true);
     }
 }
 

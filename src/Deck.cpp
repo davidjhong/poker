@@ -24,6 +24,7 @@ Deck::Deck()
             allCards.push_back(newCard);
         }
     }
+    random_shuffle(allCards.begin(), allCards.end());
 
 }
 
@@ -47,6 +48,7 @@ void Deck::shuffleDeck(bool random) // bool random is whether a random seed is c
     }
 
     random_shuffle(allCards.begin(), allCards.end());
+    currentCardIndex = 0;
 }
 
 Card* Deck::nextCard()

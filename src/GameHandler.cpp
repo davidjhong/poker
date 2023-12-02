@@ -106,23 +106,26 @@ void GameHandler::startGame(istream &is, ostream &os)
     {
         clearScreen();
         os << "Round " << i + 1 << "!" << endl;
-        this->roundHandler->startRound(is, os, this->playerList);
 
-        resetPlayers();
+        Player* winner = roundHandler->startRound(is, os, this->playerList);
+
+        // resetPlayers();
+        this->roundHandler->resetRound(this->playerList);
+        // communityCards.clear();
 
     }
 
 }
 
-void GameHandler::resetPlayers()
-{
-    for (Player* player: *playerList)
-    {
-        player->clearCurrentBet();
-        player->resetHand();
-        player->setIsPlaying(true);
-    }
-}
+// void GameHandler::resetPlayers()
+// {
+//     for (Player* player: *playerList)
+//     {
+//         player->clearCurrentBet();
+//         player->resetHand();
+//         player->setIsPlaying(true);
+//     }
+// }
 
 
 
