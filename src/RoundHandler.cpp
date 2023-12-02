@@ -3,7 +3,10 @@
 
 using namespace std;
 
-
+//https://stackoverflow.com/questions/17335816/clear-screen-using-c 
+void RoundHandler::clearScreen() {
+    cout << "\033[2J\033[1;1H";
+}
 
 RoundHandler::RoundHandler()
 {
@@ -34,20 +37,8 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
     Player* bigBlindPlayer = playerList->at(bigBlindIndex);
 
 
-    // os << smallBlindPlayer->getName() << " balance: " << smallBlindPlayer->getBalance() << endl;
-    // os << bigBlindPlayer->getName() << " balance: " << bigBlindPlayer->getBalance() << endl;
-
     blindInput(smallBlindPlayer, settings->getLittleBlindAmt());
     blindInput(bigBlindPlayer, settings->getBigBlindAmt());
-
-
-    // os << smallBlindPlayer->getName() << " balance: " << smallBlindPlayer->getBalance() << endl;
-    // os << bigBlindPlayer->getName() << " balance: " << bigBlindPlayer->getBalance() << endl;
-
-    for (auto &player: *playerList)
-    {
-        os << player->getName() << " balance: " << player->getBalance() << endl;
-    }
 
     for (int i = 0; i < playerList->size(); i++)
     {
@@ -55,11 +46,17 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
 
         Hand* currHand = currPlayer->getHand();
 
-        for (int cardCount = 0; i < 2; i++)
+        for (int cardCount = 0; cardCount < 2; cardCount++)
         {
             Card* nextCard = this->deck->nextCard();
-            currHand->addCard(nextCard);
+            playerList->at(i)->getHand()->addCard(nextCard);
         }
+
+        // for (int cardCount = 0; i < 2; i++)
+        // {
+        //     Card* nextCard = this->deck->nextCard();
+        //     currHand->addCard(nextCard);
+        // }
     }
 
     cardInsert(3);
@@ -107,10 +104,6 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
         return lookForWinner(playerList);
     }
 
-
-
-    pot->resetPot();
-    dealerIndex++;
 }
 
 Player* RoundHandler::lookForWinner(vector<Player*> *playerList)
@@ -121,6 +114,21 @@ Player* RoundHandler::lookForWinner(vector<Player*> *playerList)
         {
             return player;
         }
+    }
+}
+
+void RoundHandler::resetRound(vector<Player*> *playerList)
+{
+    this->communityCards.clear();
+    this->pot->resetPot();
+    this->dealerIndex = (dealerIndex + 1) % playerList->size();
+    this->deck->shuffleDeck(true);
+
+    for (Player* player: *playerList)
+    {
+        player->clearCurrentBet();
+        player->resetHand();
+        player->setIsPlaying(true);
     }
 }
 
@@ -165,11 +173,12 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             continue;
         }
 
-        os << currPlayer->getName() << "'s balance: " << currPlayer->getBalance() << endl;
+        // os << currPlayer->getName() << "'s balance: " << currPlayer->getBalance() << endl;
 
 
-        display->displayPlayerStats(os, currPlayer, currPlayer->getHand(), pot);
-        
+        // display->displayPlayerStats(os, currPlayer, currPlayer->getHand(), pot);
+        display->displayGameStatus(os, communityCards, currPlayer, pot);
+
         while (!(is >> choice) || (choice != 1 && choice != 2 && choice != 3 && choice != 4))
         {
             os << "Invalid input, enter a valid choice" << endl;
@@ -213,7 +222,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             if (!valid)
             {
                 os << "Invalid decision. Try again." << endl;
-                display->displayPlayerStats(os, currPlayer, currPlayer->getHand(), pot);
+                // display->displayGameStatus(os, currPlayer, currPlayer->getHand(), pot);
                 is >> choice;
             }
         }

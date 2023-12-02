@@ -27,10 +27,13 @@ class RoundHandler {
         bool raise(istream&, ostream&, Player*);
         bool check(ostream&, Player*);
         bool fold(Player*);
+
+        void clearScreen();
     public:
         RoundHandler();
         ~RoundHandler();
         Player* startRound(istream&, ostream&, vector<Player*>*);
+        void resetRound(vector<Player*>*);
         void setSettings(Settings*);
 };
 
