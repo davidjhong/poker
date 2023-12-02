@@ -452,22 +452,22 @@ TEST(DisplayTest, displayGameStatusTest)
 
   ostringstream out; 
   Display displayStats;
-  displayStats.displayGameStatus(out, cards, communityCards, player, hand, pot);
+  displayStats.displayGameStatus(out, cards, communityCards, player, pot);
 
   EXPECT_EQ(out.str(),
     "chloe, it's your turn!\n"
     "You have 200 chips\n"
     "Pot: 100\n"
     "Your hand:\n"
-    " ----\n"
-    "| ♤ |\n"
-    "| A |\n"
-    " ----\n"
-    "Community cards:"
-    " ----\n"
-    "| ♤ |\n"
-    "| 2 |\n"
-    " ----\n"
+    "-----     -----\n"   
+    "| ♤ |     | ♤ |\n"    
+    "| A |     | 5 |\n"
+    "-----     -----\n"     
+    "Community cards:\n"
+    "-----     -----     -----     -----     -----\n"     
+    "| ♢ |     | ♢ |     | ♡ |     | ♡ |     | ♧  |\n"   
+    "| J |     | 6 |     | 3 |     | Q |     | 10 |\n"   
+    "-----     -----     -----     -----     ----- \n"  
     "1. call\n"
     "2. raise\n"
     "3. check\n"
