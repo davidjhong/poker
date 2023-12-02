@@ -53,13 +53,19 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
     {
         Player* currPlayer = playerList->at(i);
 
-        Hand* currHand = currPlayer->getHand();
+        // Hand* currHand = currPlayer->getHand();
 
-        for (int cardCount = 0; i < 2; i++)
+        for (int cardCount = 0; cardCount < 2; cardCount++)
         {
             Card* nextCard = this->deck->nextCard();
-            currHand->addCard(nextCard);
+            playerList->at(i)->getHand()->addCard(nextCard);
         }
+
+        // for (int cardCount = 0; i < 2; i++)
+        // {
+        //     Card* nextCard = this->deck->nextCard();
+        //     currHand->addCard(nextCard);
+        // }
     }
 
     cardInsert(3);
@@ -165,11 +171,12 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             continue;
         }
 
-        os << currPlayer->getName() << "'s balance: " << currPlayer->getBalance() << endl;
+        // os << currPlayer->getName() << "'s balance: " << currPlayer->getBalance() << endl;
 
 
-        display->displayPlayerStats(os, currPlayer, currPlayer->getHand(), pot);
-        
+        // display->displayPlayerStats(os, currPlayer, currPlayer->getHand(), pot);
+        display->displayGameStatus(os, communityCards, currPlayer, pot);
+
         while (!(is >> choice) || (choice != 1 && choice != 2 && choice != 3 && choice != 4))
         {
             os << "Invalid input, enter a valid choice" << endl;
@@ -213,7 +220,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             if (!valid)
             {
                 os << "Invalid decision. Try again." << endl;
-                display->displayPlayerStats(os, currPlayer, currPlayer->getHand(), pot);
+                // display->displayGameStatus(os, currPlayer, currPlayer->getHand(), pot);
                 is >> choice;
             }
         }

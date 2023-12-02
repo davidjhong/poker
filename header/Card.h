@@ -11,12 +11,14 @@ class Card
         int rank;
         string suit;
         string name;
+        string suitSymbol;
     public:
         Card();
-        Card(int, string, string);
+        Card(int, const string&, const string&, const string&);
 
         int getRank() const;
         string getSuit() const;
+        string getSuitSymbol() const;
         string getName() const;
 
         void setRank(int);

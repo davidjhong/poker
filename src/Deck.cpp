@@ -13,13 +13,14 @@ Deck::Deck()
 {
     currentCardIndex = 0;
     vector<string> ranks {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
-    vector<string> suits {"Diamonds", "Hearts", "Clovers", "Spades"}; 
+    vector<string> suits {"Diamonds", "Hearts", "Clubs", "Spades"}; 
+    vector<string> suitSymbols {"♦","♥","♣","♠"};
 
     for (int i = 0; i < 13; i++)
     {
         for (int j = 0; j < 4; j++)
         {
-            Card* newCard = new Card(i + 1, suits.at(j), ranks.at(i) + " of " + suits.at(j));
+            Card* newCard = new Card(i + 1, suits.at(j), ranks.at(i) + " of " + suits.at(j), suitSymbols.at(j));
             allCards.push_back(newCard);
         }
     }

@@ -21,7 +21,7 @@ class Display
         void displayCardRankings(ostream&);
         void displayRules(ostream&);
         void displayCardCombinations(ostream&);
-        void displayGameStatus(ostream&,  vector<Card*> cards, vector<Card*> communityCards, Player*, Hand*, Pot*);
+        void displayGameStatus(ostream&, vector<Card*> communityCards, Player*, Pot*);
         void displayBalanceChanges(std::ostream&, Player*, Pot*);
         void displayGameOver(std::ostream&);
         void displaySettings(std::ostream&);
