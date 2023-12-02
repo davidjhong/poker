@@ -28,7 +28,7 @@ void Display::displaySettings(ostream &out)
     out << "3) Change big blind amount\n";
     out << "4) Change small blind amount\n";
     out << "5) Change number of rounds\n";
-    out << "q) Save and exit\n\n";
+    out << "q) Save and exit\n";
     out << "----------------------------------------" << endl;
 }
 
@@ -150,11 +150,15 @@ void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, 
 {
     out << player->getName() << ", it's your turn!" << endl;
     out << "You have " << player->getBalance() << " chips" << endl;
- //   out << "Pot: " << pot->getPot() << endl;
-    //best combo out << "Best combo: " << 
+    out << "Pot: " << pot->getPot() << endl;
+    out << "Your hand:\n";
+    // out << "Best combo: " << 
     for (const Card* card: hand -> getHand())
     {
-       out << card -> getName() << " " << card -> getSuit() << endl;
+       out <<  " ----\n";  
+       out << "| " << card->getSuit() << " |\n" ;
+       out << "| " << card->getRank() << " |\n";
+       out <<  " ----\n"; 
     }
 
     out << "1. call" << endl;;
@@ -162,6 +166,11 @@ void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, 
     out << "3. check" << endl;;
     out << "4. fold" << endl;;
 }
+
+// void Display::displayCommunityCards(std::ostream& out, )
+// {
+
+// }
 
 void Display::displayGameStatus(std::ostream& out, Player* player, Pot* pot)
 {
@@ -175,20 +184,6 @@ void Display::displayGameOver(std::ostream& out)
     out << "Thanks for playing! \n :3";
 }
 
-// void Display::displaySettings(std::ostream& out, Settings* settings)
-// {
-//     out << settings->getNumPlayers() << endl;
-//     out << settings->getStartingChips() << endl; 
-//     out << settings->getBigBlindAmt() << endl;
-//     out << settings-> getLittleBlindAmt() << endl;
-//     out << settings -> getNumOfRounds() << endl;
-//     out << "select 1 to change player count\n";
-//     out << "select 2 to change starting chips\n";
-//     out << "select 3 to change big blind amount\n";
-//     out << "select 4 to change small blind amount\n";
-//     out << "select 5 to change number of rounds\n";
-//     out << "enter q to save and exit\n\n";
-// }
 
 // void Display::displayWinner(std::ostream& out)
 // {

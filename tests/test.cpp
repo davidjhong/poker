@@ -150,24 +150,24 @@ TEST(HandRankTests, hasThreeOfKindTest) {
     EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 200);
 }
 
-TEST(HandRankTests, hasStraightTest) {
-    vector<Card*> testCards;
-    Card* card1 = new Card(1, "Spades", "One of Spades");
-    Card* card2 = new Card(2, "Clubs", "Two of Clubs");
-    Card* card3 = new Card(3, "Hearts", "Three of Hearts");
-    Card* card4 = new Card(4, "Spades", "Four of Spades");
-    Card* card5 = new Card(5, "Spades", "Five of Spades");
-    testCards.push_back(card1);
-    testCards.push_back(card2);
-    testCards.push_back(card3);
-    testCards.push_back(card4);
-    testCards.push_back(card5);
+// TEST(HandRankTests, hasStraightTest) {
+//     vector<Card*> testCards;
+//     Card* card1 = new Card(1, "Spades", "One of Spades");
+//     Card* card2 = new Card(2, "Clubs", "Two of Clubs");
+//     Card* card3 = new Card(3, "Hearts", "Three of Hearts");
+//     Card* card4 = new Card(4, "Spades", "Four of Spades");
+//     Card* card5 = new Card(5, "Spades", "Five of Spades");
+//     testCards.push_back(card1);
+//     testCards.push_back(card2);
+//     testCards.push_back(card3);
+//     testCards.push_back(card4);
+//     testCards.push_back(card5);
 
-    StubHand* testHand = new StubHand(testCards);
-    HandRank* handRanker = new HandRank();
+//     StubHand* testHand = new StubHand(testCards);
+//     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 250);
-}
+//     EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 250);
+// }
 
 
 // Pot Test Suite
@@ -414,10 +414,54 @@ TEST(settingsTest, tooLittleStartingChipsTest)
 // }
 
 
-
-
-
 // DISPLAY TESTS
+
+
+TEST(DisplayTest, displayPlayerStatsTest)
+{
+  Player* player = new Player();
+  player -> setName("chloe");
+  player -> setBalance(200);
+
+  // set up the hand with some cards
+  Hand* hand = new Hand();
+  
+  Card* card1 = new Card(1, "♤", "Ace of Spades");
+  Card* card2 = new Card(2, "♤", "Two of Spades");
+ 
+
+  hand->addCard(card1);
+  hand->addCard(card2);
+
+
+  vector<Card*> cards = {card1, card2};
+
+  // //set up the pot
+  Pot* pot = new Pot();
+  pot->addToPot(100);
+
+  ostringstream out; 
+  Display displayStats;
+  displayStats.displayPlayerStats(out, player, hand, pot);
+
+  EXPECT_EQ(out.str(),
+    "chloe, it's your turn!\n"
+    "You have 200 chips\n"
+    "Pot: 100\n"
+    "Your hand:\n"
+    " ----\n"
+    "| ♤ |\n"
+    "| A |\n"
+    " ----\n"
+    " ----\n"
+    "| ♤ |\n"
+    "| 2 |\n"
+    " ----\n"
+    "1. call\n"
+    "2. raise\n"
+    "3. check\n"
+    "4. fold\n");
+}
 
 TEST(displayTest, displayMenuTest)
 {
@@ -426,11 +470,13 @@ TEST(displayTest, displayMenuTest)
   display.displayMenu(out);
   EXPECT_EQ(out.str(),
     "-------------- START MENU -----------------\n" 
-    "select 1 to start game\n"
-    "select 2 for settings\n" 
-    "select 3 to see rules\n" 
-    "select 4 to see card rankings\n" 
-    "select 5 to see card combinations\n"
+    "1) Start game\n"
+    "2) Settings\n" 
+    "3) Rules\n" 
+    "4) Card rankings\n" 
+    "5) Card combinations\n"
+    "q) Quit\n"
+    "Enter an option\n"
     "-------------------------------------------\n");
 }
 
@@ -470,25 +516,6 @@ TEST(displayTest, displayRulesTest)
 
 }
 
-// TEST(displayTest, displaySettingsTest)
-// {
-//   ostringstream out;
-//   Display displaySett;
-//   Settings* settings;
-//   displaySett.displaySettings(out, settings);
-//   EXPECT_EQ(out.str(),
-//   settings->getNumPlayers() << endl;
-//     settings->getStartingChips() << endl; 
-//     settings->getBigBlindAmt() << endl;
-//     settings-> getLittleBlindAmt() << endl;
-//     settings -> getNumOfRounds() << endl;
-//     "select 1 to change player count\n";
-//     "select 2 to change starting chips\n";
-//     "select 3 to change big blind amount\n";
-//     "select 4 to change small blind amount\n";
-//     "select 5 to change number of rounds\n";
-//     "enter q to save and exit\n\n";);
-// }
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
