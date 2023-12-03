@@ -216,56 +216,61 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     
     } 
     out << "\n";
-    for (size_t i = 0; i < 5; i++) { 
-     if (i < communityCards.size()) { 
-        if(communityCards[i]->getRank() == 10 ) 
+    for (size_t i = 0; i < 5; i++) 
+    { 
+        if (i < communityCards.size()) 
         { 
-            out << "| " <<communityCards[i]->getSuitSymbol() << "  | " << "   "; 
+            if(communityCards[i]->getRank() == 10 ) 
+            { 
+                out << "| " <<communityCards[i]->getSuitSymbol() << "  | " << "   "; 
+            } 
+            else 
+            { 
+                out << "| " << communityCards[i]->getSuitSymbol() << " |" << "     "; 
+            }  
         } 
         else 
         { 
-            out << "| " << communityCards[i]->getSuitSymbol() << " |" << "     "; 
-        }  
-     } 
-     else { 
-          out << "|   |" << "     ";
-     } 
+            out << "|   |" << "     ";
+        } 
     } 
     
     
     out << "\n";
-    for (size_t i = 0; i < 5; i++) { 
-     if (i < communityCards.size()) { 
-        if(communityCards[i]->getRank() == 10 ) 
+    for (size_t i = 0; i < 5; i++) 
+    { 
+        if (i < communityCards.size()) 
         { 
-          out << "| " << communityCards[i]->getRank() << " |" << "    "; 
-        } 
-        else if (communityCards[i] ->getRank() == 1)
-        {
-            out << "| " << "A" << " |" << "     ";
-        }
-        else if (communityCards[i] ->getRank() == 11)
-        {
-            out << "| " << "J" << " |" << "     ";
-        }
-        else if (communityCards[i] ->getRank() == 12)
-        {
-            out << "| " << "Q" << " |" << "     ";
-        }
-        else if (communityCards[i] ->getRank() == 13)
-        {
+            if(communityCards[i]->getRank() == 10 ) 
+            { 
+            out << "| " << communityCards[i]->getRank() << " |" << "    "; 
+            } 
+            else if (communityCards[i] ->getRank() == 1)
+            {
+                out << "| " << "A" << " |" << "     ";
+            }
+            else if (communityCards[i] ->getRank() == 11)
+            {
+                out << "| " << "J" << " |" << "     ";
+            }
+            else if (communityCards[i] ->getRank() == 12)
+            {
+                out << "| " << "Q" << " |" << "     ";
+            }
+            else if (communityCards[i] ->getRank() == 13)
+            {
             out << "| " << "K" << " |" << "     ";
-        }
-        else 
-        { 
-          out << "| " << communityCards[i]->getRank() << " |" << "     "; 
-        } 
+            }
+            else 
+            { 
+            out << "| " << communityCards[i]->getRank() << " |" << "     "; 
+            } 
         
-     } 
-     else { 
-          out << "| ? |" << "     ";
-     } 
-} 
+        } 
+        else { 
+            out << "| ? |" << "     ";
+        } 
+    }       
     
     out << "\n";
     for (int i = 0; i < 5; i++)
