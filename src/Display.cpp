@@ -159,8 +159,7 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
         out << "-----" << "     " ; 
     } 
     out << "\n"; 
-
-
+    
     vector<Card*> cards = player->getHand()->getHand();
 
     for(const Card* card: cards) { 
@@ -293,3 +292,9 @@ void Display::displayGameOver(std::ostream& out)
 // winner (player1?) ->getBestHand << " " <<player2?->getBesthand()
 //out << "Pot: " << pot->getPot() << endl;
 // winner(player1?)->getName << "wins!";
+
+void Display::displayBetweenTurns(std::ostream& out)
+{
+    out << "Next Player's turn...\n";
+    out << "don't look!";
+}
