@@ -10,7 +10,6 @@
 #include "../header/Settings.h"
 #include "../header/Hand.h"
 
-
 using namespace std;
 
 class Display
@@ -26,9 +25,9 @@ class Display
         void displayBalanceChanges(std::ostream&, Player*, Pot*);
         void displayGameOver(std::ostream&);
         void displaySettings(std::ostream&);
-        void displayBetweenTurns(std::ostream&);
+        void displayBetweenTurns(std::ostream&, Player*);
      
-        // void displayWinner(std:: ostream&);
+        void displayWinner(std:: ostream&, Player*);
 
 };
 

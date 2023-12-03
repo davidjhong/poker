@@ -9,13 +9,6 @@ Hand::Hand()
     this->strength = 0;
 }
 
-Hand::~Hand(){
-    int handSize = hand.size();
-    for(int i = handSize - 1; i >= 0; i--) {
-        delete hand.at(i);
-    }
-}
-
 Hand::Hand(vector<Card*> cards) {
     for (int i = 0; i < cards.size(); i++) {
         hand.push_back(cards[i]);
@@ -57,7 +50,7 @@ void Hand::calculateStrength(vector<Card*> &communityCards)
 void Hand::addCard(Card* newCard)
 {
     // cout << hand.size() << endl;
-    assert(hand.size() < 7 && "Tried adding card to a hand of 7 cards, which is the max");
+    assert(hand.size() < 2 && "Tried adding card to a hand of 2 cards, which is the max");
 
     this->hand.push_back(newCard);
     

@@ -24,7 +24,6 @@ Deck::Deck()
             allCards.push_back(newCard);
         }
     }
-    random_shuffle(allCards.begin(), allCards.end());
 
 }
 

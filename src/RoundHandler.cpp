@@ -13,6 +13,7 @@ RoundHandler::RoundHandler()
     this->dealerIndex = 0;
     this->deck = new Deck();
     this->pot = new Pot();
+    this->roundNumber = 1;
 }
 
 RoundHandler::~RoundHandler()
@@ -24,6 +25,9 @@ RoundHandler::~RoundHandler()
 
 Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
 {
+    this->deck->shuffleDeck(true);
+
+    // os << "Round " << round << "!" << endl;
     // clearScreen();
     // os << "\n\n\n\n\n\n\n\n\n" << endl;
     // Deals two cards to each player
@@ -59,44 +63,29 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
         // }
     }
 
-    cardInsert(3);
-
     int currPlayerIndex = (bigBlindIndex + 1) % playerCount;
-
     if (startBettingStage(is, os, playerList, currPlayerIndex))
     {
         return lookForWinner(playerList);
     }
 
-    for (Card* card: communityCards)
-    {
-        cout << card->getName() << " ";
-    }
-    cout << endl;
+
+    cardInsert(3);
 
     int afterDealerIndex = (dealerIndex + 1) % playerCount;
-
     if (startBettingStage(is, os, playerList, afterDealerIndex))
     {
         return lookForWinner(playerList);
     }
 
-    // Card* nextCard = this->deck->nextCard();
-    // communityCards.push_back(nextCard);
+
     cardInsert(1);
 
-    for (Card* card: communityCards)
-    {
-        cout << card->getName() << " ";
-    }
-    cout << endl;
-
     if (startBettingStage(is, os, playerList, afterDealerIndex))
     {
         return lookForWinner(playerList);
     }
-    // nextCard = this->deck->nextCard();
-    // communityCards.push_back(nextCard);
+
     cardInsert(1);
 
     if (startBettingStage(is, os, playerList, afterDealerIndex))
@@ -123,6 +112,7 @@ void RoundHandler::resetRound(vector<Player*> *playerList)
     this->pot->resetPot();
     this->dealerIndex = (dealerIndex + 1) % playerList->size();
     this->deck->shuffleDeck(true);
+    this->roundNumber++;
 
     for (Player* player: *playerList)
     {
@@ -164,6 +154,8 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
     // betting stage
     for (int i = 0; i < playerCount; i++)
     {
+
+        clearScreen();
         
         // os << "index: " << currPlayerIndex << endl;
         Player* currPlayer = playerList->at(currPlayerIndex);
@@ -223,11 +215,24 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             {
                 os << "Invalid decision. Try again." << endl;
                 // display->displayGameStatus(os, currPlayer, currPlayer->getHand(), pot);
+                is.clear();
+                is.ignore(256, '\n');
                 is >> choice;
             }
         }
 
         currPlayerIndex = (currPlayerIndex + 1) % playerCount;
+
+        int value = 0;
+
+        do {
+            clearScreen();
+            display->displayBetweenTurns(os, playerList->at(currPlayerIndex));
+            is.clear();
+            is.ignore(256, '\n');
+        }
+        while (!(is >> value));
+
         
     }
     return false;
@@ -329,4 +334,9 @@ bool RoundHandler::fold(Player* currPlayer) {
 void RoundHandler::setSettings(Settings *givenSettings)
 {
     this->settings = givenSettings;
+}
+
+unsigned int RoundHandler::getRound() const
+{
+    return this->roundNumber;
 }

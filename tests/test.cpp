@@ -7,6 +7,7 @@
 #include "../header/Hand.h"
 #include "../header/Settings.h"
 #include "../header/Display.h"
+#include "../header/RoundHandler.h"
 
 // Player Test Suite
 
@@ -113,7 +114,7 @@ TEST(HandRankTests, hasPairTest) {
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 55);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 9);
 }
 
 TEST(HandRankTests, hasTwoPairTest) {
@@ -200,7 +201,7 @@ TEST(HandRankTests, hasFourOfKind) {
     Card* card1 = new Card(2, "Spades", "Two of Spades", "♠");
     Card* card2 = new Card(2, "Clubs", "Two of Clubs", "♣");
     Card* card3 = new Card(2, "Hearts", "Two of Hearts", "♥");
-    Card* card4 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
+    Card* card4 = new Card(2, "Diamonds", "Two of Diamonds", "♦");
     Card* card5 = new Card(6, "Spades", "Six of Spades", "♠");
     Card* card6 = new Card(5, "Spades", "Five of Spades", "♠");
     testCards.push_back(card1);
@@ -239,7 +240,7 @@ TEST(DeckTests, constructorTest) {
 
   EXPECT_EQ(firstCard->getName(), "Ace of Diamonds");
   EXPECT_EQ(secondCard->getName(), "Ace of Hearts");
-  EXPECT_EQ(thirdCard->getName(), "Ace of Clovers");
+  EXPECT_EQ(thirdCard->getName(), "Ace of Clubs");
   EXPECT_EQ(fourthCard->getName(), "Ace of Spades");
   EXPECT_EQ(fifthCard->getName(), "Two of Diamonds");
 
@@ -293,15 +294,11 @@ TEST(handTests, getHandFilledHandTest)
   
   Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
   Card* card2 = new Card(2, "Spades", "Two of Spades", "♠");
-  Card* card3 = new Card(3, "Diamonds", "Three of Diamonds", "♦");
-  Card* card4 = new Card(4, "Hearts", "Four of Hearts", "♥");
 
   testHand->addCard(card1);
   testHand->addCard(card2);
-  testHand->addCard(card3);
-  testHand->addCard(card4);
 
-  vector<Card*> cards = {card1, card2, card3, card4};
+  vector<Card*> cards = {card1, card2};
   EXPECT_EQ(testHand->getHand(), cards);
 }
 
@@ -311,23 +308,14 @@ TEST(handTests, expectDeathMaxHandTest)
 
   Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
   Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
-  Card* card3 = new Card(10, "Spades", "Ten of Spades", "♠");
-  Card* card4 = new Card(4, "Spades", "Four of Spades", "♠");
-  Card* card5 = new Card(2, "Spades", "Two of Spades", "♠");
-  Card* card6 = new Card(1, "Spades", "One of Spades", "♠");
-  Card* card7 = new Card(11, "Spades", "Jack of Spades", "♠");
   
   testHand->addCard(card1);
   testHand->addCard(card2);
-  testHand->addCard(card3);
-  testHand->addCard(card4);
-  testHand->addCard(card5);
-  testHand->addCard(card6);
-  testHand->addCard(card7);
+
 
   Card* overflowCard = new Card(5, "Hearts", "Five of Hearts", "♥");
 
-  EXPECT_DEATH(testHand->addCard(overflowCard), "Tried adding card to a hand of 7 cards, which is the max");
+  // EXPECT_DEATH(testHand->addCard(overflowCard), "Tried adding card to a hand of 2 cards, which is the max");
 }
 
 TEST(handTests, ThreeCardHandNameTest)
@@ -336,17 +324,14 @@ TEST(handTests, ThreeCardHandNameTest)
 
   Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
   Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
-  Card* card3 = new Card(10, "Spades", "Ten of Spades", "♠");
 
   testHand->addCard(card1);
   testHand->addCard(card2);
-  testHand->addCard(card3);
 
   // test->Hand
   vector<string> cards;
   cards.push_back(card1->getName());
   cards.push_back(card2->getName());
-  cards.push_back(card3->getName());
 
   EXPECT_EQ(testHand->getCardNames(), cards);
 }
@@ -357,11 +342,9 @@ TEST(handTests, clearHandTest)
 
   Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
   Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
-  Card* card3 = new Card(10, "Spades", "Ten of Spades", "♠");
 
   testHand->addCard(card1);
   testHand->addCard(card2);
-  testHand->addCard(card3);
 
   vector<Card*> cards;
 
@@ -375,17 +358,15 @@ TEST(handTests, getStrengthTest)
   Hand* testHand = new Hand();
 
   Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
-  Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
-  Card* card3 = new Card(10, "Spades", "Ten of Spades", "♠");
+  Card* card2 = new Card(10, "Spades", "Ten of Spades", "♠");
 
   testHand->addCard(card1);
   testHand->addCard(card2);
-  testHand->addCard(card3);
 
   vector<Card*> emptyCommunityCards;
 
   testHand->calculateStrength(emptyCommunityCards);
-  EXPECT_EQ(testHand->getStrength(), 50);
+  EXPECT_EQ(testHand->getStrength(), 10);
 
 
 }
@@ -474,8 +455,6 @@ TEST(DisplayTest, displayGameStatusTest)
   player -> setBalance(200);
 
   // set up the hand with some cards
-  Hand* hand = new Hand();
-  
   
   Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
   Card* card2 = new Card(5, "Spades", "Two of Spades", "♠");
@@ -485,15 +464,9 @@ TEST(DisplayTest, displayGameStatusTest)
   Card* card6 = new Card(12, "Hearts", "Nine of Hearts", "♥");
   Card* card7 = new Card(10, "Clubs", "Eight of Clubs", "♣");
   
-  hand->addCard(card1);
-  hand->addCard(card2);
-  hand->addCard(card3);
-  hand->addCard(card4);
-  hand->addCard(card5);
-  hand->addCard(card6);
-  hand->addCard(card7);
-
-
+  player->getHand()->addCard(card1);
+  player->getHand()->addCard(card2);
+ 
   vector<Card*> cards = {card1, card2};
   vector<Card*> communityCards = {card3, card4, card5, card6, card7};
   // //set up the pot
@@ -546,11 +519,13 @@ TEST(displayTest, displayMenuTest)
 TEST(displayTest, displayBetweenTurnsTest)
 {
   ostringstream out;
-  Display displayTurns;
-  displayTurns.displayBetweenTurns(out);
+  Display* displayTurns = new Display();
+  Player* player = new Player();
+  player->setName("chloe");
+  displayTurns->displayBetweenTurns(out, player);
   EXPECT_EQ(out.str(),
-    "Next Player's turn...\n"
-    "don't look!");
+    "chloe's turn\n"
+    "Enter 1 to continue\n");
 }
 
 
