@@ -162,12 +162,15 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     
     vector<Card*> cards = player->getHand()->getHand();
 
-    for(const Card* card: cards) { 
-        if(card->getRank() == 10 ) { 
-            out << "| " << card->getSuitSymbol() << "  |" << "   ";  //space b4 line
+    for(const Card* card: cards) 
+    { 
+        if(card->getRank() == 10 ) 
+        { 
+            out << "| " << card->getSuitSymbol() << "  |" << "   ";  
         } 
  
-        else { 
+        else 
+        { 
             out << "| " << card->getSuitSymbol() << " |" << "     "; 
         } 
     }
@@ -201,33 +204,39 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
         } 
     } 
     out << "\n"; 
+
     for (int i = 0; i < 2; i++) 
     { 
         out << "-----" << "     "; 
     } 
+
     out << "\n"; 
+
     // out << "Best combo: " << 
+
     out << "Community cards:\n"; 
+
     for (int i = 0; i < (int)communityCards.size(); i++) 
     { 
         out << "-----" << "     " ; 
     } 
     out << "\n"; 
   
-
-    for(const Card* card: communityCards) { 
-        if(card->getRank() == 10 ) { 
+    for(const Card* card: communityCards) 
+    { 
+        if(card->getRank() == 10) 
+        { 
             out << "| " << card->getSuitSymbol() << "  | " << "   "; 
         } 
        
-        else { 
+        else 
+        { 
             out << "| " << card->getSuitSymbol() << " |" << "     "; 
         } 
     }
-
+    
     out << "\n"; 
     
-
     for (const Card* card: communityCards) 
     { 
         if(card->getRank() == 10 ) 
@@ -256,6 +265,7 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
         } 
     }
     out << "\n"; 
+
     for (int i = 0; i < (int)communityCards.size(); i++)
     { 
         out << "-----" << "     "; 
