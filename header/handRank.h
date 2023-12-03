@@ -21,11 +21,11 @@ class HandRank {
         int hasTwoPair();
         int hasThreeOfKind();
         int hasStraight();
-        bool hasFlush() const;
+        int hasFlush();
         int hasFullHouse();
         int hasFourOfKind();
-        bool hasStraightFlush() const;
-        bool hasRoyalFlush() const;
+        int hasStraightFlush();
+        int hasRoyalFlush();
 };
 
 #endif // __HANDRANK_H__

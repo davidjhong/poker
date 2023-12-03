@@ -75,7 +75,7 @@ int HandRank::hasThreeOfKind()
 
 int HandRank::hasStraight() 
 {
-    if (cards.size() < 5) 
+    if (cards.size() < 5) // Straight cannot happen if theres less than five total cards
     {
         return -1;
     }
@@ -96,13 +96,56 @@ int HandRank::hasStraight()
     return -1;
 }
 
-bool HandRank::hasFlush() const 
+int HandRank::hasFlush() 
 {
-    return false;
+    int diamondsCounter = 0;
+    int clubsCounter = 0;
+    int heartsCounter = 0;
+    int spadesCounter = 0;
+
+    if (cards.size() < 5) // Flush cannot happen if theres less than five total cards
+    {
+        return -1;
+    }
+
+    for (int i = 0; i < cards.size(); ++i)
+    {
+        if (cards[i]->getSuit() == "Diamonds")
+        {
+            diamondsCounter++;
+        }
+
+        if (cards[i]->getSuit() == "Clubs")
+        {
+            clubsCounter++;
+        }
+
+        if (cards[i]->getSuit() == "Hearts")
+        {
+            heartsCounter++;
+        }
+
+        if (cards[i]->getSuit() == "Spades")
+        {
+            spadesCounter++;
+        }
+
+        if (diamondsCounter >= 5 || clubsCounter >= 5 || heartsCounter >= 5 || spadesCounter >= 5)
+        {
+            return cards[i]->getRank() + 250;
+        }
+    }
+
+    return -1;
 }
 
 int HandRank::hasFullHouse()
 {
+    if (cards.size() < 5) // FullHouse cannot happen if theres less than five total cards
+    {
+        return -1;
+    }
+
     int threeOfKindVal = hasThreeOfKind();
 
     if (threeOfKindVal != -1) // we have a three of kind
@@ -122,7 +165,7 @@ int HandRank::hasFullHouse()
                     continue; // Skip three of kind value
                 }
                 
-                if (cards[i]->getRank() == cards[j]->getRank())
+                if (cards[i]->getRank() == cards[j]->getRank()) // Find a pair explicitly
                 {
                     return cards[i]->getRank() + (threeOfKindVal - 150) + 300;
                 }
@@ -146,13 +189,21 @@ int HandRank::hasFourOfKind()
     return -1;
 }
 
-bool HandRank::hasStraightFlush() const
+int HandRank::hasStraightFlush()
 {
+    if (cards.size() < 5) // Flush cannot happen if theres less than five total cards
+    {
+        return -1;
+    }
     return false;
 }
 
-bool HandRank::hasRoyalFlush() const 
+int HandRank::hasRoyalFlush() 
 {
+    if (cards.size() < 5) // Flush cannot happen if theres less than five total cards
+    {
+        return -1;
+    }
     return false;
 }
 
@@ -167,7 +218,7 @@ int HandRank::getFinalRank(vector<Card*> hand)
     int twoPairVal = hasTwoPair();
     int threeOfKindVal = hasThreeOfKind();
     int straightVal = hasStraight();
-    
+    int flushVal = hasFlush();
     int fullHouseVal = hasFullHouse();
 
     int fourOfKindVal = hasFourOfKind();
@@ -180,6 +231,11 @@ int HandRank::getFinalRank(vector<Card*> hand)
     else if (fullHouseVal != -1)
     {
         return fullHouseVal;
+    }
+
+    else if (flushVal != -1)
+    {
+        return flushVal;
     }
 
     else if (straightVal != -1) 
