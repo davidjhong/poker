@@ -34,6 +34,7 @@ class RoundHandler {
         RoundHandler();
         ~RoundHandler();
         unsigned int getRound() const;
+        Pot* getPot() const;
         Player* startRound(istream&, ostream&, vector<Player*>*);
         void resetRound(vector<Player*>*);
         void setSettings(Settings*);

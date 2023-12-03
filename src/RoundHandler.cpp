@@ -339,3 +339,8 @@ unsigned int RoundHandler::getRound() const
 {
     return this->roundNumber;
 }
+
+Pot* RoundHandler::getPot() const
+{
+    return this->pot;
+}

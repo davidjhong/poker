@@ -4,7 +4,6 @@
 #include <ostream>
 #include "../header/Display.h"
 
-
 using namespace std;
 
 void Display::displayMenu(std::ostream& out)
@@ -298,14 +297,16 @@ void Display::displayBalanceChanges(std::ostream& out, Player* player, Pot* pot)
 
 void Display::displayGameOver(std::ostream& out)
 {
+    // clearScreen();
     out << "POKER++ \n";
     out << "Thanks for playing! \n :3";
 }
 
 
-void Display::displayWinner(std::ostream& out, Player* player)
+void Display::displayWinner(std::ostream& out, Player* player, Pot* pot)
 {
-    out << player->getName() << "won with a " << player->getHand()->getComboName() << endl;
+    // clearScreen();
+    out << player->getName() << " won " << pot->getPot() << " chips with a " << player->getHand()->getComboName() << endl;
     
 }
 

@@ -14,7 +14,6 @@ using namespace std;
 
 class Display
 {
-
     public:
         void displayMenu(ostream&);
         void displayCardRankings(ostream&);
@@ -27,7 +26,7 @@ class Display
         void displaySettings(std::ostream&);
         void displayBetweenTurns(std::ostream&, Player*);
      
-        void displayWinner(std:: ostream&, Player*);
+        void displayWinner(std:: ostream&, Player*, Pot*);
 
 };
 
