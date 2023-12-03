@@ -191,11 +191,80 @@ int HandRank::hasFourOfKind()
 
 int HandRank::hasStraightFlush()
 {
-    if (cards.size() < 5) // Flush cannot happen if theres less than five total cards
+    if (cards.size() < 5) // straight flush cannot happen if theres less than five total cards
     {
         return -1;
     }
-    return false;
+
+    string flushSuit = "";
+    int diamondsCounter = 0;
+    int clubsCounter = 0;
+    int heartsCounter = 0;
+    int spadesCounter = 0;
+
+    for (int i = 0; i < cards.size(); ++i) // Check for flush
+    {
+        if (cards[i]->getSuit() == "Diamonds")
+        {
+            diamondsCounter++;
+        }
+
+        if (cards[i]->getSuit() == "Clubs")
+        {
+            clubsCounter++;
+        }
+
+        if (cards[i]->getSuit() == "Hearts")
+        {
+            heartsCounter++;
+        }
+
+        if (cards[i]->getSuit() == "Spades")
+        {
+            spadesCounter++;
+        }
+    }
+
+    if (diamondsCounter >= 5) // Assign flush suit accordingly
+    {
+        flushSuit = "Diamonds";
+    }
+
+    if (clubsCounter >= 5)
+    {
+        flushSuit = "Clubs";
+    }
+
+    if (heartsCounter >= 5)
+    {
+        flushSuit = "Hearts";
+    }
+
+    if (spadesCounter >= 5)
+    {
+        flushSuit = "Spades";
+    }
+
+    for (int i = 0; i < cards.size() - 4; ++i) // Check for straight now
+    { 
+
+        if (cards[i]->getSuit() != flushSuit) 
+        {
+            continue; // Skip the card if it doesn't match the flush suit.
+        }
+
+        if (
+            cards[i]->getRank() + 1 == cards[i+1]->getRank() &&
+            cards[i]->getRank() + 2 == cards[i+2]->getRank() &&
+            cards[i]->getRank() + 3 == cards[i+3]->getRank() &&
+            cards[i]->getRank() + 4 == cards[i+4]->getRank() 
+            ) 
+            {
+                return (cards[i]->getRank() + 4) + 400; // Get the value of the strongest card in the straight draw, and since it a straight and a flush add a higher value than before functions.
+            }
+    }
+
+    return -1;
 }
 
 int HandRank::hasRoyalFlush() 
@@ -220,10 +289,15 @@ int HandRank::getFinalRank(vector<Card*> hand)
     int straightVal = hasStraight();
     int flushVal = hasFlush();
     int fullHouseVal = hasFullHouse();
-
     int fourOfKindVal = hasFourOfKind();
+    int straightFlushVal = hasStraightFlush();
 
-    if (fourOfKindVal != -1)
+    if (straightFlushVal != -1)
+    {
+        return straightFlushVal;
+    }
+
+    else if (fourOfKindVal != -1)
     {
         return fourOfKindVal;
     }
