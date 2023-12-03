@@ -4,7 +4,6 @@
 #include <ostream>
 #include "../header/Display.h"
 
-
 using namespace std;
 
 void Display::displayMenu(std::ostream& out)
@@ -154,59 +153,11 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     out << "Pot: " << pot->getPot() << endl;
     out << "Your hand:\n";
     
-    for (int i = 0; i < 2; i++) 
-    { 
-        out << "-----" << "     " ; 
-        
-    } 
-    out << "\n"; 
     
     vector<Card*> cards = player->getHand()->getHand();
 
-    for(const Card* card: cards) { 
-        if(card->getRank() == 10 ) { 
-            out << "| " << card->getSuitSymbol() << "  |" << "    ";  
-        } 
- 
-        else { 
-            out << "| " << card->getSuitSymbol() << " |" << "     "; 
-        } 
-    }
-    out << "\n"; 
-   
-    for (const Card* card: cards) 
-    { 
-        if(card->getRank() == 10 ) 
-        { 
-          out << "| " << card->getRank() << " |" << "    "; 
-        } 
-        else if (card ->getRank() == 1)
-        {
-            out << "| " << "A" << " |" << "     ";
-        }
-        else if (card ->getRank() == 11)
-        {
-            out << "| " << "J" << " |" << "     ";
-        }
-        else if (card ->getRank() == 12)
-        {
-            out << "| " << "Q" << " |" << "     ";
-        }
-        else if (card ->getRank() == 13)
-        {
-            out << "| " << "K" << " |" << "     ";
-        }
-        else 
-        { 
-          out << "| " << card->getRank() << " |" << "     "; 
-        } 
-    } 
-    out << "\n"; 
-    for (int i = 0; i < 2; i++) 
-    { 
-        out << "-----" << "     "; 
-    } 
-    out << "\n"; 
+    displayCards(out, cards);
+    
     // out << "Best combo: " << 
     out << "Community cards:\n"; 
 
@@ -288,6 +239,61 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
 
 }
 
+void Display::displayCards(ostream& out, vector<Card*> cards)
+{
+    for (int i = 0; i < cards.size(); i++) 
+    { 
+        out << "-----" << "     " ; 
+        
+    } 
+    out << "\n"; 
+
+    for(const Card* card: cards) { 
+        if(card->getRank() == 10 ) { 
+            out << "| " << card->getSuitSymbol() << "  |" << "    ";  
+        } 
+ 
+        else { 
+            out << "| " << card->getSuitSymbol() << " |" << "     "; 
+        } 
+    }
+    out << "\n"; 
+   
+    for (const Card* card: cards) 
+    { 
+        if(card->getRank() == 10 ) 
+        { 
+          out << "| " << card->getRank() << " |" << "    "; 
+        } 
+        else if (card ->getRank() == 1)
+        {
+            out << "| " << "A" << " |" << "     ";
+        }
+        else if (card ->getRank() == 11)
+        {
+            out << "| " << "J" << " |" << "     ";
+        }
+        else if (card ->getRank() == 12)
+        {
+            out << "| " << "Q" << " |" << "     ";
+        }
+        else if (card ->getRank() == 13)
+        {
+            out << "| " << "K" << " |" << "     ";
+        }
+        else 
+        { 
+          out << "| " << card->getRank() << " |" << "     "; 
+        } 
+    } 
+    out << "\n"; 
+    for (int i = 0; i < cards.size(); i++) 
+    { 
+        out << "-----" << "     "; 
+    } 
+    out << "\n"; 
+}
+
 
 
 void Display::displayBalanceChanges(std::ostream& out, Player* player, Pot* pot)
@@ -298,14 +304,16 @@ void Display::displayBalanceChanges(std::ostream& out, Player* player, Pot* pot)
 
 void Display::displayGameOver(std::ostream& out)
 {
+    // clearScreen();
     out << "POKER++ \n";
     out << "Thanks for playing! \n :3";
 }
 
 
-void Display::displayWinner(std::ostream& out, Player* player)
+void Display::displayWinner(std::ostream& out, Player* player, Pot* pot)
 {
-    out << player->getName() << "won with a " << player->getHand()->getComboName() << endl;
+    // clearScreen();
+    out << player->getName() << " won " << pot->getPot() << " chips with a " << player->getHand()->getComboName() << endl;
     
 }
 

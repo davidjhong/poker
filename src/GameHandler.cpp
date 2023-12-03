@@ -71,6 +71,8 @@ void GameHandler::startGame()
 
         startGame(cin, cout);
 
+        
+
 
         //
         // for (int i = 0; i < settings->getNumOfRounds(); i++)
@@ -109,6 +111,7 @@ void GameHandler::startGame(istream &is, ostream &os)
 
         Player* winner = roundHandler->startRound(is, os, this->playerList);
 
+        display->displayWinner(os, winner, roundHandler->getPot());
 
         bool continuePlaying = optionToLeave(is, os);
 
@@ -128,7 +131,6 @@ void GameHandler::startGame(istream &is, ostream &os)
 
 bool GameHandler::optionToLeave(istream &is, ostream &os)
 {
-    clearScreen();
     unsigned int round = this->roundHandler->getRound();
 
     os << "Round " << round << " complete!" << endl;
