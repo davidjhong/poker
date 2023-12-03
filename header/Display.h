@@ -9,6 +9,7 @@
 #include "../header/Player.h"
 #include "../header/Settings.h"
 #include "../header/Hand.h"
+#include "../header/RoundHandler.h"
 
 
 using namespace std;
@@ -28,7 +29,7 @@ class Display
         void displaySettings(std::ostream&);
         void displayBetweenTurns(std::ostream&, Player*);
      
-        // void displayWinner(std:: ostream&);
+        void displayWinner(std:: ostream&, Player*);
 
 };
 
