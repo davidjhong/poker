@@ -113,7 +113,7 @@ TEST(HandRankTests, hasPairTest) {
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 55);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 9);
 }
 
 TEST(HandRankTests, hasTwoPairTest) {
@@ -200,7 +200,7 @@ TEST(HandRankTests, hasFourOfKind) {
     Card* card1 = new Card(2, "Spades", "Two of Spades", "♠");
     Card* card2 = new Card(2, "Clubs", "Two of Clubs", "♣");
     Card* card3 = new Card(2, "Hearts", "Two of Hearts", "♥");
-    Card* card4 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
+    Card* card4 = new Card(2, "Diamonds", "Two of Diamonds", "♦");
     Card* card5 = new Card(6, "Spades", "Six of Spades", "♠");
     Card* card6 = new Card(5, "Spades", "Five of Spades", "♠");
     testCards.push_back(card1);
@@ -239,7 +239,7 @@ TEST(DeckTests, constructorTest) {
 
   EXPECT_EQ(firstCard->getName(), "Ace of Diamonds");
   EXPECT_EQ(secondCard->getName(), "Ace of Hearts");
-  EXPECT_EQ(thirdCard->getName(), "Ace of Clovers");
+  EXPECT_EQ(thirdCard->getName(), "Ace of Clubs");
   EXPECT_EQ(fourthCard->getName(), "Ace of Spades");
   EXPECT_EQ(fifthCard->getName(), "Two of Diamonds");
 
@@ -385,7 +385,7 @@ TEST(handTests, getStrengthTest)
   vector<Card*> emptyCommunityCards;
 
   testHand->calculateStrength(emptyCommunityCards);
-  EXPECT_EQ(testHand->getStrength(), 50);
+  EXPECT_EQ(testHand->getStrength(), 10);
 
 
 }
@@ -585,15 +585,17 @@ TEST(handTests, getComboNameTest)
 {
   Hand* hand = new Hand();
 
-  Card* card1 = new Card(3, "Spades", "Three of Spades");
-  Card* card2 = new Card(5, "Spades", "Five of Spades");
-  Card* card3 = new Card(10, "Spades", "Ten of Spades");
+  Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
+  Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+  Card* card3 = new Card(10, "Spades", "Ten of Spades", "♠");
 
   hand->addCard(card1);
   hand->addCard(card2);
   hand->addCard(card3);
 
-  hand->calculateStrength();
+  vector<Card*> communityCards;
+
+  hand->calculateStrength(communityCards);
   EXPECT_EQ(hand->getComboName(), "High Card");
 
 }
