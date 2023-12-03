@@ -8,7 +8,7 @@
 #include "Display.h"
 #include <ostream>
 #include <vector>
-
+#include <fstream>
 
 class GameHandler
 {
@@ -31,6 +31,10 @@ class GameHandler
         ~GameHandler();
         void startGame();
         void addPlayer(const string &playerName);
+
+        void saveToFile(string);
+        void loadFromFile(string);
+        vector<Player*> getPlayerList();
 };
 
 #endif
