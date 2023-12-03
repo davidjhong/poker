@@ -15,10 +15,13 @@ class GameHandler
     private:
         Settings* settings;
         RoundHandler* roundHandler;
-        vector<Player*> playerList;
+        vector<Player*> *playerList;
         Display* display;
         bool gameRunning;
 
+        void gameSetup(istream&, ostream&);
+        void startGame(istream&, ostream&);
+        bool optionToLeave(istream&m, ostream&);
 
         void settingsMenu(ostream&);
         void rulesMenu(ostream&);

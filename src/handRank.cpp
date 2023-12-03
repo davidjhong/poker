@@ -188,6 +188,10 @@ int HandRank::hasFullHouse()
 
 int HandRank::hasFourOfKind() 
 {
+    if (cards.size() < 4)
+    {
+        return -1;
+    }
     for (int i = 0; i < cards.size()-3; i++) 
     {
         if (cards[i]->getRank() == cards[i+1]->getRank() && cards[i+1]->getRank() == cards[i+2]->getRank() && cards[i+2]->getRank() == cards[i+3]->getRank()) 
@@ -304,7 +308,6 @@ int HandRank::getFinalRank(vector<Card*> hand)
 {
     this->cards = hand;
     sort(cards.begin(), cards.end(), comp); // sort the cards in ascending order
-
     // highcard - lowest ranking, royal flush - highest ranking
     int highCard = hasHighCard();
     int pairVal = hasPair();

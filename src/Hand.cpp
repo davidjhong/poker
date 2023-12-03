@@ -9,14 +9,6 @@ Hand::Hand()
     this->strength = 0;
 }
 
-Hand::~Hand(){
-    int handSize = hand.size();
-    handSize--;
-    for(int i = handSize; i <= 0; i--) {
-        delete hand.at(i);
-    }
-}
-
 Hand::Hand(vector<Card*> cards) {
     for (int i = 0; i < cards.size(); i++) {
         hand.push_back(cards[i]);
@@ -34,22 +26,60 @@ Card* Hand::getCard(int i) const {
     }
 }
 
-void Hand::calculateStrength()
+void Hand::calculateStrength(vector<Card*> &communityCards)
 {
     HandRank* handRanker = new HandRank();
+
+    vector<Card*> allCards;
     
-    this->strength = handRanker->getFinalRank(this->hand);
+    for (Card* card: hand)
+    {
+        allCards.push_back(card);
+    }
+
+    for (Card* card: communityCards)
+    {
+        allCards.push_back(card);
+    }
+    
+    this->strength = handRanker->getFinalRank(allCards);
 
     delete handRanker;
 }
 
 void Hand::addCard(Card* newCard)
 {
-    assert(hand.size() < 7 && "Tried adding card to a hand of 7 cards, which is the max");
+    // cout << hand.size() << endl;
+    assert(hand.size() < 2 && "Tried adding card to a hand of 2 cards, which is the max");
 
     this->hand.push_back(newCard);
     
-    return;
+}
+
+string Hand::getComboName()
+{
+    if (strength <= 50)
+    {
+        return "High Card";
+    }
+    else if (strength <= 100)
+    {
+        return "Pair";
+    }
+    else if (strength <= 150)
+    {
+        return "Two Pair";
+    }
+    else if (strength <= 200)
+    {
+        return "Three of a Kind";
+    }
+    else if (strength <= 250)
+    {
+        return "Straight";
+    }
+    //else if() flush 
+    //
 }
 
 void Hand::clearHand()
