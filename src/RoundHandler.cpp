@@ -101,6 +101,7 @@ Player* RoundHandler::lookForWinner(vector<Player*> *playerList)
     {
         if (player->getIsPlaying())
         {
+            player->addToBalance(pot->getPot());
             return player;
         }
     }
