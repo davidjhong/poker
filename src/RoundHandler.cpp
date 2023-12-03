@@ -63,44 +63,29 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
         // }
     }
 
-    cardInsert(3);
-
     int currPlayerIndex = (bigBlindIndex + 1) % playerCount;
-
     if (startBettingStage(is, os, playerList, currPlayerIndex))
     {
         return lookForWinner(playerList);
     }
 
-    for (Card* card: communityCards)
-    {
-        cout << card->getName() << " ";
-    }
-    cout << endl;
+
+    cardInsert(3);
 
     int afterDealerIndex = (dealerIndex + 1) % playerCount;
-
     if (startBettingStage(is, os, playerList, afterDealerIndex))
     {
         return lookForWinner(playerList);
     }
 
-    // Card* nextCard = this->deck->nextCard();
-    // communityCards.push_back(nextCard);
+
     cardInsert(1);
 
-    for (Card* card: communityCards)
-    {
-        cout << card->getName() << " ";
-    }
-    cout << endl;
-
     if (startBettingStage(is, os, playerList, afterDealerIndex))
     {
         return lookForWinner(playerList);
     }
-    // nextCard = this->deck->nextCard();
-    // communityCards.push_back(nextCard);
+
     cardInsert(1);
 
     if (startBettingStage(is, os, playerList, afterDealerIndex))
