@@ -382,6 +382,7 @@ void GameHandler::cardRankingMenu(ostream &os)
 
 void GameHandler::saveToFile(string fileName) {
     ofstream saveFile(fileName);
+    saveFile.open(fileName);
     if(!saveFile.is_open()) {
         cout << "Save File COULD NOT BE OPENED." << endl;
         return;
