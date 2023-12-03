@@ -16,6 +16,7 @@ public:
    void resetPot();
    void addToPot(int);
    int getHighestBet() const;
+   void setHighestBet(int);
 
 
 private:

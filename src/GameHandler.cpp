@@ -36,7 +36,7 @@ GameHandler::~GameHandler()
         delete playerList->at(i);
     }
     
-    delete playerList;
+    delete this->playerList;
     delete this->settings;
     delete this->roundHandler;
 }
@@ -69,6 +69,8 @@ void GameHandler::startGame()
 
         gameSetup(cin, cout);
 
+        startGame(cin, cout);
+
 
         //
         // for (int i = 0; i < settings->getNumOfRounds(); i++)
@@ -79,7 +81,7 @@ void GameHandler::startGame()
     }
 }
 
-void GameHandler::gameSetup(istream& is, ostream& os)
+void GameHandler::gameSetup(istream &is, ostream &os)
 {
     const unsigned int playerCount = this->settings->getNumPlayers();
     string username;
@@ -93,6 +95,37 @@ void GameHandler::gameSetup(istream& is, ostream& os)
     }
 
 }
+
+void GameHandler::startGame(istream &is, ostream &os)
+{
+    const unsigned int numOfRounds = this->settings->getNumOfRounds();
+
+    this->roundHandler->setSettings(this->settings);
+    
+    for (int i = 0; i < numOfRounds; i++)
+    {
+        clearScreen();
+        os << "Round " << i + 1 << "!" << endl;
+
+        Player* winner = roundHandler->startRound(is, os, this->playerList);
+
+        // resetPlayers();
+        this->roundHandler->resetRound(this->playerList);
+        // communityCards.clear();
+
+    }
+
+}
+
+// void GameHandler::resetPlayers()
+// {
+//     for (Player* player: *playerList)
+//     {
+//         player->clearCurrentBet();
+//         player->resetHand();
+//         player->setIsPlaying(true);
+//     }
+// }
 
 
 

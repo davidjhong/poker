@@ -33,22 +33,34 @@ Card* Hand::getCard(int i) const {
     }
 }
 
-void Hand::calculateStrength()
+void Hand::calculateStrength(vector<Card*> &communityCards)
 {
     HandRank* handRanker = new HandRank();
+
+    vector<Card*> allCards;
     
-    this->strength = handRanker->getFinalRank(this->hand);
+    for (Card* card: hand)
+    {
+        allCards.push_back(card);
+    }
+
+    for (Card* card: communityCards)
+    {
+        allCards.push_back(card);
+    }
+    
+    this->strength = handRanker->getFinalRank(allCards);
 
     delete handRanker;
 }
 
 void Hand::addCard(Card* newCard)
 {
+    // cout << hand.size() << endl;
     assert(hand.size() < 7 && "Tried adding card to a hand of 7 cards, which is the max");
 
     this->hand.push_back(newCard);
     
-    return;
 }
 
 string Hand::getComboName()

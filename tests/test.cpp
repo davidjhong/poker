@@ -57,7 +57,7 @@ TEST(playerTests, currentBetTests) {
 // Card Test Suite
 
 TEST(CardTests, typicalCardTest) {
-  Card* testCard = new Card(3, "Spades", "Three of Spades");
+  Card* testCard = new Card(3, "Spades", "Three of Spades", "♠");
 
   EXPECT_EQ(testCard->getRank(), 3);
   EXPECT_EQ(testCard->getSuit(), "Spades");
@@ -82,10 +82,10 @@ class StubHand {
 
 TEST(HandRankTests, hasHighCardTest) {
     vector<Card*> testCards;
-    Card* card1 = new Card(1, "Spades", "One of Spades");
-    Card* card2 = new Card(5, "Spades", "Five of Spades");
-    Card* card3 = new Card(3, "Hearts", "Three of Hearts");
-    Card* card4 = new Card(9, "Spades", "Nine of Spades");
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card3 = new Card(3, "Hearts", "Three of Hearts", "♥");
+    Card* card4 = new Card(9, "Spades", "Nine of Spades", "♠");
     testCards.push_back(card1);
     testCards.push_back(card2);
     testCards.push_back(card3);
@@ -94,17 +94,17 @@ TEST(HandRankTests, hasHighCardTest) {
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 50);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 9);
 }
 
 
 TEST(HandRankTests, hasPairTest) {
 
     vector<Card*> testCards;
-    Card* card1 = new Card(1, "Spades", "One of Spades");
-    Card* card2 = new Card(5, "Spades", "Five of Spades");
-    Card* card3 = new Card(6, "Hearts", "Six of Hearts");
-    Card* card4 = new Card(5, "Spades", "Five of Spades");
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card3 = new Card(3, "Hearts", "Three of Hearts", "♥");
+    Card* card4 = new Card(9, "Spades", "Nine of Spades", "♠");
     testCards.push_back(card1);
     testCards.push_back(card2);
     testCards.push_back(card3);
@@ -113,50 +113,16 @@ TEST(HandRankTests, hasPairTest) {
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 100);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 55);
 }
 
 TEST(HandRankTests, hasTwoPairTest) {
     vector<Card*> testCards;
-    Card* card1 = new Card(1, "Spades", "One of Spades");
-    Card* card2 = new Card(5, "Spades", "Five of Spades");
-    Card* card3 = new Card(1, "Hearts", "One of Hearts");
-    Card* card4 = new Card(5, "Spades", "Five of Spades");
-    testCards.push_back(card1);
-    testCards.push_back(card2);
-    testCards.push_back(card3);
-    testCards.push_back(card4);
-
-    StubHand* testHand = new StubHand(testCards);
-    HandRank* handRanker = new HandRank();
-    
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 150);
-}
-
-TEST(HandRankTests, hasThreeOfKindTest) {
-    vector<Card*> testCards;
-    Card* card1 = new Card(1, "Spades", "One of Spades");
-    Card* card2 = new Card(1, "Clubs", "One of Clubs");
-    Card* card3 = new Card(1, "Hearts", "One of Hearts");
-    Card* card4 = new Card(5, "Spades", "Five of Spades");
-    testCards.push_back(card1);
-    testCards.push_back(card2);
-    testCards.push_back(card3);
-    testCards.push_back(card4);
-
-    StubHand* testHand = new StubHand(testCards);
-    HandRank* handRanker = new HandRank();
-    
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 200);
-}
-
-TEST(HandRankTests, hasStraightTest) {
-    vector<Card*> testCards;
-    Card* card1 = new Card(1, "Spades", "One of Spades");
-    Card* card2 = new Card(2, "Clubs", "Two of Clubs");
-    Card* card3 = new Card(3, "Hearts", "Three of Hearts");
-    Card* card4 = new Card(4, "Spades", "Four of Spades");
-    Card* card5 = new Card(5, "Spades", "Five of Spades");
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card3 = new Card(1, "Hearts", "One of Hearts", "♥");
+    Card* card4 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card5 = new Card(8, "Spades", "Eight of Spades", "♠");
     testCards.push_back(card1);
     testCards.push_back(card2);
     testCards.push_back(card3);
@@ -166,7 +132,88 @@ TEST(HandRankTests, hasStraightTest) {
     StubHand* testHand = new StubHand(testCards);
     HandRank* handRanker = new HandRank();
     
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 250);
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 105);
+}
+
+TEST(HandRankTests, hasThreeOfKindTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(1, "Clubs", "One of Clubs", "♣");
+    Card* card3 = new Card(6, "Spades", "Six of Spades", "♠");
+    Card* card4 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card5 = new Card(1, "Hearts", "One of Hearts", "♥");
+
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 151);
+}
+
+TEST(HandRankTests, hasStraightTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(2, "Clubs", "Two of Clubs", "♣");
+    Card* card3 = new Card(3, "Hearts", "Three of Hearts", "♥");
+    Card* card4 = new Card(4, "Spades", "Four of Spades", "♠");
+    Card* card5 = new Card(5, "Spades", "Five of Spades", "♠");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 205);
+}
+
+TEST(HandRankTests, hasFullHouse) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card2 = new Card(2, "Clubs", "Two of Clubs", "♣");
+    Card* card3 = new Card(2, "Hearts", "Two of Hearts", "♥");
+    Card* card4 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
+    Card* card5 = new Card(6, "Spades", "Six of Spades", "♠");
+    Card* card6 = new Card(5, "Spades", "Five of Spades", "♠");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+    testCards.push_back(card6);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 308);
+}
+
+TEST(HandRankTests, hasFourOfKind) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card2 = new Card(2, "Clubs", "Two of Clubs", "♣");
+    Card* card3 = new Card(2, "Hearts", "Two of Hearts", "♥");
+    Card* card4 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
+    Card* card5 = new Card(6, "Spades", "Six of Spades", "♠");
+    Card* card6 = new Card(5, "Spades", "Five of Spades", "♠");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+    testCards.push_back(card6);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 352);
 }
 
 
@@ -228,8 +275,8 @@ TEST(handTests, emptyHandTest)
 }
 
 TEST(handTests, handConstructorTest) {
-  Card* jack = new Card(11, "Spades", "Jack of Spades");
-  Card* queen = new Card(12, "Heart", "Queen of Hearts");
+  Card* jack = new Card(11, "Spades", "Jack of Spades", "♠");
+  Card* queen = new Card(12, "Heart", "Queen of Hearts", "♥");
   vector<Card*> jackQueen = {jack, queen};
 
 
@@ -244,10 +291,10 @@ TEST(handTests, getHandFilledHandTest)
 {
   Hand* testHand = new Hand();
   
-  Card* card1 = new Card(1, "Spades", "Ace of Spades");
-  Card* card2 = new Card(2, "Spades", "Two of Spades");
-  Card* card3 = new Card(3, "Diamonds", "Three of Diamonds");
-  Card* card4 = new Card(4, "Hearts", "Four of Hearts");
+  Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
+  Card* card2 = new Card(2, "Spades", "Two of Spades", "♠");
+  Card* card3 = new Card(3, "Diamonds", "Three of Diamonds", "♦");
+  Card* card4 = new Card(4, "Hearts", "Four of Hearts", "♥");
 
   testHand->addCard(card1);
   testHand->addCard(card2);
@@ -262,13 +309,13 @@ TEST(handTests, expectDeathMaxHandTest)
 {
   Hand* testHand = new Hand();
 
-  Card* card1 = new Card(3, "Spades", "Three of Spades");
-  Card* card2 = new Card(5, "Spades", "Five of Spades");
-  Card* card3 = new Card(10, "Spades", "Ten of Spades");
-  Card* card4 = new Card(4, "Spades", "Four of Spades");
-  Card* card5 = new Card(2, "Spades", "Two of Spades");
-  Card* card6 = new Card(1, "Spades", "One of Spades");
-  Card* card7 = new Card(11, "Spades", "Jack of Spades");
+  Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
+  Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+  Card* card3 = new Card(10, "Spades", "Ten of Spades", "♠");
+  Card* card4 = new Card(4, "Spades", "Four of Spades", "♠");
+  Card* card5 = new Card(2, "Spades", "Two of Spades", "♠");
+  Card* card6 = new Card(1, "Spades", "One of Spades", "♠");
+  Card* card7 = new Card(11, "Spades", "Jack of Spades", "♠");
   
   testHand->addCard(card1);
   testHand->addCard(card2);
@@ -278,7 +325,7 @@ TEST(handTests, expectDeathMaxHandTest)
   testHand->addCard(card6);
   testHand->addCard(card7);
 
-  Card* overflowCard = new Card(5, "Hearts", "Five of Hearts");
+  Card* overflowCard = new Card(5, "Hearts", "Five of Hearts", "♥");
 
   EXPECT_DEATH(testHand->addCard(overflowCard), "Tried adding card to a hand of 7 cards, which is the max");
 }
@@ -287,9 +334,9 @@ TEST(handTests, ThreeCardHandNameTest)
 {
   Hand* testHand = new Hand();
 
-  Card* card1 = new Card(3, "Spades", "Three of Spades");
-  Card* card2 = new Card(5, "Spades", "Five of Spades");
-  Card* card3 = new Card(10, "Spades", "Ten of Spades");
+  Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
+  Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+  Card* card3 = new Card(10, "Spades", "Ten of Spades", "♠");
 
   testHand->addCard(card1);
   testHand->addCard(card2);
@@ -308,9 +355,9 @@ TEST(handTests, clearHandTest)
 {
   Hand* testHand = new Hand();
 
-  Card* card1 = new Card(3, "Spades", "Three of Spades");
-  Card* card2 = new Card(5, "Spades", "Five of Spades");
-  Card* card3 = new Card(10, "Spades", "Ten of Spades");
+  Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
+  Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+  Card* card3 = new Card(10, "Spades", "Ten of Spades", "♠");
 
   testHand->addCard(card1);
   testHand->addCard(card2);
@@ -327,16 +374,19 @@ TEST(handTests, getStrengthTest)
 {
   Hand* testHand = new Hand();
 
-  Card* card1 = new Card(3, "Spades", "Three of Spades");
-  Card* card2 = new Card(5, "Spades", "Five of Spades");
-  Card* card3 = new Card(10, "Spades", "Ten of Spades");
+  Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
+  Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+  Card* card3 = new Card(10, "Spades", "Ten of Spades", "♠");
 
   testHand->addCard(card1);
   testHand->addCard(card2);
   testHand->addCard(card3);
 
-  testHand->calculateStrength();
+  vector<Card*> emptyCommunityCards;
+
+  testHand->calculateStrength(emptyCommunityCards);
   EXPECT_EQ(testHand->getStrength(), 50);
+
 
 }
 
@@ -427,13 +477,13 @@ TEST(DisplayTest, displayGameStatusTest)
   Hand* hand = new Hand();
   
   
-  Card* card1 = new Card(1, "♤", "Ace of Spades");
-  Card* card2 = new Card(5, "♤", "Two of Spades");
-  Card* card3 = new Card(11, "♢", "Three of Diamonds");
-  Card* card4 = new Card(6, "♢", "Five of Diamonds");
-  Card* card5 = new Card(3, "♡", "Ten of Hearts");
-  Card* card6 = new Card(12, "♡", "Nine of Hearts");
-  Card* card7 = new Card(10, "♧", "Eight of Clovers");
+  Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
+  Card* card2 = new Card(5, "Spades", "Two of Spades", "♠");
+  Card* card3 = new Card(11, "Diamonds", "Three of Diamonds", "♦");
+  Card* card4 = new Card(6, "Diamonds", "Five of Diamonds", "♦");
+  Card* card5 = new Card(3, "Hearts", "Ten of Hearts", "♥");
+  Card* card6 = new Card(12, "Hearts", "Nine of Hearts", "♥");
+  Card* card7 = new Card(10, "Clubs", "Eight of Clubs", "♣");
   
   hand->addCard(card1);
   hand->addCard(card2);
@@ -452,22 +502,24 @@ TEST(DisplayTest, displayGameStatusTest)
 
   ostringstream out; 
   Display displayStats;
-  displayStats.displayGameStatus(out, cards, communityCards, player, pot);
+
+  displayStats.displayGameStatus(out, communityCards, player, pot);
 
   EXPECT_EQ(out.str(),
     "chloe, it's your turn!\n"
     "You have 200 chips\n"
     "Pot: 100\n"
     "Your hand:\n"
-    "-----     -----\n"   
-    "| ♤ |     | ♤ |\n"    
-    "| A |     | 5 |\n"
-    "-----     -----\n"     
-    "Community cards:\n"
-    "-----     -----     -----     -----     -----\n"     
-    "| ♢ |     | ♢ |     | ♡ |     | ♡ |     | ♧  |\n"   
-    "| J |     | 6 |     | 3 |     | Q |     | 10 |\n"   
-    "-----     -----     -----     -----     ----- \n"  
+
+    " ----\n"
+    "| ♠ |\n"
+    "| A |\n"
+    " ----\n"
+    "Community cards:"
+    " ----\n"
+    "| ♠ |\n"
+    "| 2 |\n"
+    " ----\n"
     "1. call\n"
     "2. raise\n"
     "3. check\n"

@@ -21,6 +21,10 @@ class GameHandler
         bool gameRunning;
 
         void gameSetup(istream&, ostream&);
+        void startGame(istream&, ostream&);
+
+        void resetPlayers();
+
         void settingsMenu(ostream&);
         void rulesMenu(ostream&);
         void menuOptions(ostream&);

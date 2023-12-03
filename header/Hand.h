@@ -19,7 +19,7 @@ class Hand {
         void clearHand();
 
         int getStrength() const;
-        void calculateStrength();
+        void calculateStrength(vector<Card*>&);
 
         string getComboName();
         

@@ -146,7 +146,8 @@ void Display::displayCardRankings(std::ostream& out)
     out << "q) back to menu \n";
 }
 
-void Display::displayGameStatus(std::ostream& out, vector<Card*> cards, vector<Card*> communityCards, Player* player, Pot* pot)
+
+void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards, Player* player, Pot* pot)
 {
     out << player->getName() << ", it's your turn!" << endl;
     out << "You have " << player->getBalance() << " chips" << endl;
@@ -158,16 +159,17 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> cards, vector<C
         out << "-----" << "     " ; 
     } 
     out << "\n"; 
- 
-    for(const Card* card: cards) 
-    { 
-        if(card->getRank() == 10 ) 
-        { 
-            out << "|  " << card->getSuit() << "  |" << "   "; 
+
+
+    vector<Card*> cards = player->getHand()->getHand();
+
+    for(const Card* card: cards) { 
+        if(card->getRank() == 10 ) { 
+            out << "|  " << card->getSuitSymbol() << "  |" << "   "; 
         } 
-        else 
-        { 
-            out << "| " << card->getSuit() << " |" << "     "; 
+ 
+        else { 
+            out << "| " << card->getSuitSymbol() << " |" << "     "; 
         } 
     }
     out << "\n"; 
@@ -213,16 +215,14 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> cards, vector<C
     } 
     out << "\n"; 
   
-    for(const Card* card: communityCards) 
-    { 
-        if(card->getRank() == 10 ) 
-        { 
-            out << "| " << card->getSuit() << "  | " << "   "; 
+
+    for(const Card* card: communityCards) { 
+        if(card->getRank() == 10 ) { 
+            out << "| " << card->getSuitSymbol() << "  | " << "   "; 
         } 
        
-        else 
-        { 
-            out << "| " << card->getSuit() << " |" << "     "; 
+        else { 
+            out << "| " << card->getSuitSymbol() << " |" << "     "; 
         } 
     }
 

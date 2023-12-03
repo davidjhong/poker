@@ -21,7 +21,6 @@ public:
    void setBalance(unsigned int);
    void setName(string);
    void addToBalance(unsigned int);
-   int getBestHand();
    int getBalance();
    Hand* getHand();
    string getName();
@@ -30,13 +29,14 @@ public:
    void setCurrentBet(int);
    void clearCurrentBet();
 
+   void resetHand();
+
    bool getIsPlaying() const;
    void setIsPlaying(bool);
 
 private:
    int currentBet = 0;
    Hand* hand;
-   int bestHand;
    int balance;
    bool isPlaying;
    string name;

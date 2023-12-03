@@ -5,6 +5,8 @@
 Player::Player() {
     name = "";
     balance = 0;
+    this->hand = new Hand();
+    this->isPlaying = true;
 }
 
 Player::Player(string name, int balance) {
@@ -18,8 +20,8 @@ Player::~Player() {
     delete hand;
 }
 
-int Player::getBestHand() {
-    return bestHand;
+void Player::resetHand() {
+    this->hand->clearHand();
 }
 
 int Player::getBalance() {
