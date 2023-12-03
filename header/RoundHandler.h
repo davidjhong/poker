@@ -20,7 +20,6 @@ class RoundHandler {
 
         bool startBettingStage(istream&, ostream&, vector<Player*>*, int);
 
-        Player* lookForWinner(vector<Player*>*);
         void blindInput(Player*, int);
         void cardInsert(int);
 
@@ -35,7 +34,8 @@ class RoundHandler {
         ~RoundHandler();
         unsigned int getRound() const;
         Pot* getPot() const;
-        Player* startRound(istream&, ostream&, vector<Player*>*);
+        vector<Player*> lookForWinner(vector<Player*>*);
+        vector<Player*> startRound(istream&, ostream&, vector<Player*>*);
         void resetRound(vector<Player*>*);
         void setSettings(Settings*);
 };
