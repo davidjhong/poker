@@ -213,8 +213,9 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
 
             if (!valid)
             {
-                os << "Invalid decision. Try again." << endl;
-                // display->displayGameStatus(os, currPlayer, currPlayer->getHand(), pot);
+                clearScreen();
+                display->displayGameStatus(os, communityCards, currPlayer, pot);
+                os << "Your previous decision was invalid. Try again." << endl;
                 is.clear();
                 is.ignore(256, '\n');
                 is >> choice;
@@ -283,13 +284,13 @@ bool RoundHandler::call(ostream& out, Player* currPlayer) {
 
 bool RoundHandler::raise(istream& is, ostream& out, Player* currPlayer) {
     int raiseTo;
-    out << "How much would you like to raise?" << endl;
+    out << "What would you like to raise your bet to?" << endl;
     // is >> raiseTo;
     // raise has to be bigger than highestBet
-    while(!(is >> raiseTo)) {
+    while(!(is >> raiseTo) || raiseTo < pot->getHighestBet()) {
         is.clear();
         is.ignore(256, '\n');
-        out << "Please enter a valid number." << endl;
+        out << "Please enter a valid number above the highest bet: " << pot->getHighestBet() << endl;
     } 
 
     if(raiseTo > pot->getHighestBet()) {
@@ -298,8 +299,6 @@ bool RoundHandler::raise(istream& is, ostream& out, Player* currPlayer) {
         pot->addToPot(raiseTo - currPlayer->getCurrentBet());
         pot->setHighestBet(raiseTo + currPlayer->getCurrentBet());
         currPlayer->setCurrentBet(raiseTo + currPlayer->getCurrentBet());
-
-
 
 
         out << "New highest bet: " << pot->getHighestBet() << endl;
