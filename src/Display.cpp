@@ -150,7 +150,7 @@ void Display::displayCardRankings(std::ostream& out)
 void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards, Player* player, Pot* pot)
 {
     out << player->getName() << ", it's your turn!" << endl;
-    out << "You have " << player->getBalance() << " chips" << endl;
+    out << "You have " << player->getBalance() << " chips\n" << endl;
     out << "Pot: " << pot->getPot() << endl;
     out << "Your hand:\n";
     
@@ -159,13 +159,12 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
         out << "-----" << "     " ; 
     } 
     out << "\n"; 
-
-
+    
     vector<Card*> cards = player->getHand()->getHand();
 
     for(const Card* card: cards) { 
         if(card->getRank() == 10 ) { 
-            out << "|  " << card->getSuitSymbol() << "  |" << "   "; 
+            out << "| " << card->getSuitSymbol() << "  |" << "   ";  //space b4 line
         } 
  
         else { 
@@ -285,17 +284,15 @@ void Display::displayGameOver(std::ostream& out)
 }
 
 
-// void Display::displayWinner(std::ostream& out)
-// {
-//     out << player->getName() << ", it's your turn!" << endl;
-// }
-// winner (player1?) ->getBestHand << " > " <<player2?->getBesthand()
-// winner (player1?) ->getBestHand << " " <<player2?->getBesthand()
-//out << "Pot: " << pot->getPot() << endl;
-// winner(player1?)->getName << "wins!";
-
-void Display::displayBetweenTurns(std::ostream& out)
+void Display::displayWinner(std::ostream& out, Player* player)
 {
-    out << "Next Player's turn...\n";
-    out << "don't look!";
+    out << player->getName() << "won with a " << player->getHand()->getComboName() << endl;
+    
+}
+
+
+void Display::displayBetweenTurns(std::ostream& out, Player* player)
+{
+    out << player->getName() << "'s turn\n";
+    out << "Enter 1 to continue\n";
 }

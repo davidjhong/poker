@@ -13,6 +13,7 @@ class RoundHandler {
         Display* display;
         Settings* settings;
         unsigned int dealerIndex;
+        unsigned int roundNumber;
         Pot* pot;
         Deck* deck;
         vector<Card*> communityCards;
@@ -32,6 +33,7 @@ class RoundHandler {
     public:
         RoundHandler();
         ~RoundHandler();
+        unsigned int getRound() const;
         Player* startRound(istream&, ostream&, vector<Player*>*);
         void resetRound(vector<Player*>*);
         void setSettings(Settings*);

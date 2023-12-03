@@ -102,32 +102,61 @@ void GameHandler::startGame(istream &is, ostream &os)
 
     this->roundHandler->setSettings(this->settings);
     
-    for (int i = 0; i < numOfRounds; i++)
+    for (int round = 1; round <= numOfRounds; round++)
     {
         clearScreen();
-        os << "Round " << i + 1 << "!" << endl;
+        // os << "Round " << round + 1 << "!" << endl;
 
         Player* winner = roundHandler->startRound(is, os, this->playerList);
 
-        // resetPlayers();
+
+        bool continuePlaying = optionToLeave(is, os);
+
+        if (!continuePlaying)
+        {
+            return;
+        }
+        
         this->roundHandler->resetRound(this->playerList);
-        // communityCards.clear();
+
 
     }
 
+    // credits Screen
+
 }
 
-// void GameHandler::resetPlayers()
-// {
-//     for (Player* player: *playerList)
-//     {
-//         player->clearCurrentBet();
-//         player->resetHand();
-//         player->setIsPlaying(true);
-//     }
-// }
+bool GameHandler::optionToLeave(istream &is, ostream &os)
+{
+    clearScreen();
+    unsigned int round = this->roundHandler->getRound();
 
+    os << "Round " << round << " complete!" << endl;
+    os << "Would you like to continue playing?" << endl;
+    os << "1. yes" << endl;
+    os << "2. no" << endl;
 
+    int input = 0;
+
+    while (!(is >> input) || (input != 1 && input != 2))
+    {
+        clearScreen();
+        os << "Round " << round << " complete!" << endl;
+        os << "Would you like to continue playing?" << endl;
+        os << "1. yes" << endl;
+        os << "2. no" << endl;
+        os << "Invalid input. Try again" << endl;
+
+        is.clear();
+        is.ignore(256, '\n');
+    }
+
+    if (input == 1)
+    {
+        return true;
+    }
+    return false;
+}
 
 void GameHandler::menuOptions(ostream &os)
 {
@@ -413,4 +442,3 @@ void GameHandler::cardRankingMenu(ostream &os)
 
     }
 }
-
