@@ -165,6 +165,8 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
     // betting stage
     for (int i = 0; i < playerCount; i++)
     {
+
+        clearScreen();
         
         // os << "index: " << currPlayerIndex << endl;
         Player* currPlayer = playerList->at(currPlayerIndex);
@@ -224,11 +226,24 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             {
                 os << "Invalid decision. Try again." << endl;
                 // display->displayGameStatus(os, currPlayer, currPlayer->getHand(), pot);
+                is.clear();
+                is.ignore(256, '\n');
                 is >> choice;
             }
         }
 
         currPlayerIndex = (currPlayerIndex + 1) % playerCount;
+
+        int value = 0;
+
+        do {
+            clearScreen();
+            display->displayBetweenTurns(os);
+            is.clear();
+            is.ignore(256, '\n');
+        }
+        while (!(is >> value));
+
         
     }
     return false;
