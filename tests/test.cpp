@@ -248,7 +248,51 @@ TEST(HandRankTests, hasStraightFlushTest2) {
     ASSERT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 406);
 }
 
+TEST(HandRankTests, hasRoyalFlushTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(2, "Spades", "Two of Spades");
+    Card* card2 = new Card(3, "Spades", "Three of Spades");
+    Card* card3 = new Card(10, "Diamonds", "Ten of Diamonds");
+    Card* card4 = new Card(11, "Diamonds", "Jack of Diamonds");
+    Card* card5 = new Card(12, "Diamonds", "Queen of Diamonds");
+    Card* card6 = new Card(13, "Diamonds", "King of Diamonds");
+    Card* card7 = new Card(14, "Diamonds", "Ace of Diamonds");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+    testCards.push_back(card6);
+    testCards.push_back(card7);
 
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 464);
+}
+
+TEST(HandRankTests, hasRoyalFlushTest2) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(2, "Spades", "Two of Spades");
+    Card* card2 = new Card(13, "Diamonds", "King of Diamonds");
+    Card* card3 = new Card(10, "Diamonds", "Ten of Diamonds");
+    Card* card4 = new Card(11, "Diamonds", "Jack of Diamonds");
+    Card* card5 = new Card(12, "Diamonds", "Queen of Diamonds");
+    Card* card6 = new Card(3, "Diamonds", "Three of Diamonds");
+    Card* card7 = new Card(14, "Diamonds", "Ace of Diamonds");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+    testCards.push_back(card6);
+    testCards.push_back(card7);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 464);
+}
 
 // Pot Test Suite
 
