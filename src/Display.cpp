@@ -293,9 +293,3 @@ void Display::displayGameOver(std::ostream& out)
 // winner (player1?) ->getBestHand << " " <<player2?->getBesthand()
 //out << "Pot: " << pot->getPot() << endl;
 // winner(player1?)->getName << "wins!";
-
-void Display::displayBetweenTurns(std::ostream& out)
-{
-    out << "Next Player's turn...\n";
-    out << "don't look!";
-}
