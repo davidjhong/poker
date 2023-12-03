@@ -159,8 +159,7 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
         out << "-----" << "     " ; 
     } 
     out << "\n"; 
-
-
+    
     vector<Card*> cards = player->getHand()->getHand();
 
     for(const Card* card: cards) { 
