@@ -146,6 +146,7 @@ void Display::displayCardRankings(std::ostream& out)
     out << "q) back to menu \n";
 }
 
+
 void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards, Player* player, Pot* pot)
 {
     out << player->getName() << ", it's your turn!" << endl;
@@ -153,10 +154,12 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     out << "Pot: " << pot->getPot() << endl;
     out << "Your hand:\n";
     
-    for (int i = 0; i < 2; i++) { 
+    for (int i = 0; i < 2; i++) 
+    { 
         out << "-----" << "     " ; 
     } 
     out << "\n"; 
+
 
     vector<Card*> cards = player->getHand()->getHand();
 
@@ -171,8 +174,10 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     }
     out << "\n"; 
    
-    for (const Card* card: cards) { 
-        if(card->getRank() == 10 ) { 
+    for (const Card* card: cards) 
+    { 
+        if(card->getRank() == 10 ) 
+        { 
           out << "| " << card->getRank() << " |" << "    "; 
         } 
         else if (card ->getRank() == 1)
@@ -191,22 +196,26 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
         {
             out << "| " << "K" << " |" << "     ";
         }
-        else { 
+        else 
+        { 
           out << "| " << card->getRank() << " |" << "     "; 
-     } 
-} 
+        } 
+    } 
     out << "\n"; 
-    for (int i = 0; i < 2; i++) { 
+    for (int i = 0; i < 2; i++) 
+    { 
         out << "-----" << "     "; 
     } 
     out << "\n"; 
     // out << "Best combo: " << 
     out << "Community cards:\n"; 
-    for (int i = 0; i < (int)communityCards.size(); i++) { 
+    for (int i = 0; i < (int)communityCards.size(); i++) 
+    { 
         out << "-----" << "     " ; 
     } 
     out << "\n"; 
   
+
     for(const Card* card: communityCards) { 
         if(card->getRank() == 10 ) { 
             out << "| " << card->getSuitSymbol() << "  | " << "   "; 
@@ -220,8 +229,10 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     out << "\n"; 
     
 
-    for (const Card* card: communityCards) { 
-        if(card->getRank() == 10 ) { 
+    for (const Card* card: communityCards) 
+    { 
+        if(card->getRank() == 10 ) 
+        { 
           out << "| " << card->getRank() << " |" << "    "; 
         } 
         else if (card ->getRank() == 1)
@@ -240,12 +251,14 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
         {
             out << "| " << "K" << " |" << "     ";
         }
-        else { 
+        else 
+        { 
           out << "| " << card->getRank() << " |" << "     "; 
         } 
     }
     out << "\n"; 
-    for (int i = 0; i < (int)communityCards.size(); i++) { 
+    for (int i = 0; i < (int)communityCards.size(); i++)
+    { 
         out << "-----" << "     "; 
     } 
     out << "\n";

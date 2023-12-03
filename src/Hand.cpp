@@ -63,6 +63,32 @@ void Hand::addCard(Card* newCard)
     
 }
 
+string Hand::getComboName()
+{
+    if (strength <= 50)
+    {
+        return "High Card";
+    }
+    else if (strength <= 100)
+    {
+        return "Pair";
+    }
+    else if (strength <= 150)
+    {
+        return "Two Pair";
+    }
+    else if (strength <= 200)
+    {
+        return "Three of a Kind";
+    }
+    else if (strength <= 250)
+    {
+        return "Straight";
+    }
+    //else if() flush 
+    //
+}
+
 void Hand::clearHand()
 {
     this->hand.clear();

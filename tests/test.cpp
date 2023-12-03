@@ -502,6 +502,7 @@ TEST(DisplayTest, displayGameStatusTest)
 
   ostringstream out; 
   Display displayStats;
+
   displayStats.displayGameStatus(out, communityCards, player, pot);
 
   EXPECT_EQ(out.str(),
@@ -509,6 +510,7 @@ TEST(DisplayTest, displayGameStatusTest)
     "You have 200 chips\n"
     "Pot: 100\n"
     "Your hand:\n"
+
     " ----\n"
     "| ♠ |\n"
     "| A |\n"
@@ -574,6 +576,25 @@ TEST(displayTest, displayRulesTest)
     "At this point, all remaining players will show their best hand from their two hole cards and 5 community cards. The player with the highest \nranked combination wins the pot.\n"
     "If players tie, the highest hole card that isn't a part of their best hand is used to decide the winner.\n"
     "q) back to menu \n");
+
+}
+
+// COMBO NAME TEST
+
+TEST(handTests, getComboNameTest)
+{
+  Hand* hand = new Hand();
+
+  Card* card1 = new Card(3, "Spades", "Three of Spades");
+  Card* card2 = new Card(5, "Spades", "Five of Spades");
+  Card* card3 = new Card(10, "Spades", "Ten of Spades");
+
+  hand->addCard(card1);
+  hand->addCard(card2);
+  hand->addCard(card3);
+
+  hand->calculateStrength();
+  EXPECT_EQ(hand->getComboName(), "High Card");
 
 }
 

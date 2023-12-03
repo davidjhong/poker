@@ -4,6 +4,7 @@
 #include <vector>
 #include <ostream>
 #include "Card.h"
+#include "../header/handRank.h"
 
 
 class Hand {
@@ -20,6 +21,8 @@ class Hand {
         int getStrength() const;
         void calculateStrength(vector<Card*>&);
 
+        string getComboName();
+        
         vector<Card*> getHand();
         Card* getCard(int i) const;
         vector<string> getCardNames();
