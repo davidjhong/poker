@@ -29,11 +29,14 @@ class RoundHandler {
         bool check(ostream&, Player*);
         bool fold(Player*);
 
+        void screenBetweenTurns();
+
         void clearScreen();
     public:
         RoundHandler();
         ~RoundHandler();
         unsigned int getRound() const;
+        unsigned int getDealerIndex() const;
         Pot* getPot() const;
         Player* startRound(istream&, ostream&, vector<Player*>*);
         void resetRound(vector<Player*>*);
