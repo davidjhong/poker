@@ -13,7 +13,6 @@ class Hand {
         vector<Card*> hand;
     public:
         Hand();
-        ~Hand();
         Hand(vector<Card*> cards);
         void addCard(Card*);
         void clearHand();

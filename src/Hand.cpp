@@ -9,13 +9,6 @@ Hand::Hand()
     this->strength = 0;
 }
 
-Hand::~Hand(){
-    int handSize = hand.size();
-    for(int i = handSize - 1; i >= 0; i--) {
-        delete hand.at(i);
-    }
-}
-
 Hand::Hand(vector<Card*> cards) {
     for (int i = 0; i < cards.size(); i++) {
         hand.push_back(cards[i]);
