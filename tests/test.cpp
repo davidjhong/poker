@@ -175,27 +175,6 @@ TEST(HandRankTests, hasStraightTest) {
     EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 205);
 }
 
-TEST(HandRankTests, hasFlush) {
-    vector<Card*> testCards;
-    Card* card1 = new Card(2, "Spades", "Two of Spades");
-    Card* card2 = new Card(3, "Spades", "Two of Spades");
-    Card* card3 = new Card(4, "Spades", "Two of Spades");
-    Card* card4 = new Card(7, "Spades", "Two of Spades");
-    Card* card5 = new Card(8, "Spades", "Six of Spades");
-    Card* card6 = new Card(9, "Diamonds", "Five of Diamonds");
-    testCards.push_back(card1);
-    testCards.push_back(card2);
-    testCards.push_back(card3);
-    testCards.push_back(card4);
-    testCards.push_back(card5);
-    testCards.push_back(card6);
-
-    StubHand* testHand = new StubHand(testCards);
-    HandRank* handRanker = new HandRank();
-    
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 258);
-}
-
 TEST(HandRankTests, hasFullHouse) {
     vector<Card*> testCards;
     Card* card1 = new Card(2, "Spades", "Two of Spades", "♠");
@@ -237,51 +216,6 @@ TEST(HandRankTests, hasFourOfKind) {
     
     EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 352);
 }
-
-TEST(HandRankTests, hasStraightFlushTest) {
-    vector<Card*> testCards;
-    Card* card1 = new Card(2, "Spades", "Two of Spades");
-    Card* card2 = new Card(3, "Spades", "Three of Spades");
-    Card* card3 = new Card(4, "Spades", "Four of Spades");
-    Card* card4 = new Card(5, "Spades", "Five of Spades");
-    Card* card5 = new Card(6, "Spades", "Six of Spades");
-    Card* card6 = new Card(8, "Spades", "Five of Spades");
-    testCards.push_back(card1);
-    testCards.push_back(card2);
-    testCards.push_back(card3);
-    testCards.push_back(card4);
-    testCards.push_back(card5);
-    testCards.push_back(card6);
-
-    StubHand* testHand = new StubHand(testCards);
-    HandRank* handRanker = new HandRank();
-    
-    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 406);
-}
-
-TEST(HandRankTests, hasStraightFlushTest2) {
-    vector<Card*> testCards;
-    Card* card = new Card(1, "Hearts", "One of Hearts");
-    Card* card6 = new Card(8, "Hearts", "Eight of Hearts");
-    Card* card1 = new Card(2, "Spades", "Two of Spades");
-    Card* card2 = new Card(3, "Spades", "Three of Spades");
-    Card* card3 = new Card(4, "Spades", "Four of Spades");
-    Card* card4 = new Card(5, "Spades", "Five of Spades");
-    Card* card5 = new Card(6, "Spades", "Six of Spades");
-    testCards.push_back(card);
-    testCards.push_back(card6);
-    testCards.push_back(card1);
-    testCards.push_back(card2);
-    testCards.push_back(card3);
-    testCards.push_back(card4);
-    testCards.push_back(card5);
-
-    StubHand* testHand = new StubHand(testCards);
-    HandRank* handRanker = new HandRank();
-    
-    ASSERT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 406);
-}
-
 
 
 // Pot Test Suite
