@@ -4,6 +4,7 @@
 #include <vector>
 #include <ostream>
 #include "Card.h"
+#include "../header/handRank.h"
 
 
 class Hand {
@@ -12,14 +13,15 @@ class Hand {
         vector<Card*> hand;
     public:
         Hand();
-        ~Hand();
         Hand(vector<Card*> cards);
         void addCard(Card*);
         void clearHand();
 
         int getStrength() const;
-        void calculateStrength();
+        void calculateStrength(vector<Card*>&);
 
+        string getComboName();
+        
         vector<Card*> getHand();
         Card* getCard(int i) const;
         vector<string> getCardNames();
