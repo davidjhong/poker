@@ -474,8 +474,6 @@ TEST(DisplayTest, displayGameStatusTest)
   player -> setBalance(200);
 
   // set up the hand with some cards
-  Hand* hand = new Hand();
-  
   
   Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
   Card* card2 = new Card(5, "Spades", "Two of Spades", "♠");
@@ -485,15 +483,9 @@ TEST(DisplayTest, displayGameStatusTest)
   Card* card6 = new Card(12, "Hearts", "Nine of Hearts", "♥");
   Card* card7 = new Card(10, "Clubs", "Eight of Clubs", "♣");
   
-  hand->addCard(card1);
-  hand->addCard(card2);
-  hand->addCard(card3);
-  hand->addCard(card4);
-  hand->addCard(card5);
-  hand->addCard(card6);
-  hand->addCard(card7);
-
-
+  player->getHand()->addCard(card1);
+  player->getHand()->addCard(card2);
+ 
   vector<Card*> cards = {card1, card2};
   vector<Card*> communityCards = {card3, card4, card5, card6, card7};
   // //set up the pot
@@ -546,11 +538,13 @@ TEST(displayTest, displayMenuTest)
 TEST(displayTest, displayBetweenTurnsTest)
 {
   ostringstream out;
-  Display displayTurns;
-  displayTurns.displayBetweenTurns(out);
+  Display* displayTurns = new Display();
+  Player* player = new Player();
+  player->setName("chloe");
+  displayTurns->displayBetweenTurns(out, player);
   EXPECT_EQ(out.str(),
-    "Next Player's turn...\n"
-    "don't look!");
+    "chloe's turn\n"
+    "Enter 1 to continue\n");
 }
 
 

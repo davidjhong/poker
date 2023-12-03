@@ -26,7 +26,7 @@ class Display
         void displayBalanceChanges(std::ostream&, Player*, Pot*);
         void displayGameOver(std::ostream&);
         void displaySettings(std::ostream&);
-        void displayBetweenTurns(std::ostream&);
+        void displayBetweenTurns(std::ostream&, Player*);
      
         // void displayWinner(std:: ostream&);
 
