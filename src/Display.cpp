@@ -150,13 +150,14 @@ void Display::displayCardRankings(std::ostream& out)
 void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards, Player* player, Pot* pot)
 {
     out << player->getName() << ", it's your turn!" << endl;
-    out << "You have " << player->getBalance() << " chips\n" << endl;
+    out << "You have " << player->getBalance() << " chips\n";
     out << "Pot: " << pot->getPot() << endl;
     out << "Your hand:\n";
     
     for (int i = 0; i < 2; i++) 
     { 
         out << "-----" << "     " ; 
+        
     } 
     out << "\n"; 
     
@@ -164,7 +165,7 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
 
     for(const Card* card: cards) { 
         if(card->getRank() == 10 ) { 
-            out << "| " << card->getSuitSymbol() << "  |" << "   ";  //space b4 line
+            out << "| " << card->getSuitSymbol() << "  |" << "    ";  
         } 
  
         else { 
@@ -208,59 +209,72 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     out << "\n"; 
     // out << "Best combo: " << 
     out << "Community cards:\n"; 
-    for (int i = 0; i < (int)communityCards.size(); i++) 
+
+    for (int i = 0; i < 5; i++) 
     { 
         out << "-----" << "     " ; 
-    } 
-    out << "\n"; 
-  
-
-    for(const Card* card: communityCards) { 
-        if(card->getRank() == 10 ) { 
-            out << "| " << card->getSuitSymbol() << "  | " << "   "; 
-        } 
-       
-        else { 
-            out << "| " << card->getSuitSymbol() << " |" << "     "; 
-        } 
-    }
-
-    out << "\n"; 
     
-
-    for (const Card* card: communityCards) 
-    { 
-        if(card->getRank() == 10 ) 
+    } 
+    out << "\n";
+    for (size_t i = 0; i < 5; i++) { 
+     if (i < communityCards.size()) { 
+        if(communityCards[i]->getRank() == 10 ) 
         { 
-          out << "| " << card->getRank() << " |" << "    "; 
+            out << "| " <<communityCards[i]->getSuitSymbol() << "  | " << "   "; 
         } 
-        else if (card ->getRank() == 1)
+        else 
+        { 
+            out << "| " << communityCards[i]->getSuitSymbol() << " |" << "     "; 
+        }  
+     } 
+     else { 
+          out << "|   |" << "     ";
+     } 
+    } 
+    
+    
+    out << "\n";
+    for (size_t i = 0; i < 5; i++) { 
+     if (i < communityCards.size()) { 
+        if(communityCards[i]->getRank() == 10 ) 
+        { 
+          out << "| " << communityCards[i]->getRank() << " |" << "    "; 
+        } 
+        else if (communityCards[i] ->getRank() == 1)
         {
             out << "| " << "A" << " |" << "     ";
         }
-        else if (card ->getRank() == 11)
+        else if (communityCards[i] ->getRank() == 11)
         {
             out << "| " << "J" << " |" << "     ";
         }
-        else if (card ->getRank() == 12)
+        else if (communityCards[i] ->getRank() == 12)
         {
             out << "| " << "Q" << " |" << "     ";
         }
-        else if (card ->getRank() == 13)
+        else if (communityCards[i] ->getRank() == 13)
         {
             out << "| " << "K" << " |" << "     ";
         }
         else 
         { 
-          out << "| " << card->getRank() << " |" << "     "; 
+          out << "| " << communityCards[i]->getRank() << " |" << "     "; 
         } 
-    }
-    out << "\n"; 
-    for (int i = 0; i < (int)communityCards.size(); i++)
+        
+     } 
+     else { 
+          out << "| ? |" << "     ";
+     } 
+} 
+    
+    out << "\n";
+    for (int i = 0; i < 5; i++)
     { 
         out << "-----" << "     "; 
+        
     } 
     out << "\n";
+
     
     out << "1. call" << endl;
     out << "2. raise" << endl;
