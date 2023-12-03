@@ -13,6 +13,7 @@ RoundHandler::RoundHandler()
     this->dealerIndex = 0;
     this->deck = new Deck();
     this->pot = new Pot();
+    this->roundNumber = 1;
 }
 
 RoundHandler::~RoundHandler()
@@ -25,6 +26,8 @@ RoundHandler::~RoundHandler()
 Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
 {
     this->deck->shuffleDeck(true);
+
+    // os << "Round " << round << "!" << endl;
     // clearScreen();
     // os << "\n\n\n\n\n\n\n\n\n" << endl;
     // Deals two cards to each player
@@ -124,6 +127,7 @@ void RoundHandler::resetRound(vector<Player*> *playerList)
     this->pot->resetPot();
     this->dealerIndex = (dealerIndex + 1) % playerList->size();
     this->deck->shuffleDeck(true);
+    this->roundNumber++;
 
     for (Player* player: *playerList)
     {
@@ -345,4 +349,9 @@ bool RoundHandler::fold(Player* currPlayer) {
 void RoundHandler::setSettings(Settings *givenSettings)
 {
     this->settings = givenSettings;
+}
+
+unsigned int RoundHandler::getRound() const
+{
+    return this->roundNumber;
 }
