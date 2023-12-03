@@ -57,7 +57,7 @@ void Hand::calculateStrength(vector<Card*> &communityCards)
 void Hand::addCard(Card* newCard)
 {
     // cout << hand.size() << endl;
-    assert(hand.size() < 7 && "Tried adding card to a hand of 7 cards, which is the max");
+    assert(hand.size() < 2 && "Tried adding card to a hand of 2 cards, which is the max");
 
     this->hand.push_back(newCard);
     
