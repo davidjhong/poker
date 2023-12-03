@@ -24,6 +24,7 @@ RoundHandler::~RoundHandler()
 
 Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
 {
+    this->deck->shuffleDeck(true);
     // clearScreen();
     // os << "\n\n\n\n\n\n\n\n\n" << endl;
     // Deals two cards to each player
