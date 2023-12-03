@@ -227,7 +227,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
 
         do {
             clearScreen();
-            display->displayBetweenTurns(os);
+            display->displayBetweenTurns(os, playerList->at(currPlayerIndex));
             is.clear();
             is.ignore(256, '\n');
         }
