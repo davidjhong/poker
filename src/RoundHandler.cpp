@@ -65,7 +65,6 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
         return lookForWinner(playerList);
     }
 
-
     cardInsert(3);
 
     int afterDealerIndex = (dealerIndex + 1) % playerCount;
@@ -85,13 +84,8 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
     cardInsert(1);
     cout << "looking for winner" << endl;
 
-    if (startBettingStage(is, os, playerList, afterDealerIndex))
-    {
-        cout << "looking for winner" << endl;
-        // LOOK FOR STRONGEST HAND
+    startBettingStage(is, os, playerList, afterDealerIndex)
 
-
-    }
 
     vector<Player*> winners = lookForWinner(playerList);
 
@@ -111,6 +105,7 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
     vector<string> historyValue = {winnerNames, potSize, comboName};
 
     roundHistory.push_back(historyValue);
+    return winners;
 }
 
 vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
@@ -137,7 +132,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 
     unordered_map<int, vector<Player*> > mp;
 
-    int maxHandStrength = 0;
+    int maxHandStrength = -1;
     Player* strongestPlayer = nullptr;
 
     for (Player* player: *playerList)
@@ -168,6 +163,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
     }
 
     strongestPlayer->addToBalance(pot->getPot());
+    cout << strongestPlayer->getName() << endl;
 
     return {strongestPlayer};
 
