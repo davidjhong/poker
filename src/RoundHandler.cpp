@@ -25,7 +25,7 @@ RoundHandler::~RoundHandler()
     delete this->pot;
 }
 
-vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
+vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList, vector<vector<string>> &roundHistory)
 {
     this->deck->shuffleDeck(true);
 
@@ -93,7 +93,24 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
 
     }
 
+    vector<string> winners = lookForWinner(playerList);
 
+    string winnerNames = "";
+
+    for (int i = 0; i < winners.size() - 1; i++)
+    {
+        winnerNames += (winners[i]) + ", ";
+    }
+
+    winnerNames += winners[winners.size() - 1];
+
+    string potSize = stoi(pot->getPot());
+
+    string comboName = winners.at(0)->getHand()->getComboName(); // Since a tie would only happen in the same hand rank, simply get one player's hand rank. 
+
+    vector<string> historyValue = {winnerNames, potSize, comboName};
+
+    roundHistory.push_back(historyValue);
 }
 
 vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)

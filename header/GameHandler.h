@@ -16,6 +16,7 @@ class GameHandler
         Settings* settings;
         RoundHandler* roundHandler;
         vector<Player*> *playerList;
+        vector<vector<string>> roundHistory;
         Display* display;
         bool gameRunning;
 
