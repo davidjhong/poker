@@ -78,6 +78,27 @@ string Hand::getComboName()
     {
         return "Straight";
     }
+    else if (strength <= 300)
+    {
+        return "Flush";
+    }
+    else if (strength <= 350)
+    {
+        return "Full House";
+    }
+    else if (strength <= 400)
+    {
+        return "Four of a Kind";
+    }
+    else if (strength <= 450)
+    {
+        return "Straight Flush";
+    }
+    else if (strength <= 500)
+    {
+        return "Royal Flush";
+    }
+    return to_string(strength);
     //else if() flush 
     //
 }

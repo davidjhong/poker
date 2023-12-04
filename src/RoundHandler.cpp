@@ -1,4 +1,6 @@
 #include "../header/RoundHandler.h"
+#include <vector>
+#include <unordered_map>
 
 
 using namespace std;
@@ -23,7 +25,7 @@ RoundHandler::~RoundHandler()
     delete this->pot;
 }
 
-Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
+vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
 {
     this->deck->shuffleDeck(true);
 
@@ -55,12 +57,6 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
             Card* nextCard = this->deck->nextCard();
             playerList->at(i)->getHand()->addCard(nextCard);
         }
-
-        // for (int cardCount = 0; i < 2; i++)
-        // {
-        //     Card* nextCard = this->deck->nextCard();
-        //     currHand->addCard(nextCard);
-        // }
     }
 
     int currPlayerIndex = (bigBlindIndex + 1) % playerCount;
@@ -87,23 +83,77 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
     }
 
     cardInsert(1);
+    cout << "looking for winner" << endl;
 
     if (startBettingStage(is, os, playerList, afterDealerIndex))
     {
-        return lookForWinner(playerList);
+        cout << "looking for winner" << endl;
+        // LOOK FOR STRONGEST HAND
+
+
     }
+
 
 }
 
-Player* RoundHandler::lookForWinner(vector<Player*> *playerList)
+vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 {
+    unsigned int playersInCounter = 0;
+    Player* lastPlayer = nullptr;
+
     for (Player* player: *playerList)
     {
         if (player->getIsPlaying())
         {
-            return player;
+            lastPlayer = player;
+            // player->addToBalance(pot->getPot());
+            playersInCounter++;
+            // return player;
         }
     }
+
+    if (playersInCounter == 1)
+    {
+        lastPlayer->addToBalance(pot->getPot());
+        return {lastPlayer};
+    }
+
+    unordered_map<int, vector<Player*> > mp;
+
+    int maxHandStrength = 0;
+    Player* strongestPlayer = nullptr;
+
+    for (Player* player: *playerList)
+    {
+        if (player->getIsPlaying() == false)
+        {
+            continue;
+        }
+
+        mp[player->getHand()->getStrength()].push_back(player);
+
+        if (maxHandStrength < player->getHand()->getStrength())
+        {
+            maxHandStrength = player->getHand()->getStrength();
+            strongestPlayer = player;
+        }
+    }
+
+    if (mp[maxHandStrength].size() > 1)
+    {
+        int splitChips = pot->getPot();
+
+        for (Player* winners: mp[maxHandStrength])
+        {
+            winners->addToBalance(splitChips);
+        }
+        return mp[maxHandStrength];
+    }
+
+    strongestPlayer->addToBalance(pot->getPot());
+
+    return {strongestPlayer};
+
 }
 
 void RoundHandler::resetRound(vector<Player*> *playerList)
@@ -140,14 +190,7 @@ void RoundHandler::cardInsert(int size)
 bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *playerList, int startingIndex)
 {
     const unsigned int playerCount = playerList->size();
-    int currPlayerIndex = startingIndex;
-    // int currPlayerIndex = (bigBlindIndex + 1) % playerCount;
-
-    // for (Card* card: communityCards)
-    // {
-    //     cout << card->getName() << " ";
-    // }
-    // cout << endl;
+    int currPlayerIndex = startingIndex % playerCount;
 
     int foldCount = 0;
     int choice = 0;
@@ -157,7 +200,6 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
 
         clearScreen();
         
-        // os << "index: " << currPlayerIndex << endl;
         Player* currPlayer = playerList->at(currPlayerIndex);
 
         if (!currPlayer->getIsPlaying())
@@ -165,10 +207,6 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             continue;
         }
 
-        // os << currPlayer->getName() << "'s balance: " << currPlayer->getBalance() << endl;
-
-
-        // display->displayPlayerStats(os, currPlayer, currPlayer->getHand(), pot);
         display->displayGameStatus(os, communityCards, currPlayer, pot);
 
         while (!(is >> choice) || (choice != 1 && choice != 2 && choice != 3 && choice != 4))
@@ -226,15 +264,20 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
 
         int value = 0;
 
-        do {
-            clearScreen();
-            display->displayBetweenTurns(os, playerList->at(currPlayerIndex));
-            is.clear();
-            is.ignore(256, '\n');
-        }
-        while (!(is >> value));
+        // do {
+        //     clearScreen();
+        //     display->displayBetweenTurns(os, playerList->at(currPlayerIndex));
+        //     is.clear();
+        //     is.ignore(256, '\n');
+        // }
+        // while (!(is >> value));
 
         
+    }
+
+    if (communityCards.size() == 5)
+    {
+        return true;
     }
     return false;
 
@@ -250,6 +293,10 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
 
 bool RoundHandler::call(ostream& out, Player* currPlayer) {
 
+    if (!currPlayer)
+    {
+        cout << "SFGONSFOGMSFKLGMF NO PLYAER" << endl;
+    }
     // if player has no chips
     if (currPlayer->getBalance() <= 0)
     {
@@ -265,7 +312,6 @@ bool RoundHandler::call(ostream& out, Player* currPlayer) {
 
         // subtract from player balance
         currPlayer->setCurrentBet(currPlayer->getBalance() + currPlayer->getCurrentBet());
-
         out << "Current balance: " << currPlayer->getBalance() << endl; // should be 0
     }
     else {  // typical bet
@@ -338,4 +384,14 @@ void RoundHandler::setSettings(Settings *givenSettings)
 unsigned int RoundHandler::getRound() const
 {
     return this->roundNumber;
+}
+
+Pot* RoundHandler::getPot() const
+{
+    return this->pot;
+}
+
+unsigned int RoundHandler::getDealerIndex() const
+{
+    return this->dealerIndex;
 }

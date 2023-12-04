@@ -4,7 +4,6 @@
 #include <ostream>
 #include "../header/Display.h"
 
-
 using namespace std;
 
 void Display::displayMenu(std::ostream& out)
@@ -154,14 +153,100 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     out << "Pot: " << pot->getPot() << endl;
     out << "Your hand:\n";
     
-    for (int i = 0; i < 2; i++) 
+    
+    vector<Card*> cards = player->getHand()->getHand();
+
+    displayCards(out, cards);
+    
+    // out << "Best combo: " << 
+    out << "Community cards:\n"; 
+
+    for (int i = 0; i < 5; i++) 
+    { 
+        out << "-----" << "     " ; 
+    
+    } 
+    out << "\n";
+    for (size_t i = 0; i < 5; i++) 
+    { 
+        if (i < communityCards.size()) 
+        { 
+            if(communityCards[i]->getRank() == 10 ) 
+            { 
+                out << "| " <<communityCards[i]->getSuitSymbol() << "  | " << "   "; 
+            } 
+            else 
+            { 
+                out << "| " << communityCards[i]->getSuitSymbol() << " |" << "     "; 
+            }  
+        } 
+        else 
+        { 
+            out << "|   |" << "     ";
+        } 
+    } 
+    
+    
+    out << "\n";
+    for (size_t i = 0; i < 5; i++) 
+    { 
+        if (i < communityCards.size()) 
+        { 
+            if(communityCards[i]->getRank() == 10 ) 
+            { 
+            out << "| " << communityCards[i]->getRank() << " |" << "    "; 
+            } 
+            else if (communityCards[i] ->getRank() == 1)
+            {
+                out << "| " << "A" << " |" << "     ";
+            }
+            else if (communityCards[i] ->getRank() == 11)
+            {
+                out << "| " << "J" << " |" << "     ";
+            }
+            else if (communityCards[i] ->getRank() == 12)
+            {
+                out << "| " << "Q" << " |" << "     ";
+            }
+            else if (communityCards[i] ->getRank() == 13)
+            {
+            out << "| " << "K" << " |" << "     ";
+            }
+            else 
+            { 
+            out << "| " << communityCards[i]->getRank() << " |" << "     "; 
+            } 
+        
+        } 
+        else { 
+            out << "| ? |" << "     ";
+        } 
+    }       
+    
+    out << "\n";
+    for (int i = 0; i < 5; i++)
+    { 
+        out << "-----" << "     "; 
+        
+    } 
+    out << "\n";
+
+    
+    out << "1. call" << endl;
+    out << "2. raise" << endl;
+    out << "3. check" << endl;
+    out << "4. fold" << endl;
+
+}
+
+void Display::displayCards(ostream& out, vector<Card*> cards)
+{
+    for (int i = 0; i < cards.size(); i++) 
     { 
         out << "-----" << "     " ; 
         
     } 
     out << "\n"; 
-    
-    vector<Card*> cards = player->getHand()->getHand();
 
     for(const Card* card: cards) { 
         if(card->getRank() == 10 ) { 
@@ -202,85 +287,11 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
         } 
     } 
     out << "\n"; 
-    for (int i = 0; i < 2; i++) 
+    for (int i = 0; i < cards.size(); i++) 
     { 
         out << "-----" << "     "; 
     } 
     out << "\n"; 
-    // out << "Best combo: " << 
-    out << "Community cards:\n"; 
-
-    for (int i = 0; i < 5; i++) 
-    { 
-        out << "-----" << "     " ; 
-    
-    } 
-    out << "\n";
-    for (size_t i = 0; i < 5; i++) { 
-     if (i < communityCards.size()) { 
-        if(communityCards[i]->getRank() == 10 ) 
-        { 
-            out << "| " <<communityCards[i]->getSuitSymbol() << "  | " << "   "; 
-        } 
-        else 
-        { 
-            out << "| " << communityCards[i]->getSuitSymbol() << " |" << "     "; 
-        }  
-     } 
-     else { 
-          out << "|   |" << "     ";
-     } 
-    } 
-    
-    
-    out << "\n";
-    for (size_t i = 0; i < 5; i++) { 
-     if (i < communityCards.size()) { 
-        if(communityCards[i]->getRank() == 10 ) 
-        { 
-          out << "| " << communityCards[i]->getRank() << " |" << "    "; 
-        } 
-        else if (communityCards[i] ->getRank() == 1)
-        {
-            out << "| " << "A" << " |" << "     ";
-        }
-        else if (communityCards[i] ->getRank() == 11)
-        {
-            out << "| " << "J" << " |" << "     ";
-        }
-        else if (communityCards[i] ->getRank() == 12)
-        {
-            out << "| " << "Q" << " |" << "     ";
-        }
-        else if (communityCards[i] ->getRank() == 13)
-        {
-            out << "| " << "K" << " |" << "     ";
-        }
-        else 
-        { 
-          out << "| " << communityCards[i]->getRank() << " |" << "     "; 
-        } 
-        
-     } 
-     else { 
-          out << "| ? |" << "     ";
-     } 
-} 
-    
-    out << "\n";
-    for (int i = 0; i < 5; i++)
-    { 
-        out << "-----" << "     "; 
-        
-    } 
-    out << "\n";
-
-    
-    out << "1. call" << endl;
-    out << "2. raise" << endl;
-    out << "3. check" << endl;
-    out << "4. fold" << endl;
-
 }
 
 
@@ -293,14 +304,57 @@ void Display::displayBalanceChanges(std::ostream& out, Player* player, Pot* pot)
 
 void Display::displayGameOver(std::ostream& out)
 {
+    // clearScreen();
     out << "POKER++ \n";
     out << "Thanks for playing! \n :3";
 }
 
 
-void Display::displayWinner(std::ostream& out, Player* player)
+void Display::displayWinner(std::ostream& out, vector<Player*> winnerList, Pot* pot)
 {
-    out << player->getName() << "won with a " << player->getHand()->getComboName() << endl;
+
+    if (winnerList.size() == 1)
+    {
+        
+        Player* player = winnerList.at(0);
+
+        if (!player)
+        {
+            out << "UHOPHSFDG" << endl;
+        }
+        else
+        {
+            
+        out << player->getName() << " won " << pot->getPot(); 
+        if (player->getHand() == nullptr)
+        {
+            out <<" DSFSD" << endl;
+        }
+        else
+        {
+        out << " chips with a " << player->getHand()->getComboName() << "!" << endl;
+
+        }
+
+        }
+    }
+    else
+    {
+        int splitPot = pot->getPot() / winnerList.size();
+        // for (Player* tiePlayer: winnerList)
+        // {
+        //     out << tiePlayer->getName() << ", ";
+        // }
+
+        for (int i = 0; i < winnerList.size() - 1; i++)
+        {
+            out << winnerList.at(i)->getName() << ", ";
+        }
+        out << "and " << winnerList.at(winnerList.size() - 1)->getName();
+
+        out << " won a split pot of " << splitPot << " each!" << endl;
+    }
+    // clearScreen();
     
 }
 

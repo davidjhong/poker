@@ -14,7 +14,8 @@ using namespace std;
 
 class Display
 {
-
+    private:
+        void displayCards(ostream&, vector<Card*>);
     public:
         void displayMenu(ostream&);
         void displayCardRankings(ostream&);
@@ -27,7 +28,7 @@ class Display
         void displaySettings(std::ostream&);
         void displayBetweenTurns(std::ostream&, Player*);
      
-        void displayWinner(std:: ostream&, Player*);
+        void displayWinner(std:: ostream&, vector<Player*>, Pot*);
 
 };
 
