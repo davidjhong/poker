@@ -354,14 +354,22 @@ bool RoundHandler::raise(istream& is, ostream& out, Player* currPlayer) {
         is.clear();
         is.ignore(256, '\n');
         out << "Please enter a valid number above the highest bet: " << pot->getHighestBet() << endl;
-    } 
+    }
 
-    if(raiseTo > pot->getHighestBet()) {
+    if (raiseTo - currPlayer->getCurrentBet() > currPlayer->getBalance())
+    {
+        string toContinue;
+        out << "Can't raise. You don't have enough chips." << endl;
+        out << "Enter anything to continue." << endl;
+        is >> toContinue;
+        return false;
+    }
+    if (raiseTo > pot->getHighestBet()) {
         // cout << endl;
         // cout << raiseTo - currPlayer->getCurrentBet() << endl;
         pot->addToPot(raiseTo - currPlayer->getCurrentBet());
         pot->setHighestBet(raiseTo + currPlayer->getCurrentBet());
-        currPlayer->setCurrentBet(raiseTo + currPlayer->getCurrentBet());
+        currPlayer->setCurrentBet(raiseTo);
 
 
         out << "New highest bet: " << pot->getHighestBet() << endl;
