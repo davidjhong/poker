@@ -106,6 +106,7 @@ string Hand::getComboName()
 void Hand::clearHand()
 {
     this->hand.clear();
+    this->strength = 0;
 }
 
 vector<Card*> Hand::getHand()
