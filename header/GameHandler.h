@@ -16,11 +16,14 @@ class GameHandler
         Settings* settings;
         RoundHandler* roundHandler;
         vector<Player*> *playerList;
-        // Player*[] playerList;
+        vector<vector<string>> roundHistory;
         Display* display;
         bool gameRunning;
 
         void gameSetup(istream&, ostream&);
+        void startGame(istream&, ostream&);
+        bool optionToLeave(istream&m, ostream&);
+
         void settingsMenu(ostream&);
         void rulesMenu(ostream&);
         void menuOptions(ostream&);

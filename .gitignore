@@ -9,6 +9,12 @@ test
 a.out
 /build
 /lib
-saveGameTest
-saveTest
 playerPotTest
+deckTests
+displayTests
+handTests
+playerTests
+potTests
+saveTest
+settingsTests
+test

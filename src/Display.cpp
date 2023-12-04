@@ -19,38 +19,37 @@ void Display::displayMenu(std::ostream& out)
     out << "-------------------------------------------" << endl;
 }  
 
-void Display::displaySettings(ostream &os)
+void Display::displaySettings(ostream &out)
 {
-    os << "-------------- SETTINGS -----------------" << endl;
-    os << "1) Change player count\n";
-    os << "2) Change starting chips\n";
-    os << "3) Change big blind amount\n";
-    os << "4) Change small blind amount\n";
-    os << "5) Change number of rounds\n";
-    os << "q) Save and exit\n\n";
-    os << "----------------------------------------" << endl;
+    out << "-------------- SETTINGS -----------------" << endl;
+    out << "1) Change player count\n";
+    out << "2) Change starting chips\n";
+    out << "3) Change big blind amount\n";
+    out << "4) Change small blind amount\n";
+    out << "5) Change number of rounds\n";
+    out << "q) Save and exit\n";
+    out << "----------------------------------------" << endl;
 }
 
 
 void Display::displayRules(std::ostream& out)
 {
-    out << endl;
-    out << "Overview: " << endl;
-    out << "Each player will be dealt two hole cards, followed by five community cards which will be dealt face up in intervals. " << endl;
-    out << "*Note that hole cards are cards that are kept face down throughtout the entire game, and can only be seen by the player that holds them. " << endl;
-    out << "The objective of the game is to make the best five-card poker hand using any combination of the player's hole cards and community cards" << endl;
-    out << endl << "Texas Hold' em - in depth: " << endl;
-    out << "At the start of the round, before any cards are dealt, players will place their initial bets. The player to the dealer's left will poutt " << endl << "the small blind, then the player to their left will poutt the big blind, which is double the value of the small blind. ";
-    out << "2 hole cards will be dealt to each player. " << endl << "The starting player may now chooute to fold, call or raise. " << endl;
-    out << "   fold: discard hand and put no more chips in the pot" << endl;
-    out << "   call: add the call amount to the pot" << endl;
-    out << "   raise: increase the call amount for the current round" << endl;
-    out << "Following this player's first move, each player will take their turn to call, raise or fold until every player has gone. After every player " << endl << "has folded, called or raised, the dealer will deal the first 3 community cards face up. The players may now use these three cards to decide upon their next move. " << endl;
-    out << "Each player will again chooute to fold, call or raise. Then, the dealer will show the fourth community card, and each player will again chooute " << endl << "to fold, call or raise.";
-    out << "Finally, the dealer will reveal the last community card. This fourth round of betting will continue until all players have folded, called or raised." << endl;
-    out << "At this point, all remaining players will show their best hand from their two hole cards and 5 community cards. The player with the highest " << endl << "ranked combination wins the pot." << endl;
-    out << "If players tie, the highest hole card that isn't a part of their best hand is used to decide the winner." << endl;
-    out << "q) back to menu" << endl;
+    out << "\nOverview: \n";
+    out << "Each player will be dealt two hole cards, followed by five community cards which will be dealt face up in intervals. \n";
+    out << "*Note that hole cards are cards that are kept face down throughtout the entire game, and can only be seen by the player that holds them. \n";
+    out << "The objective of the game is to make the best five-card poker hand using any combination of the player's hole cards and community cards\n"; 
+    out << "\nTexas Hold' em - in depth: \n";
+    out << "At the start of the round, before any cards are dealt, players will place their initial bets. The player to the dealer's left will be \nthe small blind, then the player to their left will be the big blind, which is double the value of the small blind. ";
+    out << "2 hole cards will be dealt to each player. \nThe starting player may now chooute to fold, call or raise. \n";
+    out << "   fold: discard hand and put no more chips in the pot\n";
+    out << "   call: add the call amount to the pot\n";
+    out << "   raise: increase the call amount for the current round\n";
+    out << "Following this player's first move, each player will take their turn to call, raise or fold until every player has gone. After every player \nhas folded, called or raised, the dealer will deal the first 3 community cards face up. The players may now use these three cards to decide upon their next move. \n";
+    out << "Each player will again chooute to fold, call or raise. Then, the dealer will show the fourth community card, and each player will again chooute \nto fold, call or raise.";
+    out << "Finally, the dealer will reveal the last community card. This fourth round of betting will continue until all players have folded, called or raised.\n";
+    out << "At this point, all remaining players will show their best hand from their two hole cards and 5 community cards. The player with the highest \nranked combination wins the pot.\n";
+    out << "If players tie, the highest hole card that isn't a part of their best hand is used to decide the winner.\n";
+    out << "q) back to menu \n";
 }
 
 void Display::displayCardCombinations(std::ostream& out)
@@ -122,7 +121,7 @@ void Display::displayCardCombinations(std::ostream& out)
     out << "| ♢  |"  << "| ♡  |" << "| ♤  |" << "| ♡  |" << "| ♤  |" << " high card: no combination, only a single high ranked card" << endl;
     out << "|  A |"  << "|  8 |" << "|  6 |" << "|  4 |" << "|  2 |" << endl;
     out <<  " ----"  << "  ----" << "  ----" << "  ----"<< "  ----" << endl;
-    out << "q) back to menu" << endl;
+    out << "q) back to menu \n";
 
 }
     
@@ -143,26 +142,231 @@ void Display::displayCardRankings(std::ostream& out)
     out << "K (king)" << endl;
     out << "A (ace)" << endl;
     out << "* Note that in Texas Hold' em, all suits are equally ranked" << endl;
-    out << "q) back to menu" << endl;
+    out << "q) back to menu \n";
 }
 
-void Display::displayPlayerStats(std::ostream& out, Player* player, Hand* hand, Pot* pot)
+
+void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards, Player* player, Pot* pot)
 {
     out << player->getName() << ", it's your turn!" << endl;
-    out << "You have " << player->getBalance() << " chips" << endl;
- //   out << "Pot: " << pot->getPot() << endl;
-    //best combo out << "Best combo: " << 
-   // out << hand->getHand() << endl;
+    out << "You have " << player->getBalance() << " chips\n";
+    out << "Pot: " << pot->getPot() << endl;
+    out << "Your hand:\n";
+    
+    
+    vector<Card*> cards = player->getHand()->getHand();
+
+    displayCards(out, cards);
+    
+    // out << "Best combo: " << 
+    out << "Community cards:\n"; 
+
+    for (int i = 0; i < 5; i++) 
+    { 
+        out << "-----" << "     " ; 
+    
+    } 
+    out << "\n";
+    for (size_t i = 0; i < 5; i++) 
+    { 
+        if (i < communityCards.size()) 
+        { 
+            if(communityCards[i]->getRank() == 10 ) 
+            { 
+                out << "| " <<communityCards[i]->getSuitSymbol() << "  | " << "   "; 
+            } 
+            else 
+            { 
+                out << "| " << communityCards[i]->getSuitSymbol() << " |" << "     "; 
+            }  
+        } 
+        else 
+        { 
+            out << "|   |" << "     ";
+        } 
+    } 
+    
+    
+    out << "\n";
+    for (size_t i = 0; i < 5; i++) 
+    { 
+        if (i < communityCards.size()) 
+        { 
+            if(communityCards[i]->getRank() == 10 ) 
+            { 
+            out << "| " << communityCards[i]->getRank() << " |" << "    "; 
+            } 
+            else if (communityCards[i] ->getRank() == 1)
+            {
+                out << "| " << "A" << " |" << "     ";
+            }
+            else if (communityCards[i] ->getRank() == 11)
+            {
+                out << "| " << "J" << " |" << "     ";
+            }
+            else if (communityCards[i] ->getRank() == 12)
+            {
+                out << "| " << "Q" << " |" << "     ";
+            }
+            else if (communityCards[i] ->getRank() == 13)
+            {
+            out << "| " << "K" << " |" << "     ";
+            }
+            else 
+            { 
+            out << "| " << communityCards[i]->getRank() << " |" << "     "; 
+            } 
+        
+        } 
+        else { 
+            out << "| ? |" << "     ";
+        } 
+    }       
+    
+    out << "\n";
+    for (int i = 0; i < 5; i++)
+    { 
+        out << "-----" << "     "; 
+        
+    } 
+    out << "\n";
+
+    
     out << "1. call" << endl;
     out << "2. raise" << endl;
     out << "3. check" << endl;
     out << "4. fold" << endl;
+
 }
 
-void Display::displayGameStatus(std::ostream& out, Player* player, Pot* pot)
+void Display::displayCards(ostream& out, vector<Card*> cards)
+{
+    for (int i = 0; i < cards.size(); i++) 
+    { 
+        out << "-----" << "     " ; 
+        
+    } 
+    out << "\n"; 
+
+    for(const Card* card: cards) { 
+        if(card->getRank() == 10 ) { 
+            out << "| " << card->getSuitSymbol() << "  |" << "    ";  
+        } 
+ 
+        else { 
+            out << "| " << card->getSuitSymbol() << " |" << "     "; 
+        } 
+    }
+    out << "\n"; 
+   
+    for (const Card* card: cards) 
+    { 
+        if(card->getRank() == 10 ) 
+        { 
+          out << "| " << card->getRank() << " |" << "    "; 
+        } 
+        else if (card ->getRank() == 1)
+        {
+            out << "| " << "A" << " |" << "     ";
+        }
+        else if (card ->getRank() == 11)
+        {
+            out << "| " << "J" << " |" << "     ";
+        }
+        else if (card ->getRank() == 12)
+        {
+            out << "| " << "Q" << " |" << "     ";
+        }
+        else if (card ->getRank() == 13)
+        {
+            out << "| " << "K" << " |" << "     ";
+        }
+        else 
+        { 
+          out << "| " << card->getRank() << " |" << "     "; 
+        } 
+    } 
+    out << "\n"; 
+    for (int i = 0; i < cards.size(); i++) 
+    { 
+        out << "-----" << "     "; 
+    } 
+    out << "\n"; 
+}
+
+
+
+void Display::displayBalanceChanges(std::ostream& out, Player* player, Pot* pot)
 {
     out << player->getName() << "raised to "; // << bet raised
     out << "Pot: " << pot->getPot() << endl;
 }
 
+void Display::displayGameOver(std::ostream& out)
+{
+    // clearScreen();
+    out << "POKER++ \n";
+    out << "Thanks for playing! \n :3";
+}
 
+
+void Display::displayWinner(std::ostream& out, vector<Player*> winnerList, Pot* pot)
+{
+    if (winnerList.empty())
+    {
+        out << "game bugged, no winner" << endl;
+        return;
+    }
+    // cout << winnerList.size() << endl;
+
+    if (winnerList.size() == 1)
+    {
+        
+        Player* player = winnerList.at(0);
+
+        if (!player)
+        {
+            out << "UHOPHSFDG" << endl;
+        }
+        else
+        {
+            
+        out << player->getName() << " won " << pot->getPot(); 
+        if (player->getHand() == nullptr)
+        {
+            out <<" DSFSD" << endl;
+        }
+        else
+        {
+        out << " chips with a " << player->getHand()->getComboName() << "!" << endl;
+
+        }
+
+        }
+    }
+    else
+    {
+        int splitPot = pot->getPot() / winnerList.size();
+        // for (Player* tiePlayer: winnerList)
+        // {
+        //     out << tiePlayer->getName() << ", ";
+        // }
+
+        for (int i = 0; i < winnerList.size() - 1; i++)
+        {
+            out << winnerList.at(i)->getName() << ", ";
+        }
+        out << "and " << winnerList.at(winnerList.size() - 1)->getName();
+
+        out << " won a split pot of " << splitPot << " each!" << endl;
+    }
+    // clearScreen();
+    
+}
+
+
+void Display::displayBetweenTurns(std::ostream& out, Player* player)
+{
+    out << player->getName() << "'s turn\n";
+    out << "Enter 1 to continue\n";
+}

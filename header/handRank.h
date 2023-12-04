@@ -16,16 +16,16 @@ class HandRank {
     public:
         int getFinalRank(vector<Card*>);
 
-        bool hasHighCard() const;
-        bool hasPair() const;
-        bool hasTwoPair() const;
-        bool hasThreeOfKind() const;
-        bool hasStraight() const;
-        bool hasFlush() const;
-        bool hasFullHouse() const;
-        bool hasFourOfKind() const;
-        bool hasStraightFlush() const;
-        bool hasRoyalFlush() const;
+        int hasHighCard();
+        int hasPair();
+        int hasTwoPair();
+        int hasThreeOfKind();
+        int hasStraight();
+        int hasFlush();
+        int hasFullHouse();
+        int hasFourOfKind();
+        int hasStraightFlush();
+        int hasRoyalFlush();
 };
 
 #endif // __HANDRANK_H__

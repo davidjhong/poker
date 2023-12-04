@@ -5,24 +5,42 @@
 #include "Deck.h"
 #include "Card.h"
 #include "Pot.h"
+#include "Display.h"
+#include "Settings.h"
 
 class RoundHandler {
     private:
+        Display* display;
+        Settings* settings;
         unsigned int dealerIndex;
+        unsigned int roundNumber;
         Pot* pot;
         Deck* deck;
         vector<Card*> communityCards;
 
-        void call(ostream&, Player*);
-  
+        bool startBettingStage(istream&, ostream&, vector<Player*>*, int);
+        void saveRoundHistory(vector<Player*>&, vector<vector<string>>&);
+        void blindInput(Player*, int);
+        void cardInsert(int);
+
+        bool call(ostream&, Player*);
         bool raise(istream&, ostream&, Player*);
         bool check(ostream&, Player*);
-
         bool fold(Player*);
+
+        void screenBetweenTurns();
+
+        void clearScreen();
     public:
         RoundHandler();
         ~RoundHandler();
-        void startRound(vector<Player*>);
+        unsigned int getRound() const;
+        unsigned int getDealerIndex() const;
+        Pot* getPot() const;
+        vector<Player*> lookForWinner(vector<Player*>*);
+        vector<Player*> startRound(istream&, ostream&, vector<Player*>*, vector<vector<string>> &);
+        void resetRound(vector<Player*>*);
+        void setSettings(Settings*);
 };
 
 #endif

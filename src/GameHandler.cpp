@@ -2,13 +2,14 @@
 #include "../header/RoundHandler.h"
 #include "../header/Player.h"
 #include "../header/Settings.h"
+#include "../header/Display.h"
 
 #include <vector>
 #include <iostream>
 #include <ostream>
 #include <assert.h>
 
-
+//adding save file
 #include <cstdlib>
 
 using namespace std;
@@ -35,7 +36,7 @@ GameHandler::~GameHandler()
         delete playerList->at(i);
     }
     
-    delete playerList;
+    delete this->playerList;
     delete this->settings;
     delete this->roundHandler;
 }
@@ -68,6 +69,10 @@ void GameHandler::startGame()
 
         gameSetup(cin, cout);
 
+        startGame(cin, cout);
+
+        
+
 
         //
         // for (int i = 0; i < settings->getNumOfRounds(); i++)
@@ -78,7 +83,7 @@ void GameHandler::startGame()
     }
 }
 
-void GameHandler::gameSetup(istream& is, ostream& os)
+void GameHandler::gameSetup(istream &is, ostream &os)
 {
     const unsigned int playerCount = this->settings->getNumPlayers();
     string username;
@@ -93,7 +98,70 @@ void GameHandler::gameSetup(istream& is, ostream& os)
 
 }
 
+void GameHandler::startGame(istream &is, ostream &os)
+{
+    const unsigned int numOfRounds = this->settings->getNumOfRounds();
 
+    this->roundHandler->setSettings(this->settings);
+    
+    for (int round = 1; round <= numOfRounds; round++)
+    {
+        clearScreen();
+        // os << "Round " << round + 1 << "!" << endl;
+
+        vector<Player*> winners = roundHandler->startRound(is, os, this->playerList, this->roundHistory);
+
+
+        display->displayWinner(os, winners, roundHandler->getPot());
+
+
+
+        bool continuePlaying = optionToLeave(is, os);
+
+        if (!continuePlaying)
+        {
+            return;
+        }
+        
+        this->roundHandler->resetRound(this->playerList);
+
+
+    }
+
+    // credits Screen
+
+}
+
+bool GameHandler::optionToLeave(istream &is, ostream &os)
+{
+    unsigned int round = this->roundHandler->getRound();
+
+    os << "Round " << round << " complete!" << endl;
+    os << "Would you like to continue playing?" << endl;
+    os << "1. yes" << endl;
+    os << "2. no" << endl;
+
+    int input = 0;
+
+    while (!(is >> input) || (input != 1 && input != 2))
+    {
+        clearScreen();
+        os << "Round " << round << " complete!" << endl;
+        os << "Would you like to continue playing?" << endl;
+        os << "1. yes" << endl;
+        os << "2. no" << endl;
+        os << "Invalid input. Try again" << endl;
+
+        is.clear();
+        is.ignore(256, '\n');
+    }
+
+    if (input == 1)
+    {
+        return true;
+    }
+    return false;
+}
 
 void GameHandler::menuOptions(ostream &os)
 {

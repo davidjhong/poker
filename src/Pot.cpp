@@ -22,6 +22,11 @@ void Pot::addToPot(int amount) {
     }
 }
 
+void Pot::setHighestBet(int amount)
+{
+    this->highestBet = amount;
+}
+
 int Pot::getHighestBet() const
 {
     return this->highestBet;
@@ -32,7 +37,8 @@ int Pot::getPot() {
 }
 
 void Pot::resetPot() {
-    totalPot = 0;
+    this->totalPot = 0;
+    this->highestBet = 0;
 }
 
 
