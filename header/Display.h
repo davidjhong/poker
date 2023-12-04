@@ -28,7 +28,7 @@ class Display
         void displaySettings(std::ostream&);
         void displayBetweenTurns(std::ostream&, Player*);
      
-        void displayWinner(std:: ostream&, Player*, Pot*);
+        void displayWinner(std:: ostream&, vector<Player*>, Pot*);
 
 };
 

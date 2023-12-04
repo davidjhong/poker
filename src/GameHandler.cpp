@@ -109,9 +109,12 @@ void GameHandler::startGame(istream &is, ostream &os)
         clearScreen();
         // os << "Round " << round + 1 << "!" << endl;
 
-        Player* winner = roundHandler->startRound(is, os, this->playerList);
+        vector<Player*> winners = roundHandler->startRound(is, os, this->playerList);
 
-        display->displayWinner(os, winner, roundHandler->getPot());
+
+        display->displayWinner(os, winners, roundHandler->getPot());
+
+
 
         bool continuePlaying = optionToLeave(is, os);
 

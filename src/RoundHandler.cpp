@@ -1,4 +1,6 @@
 #include "../header/RoundHandler.h"
+#include <vector>
+#include <unordered_map>
 
 
 using namespace std;
@@ -23,7 +25,7 @@ RoundHandler::~RoundHandler()
     delete this->pot;
 }
 
-Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
+vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList, vector<vector<string>> &roundHistory)
 {
     this->deck->shuffleDeck(true);
 
@@ -91,22 +93,84 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
 
     }
 
+    vector<string> winners = lookForWinner(playerList);
 
+    string winnerNames = "";
+
+    for (int i = 0; i < winners.size() - 1; i++)
+    {
+        winnerNames += (winners[i]) + ", ";
+    }
+
+    winnerNames += winners[winners.size() - 1];
+
+    string potSize = stoi(pot->getPot());
+
+    string comboName = winners.at(0)->getHand()->getComboName(); // Since a tie would only happen in the same hand rank, simply get one player's hand rank. 
+
+    vector<string> historyValue = {winnerNames, potSize, comboName};
+
+    roundHistory.push_back(historyValue);
 }
 
-
-
-
-Player* RoundHandler::lookForWinner(vector<Player*> *playerList)
+vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 {
+    unsigned int playersInCounter = 0;
+    Player* lastPlayer = nullptr;
+
     for (Player* player: *playerList)
     {
         if (player->getIsPlaying())
         {
-            player->addToBalance(pot->getPot());
-            return player;
+            lastPlayer = player;
+            // player->addToBalance(pot->getPot());
+            playersInCounter++;
+            // return player;
         }
     }
+
+    if (playersInCounter == 1)
+    {
+        lastPlayer->addToBalance(pot->getPot());
+        return {lastPlayer};
+    }
+
+    unordered_map<int, vector<Player*> > mp;
+
+    int maxHandStrength = 0;
+    Player* strongestPlayer = nullptr;
+
+    for (Player* player: *playerList)
+    {
+        if (player->getIsPlaying() == false)
+        {
+            continue;
+        }
+
+        mp[player->getHand()->getStrength()].push_back(player);
+
+        if (maxHandStrength < player->getHand()->getStrength())
+        {
+            maxHandStrength = player->getHand()->getStrength();
+            strongestPlayer = player;
+        }
+    }
+
+    if (mp[maxHandStrength].size() > 1)
+    {
+        int splitChips = pot->getPot();
+
+        for (Player* winners: mp[maxHandStrength])
+        {
+            winners->addToBalance(splitChips);
+        }
+        return mp[maxHandStrength];
+    }
+
+    strongestPlayer->addToBalance(pot->getPot());
+
+    return {strongestPlayer};
+
 }
 
 void RoundHandler::resetRound(vector<Player*> *playerList)
