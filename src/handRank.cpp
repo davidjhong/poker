@@ -177,7 +177,7 @@ int HandRank::hasFullHouse()
                 
                 if (cards[i]->getRank() == cards[j]->getRank()) // Find a pair explicitly
                 {
-                    return cards[i]->getRank() + (threeOfKindVal - 150) + 300;
+                    return cards[i]->getRank() + (threeOfKindVal - 150) + 300; // Return the rank value of the three of kind card + pair + 300
                 }
             }
         }
@@ -299,7 +299,6 @@ int HandRank::hasRoyalFlush()
             return 464; // Last card (high card) must be ace. If it exists, return 450 + 14 (Value of Ace)
         }
     }
-
 
     return -1;
 }

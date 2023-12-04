@@ -25,7 +25,7 @@ RoundHandler::~RoundHandler()
     delete this->pot;
 }
 
-vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
+vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList, vector<vector<string>> &roundHistory)
 {
     this->deck->shuffleDeck(true);
 
@@ -62,16 +62,19 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
     int currPlayerIndex = (bigBlindIndex + 1) % playerCount;
     if (startBettingStage(is, os, playerList, currPlayerIndex))
     {
-        return lookForWinner(playerList);
+        vector<Player*> winner = lookForWinner(playerList);
+        saveRoundHistory(winner, roundHistory);
+        return winner;
     }
-
 
     cardInsert(3);
 
     int afterDealerIndex = (dealerIndex + 1) % playerCount;
     if (startBettingStage(is, os, playerList, afterDealerIndex))
     {
-        return lookForWinner(playerList);
+        vector<Player*> winner = lookForWinner(playerList);
+        saveRoundHistory(winner, roundHistory);
+        return winner;
     }
 
 
@@ -79,21 +82,38 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
 
     if (startBettingStage(is, os, playerList, afterDealerIndex))
     {
-        return lookForWinner(playerList);
+        vector<Player*> winner = lookForWinner(playerList);
+        saveRoundHistory(winner, roundHistory);
+        return winner;
     }
 
     cardInsert(1);
-    cout << "looking for winner" << endl;
 
-    if (startBettingStage(is, os, playerList, afterDealerIndex))
+    startBettingStage(is, os, playerList, afterDealerIndex);
+
+    vector<Player*> winners = lookForWinner(playerList);
+    saveRoundHistory(winners, roundHistory);
+    return winners;
+}
+
+void RoundHandler::saveRoundHistory(vector<Player*> &winners, vector<vector<string>> &roundHistory)
+{
+    string winnerNames = "";
+
+    for (int i = 0; i < winners.size() - 1; i++)
     {
-        cout << "looking for winner" << endl;
-        // LOOK FOR STRONGEST HAND
-
-
+        winnerNames += (winners[i]->getName()) + ", ";
     }
 
+    winnerNames += winners[winners.size() - 1]->getName();
 
+    string potSize = to_string(pot->getPot());
+
+    string comboName = winners.at(0)->getHand()->getComboName(); // Since a tie would only happen in the same hand rank, simply get one player's hand rank. 
+
+    vector<string> historyValue = {winnerNames, potSize, comboName};
+
+    roundHistory.push_back(historyValue);
 }
 
 vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
@@ -106,9 +126,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
         if (player->getIsPlaying())
         {
             lastPlayer = player;
-            // player->addToBalance(pot->getPot());
             playersInCounter++;
-            // return player;
         }
     }
 
@@ -120,7 +138,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 
     unordered_map<int, vector<Player*> > mp;
 
-    int maxHandStrength = 0;
+    int maxHandStrength = -1;
     Player* strongestPlayer = nullptr;
 
     for (Player* player: *playerList)
@@ -141,7 +159,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 
     if (mp[maxHandStrength].size() > 1)
     {
-        int splitChips = pot->getPot();
+        int splitChips = pot->getPot() / mp[maxHandStrength].size();
 
         for (Player* winners: mp[maxHandStrength])
         {
@@ -151,6 +169,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
     }
 
     strongestPlayer->addToBalance(pot->getPot());
+    cout << strongestPlayer->getName() << endl;
 
     return {strongestPlayer};
 
@@ -337,14 +356,22 @@ bool RoundHandler::raise(istream& is, ostream& out, Player* currPlayer) {
         is.clear();
         is.ignore(256, '\n');
         out << "Please enter a valid number above the highest bet: " << pot->getHighestBet() << endl;
-    } 
+    }
 
-    if(raiseTo > pot->getHighestBet()) {
+    if (raiseTo - currPlayer->getCurrentBet() > currPlayer->getBalance())
+    {
+        string toContinue;
+        out << "Can't raise. You don't have enough chips." << endl;
+        out << "Enter anything to continue." << endl;
+        is >> toContinue;
+        return false;
+    }
+    if (raiseTo > pot->getHighestBet()) {
         // cout << endl;
         // cout << raiseTo - currPlayer->getCurrentBet() << endl;
         pot->addToPot(raiseTo - currPlayer->getCurrentBet());
         pot->setHighestBet(raiseTo + currPlayer->getCurrentBet());
-        currPlayer->setCurrentBet(raiseTo + currPlayer->getCurrentBet());
+        currPlayer->setCurrentBet(raiseTo);
 
 
         out << "New highest bet: " << pot->getHighestBet() << endl;
