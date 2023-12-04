@@ -312,6 +312,12 @@ void Display::displayGameOver(std::ostream& out)
 
 void Display::displayWinner(std::ostream& out, vector<Player*> winnerList, Pot* pot)
 {
+    if (winnerList.empty())
+    {
+        out << "game bugged, no winner" << endl;
+        return;
+    }
+    // cout << winnerList.size() << endl;
 
     if (winnerList.size() == 1)
     {
