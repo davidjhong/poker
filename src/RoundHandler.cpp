@@ -1,4 +1,6 @@
 #include "../header/RoundHandler.h"
+#include <vector>
+#include <unordered_map>
 
 
 using namespace std;
@@ -23,7 +25,7 @@ RoundHandler::~RoundHandler()
     delete this->pot;
 }
 
-Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
+vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList)
 {
     this->deck->shuffleDeck(true);
 
@@ -94,19 +96,64 @@ Player* RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *play
 
 }
 
-
-
-
-Player* RoundHandler::lookForWinner(vector<Player*> *playerList)
+vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 {
+    unsigned int playersInCounter = 0;
+    Player* lastPlayer = nullptr;
+
     for (Player* player: *playerList)
     {
         if (player->getIsPlaying())
         {
-            player->addToBalance(pot->getPot());
-            return player;
+            lastPlayer = player;
+            // player->addToBalance(pot->getPot());
+            playersInCounter++;
+            // return player;
         }
     }
+
+    if (playersInCounter == 1)
+    {
+        lastPlayer->addToBalance(pot->getPot());
+        return {lastPlayer};
+    }
+
+    unordered_map<int, vector<Player*> > mp;
+
+    int maxHandStrength = 0;
+    Player* strongestPlayer = nullptr;
+
+    for (Player* player: *playerList)
+    {
+        if (player->getIsPlaying() == false)
+        {
+            continue;
+        }
+
+        mp[player->getHand()->getStrength()].push_back(player);
+
+        if (maxHandStrength < player->getHand()->getStrength())
+        {
+            maxHandStrength = player->getHand()->getStrength();
+            strongestPlayer = player;
+        }
+    }
+
+    if (mp[maxHandStrength].size() > 1)
+    {
+        int splitChips = pot->getPot();
+
+        for (Player* winners: mp[maxHandStrength])
+        {
+            winners->addToBalance(splitChips);
+        }
+        return mp[maxHandStrength];
+    }
+
+    strongestPlayer->addToBalance(pot->getPot());
+
+    return {strongestPlayer};
+
 }
 
 void RoundHandler::resetRound(vector<Player*> *playerList)
