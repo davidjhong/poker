@@ -93,18 +93,18 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
 
     }
 
-    vector<string> winners = lookForWinner(playerList);
+    vector<Player*> winners = lookForWinner(playerList);
 
     string winnerNames = "";
 
     for (int i = 0; i < winners.size() - 1; i++)
     {
-        winnerNames += (winners[i]) + ", ";
+        winnerNames += (winners[i]->getName()) + ", ";
     }
 
-    winnerNames += winners[winners.size() - 1];
+    winnerNames += winners[winners.size() - 1]->getName();
 
-    string potSize = stoi(pot->getPot());
+    string potSize = to_string(pot->getPot());
 
     string comboName = winners.at(0)->getHand()->getComboName(); // Since a tie would only happen in the same hand rank, simply get one player's hand rank. 
 

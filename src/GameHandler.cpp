@@ -109,7 +109,7 @@ void GameHandler::startGame(istream &is, ostream &os)
         clearScreen();
         // os << "Round " << round + 1 << "!" << endl;
 
-        vector<Player*> winners = roundHandler->startRound(is, os, this->playerList);
+        vector<Player*> winners = roundHandler->startRound(is, os, this->playerList, this->roundHistory);
 
 
         display->displayWinner(os, winners, roundHandler->getPot());
