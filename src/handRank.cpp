@@ -41,6 +41,11 @@ int HandRank::hasPair()
 
 int HandRank::hasTwoPair() 
 {
+    if (cards.size() < 4) // Two pair needs at least four total cards.
+    {
+        return -1;
+    }
+
     int numPairs = 0;
     for (int i = 0; i < cards.size()-1; i++) 
     {
@@ -63,7 +68,7 @@ int HandRank::hasTwoPair()
 
 int HandRank::hasThreeOfKind() 
 {
-    if (cards.size() < 3)
+    if (cards.size() < 3) // Three of kind at least needs 3 cards in total
     {
         return -1;
     }
@@ -278,11 +283,25 @@ int HandRank::hasStraightFlush()
 
 int HandRank::hasRoyalFlush() 
 {
-    if (cards.size() < 5) // Flush cannot happen if theres less than five total cards
+    if (cards.size() < 5) // Royal Flush cannot happen if theres less than five total cards
     {
         return -1;
     }
-    return false;
+
+    int straightFlushVal = hasStraightFlush();
+    
+    if (straightFlushVal > 0) // Straight flush exists (first requirement)
+    {
+        int highCard = straightFlushVal % 100; // Get the high card rank of the straightFlush.
+
+        if (highCard == 14)
+        {
+            return 464; // Last card (high card) must be ace. If it exists, return 450 + 14 (Value of Ace)
+        }
+    }
+
+
+    return -1;
 }
 
 int HandRank::getFinalRank(vector<Card*> hand) 
@@ -299,8 +318,14 @@ int HandRank::getFinalRank(vector<Card*> hand)
     int fullHouseVal = hasFullHouse();
     int fourOfKindVal = hasFourOfKind();
     int straightFlushVal = hasStraightFlush();
+    int royalFlushVal = hasRoyalFlush();
 
-    if (straightFlushVal != -1)
+    if (royalFlushVal != -1)
+    {
+        return royalFlushVal;
+    }
+
+    else if (straightFlushVal != -1)
     {
         return straightFlushVal;
     }
