@@ -19,7 +19,7 @@ class RoundHandler {
         vector<Card*> communityCards;
 
         bool startBettingStage(istream&, ostream&, vector<Player*>*, int);
-
+        void saveRoundHistory(vector<Player*>&, vector<vector<string>>&);
         void blindInput(Player*, int);
         void cardInsert(int);
 

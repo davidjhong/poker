@@ -62,7 +62,9 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
     int currPlayerIndex = (bigBlindIndex + 1) % playerCount;
     if (startBettingStage(is, os, playerList, currPlayerIndex))
     {
-        return lookForWinner(playerList);
+        vector<Player*> winner = lookForWinner(playerList);
+        saveRoundHistory(winner, roundHistory);
+        return winner;
     }
 
     cardInsert(3);
@@ -70,7 +72,9 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
     int afterDealerIndex = (dealerIndex + 1) % playerCount;
     if (startBettingStage(is, os, playerList, afterDealerIndex))
     {
-        return lookForWinner(playerList);
+        vector<Player*> winner = lookForWinner(playerList);
+        saveRoundHistory(winner, roundHistory);
+        return winner;
     }
 
 
@@ -78,17 +82,22 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
 
     if (startBettingStage(is, os, playerList, afterDealerIndex))
     {
-        return lookForWinner(playerList);
+        vector<Player*> winner = lookForWinner(playerList);
+        saveRoundHistory(winner, roundHistory);
+        return winner;
     }
 
     cardInsert(1);
-    cout << "looking for winner" << endl;
 
-    startBettingStage(is, os, playerList, afterDealerIndex)
-
+    startBettingStage(is, os, playerList, afterDealerIndex);
 
     vector<Player*> winners = lookForWinner(playerList);
+    saveRoundHistory(winners, roundHistory);
+    return winners;
+}
 
+void RoundHandler::saveRoundHistory(vector<Player*> &winners, vector<vector<string>> &roundHistory)
+{
     string winnerNames = "";
 
     for (int i = 0; i < winners.size() - 1; i++)
@@ -105,7 +114,6 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
     vector<string> historyValue = {winnerNames, potSize, comboName};
 
     roundHistory.push_back(historyValue);
-    return winners;
 }
 
 vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
@@ -118,9 +126,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
         if (player->getIsPlaying())
         {
             lastPlayer = player;
-            // player->addToBalance(pot->getPot());
             playersInCounter++;
-            // return player;
         }
     }
 
@@ -153,7 +159,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 
     if (mp[maxHandStrength].size() > 1)
     {
-        int splitChips = pot->getPot();
+        int splitChips = pot->getPot() / mp[maxHandStrength].size();
 
         for (Player* winners: mp[maxHandStrength])
         {
