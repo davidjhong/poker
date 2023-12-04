@@ -14,6 +14,8 @@ using namespace std;
 
 class Display
 {
+    private:
+        void displayCards(ostream&, vector<Card*>);
     public:
         void displayMenu(ostream&);
         void displayCardRankings(ostream&);

@@ -153,59 +153,11 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     out << "Pot: " << pot->getPot() << endl;
     out << "Your hand:\n";
     
-    for (int i = 0; i < 2; i++) 
-    { 
-        out << "-----" << "     " ; 
-        
-    } 
-    out << "\n"; 
     
     vector<Card*> cards = player->getHand()->getHand();
 
-    for(const Card* card: cards) { 
-        if(card->getRank() == 10 ) { 
-            out << "| " << card->getSuitSymbol() << "  |" << "    ";  
-        } 
- 
-        else { 
-            out << "| " << card->getSuitSymbol() << " |" << "     "; 
-        } 
-    }
-    out << "\n"; 
-   
-    for (const Card* card: cards) 
-    { 
-        if(card->getRank() == 10 ) 
-        { 
-          out << "| " << card->getRank() << " |" << "    "; 
-        } 
-        else if (card ->getRank() == 1)
-        {
-            out << "| " << "A" << " |" << "     ";
-        }
-        else if (card ->getRank() == 11)
-        {
-            out << "| " << "J" << " |" << "     ";
-        }
-        else if (card ->getRank() == 12)
-        {
-            out << "| " << "Q" << " |" << "     ";
-        }
-        else if (card ->getRank() == 13)
-        {
-            out << "| " << "K" << " |" << "     ";
-        }
-        else 
-        { 
-          out << "| " << card->getRank() << " |" << "     "; 
-        } 
-    } 
-    out << "\n"; 
-    for (int i = 0; i < 2; i++) 
-    { 
-        out << "-----" << "     "; 
-    } 
-    out << "\n"; 
+    displayCards(out, cards);
+    
     // out << "Best combo: " << 
     out << "Community cards:\n"; 
 
@@ -285,6 +237,61 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     out << "3. check" << endl;
     out << "4. fold" << endl;
 
+}
+
+void Display::displayCards(ostream& out, vector<Card*> cards)
+{
+    for (int i = 0; i < cards.size(); i++) 
+    { 
+        out << "-----" << "     " ; 
+        
+    } 
+    out << "\n"; 
+
+    for(const Card* card: cards) { 
+        if(card->getRank() == 10 ) { 
+            out << "| " << card->getSuitSymbol() << "  |" << "    ";  
+        } 
+ 
+        else { 
+            out << "| " << card->getSuitSymbol() << " |" << "     "; 
+        } 
+    }
+    out << "\n"; 
+   
+    for (const Card* card: cards) 
+    { 
+        if(card->getRank() == 10 ) 
+        { 
+          out << "| " << card->getRank() << " |" << "    "; 
+        } 
+        else if (card ->getRank() == 1)
+        {
+            out << "| " << "A" << " |" << "     ";
+        }
+        else if (card ->getRank() == 11)
+        {
+            out << "| " << "J" << " |" << "     ";
+        }
+        else if (card ->getRank() == 12)
+        {
+            out << "| " << "Q" << " |" << "     ";
+        }
+        else if (card ->getRank() == 13)
+        {
+            out << "| " << "K" << " |" << "     ";
+        }
+        else 
+        { 
+          out << "| " << card->getRank() << " |" << "     "; 
+        } 
+    } 
+    out << "\n"; 
+    for (int i = 0; i < cards.size(); i++) 
+    { 
+        out << "-----" << "     "; 
+    } 
+    out << "\n"; 
 }
 
 
