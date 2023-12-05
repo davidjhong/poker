@@ -14,6 +14,7 @@ void Display::displayMenu(std::ostream& out)
     out << "3) Rules" << endl;
     out << "4) Card rankings" << endl;
     out << "5) Card combinations" << endl;
+    out << "6) Load From Save" << endl;
     out << "q) Quit" << endl;
     out << "Enter an option" << endl;
     out << "-------------------------------------------" << endl;

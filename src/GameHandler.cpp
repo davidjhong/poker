@@ -60,7 +60,7 @@ void GameHandler::startGame()
 
     while (gameRunning)
     {
-        menuOptions(cout);
+        menuOptions(cin, cout);
 
         if (!gameRunning)
         {
@@ -85,6 +85,9 @@ void GameHandler::startGame()
 
 void GameHandler::gameSetup(istream &is, ostream &os)
 {
+    if(loadingGame) {
+        return;
+    }
     const unsigned int playerCount = this->settings->getNumPlayers();
     string username;
 
@@ -103,8 +106,12 @@ void GameHandler::startGame(istream &is, ostream &os)
     const unsigned int numOfRounds = this->settings->getNumOfRounds();
 
     this->roundHandler->setSettings(this->settings);
-    
-    for (int round = 1; round <= numOfRounds; round++)
+    int startRound = this->roundHandler->getRound();
+    if(startRound > numOfRounds) {
+        os << "All rounds have finished." << endl;
+        return;
+    }
+    for (int round = startRound; round <= numOfRounds; round++)
     {
         clearScreen();
         // os << "Round " << round + 1 << "!" << endl;
@@ -179,7 +186,7 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
     return false;
 }
 
-void GameHandler::menuOptions(ostream &os)
+void GameHandler::menuOptions(istream& is, ostream &os)
 {
     bool inMenu = true;
     string input;
@@ -190,7 +197,7 @@ void GameHandler::menuOptions(ostream &os)
         display->displayMenu(os);
 
 
-        cin >> input;
+        is >> input;
     
         if (input == "1")
         {
@@ -207,20 +214,25 @@ void GameHandler::menuOptions(ostream &os)
         }
         else if (input == "2")
         {
-            settingsMenu(cout);
+            settingsMenu(os);
         }
         else if (input == "3")
         {
-            rulesMenu(cout);
+            rulesMenu(os);
             // display->Rules(cout);
         }
         else if (input == "4")
         {
-            cardRankingMenu(cout);
+            cardRankingMenu(os);
         }
         else if (input == "5")
         {
-            cardComboMenu(cout);
+            cardComboMenu(os);
+        }
+        else if (input == "6")
+        {
+            loadMenu(is, os);
+            inMenu = false;
         }
         else if (input == "q")
         {
@@ -464,12 +476,20 @@ void GameHandler::cardRankingMenu(ostream &os)
     }
 }
 
+void GameHandler::loadMenu(istream &is, ostream &os) {
+    string input;
+    os << "Enter the name of the save file." << endl;
+    is >> input;
+    loadFromFile(input);
+    loadingGame = true;
+}
+
 
 void GameHandler::saveToFile(string fileName) {
     string filePath = "savefiles/" + fileName;
     ofstream saveFile(filePath);
     if(!saveFile.is_open()) {
-        cout << "Save File COULD NOT BE OPENED." << endl;
+        cout << "Save File COULD NOT BE SAVED." << endl;
         return;
     }
     
@@ -535,11 +555,11 @@ void GameHandler::loadFromFile(string fileName) {
     }
     if(loadFile >> str) {
         loadFile >> currentRound;
-        roundHandler->setRound(currentRound);
+        roundHandler->setRound(currentRound + 1);
     }
     if(loadFile >> str) {
         loadFile >> dealerIndex;
-        roundHandler->setDealerIndex(dealerIndex);
+        roundHandler->setDealerIndex((dealerIndex + 1) % playerList->size());
     }
     
 

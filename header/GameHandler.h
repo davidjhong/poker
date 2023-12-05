@@ -26,9 +26,12 @@ class GameHandler
 
         void settingsMenu(ostream&);
         void rulesMenu(ostream&);
-        void menuOptions(ostream&);
+        void menuOptions(istream&, ostream&);
         void cardRankingMenu(ostream&);
         void cardComboMenu(ostream&);
+        void loadMenu(istream&, ostream&);
+
+        bool loadingGame = false;
     public:
         GameHandler();
         ~GameHandler();

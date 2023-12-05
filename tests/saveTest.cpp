@@ -43,7 +43,8 @@ TEST(saveTests, hardCodedTest) {
 TEST(saveTests, loadHardCodedSaveTest) {
   GameHandler *testGameHandler = new GameHandler();
   testGameHandler->loadFromFile("Hard Coded Save");
-  EXPECT_EQ(testGameHandler->getRoundHandler()->getRound(), 1);
+  EXPECT_EQ(testGameHandler->getRoundHandler()->getRound(), 2);
+  EXPECT_EQ(testGameHandler->getRoundHandler()->getDealerIndex(), 1);
   EXPECT_EQ(testGameHandler->getSettings()->getBigBlindAmt(), 100);
   EXPECT_EQ(testGameHandler->getSettings()->getLittleBlindAmt(), 55);
   EXPECT_EQ(testGameHandler->getSettings()->getNumOfRounds(), 50);
