@@ -22,13 +22,13 @@ class RoundHandler {
         bool startBettingStage(istream&, ostream&, vector<Player*>*, int);
         void saveRoundHistory(vector<Player*>&, vector<vector<string>>&);
         void blindInput(Player*, int);
-        void cardInsert(int);
 
         bool call(ostream&, Player*);
         bool raise(istream&, ostream&, Player*);
         bool check(ostream&, Player*);
         bool fold(Player*);
 
+        void cardInsert(int);
         void screenBetweenTurns();
 
     public:
@@ -39,7 +39,8 @@ class RoundHandler {
         Pot* getPot() const;
         vector<Player*> lookForWinner(vector<Player*>*);
         vector<Player*> startRound(istream&, ostream&, vector<Player*>*, vector<vector<string>> &);
-        void resetRound(vector<Player*>*);
+        Player* resetRound(vector<Player*>*);
+        void setCards(const vector<Card*>cards);
         void setSettings(Settings*);
 };
 

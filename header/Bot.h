@@ -5,14 +5,14 @@
 #include <vector>
 using namespace std;
 
-class Bot
+class Bot : public Player
 {
     private:
-        vector<int> actions = { 1, 1, 1, 1, 1,1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2,2, 2, 3, 3, 3, 3, 4 };
-
+        vector<int> actions;
     public:
+        Bot(const string&, int);
         int randomAction();
-}
+};
 
 
 

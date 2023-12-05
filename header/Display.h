@@ -14,21 +14,20 @@ using namespace std;
 
 class Display
 {
-    private:
-        void displayCards(ostream&, vector<Card*>);
     public:
         void displayMenu(ostream&);
         void displayCardRankings(ostream&);
         void displayRules(ostream&);
         void displayCardCombinations(ostream&);
-
+        void displayCards(ostream&, vector<Card*>);
         void displayGameStatus(ostream&, vector<Card*> communityCards, Player*, Pot*);
         void displayBalanceChanges(std::ostream&, Player*, Pot*);
         void displayGameOver(std::ostream&);
         void displaySettings(std::ostream&);
         void displayBetweenTurns(std::ostream&, Player*);
-     
+        void displayRoundHistory(std::ostream&, const vector<vector<string>> &roundHistory);
         void displayWinner(std:: ostream&, vector<Player*>, Pot*);
+
 
 };
 

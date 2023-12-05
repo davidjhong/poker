@@ -7,13 +7,15 @@ Player::Player() {
     balance = 0;
     this->hand = new Hand();
     this->isPlaying = true;
+    this->isBot = false;
 }
 
-Player::Player(string name, int balance) {
+Player::Player(const string &name, int balance, bool isBot) {
     this->name = name;
     this->balance = balance;
     this->hand = new Hand();
     this->isPlaying = true;
+    this->isBot = isBot;
 }
 
 Player::~Player() {
@@ -69,4 +71,9 @@ bool Player::getIsPlaying() const
 void Player::setIsPlaying(bool status)
 {
     this->isPlaying = status;
+}
+
+bool Player::getIsBot() const
+{
+    return this->isBot;
 }

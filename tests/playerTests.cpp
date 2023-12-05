@@ -12,13 +12,13 @@
 // Player Test Suite
 
 TEST(playerTests, playerConstructorTest) {
-  Player* testPlayer = new Player("Jason", 100);
+  Player* testPlayer = new Player("Jason", 100, false);
   EXPECT_EQ(testPlayer->getBalance(), 100);
   EXPECT_EQ(testPlayer->getName(), "Jason");
 }
 
 TEST(playerTests, playerBalanceTest) {
-  Player* testPlayer = new Player("Jason", 1000);
+  Player* testPlayer = new Player("Jason", 1000, false);
 
   testPlayer->setBalance(800);
   EXPECT_EQ(testPlayer->getBalance(), 800);
@@ -28,13 +28,13 @@ TEST(playerTests, playerBalanceTest) {
 }
 
 TEST(playerTests, playerHandConstructorTest) {
-  Player* testPlayer = new Player("Kevin", 0);
+  Player* testPlayer = new Player("Kevin", 0, false);
   EXPECT_EQ(testPlayer->getBalance(), 0);
   EXPECT_EQ(testPlayer->getHand()->getStrength(), 0);
 }
 
 TEST(playerTests, isPlayingTest) {
-  Player* testPlayer = new Player("Kevin", 0);
+  Player* testPlayer = new Player("Kevin", 0, false);
   EXPECT_TRUE(testPlayer->getIsPlaying());
 
   testPlayer->setIsPlaying(false);
@@ -42,7 +42,7 @@ TEST(playerTests, isPlayingTest) {
 }
 
 TEST(playerTests, currentBetTests) {
-  Player* testPlayer = new Player("Kevin", 500);
+  Player* testPlayer = new Player("Kevin", 500, false);
 
   EXPECT_EQ(testPlayer->getBalance(), 500);
   EXPECT_EQ(testPlayer->getCurrentBet(), 0);

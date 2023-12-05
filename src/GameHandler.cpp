@@ -4,6 +4,7 @@
 #include "../header/Settings.h"
 #include "../header/Display.h"
 #include "../header/Utility.h"
+#include "../header/Bot.h"
 
 #include <vector>
 #include <iostream>
@@ -38,13 +39,21 @@ GameHandler::~GameHandler()
 }
 
 
-void GameHandler::addPlayer(const string &playerName)
+void GameHandler::addPlayer(const string &playerName, bool isBot)
 {
     assert(playerList->size() < 7 && "Seven players maximum");
     unsigned int chips = settings->getStartingChips();
 
-    Player* newPlayer = new Player(playerName, chips);
-    playerList->push_back(newPlayer);
+    if (isBot)
+    {
+        Bot* bot = new Bot("Bot Kevin", chips);
+        playerList->push_back(bot);
+    }
+    else
+    {
+        Player* newPlayer = new Player(playerName, chips, false);
+        playerList->push_back(newPlayer);
+    }
 
 }
 
@@ -56,14 +65,22 @@ void GameHandler::startGame()
 
     while (gameRunning)
     {
-        menuOptions(cout);
+        bool botGame = menuOptions(cout);
 
         if (!gameRunning)
         {
             return;
         }
 
-        gameSetup(cin, cout);
+        if (botGame)
+        {
+            gameSetup(cin, cout, true);
+        }
+        else
+        {
+            gameSetup(cin, cout, false);
+        }
+
 
         startGame(cin, cout);
 
@@ -79,8 +96,21 @@ void GameHandler::startGame()
     }
 }
 
-void GameHandler::gameSetup(istream &is, ostream &os)
+void GameHandler::gameSetup(istream &is, ostream &os, bool botGame)
 {
+    if (botGame)
+    {
+        string username;
+        os << "Enter player username: \n";
+        cin >> username;
+
+        addPlayer(username, false);
+
+        addPlayer("Bot Kevin", true);
+        return;
+    }
+
+
     const unsigned int playerCount = this->settings->getNumPlayers();
     string username;
 
@@ -89,7 +119,7 @@ void GameHandler::gameSetup(istream &is, ostream &os)
         os << "Enter player " << i << "'s username: \n";
         cin >> username;
 
-        addPlayer(username);
+        addPlayer(username, false);
     }
 
 }
@@ -116,10 +146,26 @@ void GameHandler::startGame(istream &is, ostream &os)
 
         if (!continuePlaying)
         {
+            for (int i = playerList->size() - 1; i >= 0; i--)
+            {
+                // cout << playerList->size() << endl;
+                delete playerList->at(i);
+            }
+            playerList->clear();
+
             return;
         }
         
-        this->roundHandler->resetRound(this->playerList);
+        Player* gameWinner = this->roundHandler->resetRound(this->playerList);
+
+        if (gameWinner)
+        {
+            string exit;
+            os << "THE GAME WINNER IS " << gameWinner->getName() << " WITH " << gameWinner->getBalance() << endl;
+            os << "Enter anything to continue." << endl;
+            is >> exit;
+            break;
+        }
 
 
     }
@@ -127,6 +173,8 @@ void GameHandler::startGame(istream &is, ostream &os)
     // credits Screen
 
 }
+
+
 
 bool GameHandler::optionToLeave(istream &is, ostream &os)
 {
@@ -159,7 +207,7 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
     return false;
 }
 
-void GameHandler::menuOptions(ostream &os)
+bool GameHandler::menuOptions(ostream &os)
 {
     bool inMenu = true;
     string input;
@@ -177,6 +225,8 @@ void GameHandler::menuOptions(ostream &os)
             // game should start
             inMenu = false;
 
+            return false;
+
             // gameSetup(os);
             // unsigned int numOfRounds = settings->getNumOfRounds();
 
@@ -187,18 +237,23 @@ void GameHandler::menuOptions(ostream &os)
         }
         else if (input == "2")
         {
-            settingsMenu(cout);
+            return true;
+            // inMenu = false;
         }
         else if (input == "3")
+        {
+            settingsMenu(cout);
+        }
+        else if (input == "4")
         {
             rulesMenu(cout);
             // display->Rules(cout);
         }
-        else if (input == "4")
+        else if (input == "5")
         {
             cardRankingMenu(cout);
         }
-        else if (input == "5")
+        else if (input == "6")
         {
             cardComboMenu(cout);
         }
