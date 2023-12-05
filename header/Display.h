@@ -28,7 +28,6 @@ class Display
         void displayRoundHistory(std::ostream&, const vector<vector<string>> &roundHistory);
         void displayWinner(std:: ostream&, vector<Player*>, Pot*);
 
-        void displayDiamonds(ostream&);
 
 };
 
