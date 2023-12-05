@@ -147,6 +147,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
         {
             continue;
         }
+        player->getHand()->calculateStrength(this->communityCards);
 
         mp[player->getHand()->getStrength()].push_back(player);
 

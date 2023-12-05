@@ -319,30 +319,21 @@ void Display::displayWinner(std::ostream& out, vector<Player*> winnerList, Pot* 
     }
     // cout << winnerList.size() << endl;
 
+    for (int i = 0; i < winnerList.size(); i++)
+    {
+        out << winnerList.at(i)->getName() << " " << winnerList.at(i)->getHand()->getComboName() << endl;
+        out << winnerList.at(i)->getName() << " " << winnerList.at(i)->getHand()->getComboName() << endl;
+        out << winnerList.at(i)->getName() << " " << winnerList.at(i)->getHand()->getStrength() << endl;
+    }
+
+
+
     if (winnerList.size() == 1)
     {
-        
         Player* player = winnerList.at(0);
 
-        if (!player)
-        {
-            out << "UHOPHSFDG" << endl;
-        }
-        else
-        {
-            
         out << player->getName() << " won " << pot->getPot(); 
-        if (player->getHand() == nullptr)
-        {
-            out <<" DSFSD" << endl;
-        }
-        else
-        {
         out << " chips with a " << player->getHand()->getComboName() << "!" << endl;
-
-        }
-
-        }
     }
     else
     {
@@ -356,6 +347,7 @@ void Display::displayWinner(std::ostream& out, vector<Player*> winnerList, Pot* 
         {
             out << winnerList.at(i)->getName() << ", ";
         }
+        
         out << "and " << winnerList.at(winnerList.size() - 1)->getName();
 
         out << " won a split pot of " << splitPot << " each!" << endl;
