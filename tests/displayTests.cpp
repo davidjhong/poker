@@ -39,6 +39,40 @@ TEST(DisplayTest, displayCardsTest)
 
   }
 
+TEST(DisplayTest, displayCommunityCardsTest)
+{
+  
+  Player* player = new Player();
+  player->setName("chloe");
+  Card* card4 = new Card(6, "Diamonds", "Five of Diamonds", "♦");
+  Card* card5 = new Card(3, "Hearts", "Ten of Hearts", "♥");
+  Card* card6 = new Card(12, "Hearts", "Nine of Hearts", "♥");
+  Card* card7 = new Card(10, "Clubs", "Eight of Clubs", "♣");
+  vector<Card*> CommunityCards = {card4, card5, card6, card7};
+
+  Pot* pot = new Pot();
+
+  ostringstream out; 
+  Display* display = new Display();
+  display->displayGameStatus(out, CommunityCards, player, pot);
+ 
+
+  EXPECT_EQ(out.str(),
+  "chloe, it's your turn!\n"
+  "You have 0 chips\n"
+  "Pot: 0\n"
+  "Your hand:\n\n\n\n\n"
+  "Community cards:\n"
+  "-----     -----     -----     -----     -----     \n"     
+  "| ♦ |     | ♥ |     | ♥ |     | ♣  |    |   |     \n"     
+  "| 6 |     | 3 |     | Q |     | 10 |    | ? |     \n"     
+  "-----     -----     -----     -----     -----     \n" 
+  "1. call\n"
+  "2. raise\n"
+  "3. check\n"
+  "4. fold\n");   
+}
+
 
 
 
@@ -118,15 +152,7 @@ TEST(displayTest, displayRoundHistory)
   
 }
 
-TEST(displayTests, displayDiamondsTest)
-{
-  ostringstream out;
-  Display* display = new Display();
-  display->displayDiamonds(out);
-  EXPECT_EQ(out.str(),
-  "♦");
 
-}
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
