@@ -149,9 +149,9 @@ void Display::displayCardRankings(std::ostream& out)
 void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards, Player* player, Pot* pot)
 {
     out << player->getName() << ", it's your turn!" << endl;
-    out << "You have " << player->getBalance() << " chips\n";
+    out << "You have " << player->getBalance() << " chips" << endl;
     out << "Pot: " << pot->getPot() << endl;
-    out << "Your hand:\n";
+    out << "Your hand:" << endl;
     
     
     vector<Card*> cards = player->getHand()->getHand();
@@ -159,7 +159,7 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
     displayCards(out, cards);
     
     // out << "Best combo: " << 
-    out << "Community cards:\n"; 
+    out << "Community cards:" << endl;; 
 
     for (int i = 0; i < 5; i++) 
     { 
@@ -312,22 +312,6 @@ void Display::displayGameOver(std::ostream& out)
 
 void Display::displayWinner(std::ostream& out, vector<Player*> winnerList, Pot* pot)
 {
-    if (winnerList.empty())
-    {
-        out << "game bugged, no winner" << endl;
-        return;
-    }
-    // cout << winnerList.size() << endl;
-
-    for (int i = 0; i < winnerList.size(); i++)
-    {
-        out << winnerList.at(i)->getName() << " " << winnerList.at(i)->getHand()->getComboName() << endl;
-        out << winnerList.at(i)->getName() << " " << winnerList.at(i)->getHand()->getComboName() << endl;
-        out << winnerList.at(i)->getName() << " " << winnerList.at(i)->getHand()->getStrength() << endl;
-    }
-
-
-
     if (winnerList.size() == 1)
     {
         Player* player = winnerList.at(0);
@@ -353,7 +337,6 @@ void Display::displayWinner(std::ostream& out, vector<Player*> winnerList, Pot* 
         out << " won a split pot of " << splitPot << " each!" << endl;
     }
     // clearScreen();
-    
 }
 
 void Display::displayRoundHistory(std::ostream& out, const vector<vector<string>> &roundHistory)
