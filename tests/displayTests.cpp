@@ -32,10 +32,10 @@ TEST(DisplayTest, displayCardsTest)
 
   EXPECT_EQ(out.str(),
 
-"-----     -----\n"     
-"| ♠ |     | ♠ |\n"    
-"| A |     | 5 |\n"     
-"-----     -----\n"); 
+"-----     -----     \n"     
+"| ♠ |     | ♠ |     \n"    
+"| A |     | 5 |     \n"     
+"-----     -----     \n"); 
 
   }
 

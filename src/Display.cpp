@@ -243,7 +243,7 @@ void Display::displayCards(ostream& out, vector<Card*> cards)
 {
     for (int i = 0; i < cards.size(); i++) 
     { 
-        out << "-----" << "     " ; 
+        out << "-----" << "     "; 
         
     } 
     out << "\n"; 
