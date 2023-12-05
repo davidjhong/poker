@@ -100,8 +100,8 @@ TEST(displayTest, displayWinnerTest)
   ostringstream out;
   Display display;
 
-  Player* player1 = new Player("Kevin", 500);
-  Player* player2 = new Player("Jason", 500);
+  Player* player1 = new Player("Kevin", 500, false);
+  Player* player2 = new Player("Jason", 500, false);
 
   Card* winningCard1 = new Card(1, "Hearts", "Ace of Hearts", "♥");
   Card* winningCard2 = new Card(5, "Hearts", "Five of Hearts", "♥");
@@ -153,8 +153,8 @@ TEST(displayTest, displayTieWinnersTest)
   ostringstream out;
   Display display;
 
-  Player* player1 = new Player("Kevin", 500);
-  Player* player2 = new Player("Jason", 500);
+  Player* player1 = new Player("Kevin", 500, false);
+  Player* player2 = new Player("Jason", 500, false);
 
   Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
   Card* card2 = new Card(5, "Spades", "Two of Spades", "♠");

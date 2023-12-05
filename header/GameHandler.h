@@ -20,20 +20,20 @@ class GameHandler
         Display* display;
         bool gameRunning;
 
-        void gameSetup(istream&, ostream&);
+        void gameSetup(istream&, ostream&, bool);
         void startGame(istream&, ostream&);
         bool optionToLeave(istream&m, ostream&);
 
         void settingsMenu(ostream&);
         void rulesMenu(ostream&);
-        void menuOptions(ostream&);
+        bool menuOptions(ostream&);
         void cardRankingMenu(ostream&);
         void cardComboMenu(ostream&);
     public:
         GameHandler();
         ~GameHandler();
         void startGame();
-        void addPlayer(const string &playerName);
+        void addPlayer(const string &playerName, bool);
 };
 
 #endif

@@ -11,8 +11,9 @@ using namespace std;
 class Player {
 public:
    Player();
-   Player(string name, int balance);
-   ~Player();
+   Player(const string&, int, bool);
+   // ~Player();
+   virtual ~Player();
    // void placeBet(int);
   // void raise(unsigned int);
    //const void fold();
@@ -30,14 +31,16 @@ public:
    void clearCurrentBet();
 
    void resetHand();
-
+   
+   bool getIsBot() const;
    bool getIsPlaying() const;
    void setIsPlaying(bool);
 
-private:
+protected:
    int currentBet = 0;
    Hand* hand;
    int balance;
    bool isPlaying;
+   bool isBot;
    string name;
 };

@@ -1,4 +1,5 @@
 #include "../header/RoundHandler.h"
+#include "../header/Bot.h"
 #include <vector>
 #include <unordered_map>
 
@@ -49,7 +50,6 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
     for (int i = 0; i < playerList->size(); i++)
     {
         Player* currPlayer = playerList->at(i);
-
         Hand* currHand = currPlayer->getHand();
 
         for (int cardCount = 0; cardCount < 2; cardCount++)
@@ -217,7 +217,6 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
     // betting stage
     for (int i = 0; i < playerCount; i++)
     {
-
         clearScreen();
         
         Player* currPlayer = playerList->at(currPlayerIndex);
@@ -229,13 +228,26 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
 
         display->displayGameStatus(os, communityCards, currPlayer, pot);
 
-        while (!(is >> choice) || (choice != 1 && choice != 2 && choice != 3 && choice != 4))
+        if (currPlayer->getIsBot())
         {
-            os << "Invalid input, enter a valid choice" << endl;
-
-            is.clear();
-            is.ignore(256, '\n');
+            string trash;
+            cin >> trash;
+            Bot* bot = dynamic_cast<Bot*>(currPlayer);
+            choice = bot->randomAction();
         }
+        else
+        {
+
+            while (!(is >> choice) || (choice != 1 && choice != 2 && choice != 3 && choice != 4))
+            {
+                os << "Invalid input, enter a valid choice" << endl;
+
+                is.clear();
+                is.ignore(256, '\n');
+            }
+
+        }
+
 
         bool valid = false;
 
