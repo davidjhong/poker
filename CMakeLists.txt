@@ -17,6 +17,7 @@ ADD_EXECUTABLE(poker
     src/GameHandler.cpp
     src/Settings.cpp
     src/Display.cpp
+    src/Bot.cpp
 )
 
 ADD_EXECUTABLE(test
@@ -31,6 +32,7 @@ ADD_EXECUTABLE(test
     src/GameHandler.cpp
     src/Settings.cpp
     src/Display.cpp
+    src/Bot.cpp
 )
 
 ADD_EXECUTABLE(deckTests
@@ -52,7 +54,7 @@ ADD_EXECUTABLE(displayTests
     src/GameHandler.cpp
     src/RoundHandler.cpp
     src/Settings.cpp
-
+    src/Bot.cpp
 )
 
 ADD_EXECUTABLE(handTests

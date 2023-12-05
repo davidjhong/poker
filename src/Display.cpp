@@ -10,10 +10,11 @@ void Display::displayMenu(std::ostream& out)
 {
     out << "-------------- START MENU -----------------" << endl;
     out << "1) Start game" << endl;
-    out << "2) Settings" << endl;
-    out << "3) Rules" << endl;
-    out << "4) Card rankings" << endl;
-    out << "5) Card combinations" << endl;
+    out << "2) Start bot game" << endl;
+    out << "3) Settings" << endl;
+    out << "4) Rules" << endl;
+    out << "5) Card rankings" << endl;
+    out << "6) Card combinations" << endl;
     out << "q) Quit" << endl;
     out << "Enter an option" << endl;
     out << "-------------------------------------------" << endl;
@@ -355,7 +356,7 @@ void Display::displayRoundHistory(std::ostream& out, const vector<vector<string>
 }
 void Display::displayBetweenTurns(std::ostream& out, Player* player)
 {
-    out << player->getName() << "'s turn\n";
-    out << "Enter 1 to continue\n";
+    out << player->getName() << "'s turn!" << endl;
+    out << "Enter anything to continue" << endl;
 }
 
