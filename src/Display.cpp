@@ -375,3 +375,8 @@ void Display::displayBetweenTurns(std::ostream& out, Player* player)
     out << player->getName() << "'s turn\n";
     out << "Enter 1 to continue\n";
 }
+
+void Display::displayDiamonds(ostream& out)
+{
+    out << "♦";
+}
