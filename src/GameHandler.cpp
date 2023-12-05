@@ -447,3 +447,45 @@ void GameHandler::cardRankingMenu(ostream &os)
 
     }
 }
+
+
+void GameHandler::saveToFile(string fileName) {
+    string filePath = "savefiles/" + fileName;
+    ofstream saveFile(filePath);
+    if(!saveFile.is_open()) {
+        cout << "Save File COULD NOT BE OPENED." << endl;
+        return;
+    }
+    
+    saveFile << fileName << endl;
+    saveFile << "Big Blind: " << settings->getBigBlindAmt() << endl;
+    saveFile << "Little Blind: " << settings->getLittleBlindAmt() << endl;
+    saveFile << "Num Of Rounds: " <<  settings->getNumOfRounds() << endl;
+    saveFile << "Num Players: " << settings->getNumPlayers() << endl;
+    saveFile << "Starting Chips: " << settings->getStartingChips() << endl;
+
+    saveFile << "Players" << endl;
+    int sizeOfList = playerList->size(); 
+    for(int i = 0; i < sizeOfList; i++) {
+        saveFile << "Player " << i+1 << ": " << playerList->at(i)->getName() 
+        << ", " << playerList->at(i)->getBalance() << endl;
+    }
+    saveFile.close();
+    
+}
+
+void GameHandler::loadFromFile(string fileName) {
+    string filePath = "savefiles/" + fileName;
+    ifstream loadFile(filePath);
+    if(!loadFile.is_open()) {
+        cout << "LOAD FILE CANNOT BE FOUND." << endl;
+        return;
+    }
+
+   // while(loadFIle >> )
+
+}
+
+vector<Player*> GameHandler::getPlayerList() {
+    return *playerList;
+};

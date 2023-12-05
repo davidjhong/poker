@@ -81,6 +81,20 @@ ADD_EXECUTABLE(settingsTests
     src/Settings.cpp
 )
 
+ADD_EXECUTABLE(saveTest
+    tests/saveTest.cpp
+    src/Pot.cpp
+    src/Player.cpp
+    src/handRank.cpp
+    src/Card.cpp
+    src/Deck.cpp
+    src/Hand.cpp
+    src/RoundHandler.cpp
+    src/GameHandler.cpp
+    src/Settings.cpp
+    src/Display.cpp
+)
+
 TARGET_LINK_LIBRARIES(test gtest)
 target_link_libraries(test gtest_main)
 target_link_libraries(deckTests gtest_main)
@@ -89,6 +103,7 @@ target_link_libraries(displayTests gtest_main)
 target_link_libraries(handTests gtest_main)
 target_link_libraries(playerTests gtest_main)
 target_link_libraries(potTests gtest_main)
+target_link_libraries(saveTest gtest_main)
 
 
 
