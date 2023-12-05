@@ -176,7 +176,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 
 }
 
-void RoundHandler::resetRound(vector<Player*> *playerList)
+Player* RoundHandler::resetRound(vector<Player*> *playerList)
 {
     this->communityCards.clear();
     this->pot->resetPot();
@@ -184,12 +184,26 @@ void RoundHandler::resetRound(vector<Player*> *playerList)
     this->deck->shuffleDeck(true);
     this->roundNumber++;
 
+    unsigned int playerCount = 0;
+    Player* gameWinner = nullptr;
+
     for (Player* player: *playerList)
     {
         player->clearCurrentBet();
         player->resetHand();
-        player->setIsPlaying(true);
+
+        if (player->getBalance() > 0)
+        {
+            playerCount++;
+            gameWinner = player;
+            player->setIsPlaying(true);
+        }
     }
+    if (playerCount == 1)
+    {
+        return gameWinner;
+    }
+    return nullptr;
 }
 
 void RoundHandler::blindInput(Player* currPlayer, int amount)
@@ -226,18 +240,15 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             continue;
         }
 
-        display->displayGameStatus(os, communityCards, currPlayer, pot);
 
         if (currPlayer->getIsBot())
         {
-            string trash;
-            cin >> trash;
             Bot* bot = dynamic_cast<Bot*>(currPlayer);
             choice = bot->randomAction();
         }
         else
         {
-
+            display->displayGameStatus(os, communityCards, currPlayer, pot);
             while (!(is >> choice) || (choice != 1 && choice != 2 && choice != 3 && choice != 4))
             {
                 os << "Invalid input, enter a valid choice" << endl;
@@ -249,31 +260,39 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
         }
 
 
-        bool valid = false;
+        bool validChoice = false;
 
-        while (!valid)
+        while (!validChoice)
         {
             if (choice == 1)
             {
-                valid = call(os, currPlayer);
+                validChoice = call(os, currPlayer);
+                os << currPlayer->getName() << " has called!" << endl;
+                os << "The current pot amount is " << pot->getPot() << "." << endl << endl;
             }
             else if (choice == 2)
             {
-                valid = raise(is, os, currPlayer);
+                validChoice = raise(is, os, currPlayer);
 
-                if (valid)
+                if (validChoice)
                 {
                     i = 0;
+                    os << currPlayer->getName() << " has raise to " << pot->getHighestBet() << endl;
+                    os << "The current pot amount is " << pot->getPot() << "." << endl << endl;
                 }
             }
             else if (choice == 3)
             {
-                valid = check(os, currPlayer);
+                validChoice = check(os, currPlayer);
+                os << currPlayer->getName() << " has checked!" << endl;
+                os << "The current pot amount is " << pot->getPot() << "." << endl << endl;
             }
             else if (choice == 4)
             {
-                valid = fold(currPlayer);
+                validChoice = fold(currPlayer);
                 foldCount++;
+
+                os << currPlayer->getName() << " has folded!" << endl;
 
                 if (foldCount == playerCount - 1)
                 {
@@ -281,7 +300,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
                 }
             }
 
-            if (!valid)
+            if (!validChoice)
             {
                 clearScreen();
                 display->displayGameStatus(os, communityCards, currPlayer, pot);
@@ -293,16 +312,14 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
         }
 
         currPlayerIndex = (currPlayerIndex + 1) % playerCount;
+        string continueFlag;
 
-        int value = 0;
-
-        // do {
-        //     clearScreen();
-        //     display->displayBetweenTurns(os, playerList->at(currPlayerIndex));
-        //     is.clear();
-        //     is.ignore(256, '\n');
-        // }
-        // while (!(is >> value));
+        do {
+            display->displayBetweenTurns(os, playerList->at(currPlayerIndex));
+            is.clear();
+            is.ignore(256, '\n');
+        }
+        while (!(is >> continueFlag));
 
         
     }
@@ -324,11 +341,6 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
 
 
 bool RoundHandler::call(ostream& out, Player* currPlayer) {
-
-    if (!currPlayer)
-    {
-        cout << "SFGONSFOGMSFKLGMF NO PLYAER" << endl;
-    }
     // if player has no chips
     if (currPlayer->getBalance() <= 0)
     {
@@ -337,14 +349,12 @@ bool RoundHandler::call(ostream& out, Player* currPlayer) {
 
     // If the current highest bet is too much for the player to afford
     if (pot->getHighestBet() - currPlayer->getCurrentBet() > currPlayer->getBalance()) {
-        out << "ALL IN." << endl;
         
         // add to pot
         pot->addToPot(currPlayer->getBalance());
 
         // subtract from player balance
         currPlayer->setCurrentBet(currPlayer->getBalance() + currPlayer->getCurrentBet());
-        out << "Current balance: " << currPlayer->getBalance() << endl; // should be 0
     }
     else {  // typical bet
         
@@ -354,7 +364,6 @@ bool RoundHandler::call(ostream& out, Player* currPlayer) {
         // subtract from player balance
         currPlayer->setCurrentBet(pot->getHighestBet());
 
-        out << "Current balance: " << currPlayer->getBalance() << endl;
     }
     return true;
 }

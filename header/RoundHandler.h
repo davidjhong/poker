@@ -39,7 +39,7 @@ class RoundHandler {
         Pot* getPot() const;
         vector<Player*> lookForWinner(vector<Player*>*);
         vector<Player*> startRound(istream&, ostream&, vector<Player*>*, vector<vector<string>> &);
-        void resetRound(vector<Player*>*);
+        Player* resetRound(vector<Player*>*);
         void setSettings(Settings*);
 };
 

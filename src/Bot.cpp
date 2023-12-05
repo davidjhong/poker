@@ -5,7 +5,7 @@
 
 Bot::Bot(const string &name, int chips) : Player(name, chips, true)
 {
-    this->actions = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4};
+    this->actions = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4};
 }
 
 int Bot::randomAction() 

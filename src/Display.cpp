@@ -373,7 +373,7 @@ void Display::displayRoundHistory(std::ostream& out, const vector<vector<string>
 }
 void Display::displayBetweenTurns(std::ostream& out, Player* player)
 {
-    out << player->getName() << "'s turn\n";
-    out << "Enter 1 to continue\n";
+    out << player->getName() << "'s turn!" << endl;
+    out << "Enter anything to continue" << endl;
 }
 

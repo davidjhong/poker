@@ -160,7 +160,16 @@ void GameHandler::startGame(istream &is, ostream &os)
             return;
         }
         
-        this->roundHandler->resetRound(this->playerList);
+        Player* gameWinner = this->roundHandler->resetRound(this->playerList);
+
+        if (gameWinner)
+        {
+            string exit;
+            os << "THE GAME WINNER IS " << gameWinner->getName() << " WITH " << gameWinner->getBalance() << endl;
+            os << "Enter anything to continue." << endl;
+            is >> exit;
+            break;
+        }
 
 
     }
@@ -168,6 +177,8 @@ void GameHandler::startGame(istream &is, ostream &os)
     // credits Screen
 
 }
+
+
 
 bool GameHandler::optionToLeave(istream &is, ostream &os)
 {
