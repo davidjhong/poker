@@ -19,6 +19,7 @@ TEST(handTests, emptyHandTest)
 
   vector<string> cards;
   EXPECT_EQ(testHand->getCardNames(), cards);
+  delete testHand;
 }
 
 TEST(handTests, handConstructorTest) {
@@ -32,6 +33,7 @@ TEST(handTests, handConstructorTest) {
 
   EXPECT_EQ(testHand->getCard(0), jack);
   EXPECT_EQ(testHand->getCard(1), queen);
+  delete testHand;
 }
 
 TEST(handTests, getHandFilledHandTest)
@@ -46,6 +48,7 @@ TEST(handTests, getHandFilledHandTest)
 
   vector<Card*> cards = {card1, card2};
   EXPECT_EQ(testHand->getHand(), cards);
+  delete testHand;
 }
 
 TEST(handTests, expectDeathMaxHandTest)
@@ -61,7 +64,8 @@ TEST(handTests, expectDeathMaxHandTest)
 
   Card* overflowCard = new Card(5, "Hearts", "Five of Hearts", "♥");
 
-  // EXPECT_DEATH(testHand->addCard(overflowCard), "Tried adding card to a hand of 2 cards, which is the max");
+  EXPECT_DEATH(testHand->addCard(overflowCard), "Tried adding card to a hand of 2 cards, which is the max");
+  delete testHand;
 }
 
 TEST(handTests, ThreeCardHandNameTest)
@@ -80,6 +84,7 @@ TEST(handTests, ThreeCardHandNameTest)
   cards.push_back(card2->getName());
 
   EXPECT_EQ(testHand->getCardNames(), cards);
+  delete testHand;
 }
 
 TEST(handTests, clearHandTest)
@@ -97,6 +102,7 @@ TEST(handTests, clearHandTest)
   testHand->clearHand();
 
   EXPECT_EQ(testHand->getHand(), cards);
+  delete testHand;
 }
 
 TEST(handTests, getStrengthTest)
@@ -113,9 +119,72 @@ TEST(handTests, getStrengthTest)
 
   testHand->calculateStrength(emptyCommunityCards);
   EXPECT_EQ(testHand->getStrength(), 10);
+  EXPECT_EQ(testHand->getComboName(), "High Card");
 
-
+  delete testHand;
 }
+
+TEST(handTests, getPairTest)
+{
+  Hand* testHand = new Hand();
+
+  Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
+  Card* card2 = new Card(10, "Spades", "Ten of Spades", "♠");
+
+  testHand->addCard(card1);
+  testHand->addCard(card2);
+
+  vector<Card*> communityCards;
+  Card* card3 = new Card(11, "Diamonds", "Jack of Diamonds", "♦");
+  Card* card4 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
+  Card* card5 = new Card(3, "Hearts", "Three of Hearts", "♥");
+  Card* card6 = new Card(12, "Hearts", "Queen of Hearts", "♥");
+  Card* card7 = new Card(10, "Hearts", "Ten of Hearts", "♥");
+
+  communityCards.push_back(card3);
+  communityCards.push_back(card4);
+  communityCards.push_back(card5);
+  communityCards.push_back(card6);
+  communityCards.push_back(card7);
+
+  testHand->calculateStrength(communityCards);
+  EXPECT_EQ(testHand->getStrength(), 110);
+  EXPECT_EQ(testHand->getComboName(), "Two Pair");
+
+  delete testHand;
+}
+
+
+TEST(handTests, getTwoPairTest)
+{
+  Hand* testHand = new Hand();
+
+  Card* card1 = new Card(3, "Spades", "Three of Spades", "♠");
+  Card* card2 = new Card(10, "Spades", "Ten of Spades", "♠");
+
+  testHand->addCard(card1);
+  testHand->addCard(card2);
+
+  vector<Card*> communityCards;
+  Card* card3 = new Card(11, "Diamonds", "Jack of Diamonds", "♦");
+  Card* card4 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
+  Card* card5 = new Card(3, "Hearts", "Three of Hearts", "♥");
+  Card* card6 = new Card(12, "Hearts", "Queen of Hearts", "♥");
+  Card* card7 = new Card(10, "Hearts", "Ten of Hearts", "♥");
+
+  communityCards.push_back(card3);
+  communityCards.push_back(card4);
+  communityCards.push_back(card5);
+  communityCards.push_back(card6);
+  communityCards.push_back(card7);
+
+  testHand->calculateStrength(communityCards);
+  EXPECT_EQ(testHand->getStrength(), 110);
+  EXPECT_EQ(testHand->getComboName(), "Two Pair");
+
+  delete testHand;
+}
+
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
