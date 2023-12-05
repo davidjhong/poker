@@ -37,7 +37,12 @@ class GameHandler
 
         void saveToFile(string);
         void loadFromFile(string);
-        vector<Player*> getPlayerList();
+        vector<Player*>& getPlayerList() { return *playerList;};       
+        Settings* getSettings() { return settings;};
+        RoundHandler* getRoundHandler() { return roundHandler;};
+        
+
+
 };
 
 #endif

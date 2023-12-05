@@ -140,16 +140,18 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
     os << "Would you like to continue playing?" << endl;
     os << "1. yes" << endl;
     os << "2. no" << endl;
+    os << "3. save" << endl;
 
     int input = 0;
 
-    while (!(is >> input) || (input != 1 && input != 2))
+    while (!(is >> input) || (input != 1 && input != 2 && input != 3))
     {
         clearScreen();
         os << "Round " << round << " complete!" << endl;
         os << "Would you like to continue playing?" << endl;
         os << "1. yes" << endl;
         os << "2. no" << endl;
+        os << "3. save" << endl;
         os << "Invalid input. Try again" << endl;
 
         is.clear();
@@ -159,6 +161,13 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
     if (input == 1)
     {
         return true;
+    }
+    if(input == 3) {
+        is.ignore();
+        os << "enter a name for the save file :" << endl;
+        string fileName;
+        getline(is, fileName);
+        saveToFile(fileName);
     }
     return false;
 }
@@ -457,19 +466,22 @@ void GameHandler::saveToFile(string fileName) {
         return;
     }
     
-    saveFile << fileName << endl;
-    saveFile << "Big Blind: " << settings->getBigBlindAmt() << endl;
-    saveFile << "Little Blind: " << settings->getLittleBlindAmt() << endl;
-    saveFile << "Num Of Rounds: " <<  settings->getNumOfRounds() << endl;
-    saveFile << "Num Players: " << settings->getNumPlayers() << endl;
-    saveFile << "Starting Chips: " << settings->getStartingChips() << endl;
+    saveFile << "Big_Blind: " << settings->getBigBlindAmt() << endl;
+    saveFile << "Little_Blind: " << settings->getLittleBlindAmt() << endl;
+    saveFile << "Num_Of_Rounds: " <<  settings->getNumOfRounds() << endl;
+    saveFile << "Num_Players: " << settings->getNumPlayers() << endl;
+    saveFile << "Starting_Chips: " << settings->getStartingChips() << endl;
 
-    saveFile << "Players" << endl;
-    int sizeOfList = playerList->size(); 
-    for(int i = 0; i < sizeOfList; i++) {
-        saveFile << "Player " << i+1 << ": " << playerList->at(i)->getName() 
-        << ", " << playerList->at(i)->getBalance() << endl;
+    saveFile << "Players: ";
+    for(unsigned int i = 0; i < playerList->size(); i++) {
+        saveFile << getPlayerList().at(i)->getName() << " " << getPlayerList().at(i)->getBalance() << endl;
     }
+
+    saveFile << "Current_Round: ";
+    saveFile << getRoundHandler()->getRound() << endl;
+    saveFile << "Dealer_Index: ";
+    saveFile << getRoundHandler()->getDealerIndex() << endl;
+
     saveFile.close();
     
 }
@@ -482,10 +494,48 @@ void GameHandler::loadFromFile(string fileName) {
         return;
     }
 
-   // while(loadFIle >> )
+    string str;
+    string name;
+    int bigBlind, littleBlind, numRounds, numPlayers,
+    startingChips, balance, currentRound, dealerIndex;
+    if(loadFile >> str) {
+        loadFile >> bigBlind;
+        settings->setBigBlindAmt(bigBlind);
+    }
+    if(loadFile >> str) {
+        loadFile >> littleBlind;
+        settings->setLittleBlindAmt(littleBlind);
+    }
+    if(loadFile >> str) {
+        loadFile >> numRounds;
+        settings->setNumOfRounds(numRounds);
+    }
+    if(loadFile >> str) {
+        loadFile >> numPlayers;
+        settings->setNumPlayers(numPlayers);
+    }
+    if(loadFile >> str) {
+        loadFile >> startingChips;
+        settings->setStartingChips(startingChips);
+    }
+    if(loadFile >> str) {
+        for(unsigned int i = 0; i < numPlayers; i++) {
+            if(loadFile >> name >> balance) {
+                Player* newPlayer = new Player(name, balance);
+                playerList->push_back(newPlayer);
+                
+            }
+        }
+    }
+    if(loadFile >> str) {
+        loadFile >> currentRound;
+        roundHandler->setRound(currentRound);
+    }
+    if(loadFile >> str) {
+        loadFile >> dealerIndex;
+        roundHandler->setDealerIndex(dealerIndex);
+    }
+    
 
+    
 }
-
-vector<Player*> GameHandler::getPlayerList() {
-    return *playerList;
-};
