@@ -39,52 +39,7 @@ TEST(DisplayTest, displayCardsTest)
 
   }
 
-// TEST(DisplayTest, displayGameStatusTest)
-// {
 
-//   // set up the hand with some cards
-  
-//   Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
-//   Card* card2 = new Card(2, "Spades", "Two of Spades", "♠");
-//   Card* card3 = new Card(11, "Diamonds", "Jack of Diamonds", "♦");
-//   Card* card4 = new Card(5, "Diamonds", "Five of Diamonds", "♦");
-//   Card* card5 = new Card(3, "Hearts", "Three of Hearts", "♥");
-//   Card* card6 = new Card(12, "Hearts", "Queen of Hearts", "♥");
-//   Card* card7 = new Card(10, "Clubs", "Ten of Clubs", "♣");
-  
-//   player->getHand()->addCard(card1);
-//   player->getHand()->addCard(card2);
- 
-//   vector<Card*> cards = {card1, card2};
-//   vector<Card*> communityCards = {card3, card4, card5, card6, card7};
-//    //set up the pot
-//   Pot* pot = new Pot();
-//   pot->addToPot(100);
-
-//   ostringstream out; 
-//   Display displayStats;
-
-//   displayStats.displayGameStatus(out, communityCards, player, pot);
-
-//   EXPECT_EQ(out.str(),
-//     "chloe, it's your turn!\n"
-//     "You have 200 chips\n"
-//     "Pot: 100\n"
-//     "Your hand:\n"
-// "-----     -----\n"     
-// "| ♠ |     | ♠ |\n"    
-// "| A |     | 2 |\n"     
-// "-----     -----\n"     
-// "Community cards:\n"
-// "-----     -----     -----     -----     -----\n"     
-// "| ♦ |     | ♦ |     | ♥ |     | ♥ |     | ♣  |\n"    
-// "| J |     | 5 |     | 3 |     | Q |     | 10 |\n"    
-// "-----     -----     -----     -----     -----\n"     
-//     "1. call\n"
-//     "2. raise\n"
-//     "3. check\n"
-//     "4. fold\n");
-// }
 
 
 TEST(displayTest, displayMenuTest)
