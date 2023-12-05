@@ -120,6 +120,13 @@ void GameHandler::startGame(istream &is, ostream &os)
 
         if (!continuePlaying)
         {
+            for (int i = playerList->size() - 1; i >= 0; i--)
+            {
+                // cout << playerList->size() << endl;
+                delete playerList->at(i);
+            }
+            playerList->clear();
+
             return;
         }
         

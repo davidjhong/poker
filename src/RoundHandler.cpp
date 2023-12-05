@@ -137,7 +137,6 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
     }
 
     unordered_map<int, vector<Player*> > mp;
-
     int maxHandStrength = -1;
     Player* strongestPlayer = nullptr;
 
@@ -147,7 +146,8 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
         {
             continue;
         }
-
+        // display->displayCards(player->getHand()->getHand());
+        player->getHand()->calculateStrength(this->communityCards);
         mp[player->getHand()->getStrength()].push_back(player);
 
         if (maxHandStrength < player->getHand()->getStrength())
@@ -159,6 +159,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 
     if (mp[maxHandStrength].size() > 1)
     {
+        // cout << "DFSSJNFOD " << endl;
         int splitChips = pot->getPot() / mp[maxHandStrength].size();
 
         for (Player* winners: mp[maxHandStrength])
@@ -169,7 +170,7 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
     }
 
     strongestPlayer->addToBalance(pot->getPot());
-    cout << strongestPlayer->getName() << endl;
+    // cout << strongestPlayer->getName() << endl;
 
     return {strongestPlayer};
 
@@ -203,6 +204,14 @@ void RoundHandler::cardInsert(int size)
     {
         Card* nextCard = this->deck->nextCard();
         communityCards.push_back(nextCard);
+    }
+}
+
+void RoundHandler::setCards(const vector<Card*> cards)
+{
+    for (int i = 0; i < cards.size(); i++)
+    {
+        communityCards.push_back(cards.at(i));
     }
 }
 
