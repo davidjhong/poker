@@ -49,16 +49,15 @@ TEST(DisplayTest, displayGameStatusTest)
     "You have 200 chips\n"
     "Pot: 100\n"
     "Your hand:\n"
-
-    " ----\n"
-    "| ♠ |\n"
-    "| A |\n"
-    " ----\n"
-    "Community cards:"
-    " ----\n"
-    "| ♠ |\n"
-    "| 2 |\n"
-    " ----\n"
+"-----     -----\n"     
+"| ♠ |     | ♠ |\n"    
+"| A |     | 5 |\n"     
+"-----     -----\n"     
+"Community cards:\n"
+"-----     -----     -----     -----     -----\n"     
+"| ♦ |     | ♦ |     | ♥ |     | ♥ |     | ♣  |\n"    
+"| J |     | 6 |     | 3 |     | Q |     | 10 |\n"    
+"-----     -----     -----     -----     -----\n"     
     "1. call\n"
     "2. raise\n"
     "3. check\n"
@@ -120,6 +119,26 @@ TEST(displayTest, displayRulesTest)
 
 }
 
+TEST(displayTest, displayRoundHistory)
+{
+  ostringstream out;
+  Display* displayRoundHist = new Display();
+  vector<vector<string>> roundHistory = {
+    {"chloe", "$100", "full house"},
+    {"david", "$150", "straight"},
+    {"kevin", "$200", "royal flush"},
+    {"jason", "$300", "four of a kind"}
+  };
+  displayRoundHist->displayRoundHistory(out, roundHistory);
+
+  EXPECT_EQ(out.str(),
+  "ROUND      WINNER NAME      POT SIZE      COMBO NAME\n"  
+  "1         chloe         $100         full house\n"
+  "2         david         $150         straight\n"
+  "3         kevin         $200         royal flush\n"
+  "4         jason         $300         four of a kind\n");
+  
+}
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
