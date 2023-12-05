@@ -3,6 +3,7 @@
 #include "../header/Player.h"
 #include "../header/Settings.h"
 #include "../header/Display.h"
+#include "../header/Utility.h"
 
 #include <vector>
 #include <iostream>
@@ -13,11 +14,6 @@
 #include <cstdlib>
 
 using namespace std;
-
-//https://stackoverflow.com/questions/17335816/clear-screen-using-c 
-void clearScreen() {
-    cout << "\033[2J\033[1;1H";
-}
 
 GameHandler::GameHandler()
 {
@@ -106,7 +102,7 @@ void GameHandler::startGame(istream &is, ostream &os)
     
     for (int round = 1; round <= numOfRounds; round++)
     {
-        clearScreen();
+        Utility::clearScreen();
         // os << "Round " << round + 1 << "!" << endl;
 
         vector<Player*> winners = roundHandler->startRound(is, os, this->playerList, this->roundHistory);
@@ -145,7 +141,7 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
 
     while (!(is >> input) || (input != 1 && input != 2))
     {
-        clearScreen();
+        Utility::clearScreen();
         os << "Round " << round << " complete!" << endl;
         os << "Would you like to continue playing?" << endl;
         os << "1. yes" << endl;
@@ -170,7 +166,7 @@ void GameHandler::menuOptions(ostream &os)
 
     while (inMenu)
     {
-        clearScreen();
+        Utility::clearScreen();
         display->displayMenu(os);
 
 
@@ -242,7 +238,7 @@ void GameHandler::settingsMenu(ostream &os)
 
     while (inSettings)
     {
-        clearScreen();
+        Utility::clearScreen();
         display->displaySettings(os);
         // os << "select 1 to change player count\n";
         // os << "select 2 to change starting chips\n";
@@ -261,7 +257,7 @@ void GameHandler::settingsMenu(ostream &os)
 
             while (playerCount < 2 || playerCount > 7)
             {
-                clearScreen();
+                Utility::clearScreen();
 
                 if (failedOnce)
                 {
@@ -272,7 +268,7 @@ void GameHandler::settingsMenu(ostream &os)
 
                 if (!(cin >> playerCount))
                 {
-                    clearScreen();
+                    Utility::clearScreen();
                     os << "Please enter a valid number.\n";
                     cin.clear();
                     cin.ignore(10000,'\n');
@@ -288,7 +284,7 @@ void GameHandler::settingsMenu(ostream &os)
 
             while (startingChips <= 0 || startingChips > 50000)
             {
-                clearScreen();
+                Utility::clearScreen();
                 if (failedOnce)
                 {
                     os << "Invalid input.\n";
@@ -297,7 +293,7 @@ void GameHandler::settingsMenu(ostream &os)
 
                 if (!(cin >> startingChips))
                 {
-                    clearScreen();
+                    Utility::clearScreen();
                     os << "Please enter a valid number.\n";
                     cin.clear();
                     cin.ignore(10000,'\n');
@@ -317,7 +313,7 @@ void GameHandler::settingsMenu(ostream &os)
 
             while (bigBlindAmt <= 0 || bigBlindAmt > settings->getStartingChips() / 2)
             {
-                clearScreen();
+                Utility::clearScreen();
                 if (failedOnce)
                 {
                     os << "Invalid input.\n";
@@ -326,7 +322,7 @@ void GameHandler::settingsMenu(ostream &os)
 
                 if (!(cin >> bigBlindAmt))
                 {
-                    clearScreen();
+                    Utility::clearScreen();
                     os << "Please enter a valid number.\n";
                     cin.clear();
                     cin.ignore(10000,'\n');
@@ -345,7 +341,7 @@ void GameHandler::settingsMenu(ostream &os)
 
             while (littleBlindAmt <= 0 || littleBlindAmt > settings->getBigBlindAmt() / 2)
             {
-                clearScreen();
+                Utility::clearScreen();
                 if (failedOnce)
                 {
                     os << "Invalid input.\n";
@@ -354,7 +350,7 @@ void GameHandler::settingsMenu(ostream &os)
 
                 if (!(cin >> littleBlindAmt))
                 {
-                    clearScreen();
+                    Utility::clearScreen();
                     os << "Please enter a valid number.\n";
                     cin.clear();
                     cin.ignore(10000,'\n');
@@ -374,7 +370,7 @@ void GameHandler::settingsMenu(ostream &os)
 
             while (numOfRounds <= 0 || numOfRounds > 100)
             {
-                clearScreen();
+                Utility::clearScreen();
                 if (failedOnce)
                 {
                     os << "Invalid input.\n";
@@ -383,7 +379,7 @@ void GameHandler::settingsMenu(ostream &os)
 
                 if (!(cin >> numOfRounds))
                 {
-                    clearScreen();
+                    Utility::clearScreen();
                     os << "Please enter a valid number.\n";
                     cin.clear();
                     cin.ignore(10000,'\n');

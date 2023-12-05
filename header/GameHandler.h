@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Settings.h"
 #include "Display.h"
+#include "Utility.h"
 #include <ostream>
 #include <vector>
 
