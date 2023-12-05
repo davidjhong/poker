@@ -7,6 +7,7 @@
 #include "Pot.h"
 #include "Display.h"
 #include "Settings.h"
+#include "Utility.h"
 
 class RoundHandler {
     private:
@@ -30,7 +31,6 @@ class RoundHandler {
         void cardInsert(int);
         void screenBetweenTurns();
 
-        void clearScreen();
     public:
         RoundHandler();
         ~RoundHandler();

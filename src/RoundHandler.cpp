@@ -1,15 +1,11 @@
 #include "../header/RoundHandler.h"
+#include "../header/Utility.h"
 #include "../header/Bot.h"
 #include <vector>
 #include <unordered_map>
 
 
 using namespace std;
-
-//https://stackoverflow.com/questions/17335816/clear-screen-using-c 
-void RoundHandler::clearScreen() {
-    cout << "\033[2J\033[1;1H";
-}
 
 RoundHandler::RoundHandler()
 {
@@ -239,7 +235,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
     // betting stage
     for (int i = 0; i < playerCount; i++)
     {
-        clearScreen();
+        Utility::clearScreen();
         
         Player* currPlayer = playerList->at(currPlayerIndex);
 
@@ -310,7 +306,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
 
             if (!validChoice)
             {
-                clearScreen();
+                Utility::clearScreen();
                 display->displayGameStatus(os, communityCards, currPlayer, pot);
                 os << "Your previous decision was invalid. Try again." << endl;
                 is.clear();
