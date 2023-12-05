@@ -20,6 +20,33 @@ TEST(settingsTest, defaultSettingsTest)
   EXPECT_EQ(testSettings->getBigBlindAmt(), 50);
   EXPECT_EQ(testSettings->getLittleBlindAmt(), 25);
   EXPECT_EQ(testSettings->getNumOfRounds(), 5);
+  delete testSettings;
+}
+
+
+TEST(settingsTest, setGetNumOfRoundsTest)
+{
+  Settings* testSettings = new Settings();
+
+  testSettings->setNumOfRounds(35);
+
+  ASSERT_EQ(testSettings->getNumOfRounds(), 35);
+
+  delete testSettings;
+}
+
+
+TEST(settingsTest, setGetLittleBigBlindTest)
+{
+  Settings* testSettings = new Settings();
+
+  testSettings->setLittleBlindAmt(750);
+  testSettings->setBigBlindAmt(1500);
+
+  ASSERT_EQ(testSettings->getLittleBlindAmt(), 750);
+  ASSERT_EQ(testSettings->getBigBlindAmt(), 1500);
+
+  delete testSettings;
 }
 
 TEST(settingsTest, setGetPlayersTest)
@@ -28,6 +55,7 @@ TEST(settingsTest, setGetPlayersTest)
 
   testSettings->setNumPlayers(4);
   EXPECT_EQ(testSettings->getNumPlayers(), 4);
+  delete testSettings;
 }
 
 TEST(settingsTest, tooLittlePlayersTest)
@@ -36,6 +64,7 @@ TEST(settingsTest, tooLittlePlayersTest)
 
   unsigned int playerOverflow = 1;
   EXPECT_DEATH(testSettings->setNumPlayers(playerOverflow), "Tried setting to less than 2 players");
+  delete testSettings;
 }
 
 TEST(settingsTest, tooManyPlayersTest)
@@ -44,6 +73,7 @@ TEST(settingsTest, tooManyPlayersTest)
 
   unsigned int playerOverflow = 8;
   EXPECT_DEATH(testSettings->setNumPlayers(playerOverflow), "Tried setting to more than 7 players");
+  delete testSettings;
 }
 
 TEST(settingsTest, setGetStartingChipsTest)
@@ -52,6 +82,7 @@ TEST(settingsTest, setGetStartingChipsTest)
 
   testSettings->setStartingChips(40000);
   EXPECT_EQ(testSettings->getStartingChips(), 40000);
+  delete testSettings;
 }
 
 TEST(settingsTest, tooManyStartingChipsTest)
@@ -59,6 +90,7 @@ TEST(settingsTest, tooManyStartingChipsTest)
   Settings* testSettings = new Settings();
 
   EXPECT_DEATH(testSettings->setStartingChips(50001), "Only up to 50000 starting chips");
+  delete testSettings;
 }
 
 TEST(settingsTest, tooLittleStartingChipsTest)
@@ -66,6 +98,7 @@ TEST(settingsTest, tooLittleStartingChipsTest)
   Settings* testSettings = new Settings();
 
   EXPECT_DEATH(testSettings->setStartingChips(0), "Must have at least one starting chip");
+  delete testSettings;
 }
 
 int main(int argc, char **argv) {

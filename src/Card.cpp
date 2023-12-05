@@ -3,13 +3,6 @@
 
 using namespace std;
 
-Card::Card()
-{
-    this->rank = 0;
-    this->suit = "";
-    this->name = "";
-}
-
 Card::Card(int rank, const string &suit, const string &name, const string &suitSymbol)
 {
     this->rank = rank;
@@ -36,14 +29,4 @@ string Card::getSuitSymbol() const
 string Card::getName() const
 {
     return this->name;
-}
-
-void Card::setRank(int rank)
-{
-    this->rank = rank;
-}
-
-void Card::setSuit(string suit)
-{
-    this->suit = suit;
 }

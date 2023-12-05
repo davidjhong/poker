@@ -55,10 +55,10 @@ int HandRank::hasTwoPair()
             ++i; // Move to next i
         }
 
-    if (numPairs == 2) 
-    {
-        return cards[i]->getRank() + 100;
-    }
+        if (numPairs == 2) 
+        {
+            return cards[i]->getRank() + 100;
+        }
 
     } 
 

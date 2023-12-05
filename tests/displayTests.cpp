@@ -3,11 +3,11 @@
 #include "../header/Card.h"
 #include "../header/handRank.h"
 #include "../header/Pot.h"
-#include "../header/Deck.h"
 #include "../header/Hand.h"
 #include "../header/Settings.h"
 #include "../header/Display.h"
 #include "../header/RoundHandler.h"
+#include "../header/Bot.h"
 
 
 
@@ -213,8 +213,8 @@ TEST(displayTest, displayWinnerTest)
   ostringstream out;
   Display display;
 
-  Player* player1 = new Player("Kevin", 500);
-  Player* player2 = new Player("Jason", 500);
+  Player* player1 = new Player("Kevin", 500, false);
+  Player* player2 = new Player("Jason", 500, false);
 
   Card* winningCard1 = new Card(1, "Hearts", "Ace of Hearts", "♥");
   Card* winningCard2 = new Card(5, "Hearts", "Five of Hearts", "♥");
@@ -259,8 +259,8 @@ TEST(displayTest, displayTieWinnersTest)
   ostringstream out;
   Display display;
 
-  Player* player1 = new Player("Kevin", 500);
-  Player* player2 = new Player("Jason", 500);
+  Player* player1 = new Player("Kevin", 500, false);
+  Player* player2 = new Player("Jason", 500, false);
 
   Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
   Card* card2 = new Card(5, "Spades", "Two of Spades", "♠");
@@ -301,6 +301,15 @@ TEST(displayTest, displayTieWinnersTest)
   EXPECT_EQ(player1->getBalance(), 500);
   EXPECT_EQ(player2->getBalance(), 500);
 
+}
+
+TEST(displayTests, botOutputTest)
+{
+  Bot* testBot = new Bot("Bot Kevin", 500);
+
+  ASSERT_TRUE(testBot->randomAction());
+
+  delete testBot;
 }
 
 
