@@ -139,7 +139,7 @@ TEST(handTests, getPairTest)
   Card* card4 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
   Card* card5 = new Card(3, "Hearts", "Three of Hearts", "♥");
   Card* card6 = new Card(12, "Hearts", "Queen of Hearts", "♥");
-  Card* card7 = new Card(10, "Hearts", "Ten of Hearts", "♥");
+  Card* card7 = new Card(7, "Hearts", "Seven of Hearts", "♥");
 
   communityCards.push_back(card3);
   communityCards.push_back(card4);
@@ -148,11 +148,12 @@ TEST(handTests, getPairTest)
   communityCards.push_back(card7);
 
   testHand->calculateStrength(communityCards);
-  EXPECT_EQ(testHand->getStrength(), 110);
-  EXPECT_EQ(testHand->getComboName(), "Two Pair");
+  EXPECT_EQ(testHand->getStrength(), 53);
+  EXPECT_EQ(testHand->getComboName(), "Pair");
 
   delete testHand;
 }
+
 
 
 TEST(handTests, getTwoPairTest)
