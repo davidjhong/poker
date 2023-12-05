@@ -356,7 +356,20 @@ void Display::displayWinner(std::ostream& out, vector<Player*> winnerList, Pot* 
     
 }
 
+void Display::displayRoundHistory(std::ostream& out, const vector<vector<string>> &roundHistory)
+{
+    out << "ROUND" << "      " << "WINNER NAME" << "      " << "POT SIZE" << "      " << "COMBO NAME\n";
 
+    for (int i = 0; i < roundHistory.size(); i++)
+    {
+        out << (i + 1); // round number
+        for (int j = 0; j < roundHistory[i].size(); j++)
+        {
+            out << "         " << roundHistory[i][j];
+        }
+        out << endl;
+    }
+}
 void Display::displayBetweenTurns(std::ostream& out, Player* player)
 {
     out << player->getName() << "'s turn\n";

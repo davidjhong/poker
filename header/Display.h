@@ -27,7 +27,7 @@ class Display
         void displayGameOver(std::ostream&);
         void displaySettings(std::ostream&);
         void displayBetweenTurns(std::ostream&, Player*);
-     
+        void displayRoundHistory(std::ostream&, const vector<vector<string>> &roundHistory);
         void displayWinner(std:: ostream&, vector<Player*>, Pot*);
 
 };
