@@ -483,7 +483,6 @@ void GameHandler::saveToFile(string fileName) {
     saveFile << getRoundHandler()->getDealerIndex() << endl;
 
     saveFile.close();
-    
 }
 
 void GameHandler::loadFromFile(string fileName) {
