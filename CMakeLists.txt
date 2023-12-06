@@ -99,6 +99,8 @@ ADD_EXECUTABLE(saveTest
     src/GameHandler.cpp
     src/Settings.cpp
     src/Display.cpp
+    src/Utility.cpp
+    src/Bot.cpp
 )
 
 ADD_EXECUTABLE(roundHandlerTests
@@ -127,6 +129,7 @@ target_link_libraries(handTests PRIVATE --coverage gtest_main)
 target_link_libraries(playerTests PRIVATE --coverage gtest_main)
 target_link_libraries(potTests PRIVATE --coverage gtest_main)
 target_link_libraries(roundHandlerTests PRIVATE --coverage gtest_main)
+target_link_libraries(saveTest PRIVATE --coverage gtest_main)
 
 
 
