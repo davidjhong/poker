@@ -24,12 +24,6 @@ RoundHandler::~RoundHandler()
 
 vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList, vector<vector<string>> &roundHistory)
 {
-    this->deck->shuffleDeck(true);
-
-    // os << "Round " << round << "!" << endl;
-    // clearScreen();
-    // os << "\n\n\n\n\n\n\n\n\n" << endl;
-    // Deals two cards to each player
 
     const unsigned int playerCount = playerList->size();
 
@@ -38,7 +32,6 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
 
     Player* smallBlindPlayer = playerList->at(smallBlindIndex);
     Player* bigBlindPlayer = playerList->at(bigBlindIndex);
-
 
     blindInput(smallBlindPlayer, settings->getLittleBlindAmt());
     blindInput(bigBlindPlayer, settings->getBigBlindAmt());
@@ -90,6 +83,7 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
     vector<Player*> winners = lookForWinner(playerList);
     saveRoundHistory(winners, roundHistory);
     return winners;
+
 }
 
 void RoundHandler::saveRoundHistory(vector<Player*> &winners, vector<vector<string>> &roundHistory)

@@ -3,11 +3,11 @@
 #include "../header/Card.h"
 #include "../header/handRank.h"
 #include "../header/Pot.h"
-#include "../header/Deck.h"
 #include "../header/Hand.h"
 #include "../header/Settings.h"
 #include "../header/Display.h"
 #include "../header/RoundHandler.h"
+#include "../header/Bot.h"
 
 
 
@@ -74,6 +74,33 @@ TEST(DisplayTest, displayCommunityCardsTest)
 }
 
 
+TEST(displayTest, displayCardComboTest)
+{
+  ostringstream out;
+
+  Display display;
+  display.displayCardCombinations(out);
+
+  EXPECT_EQ(out.str(), " ----  ----  ----  ----  ----\n| \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  | royal flush: straight flush from 10 to Ace.\n| 10 ||  J ||  Q ||  K ||  A |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  | straight flush: straight, but all cards are the same suit.\n|  5 ||  6 ||  7 ||  8 ||  9 |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA7  || \xE2\x99\xA2  | four of a kind: four of the same card, highest value wins in a tie.\n|  A ||  A ||  A ||  A ||  2 |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA7  || \xE2\x99\xA2  | full house: 3 of a kind + 2 of a kind, highest 3 of a kind wins in a tie.\n|  A ||  A ||  A ||  K ||  K |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  | flush: 5 cards of the same suit, highest card wins in a tie.\n|  2 ||  4 ||  6 ||  8 ||  K |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA1  || \xE2\x99\xA4  | straight: 5 cards in order but not of the same suit.\n|  5 ||  6 ||  7 ||  8 ||  9 |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA1  || \xE2\x99\xA4  | three of a kind: 3 of a kind, highest card wins in a tie.\n|  A ||  A ||  A ||  2 ||  7 |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA1  || \xE2\x99\xA4  | two pair: 2 sets of pairs.\n|  K ||  K ||  Q ||  Q ||  J |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA1  || \xE2\x99\xA4  | pair: 2 of a kind, highest card wins in a tie.\n|  A ||  A ||  9 ||  8 ||  7 |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA1  || \xE2\x99\xA4  | high card: no combination, only a single high ranked card\n|  A ||  8 ||  6 ||  4 ||  2 |\n ----  ----  ----  ----  ----\nq) back to menu \n");
+}
+
+TEST(displayTest, displaySettingsTest)
+{
+  ostringstream out;
+  Display display;
+  display.displaySettings(out);
+  ASSERT_EQ(out.str(), "-------------- SETTINGS -----------------\n1) Change player count\n2) Change starting chips\n3) Change big blind amount\n4) Change small blind amount\n5) Change number of rounds\nq) Save and exit\n----------------------------------------\n");
+
+}
+
+TEST(displayTest, displayCardRankingsTest)
+{
+  ostringstream out;
+  Display display;
+  display.displayCardRankings(out);
+  EXPECT_EQ(out.str(), "The card rankings are displayed below, from weakest to strongest: \n2\n3\n4\n5\n6\n7\n8\n9\n10\nJ (jack)\nQ (queen)\nK (king)\nA (ace)\n* Note that in Texas Hold' em, all suits are equally ranked\nq) back to menu \n");
+}
+
 
 
 TEST(displayTest, displayMenuTest)
@@ -82,27 +109,29 @@ TEST(displayTest, displayMenuTest)
   Display display; 
   display.displayMenu(out);
   EXPECT_EQ(out.str(),
-    "-------------- START MENU -----------------\n" 
-    "1) Start game\n"
-    "2) Settings\n" 
-    "3) Rules\n" 
-    "4) Card rankings\n" 
-    "5) Card combinations\n"
-    "q) Quit\n"
-    "Enter an option\n"
-    "-------------------------------------------\n");
+    "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\nq) Quit\nEnter an option\n-------------------------------------------\n");
+}
+
+TEST(displayTest, displayGameOverTest)
+{
+  ostringstream out;
+
+  Display display;
+  display.displayGameOver(out);
+
+  EXPECT_EQ(out.str(), "POKER++ \nThanks for playing! \n :3");
 }
 
 TEST(displayTest, displayBetweenTurnsTest)
 {
   ostringstream out;
-  Display* displayTurns = new Display();
+  Display display;
   Player* player = new Player();
   player->setName("chloe");
-  displayTurns->displayBetweenTurns(out, player);
+  display.displayBetweenTurns(out, player);
   EXPECT_EQ(out.str(),
-    "chloe's turn\n"
-    "Enter 1 to continue\n");
+    "chloe's turn!\n"
+    "Enter anything to continue\n");
 }
 
 
@@ -213,8 +242,8 @@ TEST(displayTest, displayRoundHistory)
 //   ostringstream out;
 //   Display display;
 
-//   Player* player1 = new Player("Kevin", 500);
-//   Player* player2 = new Player("Jason", 500);
+  // Player* player1 = new Player("Kevin", 500, false);
+  // Player* player2 = new Player("Jason", 500, false);
 
 //   Card* winningCard1 = new Card(1, "Hearts", "Ace of Hearts", "♥");
 //   Card* winningCard2 = new Card(5, "Hearts", "Five of Hearts", "♥");
@@ -259,16 +288,16 @@ TEST(displayTest, displayRoundHistory)
 //   ostringstream out;
 //   Display display;
 
-//   Player* player1 = new Player("Kevin", 500);
-//   Player* player2 = new Player("Jason", 500);
+  // Player* player1 = new Player("Kevin", 500);
+  // Player* player2 = new Player("Jason", 500);
 
-//   Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
-//   Card* card2 = new Card(5, "Spades", "Two of Spades", "♠");
-//   Card* card3 = new Card(11, "Diamonds", "Three of Diamonds", "♦");
-//   Card* card4 = new Card(6, "Diamonds", "Five of Diamonds", "♦");
-//   Card* card5 = new Card(3, "Hearts", "Ten of Hearts", "♥");
-//   Card* card6 = new Card(12, "Hearts", "Nine of Hearts", "♥");
-//   Card* card7 = new Card(10, "Clubs", "Eight of Clubs", "♣");
+  // Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
+  // Card* card2 = new Card(5, "Spades", "Two of Spades", "♠");
+  // Card* card3 = new Card(11, "Diamonds", "Three of Diamonds", "♦");
+  // Card* card4 = new Card(6, "Diamonds", "Five of Diamonds", "♦");
+  // Card* card5 = new Card(3, "Hearts", "Ten of Hearts", "♥");
+  // Card* card6 = new Card(12, "Hearts", "Nine of Hearts", "♥");
+  // Card* card7 = new Card(10, "Clubs", "Eight of Clubs", "♣");
   
 //   player1->getHand()->addCard(card1);
 //   player1->getHand()->addCard(card2);

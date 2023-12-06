@@ -1,16 +1,45 @@
 #include "gtest/gtest.h"
-#include "../header/Player.h"
 #include "../header/Card.h"
-#include "../header/handRank.h"
-#include "../header/Pot.h"
 #include "../header/Deck.h"
-#include "../header/Hand.h"
-#include "../header/Settings.h"
-#include "../header/Display.h"
-#include "../header/RoundHandler.h"
 
 
 // Deck Test Suite
+
+TEST(CardTests, constructorTest) {
+  Card* heartCard = new Card(5, "Hearts", "Five of Hearts", "♥");
+  Card* diamondCard = new Card(5, "Diamonds", "Five of Diamonds", "♦");
+
+  EXPECT_EQ(heartCard->getRank(), 5);
+  EXPECT_EQ(diamondCard->getRank(), 5);
+  
+  EXPECT_EQ(heartCard->getSuit(), "Hearts");
+  EXPECT_EQ(diamondCard->getSuit(), "Diamonds");
+  
+  EXPECT_EQ(heartCard->getSuitSymbol(), "♥");
+  EXPECT_EQ(diamondCard->getSuitSymbol(), "♦");
+
+  EXPECT_EQ(heartCard->getName(), "Five of Hearts");
+  EXPECT_EQ(diamondCard->getName(), "Five of Diamonds");
+  
+}
+
+TEST(CardTests, largerRankTest) {
+  Card* heartCard = new Card(11, "Hearts", "Jack of Hearts", "♥");
+  Card* diamondCard = new Card(12, "Diamonds", "Queen of Diamonds", "♦");
+
+  EXPECT_EQ(heartCard->getRank(), 11);
+  EXPECT_EQ(diamondCard->getRank(), 12);
+  
+  EXPECT_EQ(heartCard->getSuit(), "Hearts");
+  EXPECT_EQ(diamondCard->getSuit(), "Diamonds");
+  
+  EXPECT_EQ(heartCard->getSuitSymbol(), "♥");
+  EXPECT_EQ(diamondCard->getSuitSymbol(), "♦");
+
+  EXPECT_EQ(heartCard->getName(), "Jack of Hearts");
+  EXPECT_EQ(diamondCard->getName(), "Queen of Diamonds");
+  
+}
 
 TEST(DeckTests, constructorTest) {
   Deck* testDeck = new Deck();
@@ -26,6 +55,8 @@ TEST(DeckTests, constructorTest) {
   EXPECT_EQ(thirdCard->getName(), "Ace of Clubs");
   EXPECT_EQ(fourthCard->getName(), "Ace of Spades");
   EXPECT_EQ(fifthCard->getName(), "Two of Diamonds");
+  
+  delete testDeck;
 
 }
 
@@ -45,6 +76,8 @@ TEST(DeckTests, shuffleDeckTest) {
   EXPECT_EQ(thirdCard->getName(), "Three of Spades");
   EXPECT_EQ(fourthCard->getName(), "Four of Spades");
   EXPECT_EQ(fifthCard->getName(), "Seven of Diamonds");
+
+  delete testDeck;
 }
 
 
