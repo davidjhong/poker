@@ -36,6 +36,8 @@ class RoundHandler {
         ~RoundHandler();
         unsigned int getRound() const;
         unsigned int getDealerIndex() const;
+        void setRound(int);
+        void setDealerIndex(int);
         Pot* getPot() const;
         vector<Player*> lookForWinner(vector<Player*>*);
         vector<Player*> startRound(istream&, ostream&, vector<Player*>*, vector<vector<string>> &);
