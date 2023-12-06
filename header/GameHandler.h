@@ -27,13 +27,22 @@ class GameHandler
 
         void settingsMenu(ostream&);
         void rulesMenu(ostream&);
-        bool menuOptions(ostream&);
+
+        bool menuOptions(istream&, ostream&);
         void cardRankingMenu(ostream&);
         void cardComboMenu(ostream&);
+        void loadMenu(istream&, ostream&);
+
+        bool loadingGame = false;
     public:
         GameHandler();
         ~GameHandler();
         void startGame();
+        void saveToFile(string);
+        void loadFromFile(string);
+        vector<Player*>& getPlayerList() { return *playerList;};       
+        Settings* getSettings() { return settings;};
+        RoundHandler* getRoundHandler() { return roundHandler;};
         void addPlayer(const string &playerName, bool);
 };
 
