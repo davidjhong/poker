@@ -145,7 +145,7 @@ TEST(displayTest, displayMenuTest)
   Display display; 
   display.displayMenu(out);
   EXPECT_EQ(out.str(),
-    "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\nq) Quit\nEnter an option\n-------------------------------------------\n");
+    "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\n7) Load From Save\nq) Quit\nEnter an option\n-------------------------------------------\n");
 }
 
 TEST(displayTest, displayGameOverTest)
@@ -966,7 +966,7 @@ TEST(GameHandlerTests, AddPlayerIndividualTest) {
     GameHandler* gameHandler = new GameHandler();
 
     gameHandler->addPlayer("chloe", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "chloe");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "chloe");
     delete gameHandler;
 }
 
@@ -974,13 +974,13 @@ TEST(GameHandlerTests, AddMultiplePlayersTest) {
     GameHandler* gameHandler = new GameHandler();
 
     gameHandler->addPlayer("chloe", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "chloe");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "chloe");
 
     gameHandler->addPlayer("kevin", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "kevin");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "kevin");
 
     gameHandler->addPlayer("jason", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "jason");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "jason");
     delete gameHandler;
 }
 
@@ -988,25 +988,25 @@ TEST(GameHandlerTests, AddPlayerOverLimitTest) {
     GameHandler* gameHandler = new GameHandler();
 
     gameHandler->addPlayer("chloe", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "chloe");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "chloe");
 
     gameHandler->addPlayer("kevin", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "kevin");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "kevin");
 
     gameHandler->addPlayer("jason", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "jason");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "jason");
 
     gameHandler->addPlayer("david", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "david");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "david");
 
     gameHandler->addPlayer("emily", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "emily");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "emily");
 
     gameHandler->addPlayer("nagi", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "nagi");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "nagi");
 
     gameHandler->addPlayer("gojo", false);
-    ASSERT_EQ(gameHandler->playerList->back()->getName(), "gojo");
+    ASSERT_EQ(gameHandler->getPlayerList().back()->getName(), "gojo");
 
     ASSERT_DEATH(gameHandler->addPlayer("gency", false), "Seven players maximum");
     delete gameHandler;
@@ -1064,7 +1064,7 @@ TEST(GameHandlerTests, ChangeNumberOfPlayers) {
     "5) Change number of rounds\n"
     "q) Save and exit\n"
     "----------------------------------------\n");
-    EXPECT_EQ(gameHandler->settings->getNumPlayers(), 3);
+    EXPECT_EQ(gameHandler->getSettings()->getNumPlayers(), 3);
 
     delete gameHandler;
 }

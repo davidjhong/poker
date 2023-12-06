@@ -13,11 +13,7 @@
 
 class GameHandler
 {
-    public:
-        GameHandler();
-        ~GameHandler();
-        void runGame(istream&, ostream&);
-        void addPlayer(const string &playerName, bool);
+    private:
         Settings* settings;
         RoundHandler* roundHandler;
         vector<Player*> *playerList;
@@ -29,11 +25,6 @@ class GameHandler
         void startGame(istream&, ostream&);
         bool optionToLeave(istream&, ostream&);
 
-        void settingsMenu(istream&, ostream&);
-        void rulesMenu(istream&, ostream&);
-        bool menuOptions(istream&, ostream&);
-        void cardRankingMenu(istream&, ostream&);
-        void cardComboMenu(istream&, ostream&);
   
         void loadMenu(istream&, ostream&);
 
@@ -41,13 +32,20 @@ class GameHandler
     public:
         GameHandler();
         ~GameHandler();
-        void startGame();
+        void runGame(istream&, ostream&);
+        void addPlayer(const string &playerName, bool);
+
+        void settingsMenu(istream&, ostream&);
+        void rulesMenu(istream&, ostream&);
+        bool menuOptions(istream&, ostream&);
+        void cardRankingMenu(istream&, ostream&);
+        void cardComboMenu(istream&, ostream&);
+
         void saveToFile(string);
         void loadFromFile(string);
         vector<Player*>& getPlayerList() { return *playerList;};       
         Settings* getSettings() { return settings;};
         RoundHandler* getRoundHandler() { return roundHandler;};
-        void addPlayer(const string &playerName, bool);
 };
 
 #endif

@@ -273,10 +273,6 @@ bool GameHandler::menuOptions(istream &is, ostream &os)
         {
             cardComboMenu(is, os);
         }
-        else if (input == "6")
-        {
-            cardComboMenu(os);
-        }
         else if (input == "7")
         {
             loadMenu(is, os);
