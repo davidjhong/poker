@@ -34,6 +34,20 @@ class GameHandler
         bool menuOptions(istream&, ostream&);
         void cardRankingMenu(istream&, ostream&);
         void cardComboMenu(istream&, ostream&);
+  
+        void loadMenu(istream&, ostream&);
+
+        bool loadingGame = false;
+    public:
+        GameHandler();
+        ~GameHandler();
+        void startGame();
+        void saveToFile(string);
+        void loadFromFile(string);
+        vector<Player*>& getPlayerList() { return *playerList;};       
+        Settings* getSettings() { return settings;};
+        RoundHandler* getRoundHandler() { return roundHandler;};
+        void addPlayer(const string &playerName, bool);
 };
 
 #endif

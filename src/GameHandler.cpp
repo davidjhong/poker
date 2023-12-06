@@ -11,7 +11,7 @@
 #include <ostream>
 #include <assert.h>
 
-
+//adding save file
 #include <cstdlib>
 
 using namespace std;
@@ -96,6 +96,9 @@ void GameHandler::runGame(istream& is, ostream& os)
 
 void GameHandler::gameSetup(istream &is, ostream &os, bool botGame)
 {
+    if(loadingGame) {
+        return;
+    }
     if (botGame)
     {
         string username;
@@ -107,7 +110,6 @@ void GameHandler::gameSetup(istream &is, ostream &os, bool botGame)
         addPlayer("Bot Kevin", true);
         return;
     }
-
 
     const unsigned int playerCount = this->settings->getNumPlayers();
     string username;
@@ -127,8 +129,12 @@ void GameHandler::startGame(istream &is, ostream &os)
     const unsigned int numOfRounds = this->settings->getNumOfRounds();
 
     this->roundHandler->setSettings(this->settings);
-    
-    for (int round = 1; round <= numOfRounds; round++)
+    int startRound = this->roundHandler->getRound();
+    if(startRound > numOfRounds) {
+        os << "All rounds have finished." << endl;
+        return;
+    }
+    for (int round = startRound; round <= numOfRounds; round++)
     {
         Utility::clearScreen();
 
@@ -186,16 +192,18 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
     os << "Would you like to continue playing?" << endl;
     os << "1. yes" << endl;
     os << "2. no" << endl;
+    os << "3. save" << endl;
 
     int input = 0;
 
-    while (!(is >> input) || (input != 1 && input != 2))
+    while (!(is >> input) || (input != 1 && input != 2 && input != 3))
     {
         Utility::clearScreen();
         os << "Round " << round << " complete!" << endl;
         os << "Would you like to continue playing?" << endl;
         os << "1. yes" << endl;
         os << "2. no" << endl;
+        os << "3. save" << endl;
         os << "Invalid input. Try again" << endl;
 
         is.clear();
@@ -205,6 +213,13 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
     if (input == 1)
     {
         return true;
+    }
+    if(input == 3) {
+        is.ignore();
+        os << "enter a name for the save file :" << endl;
+        string fileName;
+        getline(is, fileName);
+        saveToFile(fileName);
     }
     return false;
 }
@@ -257,6 +272,15 @@ bool GameHandler::menuOptions(istream &is, ostream &os)
         else if (input == "6")
         {
             cardComboMenu(is, os);
+        }
+        else if (input == "6")
+        {
+            cardComboMenu(os);
+        }
+        else if (input == "7")
+        {
+            loadMenu(is, os);
+            inMenu = false;
         }
         else if (input == "q")
         {
@@ -497,4 +521,94 @@ void GameHandler::cardRankingMenu(istream &is, ostream &os)
         is >> input;
 
     }
+}
+
+void GameHandler::loadMenu(istream &is, ostream &os) {
+    string input;
+    os << "Enter the name of the save file." << endl;
+    is >> input;
+    loadFromFile(input);
+    loadingGame = true;
+}
+
+
+void GameHandler::saveToFile(string fileName) {
+    string filePath = "savefiles/" + fileName;
+    ofstream saveFile(filePath);
+    if(!saveFile.is_open()) {
+        cout << "Save File COULD NOT BE SAVED." << endl;
+        return;
+    }
+    
+    saveFile << "Big_Blind: " << settings->getBigBlindAmt() << endl;
+    saveFile << "Little_Blind: " << settings->getLittleBlindAmt() << endl;
+    saveFile << "Num_Of_Rounds: " <<  settings->getNumOfRounds() << endl;
+    saveFile << "Num_Players: " << settings->getNumPlayers() << endl;
+    saveFile << "Starting_Chips: " << settings->getStartingChips() << endl;
+
+    saveFile << "Players: ";
+    for(unsigned int i = 0; i < playerList->size(); i++) {
+        saveFile << getPlayerList().at(i)->getName() << " " << getPlayerList().at(i)->getBalance() << endl;
+    }
+
+    saveFile << "Current_Round: ";
+    saveFile << getRoundHandler()->getRound() << endl;
+    saveFile << "Dealer_Index: ";
+    saveFile << getRoundHandler()->getDealerIndex() << endl;
+
+    saveFile.close();
+}
+
+void GameHandler::loadFromFile(string fileName) {
+    string filePath = "savefiles/" + fileName;
+    ifstream loadFile(filePath);
+    if(!loadFile.is_open()) {
+        cout << "LOAD FILE CANNOT BE FOUND." << endl;
+        return;
+    }
+
+    string str;
+    string name;
+    int bigBlind, littleBlind, numRounds, numPlayers,
+    startingChips, balance, currentRound, dealerIndex;
+    if(loadFile >> str) {
+        loadFile >> bigBlind;
+        settings->setBigBlindAmt(bigBlind);
+    }
+    if(loadFile >> str) {
+        loadFile >> littleBlind;
+        settings->setLittleBlindAmt(littleBlind);
+    }
+    if(loadFile >> str) {
+        loadFile >> numRounds;
+        settings->setNumOfRounds(numRounds);
+    }
+    if(loadFile >> str) {
+        loadFile >> numPlayers;
+        settings->setNumPlayers(numPlayers);
+    }
+    if(loadFile >> str) {
+        loadFile >> startingChips;
+        settings->setStartingChips(startingChips);
+    }
+    if(loadFile >> str) {
+        for(unsigned int i = 0; i < numPlayers; i++) {
+            if(loadFile >> name >> balance) {
+                Player* newPlayer = new Player(name, balance, false);
+                playerList->push_back(newPlayer);
+                
+            }
+        }
+    }
+    if(loadFile >> str) {
+        loadFile >> currentRound;
+        roundHandler->setRound(currentRound + 1);
+    }
+    if(loadFile >> str) {
+        loadFile >> dealerIndex;
+        roundHandler->setDealerIndex((dealerIndex + 1) % playerList->size());
+    }
+    
+
+    
 }

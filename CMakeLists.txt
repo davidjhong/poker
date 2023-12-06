@@ -87,6 +87,22 @@ ADD_EXECUTABLE(settingsTests
     src/Settings.cpp
 )
 
+ADD_EXECUTABLE(saveTest
+    tests/saveTest.cpp
+    src/Pot.cpp
+    src/Player.cpp
+    src/handRank.cpp
+    src/Card.cpp
+    src/Deck.cpp
+    src/Hand.cpp
+    src/RoundHandler.cpp
+    src/GameHandler.cpp
+    src/Settings.cpp
+    src/Display.cpp
+    src/Utility.cpp
+    src/Bot.cpp
+)
+
 ADD_EXECUTABLE(roundHandlerTests
     tests/roundHandlerTests.cpp
     src/Display.cpp
@@ -121,17 +137,6 @@ ADD_EXECUTABLE(gameHandlerTests
 )
 
 
-
-
-# target_compile_options(poker PRIVATE --coverage)
-# target_compile_options(test PRIVATE --coverage)
-# target_compile_options(deckTests PRIVATE --coverage)
-# target_compile_options(displayTests PRIVATE --coverage)
-# target_compile_options(handTests PRIVATE --coverage)
-# target_compile_options(playerTests PRIVATE --coverage)
-# target_compile_options(potTests PRIVATE --coverage)
-# target_compile_options(settingsTests PRIVATE --coverage)
-
 TARGET_LINK_LIBRARIES(test PRIVATE --coverage gtest)
 target_link_libraries(test PRIVATE --coverage gtest_main)
 target_link_libraries(deckTests PRIVATE --coverage gtest_main)
@@ -142,6 +147,7 @@ target_link_libraries(playerTests PRIVATE --coverage gtest_main)
 target_link_libraries(potTests PRIVATE --coverage gtest_main)
 target_link_libraries(roundHandlerTests PRIVATE --coverage gtest_main)
 target_link_libraries(gameHandlerTests PRIVATE --coverage gtest_main)
+target_link_libraries(saveTest PRIVATE --coverage gtest_main)
 
 
 

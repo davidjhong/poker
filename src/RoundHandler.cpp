@@ -438,3 +438,11 @@ unsigned int RoundHandler::getDealerIndex() const
 {
     return this->dealerIndex;
 }
+
+void RoundHandler::setDealerIndex(int i) {
+    dealerIndex = i;
+}
+
+void RoundHandler::setRound(int r) {
+    roundNumber = r;
+}
