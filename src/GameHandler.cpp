@@ -135,6 +135,8 @@ void GameHandler::startGame(istream &is, ostream &os)
         Utility::clearScreen();
         // os << "Round " << round + 1 << "!" << endl;
 
+        roundHandler->deck->shuffleDeck(true);
+
         vector<Player*> winners = roundHandler->startRound(is, os, this->playerList, this->roundHistory);
 
 

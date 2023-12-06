@@ -339,6 +339,21 @@ TEST(displayTest, displayTieWinnersTest)
 
 }
 
+TEST(displayTests, botOutputTest)
+{
+  Bot* testBot = new Bot("Bot Kevin", 500);
+
+  ASSERT_TRUE(testBot->randomAction());
+
+  delete testBot;
+}
+
+TEST(utilityTest, clearScreenTest)
+{
+  Utility::clearScreen();
+  
+}
+
 
 // Player Test Suite
 
@@ -726,54 +741,196 @@ TEST(handTests, getTwoPairTest)
   delete testHand;
 }
 
+// RoundHandler Test Suite
 
-
-// Bot Test Suite
-
-TEST(displayTests, botOutputTest)
+TEST(roundHandlerTests, startRoundTest)
 {
-  Bot* testBot = new Bot("Bot Kevin", 500);
+    
+    ifstream testInput("tests/testInputs/startRoundTest.txt");
+    ostringstream out;
 
-  ASSERT_TRUE(testBot->randomAction());
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+    
+    Settings* settings = new Settings();
+    RoundHandler* testHandler = new RoundHandler();
 
-  delete testBot;
+    testHandler->setSettings(settings);
+
+    Player* testPlayer1 = new Player("Kevin", 500, false);
+    Player* testPlayer2 = new Player("Jason", 500, false);
+
+    vector<Player*>* playerList = new vector<Player*>{testPlayer1, testPlayer2};
+
+    // playerList.push_back(testPlayer1);
+    // playerList.push_back(testPlayer2);
+
+    vector<vector<string>> roundHistory;
+
+    vector<Player*> winners = testHandler->startRound(testInput, out, playerList, roundHistory);
+
+    EXPECT_EQ(out.str(),
+    "Jason, it's your turn!\nYou have 475 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\n"
+    );
+
+    vector<Player*> expectedWinners{testPlayer1, testPlayer2};
+
+    EXPECT_EQ(winners, expectedWinners);
+    EXPECT_EQ(winners.at(0)->getName(), "Kevin");
+    EXPECT_EQ(winners.at(1)->getName(), "Jason");
+
+    testHandler->resetRound(playerList);
+    delete testHandler;
 }
 
+TEST(roundHandlerTests, startRoundFoldTest)
+{
+    
+    ifstream testInput("tests/testInputs/startRoundFoldTest.txt");
+    ostringstream out;
 
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+    
+    Settings* settings = new Settings();
+    RoundHandler* testHandler = new RoundHandler();
 
+    testHandler->setSettings(settings);
 
+    Player* testPlayer1 = new Player("Kevin", 500, false);
+    Player* testPlayer2 = new Player("Jason", 500, false);
 
+    vector<Player*>* playerList = new vector<Player*>{testPlayer1, testPlayer2};
 
+    // playerList.push_back(testPlayer1);
+    // playerList.push_back(testPlayer2);
 
+    vector<vector<string>> roundHistory;
 
+    vector<Player*> winners = testHandler->startRound(testInput, out, playerList, roundHistory);
 
+    EXPECT_EQ(out.str(),
+    "Jason, it's your turn!\nYou have 475 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has folded!\n");
 
+    vector<Player*> expectedWinners{testPlayer1};
 
+    EXPECT_EQ(winners, expectedWinners);
+    EXPECT_EQ(winners.at(0)->getName(), "Kevin");
 
+    testHandler->resetRound(playerList);
+    delete testHandler;
+}
 
+TEST(roundHandlerTests, startEarlyRoundFoldTest)
+{
+    
+    ifstream testInput("tests/testInputs/startRoundEarlyFoldTest.txt");
+    ostringstream out;
 
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+    
+    Settings* settings = new Settings();
+    RoundHandler* testHandler = new RoundHandler();
 
+    testHandler->setSettings(settings);
 
+    Player* testPlayer1 = new Player("Kevin", 500, false);
+    Player* testPlayer2 = new Player("Jason", 500, false);
 
+    vector<Player*>* playerList = new vector<Player*>{testPlayer1, testPlayer2};
 
+    // playerList.push_back(testPlayer1);
+    // playerList.push_back(testPlayer2);
 
+    vector<vector<string>> roundHistory;
 
+    vector<Player*> winners = testHandler->startRound(testInput, out, playerList, roundHistory);
 
+    EXPECT_EQ(out.str(),
+    "Jason, it's your turn!\nYou have 475 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has folded!\n");
 
+    vector<Player*> expectedWinners{testPlayer2};
 
-// Round Handler Test Suite
+    EXPECT_EQ(winners, expectedWinners);
+    EXPECT_EQ(winners.at(0)->getName(), "Jason");
 
-// TEST(roundHandlerTests, callTest)
-// {
-//   ostream os;
-//   vector<Player*> testPlayers = {new Player("Kevin", 200), new Player("Jason", 300)};
-//   // Player* testPlayer1 = new Player("Kevin", 200);
-//   // Player* testPlayer2 = new Player("Jason", 300);
+    testHandler->resetRound(playerList);
+    delete testHandler;
+}
 
-//   RoundHandler* testHandler = new RoundHandler(os, testPlayers);
+TEST(roundHandlerTests, startLateRoundFoldTest)
+{
+    
+    ifstream testInput("tests/testInputs/startRoundLateFoldTest.txt");
+    ostringstream out;
 
-//   // testHandler->
-// }
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+    
+    Settings* settings = new Settings();
+    RoundHandler* testHandler = new RoundHandler();
+
+    testHandler->setSettings(settings);
+
+    Player* testPlayer1 = new Player("Kevin", 500, false);
+    Player* testPlayer2 = new Player("Jason", 500, false);
+
+    vector<Player*>* playerList = new vector<Player*>{testPlayer1, testPlayer2};
+
+    // playerList.push_back(testPlayer1);
+    // playerList.push_back(testPlayer2);
+
+    vector<vector<string>> roundHistory;
+
+    vector<Player*> winners = testHandler->startRound(testInput, out, playerList, roundHistory);
+
+    EXPECT_EQ(out.str(),
+    "Jason, it's your turn!\nYou have 475 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has folded!\n");
+
+    vector<Player*> expectedWinners{testPlayer2};
+
+    EXPECT_EQ(winners, expectedWinners);
+    EXPECT_EQ(winners.at(0)->getName(), "Jason");
+
+    testHandler->resetRound(playerList);
+    delete testHandler;
+}
+
+TEST(roundHandlerTests, startRoundRaiseTest)
+{
+    
+    ifstream testInput("tests/testInputs/startRoundRaiseTest.txt");
+    ostringstream out;
+
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+    
+    Settings* settings = new Settings();
+    RoundHandler* testHandler = new RoundHandler();
+
+    testHandler->setSettings(settings);
+
+    Player* testPlayer1 = new Player("Kevin", 500, false);
+    Player* testPlayer2 = new Player("Jason", 500, false);
+
+    vector<Player*>* playerList = new vector<Player*>{testPlayer1, testPlayer2};
+
+    // playerList.push_back(testPlayer1);
+    // playerList.push_back(testPlayer2);
+
+    vector<vector<string>> roundHistory;
+
+    vector<Player*> winners = testHandler->startRound(testInput, out, playerList, roundHistory);
+
+    EXPECT_EQ(out.str(),
+    "Jason, it's your turn!\nYou have 475 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nWhat would you like to raise your bet to?\nNew highest bet: 525\n0\nJason has raise to 525\nThe current pot amount is 550.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 550\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 1000.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 1000.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 1000.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\n");
+
+    vector<Player*> expectedWinners{testPlayer1, testPlayer2};
+
+    EXPECT_EQ(winners, expectedWinners);
+    EXPECT_EQ(winners.at(0)->getName(), "Kevin");
+    EXPECT_EQ(winners.at(1)->getName(), "Jason");
+
+    testHandler->resetRound(playerList);
+    delete testHandler;
+}
+
 
 
 // DISPLAY TESTS

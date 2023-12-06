@@ -312,6 +312,12 @@ TEST(displayTests, botOutputTest)
   delete testBot;
 }
 
+TEST(utilityTest, clearScreenTest)
+{
+  Utility::clearScreen();
+  
+}
+
 
 
 int main(int argc, char **argv) {
