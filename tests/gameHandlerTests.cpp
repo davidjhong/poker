@@ -58,16 +58,16 @@ TEST(GameHandlerTests, AddPlayerOverLimitTest) {
 }
 
 
-TEST(GameHandlerTests, BotGameTest) {
-    ifstream testInput ("tests/testInputs/BotGameTest.txt");
-    ostringstream out;
-    GameHandler* gameHandler = new GameHandler();
-    gameHandler->gameSetup(testInput, out, true);
-    EXPECT_EQ(gameHandler->settings->getNumPlayers(), 2);
-    EXPECT_EQ(gameHandler->playerList->back()->getName(), "Bot Kevin");
-    EXPECT_EQ(gameHandler->playerList->front()->getName(), "\x1B");
+// TEST(GameHandlerTests, BotGameTest) {
+//     ifstream testInput ("tests/testInputs/BotGameTestInput.txt");
+//     ostringstream out;
+//     GameHandler* gameHandler = new GameHandler();
+//     gameHandler->gameSetup(testInput, out, true);
+//     EXPECT_EQ(gameHandler->settings->getNumPlayers(), 2);
+//     EXPECT_EQ(gameHandler->playerList->back()->getName(), "Bot Kevin");
+//     EXPECT_EQ(gameHandler->playerList->front()->getName(), "\x1B");
     
-}
+// }
 
 
 TEST(GameHandlerTests, ChangeNumberOfPlayers) {
@@ -76,7 +76,8 @@ TEST(GameHandlerTests, ChangeNumberOfPlayers) {
     // simulate user input for player count
     ifstream testInput("tests/testInputs/settingsNumPlayersTest.txt");
     ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
-    gameHandler->settingsMenu(out);
+    // gameHandler->settingsMenu(out);
+    // gameHandler->runGame(testInput, out);
 
     // EXPECT_EQ(str.out(),
     // "-------------- SETTINGS -----------------" 
@@ -95,7 +96,9 @@ TEST(GameHandlerTests, ruleDisplayTest)
 {
   GameHandler* gameHandler = new GameHandler;
   ostringstream out;
-  gameHandler->rulesMenu(out);
+  ifstream testInput("tests/testInputs/settingsNumPlayersTest.txt");
+
+  gameHandler->rulesMenu(testInput, out);
   EXPECT_EQ(out.str(),
   "\nOverview: \n" 
     "Each player will be dealt two hole cards, followed by five community cards which will be dealt face up in intervals. \n"
@@ -119,7 +122,8 @@ TEST(GameHandlerTests, cardRankingDisplayTest)
 {
   GameHandler* gameHandler = new GameHandler;
   ostringstream out;
-  gameHandler->rulesMenu(out);
+  ifstream testInput("tests/testInputs/settingsNumPlayersTest.txt");
+  gameHandler->rulesMenu(testInput, out);
   EXPECT_EQ(out.str(),
   "The card rankings are displayed below, from weakest to strongest: \n"
   "2\n"

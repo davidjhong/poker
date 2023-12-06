@@ -16,7 +16,7 @@ class GameHandler
     public:
         GameHandler();
         ~GameHandler();
-        void startGame();
+        void runGame(istream&, ostream&);
         void addPlayer(const string &playerName, bool);
         Settings* settings;
         RoundHandler* roundHandler;
@@ -29,11 +29,11 @@ class GameHandler
         void startGame(istream&, ostream&);
         bool optionToLeave(istream&m, ostream&);
 
-        void settingsMenu(ostream&);
-        void rulesMenu(ostream&);
-        bool menuOptions(ostream&);
-        void cardRankingMenu(ostream&);
-        void cardComboMenu(ostream&);
+        void settingsMenu(istream&, ostream&);
+        void rulesMenu(istream&, ostream&);
+        bool menuOptions(istream&, ostream&);
+        void cardRankingMenu(istream&, ostream&);
+        void cardComboMenu(istream&, ostream&);
 };
 
 #endif
