@@ -58,14 +58,14 @@ void GameHandler::addPlayer(const string &playerName, bool isBot)
 }
 
 
-void GameHandler::startGame()
+void GameHandler::runGame(istream& is, ostream& os)
 {
 
     string input;
 
     while (gameRunning)
     {
-        bool botGame = menuOptions(cout);
+        bool botGame = menuOptions(is, os);
 
         if (!gameRunning)
         {
@@ -74,15 +74,15 @@ void GameHandler::startGame()
 
         if (botGame)
         {
-            gameSetup(cin, cout, true);
+            gameSetup(is, os, true);
         }
         else
         {
-            gameSetup(cin, cout, false);
+            gameSetup(is, os, false);
         }
 
 
-        startGame(cin, cout);
+        startGame(is, os);
 
         
 
@@ -209,7 +209,7 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
     return false;
 }
 
-bool GameHandler::menuOptions(ostream &os)
+bool GameHandler::menuOptions(istream &is, ostream &os)
 {
     bool inMenu = true;
     string input;
@@ -220,7 +220,7 @@ bool GameHandler::menuOptions(ostream &os)
         display->displayMenu(os);
 
 
-        cin >> input;
+        is >> input;
     
         if (input == "1")
         {
@@ -244,20 +244,20 @@ bool GameHandler::menuOptions(ostream &os)
         }
         else if (input == "3")
         {
-            settingsMenu(cout);
+            settingsMenu(is, os);
         }
         else if (input == "4")
         {
-            rulesMenu(cout);
+            rulesMenu(is, os);
             // display->Rules(cout);
         }
         else if (input == "5")
         {
-            cardRankingMenu(cout);
+            cardRankingMenu(is, os);
         }
         else if (input == "6")
         {
-            cardComboMenu(cout);
+            cardComboMenu(is, os);
         }
         else if (input == "q")
         {
@@ -288,7 +288,7 @@ bool GameHandler::menuOptions(ostream &os)
 
 }
 
-void GameHandler::settingsMenu(ostream &os)
+void GameHandler::settingsMenu(istream &is, ostream &os)
 {
     bool inSettings = true;
     string input;
@@ -304,7 +304,7 @@ void GameHandler::settingsMenu(ostream &os)
         // os << "select 5 to change number of rounds\n";
         // os << "enter q to save and exit\n\n";
 
-        cin >> input;
+        is >> input;
 
         if (input == "1")
         {
@@ -323,12 +323,12 @@ void GameHandler::settingsMenu(ostream &os)
                 os << "2 to 7 players allowed\n";
                 os << "Enter number of players: \n";
 
-                if (!(cin >> playerCount))
+                if (!(is >> playerCount))
                 {
                     Utility::clearScreen();
                     os << "Please enter a valid number.\n";
-                    cin.clear();
-                    cin.ignore(10000,'\n');
+                    is.clear();
+                    is.ignore(10000,'\n');
                 }
                 failedOnce = true;
             }
@@ -348,12 +348,12 @@ void GameHandler::settingsMenu(ostream &os)
                 }
                 os << "Enter a number from 1 to 50000\n";
 
-                if (!(cin >> startingChips))
+                if (!(is >> startingChips))
                 {
                     Utility::clearScreen();
                     os << "Please enter a valid number.\n";
-                    cin.clear();
-                    cin.ignore(10000,'\n');
+                    is.clear();
+                    is.ignore(10000,'\n');
                 }
 
                 failedOnce = true;
@@ -377,12 +377,12 @@ void GameHandler::settingsMenu(ostream &os)
                 }
                 os << "Enter a number from 1 to " << settings->getStartingChips() / 2 << "\n";
 
-                if (!(cin >> bigBlindAmt))
+                if (!(is >> bigBlindAmt))
                 {
                     Utility::clearScreen();
                     os << "Please enter a valid number.\n";
-                    cin.clear();
-                    cin.ignore(10000,'\n');
+                    is.clear();
+                    is.ignore(10000,'\n');
                 }
 
                 failedOnce = true;
@@ -405,12 +405,12 @@ void GameHandler::settingsMenu(ostream &os)
                 }
                 os << "Enter a number from 1 to " << settings->getBigBlindAmt() / 2 << "\n";
 
-                if (!(cin >> littleBlindAmt))
+                if (!(is >> littleBlindAmt))
                 {
                     Utility::clearScreen();
                     os << "Please enter a valid number.\n";
-                    cin.clear();
-                    cin.ignore(10000,'\n');
+                    is.clear();
+                    is.ignore(10000,'\n');
                 }
 
                 failedOnce = true;
@@ -434,12 +434,12 @@ void GameHandler::settingsMenu(ostream &os)
                 }
                 os << "Enter a number from 1 to 100\n";
 
-                if (!(cin >> numOfRounds))
+                if (!(is >> numOfRounds))
                 {
                     Utility::clearScreen();
                     os << "Please enter a valid number.\n";
-                    cin.clear();
-                    cin.ignore(10000,'\n');
+                    is.clear();
+                    is.ignore(10000,'\n');
                 }
 
                 failedOnce = true;
@@ -461,7 +461,7 @@ void GameHandler::settingsMenu(ostream &os)
     
 }
 
-void GameHandler::rulesMenu(ostream &os)
+void GameHandler::rulesMenu(istream& is, ostream &os)
 {
     string input;
 
@@ -469,7 +469,7 @@ void GameHandler::rulesMenu(ostream &os)
     {
         display->displayRules(os);
 
-        cin >> input;
+        is >> input;
 
         // if (input != "q)")
 
@@ -477,26 +477,26 @@ void GameHandler::rulesMenu(ostream &os)
     
 }
 
-void GameHandler::cardComboMenu(ostream &os)
+void GameHandler::cardComboMenu(istream &is, ostream &os)
 {
     string input;
     while (input != "q")
     {
         display->displayCardCombinations(os);
 
-        cin >> input;
+        is >> input;
 
     }
 }
 
-void GameHandler::cardRankingMenu(ostream &os)
+void GameHandler::cardRankingMenu(istream &is, ostream &os)
 {
     string input;
     while (input != "q")
     {
         display->displayCardRankings(os);
 
-        cin >> input;
+        is >> input;
 
     }
 }
