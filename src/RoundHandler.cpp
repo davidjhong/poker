@@ -1,15 +1,11 @@
 #include "../header/RoundHandler.h"
+#include "../header/Utility.h"
 #include "../header/Bot.h"
 #include <vector>
 #include <unordered_map>
 
 
 using namespace std;
-
-//https://stackoverflow.com/questions/17335816/clear-screen-using-c 
-void RoundHandler::clearScreen() {
-    cout << "\033[2J\033[1;1H";
-}
 
 RoundHandler::RoundHandler()
 {
@@ -28,12 +24,6 @@ RoundHandler::~RoundHandler()
 
 vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList, vector<vector<string>> &roundHistory)
 {
-    this->deck->shuffleDeck(true);
-
-    // os << "Round " << round << "!" << endl;
-    // clearScreen();
-    // os << "\n\n\n\n\n\n\n\n\n" << endl;
-    // Deals two cards to each player
 
     const unsigned int playerCount = playerList->size();
 
@@ -42,7 +32,6 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
 
     Player* smallBlindPlayer = playerList->at(smallBlindIndex);
     Player* bigBlindPlayer = playerList->at(bigBlindIndex);
-
 
     blindInput(smallBlindPlayer, settings->getLittleBlindAmt());
     blindInput(bigBlindPlayer, settings->getBigBlindAmt());
@@ -94,6 +83,7 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
     vector<Player*> winners = lookForWinner(playerList);
     saveRoundHistory(winners, roundHistory);
     return winners;
+
 }
 
 void RoundHandler::saveRoundHistory(vector<Player*> &winners, vector<vector<string>> &roundHistory)
@@ -239,7 +229,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
     // betting stage
     for (int i = 0; i < playerCount; i++)
     {
-        clearScreen();
+        Utility::clearScreen();
         
         Player* currPlayer = playerList->at(currPlayerIndex);
 
@@ -310,7 +300,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
 
             if (!validChoice)
             {
-                clearScreen();
+                Utility::clearScreen();
                 display->displayGameStatus(os, communityCards, currPlayer, pot);
                 os << "Your previous decision was invalid. Try again." << endl;
                 is.clear();

@@ -7,6 +7,7 @@
 #include "Pot.h"
 #include "Display.h"
 #include "Settings.h"
+#include "Utility.h"
 
 class RoundHandler {
     private:
@@ -15,7 +16,6 @@ class RoundHandler {
         unsigned int dealerIndex;
         unsigned int roundNumber;
         Pot* pot;
-        Deck* deck;
         vector<Card*> communityCards;
 
         bool startBettingStage(istream&, ostream&, vector<Player*>*, int);
@@ -30,8 +30,8 @@ class RoundHandler {
         void cardInsert(int);
         void screenBetweenTurns();
 
-        void clearScreen();
     public:
+        Deck* deck;
         RoundHandler();
         ~RoundHandler();
         unsigned int getRound() const;
