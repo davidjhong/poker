@@ -10,7 +10,7 @@ int main()
 {
     GameHandler game;
 
-    game.startGame();
+    game.runGame(cin, cout);
     
     return 0;
 }
