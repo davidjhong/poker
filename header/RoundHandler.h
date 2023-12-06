@@ -16,7 +16,6 @@ class RoundHandler {
         unsigned int dealerIndex;
         unsigned int roundNumber;
         Pot* pot;
-        Deck* deck;
         vector<Card*> communityCards;
 
         bool startBettingStage(istream&, ostream&, vector<Player*>*, int);
@@ -32,6 +31,7 @@ class RoundHandler {
         void screenBetweenTurns();
 
     public:
+        Deck* deck;
         RoundHandler();
         ~RoundHandler();
         unsigned int getRound() const;
