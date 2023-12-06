@@ -133,6 +133,9 @@ void GameHandler::startGame(istream &is, ostream &os)
     for (int round = 1; round <= numOfRounds; round++)
     {
         Utility::clearScreen();
+
+
+
         // os << "Round " << round + 1 << "!" << endl;
 
         roundHandler->deck->shuffleDeck(true);
@@ -191,7 +194,7 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
 
     while (!(is >> input) || (input != 1 && input != 2))
     {
-        Utility::clearScreen();
+        // Utility::clearScreen();
         os << "Round " << round << " complete!" << endl;
         os << "Would you like to continue playing?" << endl;
         os << "1. yes" << endl;
@@ -216,7 +219,7 @@ bool GameHandler::menuOptions(istream &is, ostream &os)
 
     while (inMenu)
     {
-        Utility::clearScreen();
+        // Utility::clearScreen();
         display->displayMenu(os);
 
 
