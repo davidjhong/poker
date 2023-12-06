@@ -13,8 +13,8 @@
 TEST(saveTests, hardCodedTest) {
 
   GameHandler *testGameHandler = new GameHandler();
-  testGameHandler->addPlayer("Jason");
-  testGameHandler->addPlayer("Kevin");
+  testGameHandler->addPlayer("Jason", false);
+  testGameHandler->addPlayer("Kevin", false);
 
   // default big blind is 50, and little blind is 25
 

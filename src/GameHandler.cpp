@@ -592,7 +592,7 @@ void GameHandler::loadFromFile(string fileName) {
     if(loadFile >> str) {
         for(unsigned int i = 0; i < numPlayers; i++) {
             if(loadFile >> name >> balance) {
-                Player* newPlayer = new Player(name, balance);
+                Player* newPlayer = new Player(name, balance, false);
                 playerList->push_back(newPlayer);
                 
             }
