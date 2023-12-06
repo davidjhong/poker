@@ -18,7 +18,6 @@ using namespace std;
 
 GameHandler::GameHandler()
 {
-    // this->display = new Display();
     this->roundHandler = new RoundHandler();
     this->gameRunning = true;
     this->settings = new Settings();
@@ -29,7 +28,6 @@ GameHandler::~GameHandler()
 {
     for (int i = playerList->size() - 1; i >= 0; i--)
     {
-        // cout << playerList->size() << endl;
         delete playerList->at(i);
     }
     
@@ -102,7 +100,7 @@ void GameHandler::gameSetup(istream &is, ostream &os, bool botGame)
     {
         string username;
         os << "Enter player username: \n";
-        cin >> username;
+        is >> username;
 
         addPlayer(username, false);
 
@@ -117,7 +115,7 @@ void GameHandler::gameSetup(istream &is, ostream &os, bool botGame)
     for (unsigned int i = 1; i <= playerCount; i++)
     {
         os << "Enter player " << i << "'s username: \n";
-        cin >> username;
+        is >> username;
 
         addPlayer(username, false);
     }
@@ -153,7 +151,6 @@ void GameHandler::startGame(istream &is, ostream &os)
         {
             for (int i = playerList->size() - 1; i >= 0; i--)
             {
-                // cout << playerList->size() << endl;
                 delete playerList->at(i);
             }
             playerList->clear();
@@ -194,7 +191,7 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
 
     while (!(is >> input) || (input != 1 && input != 2))
     {
-        // Utility::clearScreen();
+        Utility::clearScreen();
         os << "Round " << round << " complete!" << endl;
         os << "Would you like to continue playing?" << endl;
         os << "1. yes" << endl;
@@ -219,7 +216,7 @@ bool GameHandler::menuOptions(istream &is, ostream &os)
 
     while (inMenu)
     {
-        // Utility::clearScreen();
+        Utility::clearScreen();
         display->displayMenu(os);
 
 
@@ -252,7 +249,6 @@ bool GameHandler::menuOptions(istream &is, ostream &os)
         else if (input == "4")
         {
             rulesMenu(is, os);
-            // display->Rules(cout);
         }
         else if (input == "5")
         {
@@ -264,7 +260,6 @@ bool GameHandler::menuOptions(istream &is, ostream &os)
         }
         else if (input == "q")
         {
-            // display->Credits(cout);
             inMenu = false;
             gameRunning = false;
         }

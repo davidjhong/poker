@@ -27,7 +27,7 @@ class GameHandler
 
         void gameSetup(istream&, ostream&, bool);
         void startGame(istream&, ostream&);
-        bool optionToLeave(istream&m, ostream&);
+        bool optionToLeave(istream&, ostream&);
 
         void settingsMenu(istream&, ostream&);
         void rulesMenu(istream&, ostream&);

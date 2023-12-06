@@ -149,7 +149,6 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 
     if (mp[maxHandStrength].size() > 1)
     {
-        // cout << "DFSSJNFOD " << endl;
         int splitChips = pot->getPot() / mp[maxHandStrength].size();
 
         for (Player* winners: mp[maxHandStrength])
@@ -160,7 +159,6 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
     }
 
     strongestPlayer->addToBalance(pot->getPot());
-    // cout << strongestPlayer->getName() << endl;
 
     return {strongestPlayer};
 
@@ -387,8 +385,6 @@ bool RoundHandler::raise(istream& is, ostream& out, Player* currPlayer) {
         return false;
     }
     if (raiseTo > pot->getHighestBet()) {
-        // cout << endl;
-        // cout << raiseTo - currPlayer->getCurrentBet() << endl;
         pot->addToPot(raiseTo - currPlayer->getCurrentBet());
         pot->setHighestBet(raiseTo + currPlayer->getCurrentBet());
         currPlayer->setCurrentBet(raiseTo);
