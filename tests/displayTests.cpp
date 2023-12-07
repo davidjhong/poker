@@ -57,19 +57,7 @@ TEST(DisplayTest, displayCommunityCardsTest)
  
 
   EXPECT_EQ(out.str(),
-  "chloe, it's your turn!\n"
-  "You have 0 chips\n"
-  "Pot: 0\n"
-  "Your hand:\n\n\n\n\n"
-  "Community cards:\n"
-  "-----     -----     -----     -----     -----     \n"     
-  "| ♦ |     | ♥ |     | ♥ |     | ♣  |    |   |     \n"     
-  "| 6 |     | 3 |     | Q |     | 10 |    | ? |     \n"     
-  "-----     -----     -----     -----     -----     \n" 
-  "1. call\n"
-  "2. raise\n"
-  "3. check\n"
-  "4. fold\n");   
+  "chloe, it's your turn!\nYou have 0 chips\nPot: 0. The current highest bet is 0!\nYour hand:\n\n\n\n\nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3  |    |   |     \n| 6 |     | 3 |     | Q |     | 10 |    | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\n");   
 }
 
 
@@ -190,24 +178,7 @@ TEST(DisplayTest, displayGameStatusTest)
   displayStats.displayGameStatus(out, communityCards, player, pot);
 
   EXPECT_EQ(out.str(),
-    "chloe, it's your turn!\n"
-    "You have 200 chips\n"
-    "Pot: 100\n"
-    "Your hand:\n"
-
-    "-----     -----     \n"
-    "| ♠ |     | ♠ |     \n"
-    "| A |     | 5 |     \n"
-    "-----     -----     \n"
-    "Community cards:\n"
-    "-----     -----     -----     -----     -----     \n"
-    "| ♦ |     | ♦ |     | ♥ |     | ♥ |     | ♣  |    \n"
-    "| J |     | 6 |     | 3 |     | Q |     | 10 |    \n"
-    "-----     -----     -----     -----     -----     \n"
-    "1. call\n"
-    "2. raise\n"
-    "3. check\n"
-    "4. fold\n");
+    "chloe, it's your turn!\nYou have 200 chips\nPot: 100. The current highest bet is 100!\nYour hand:\n-----     -----     \n| \xE2\x99\xA0 |     | \xE2\x99\xA0 |     \n| A |     | 5 |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3  |    \n| J |     | 6 |     | 3 |     | Q |     | 10 |    \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\n");
 }
 
 

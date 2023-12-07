@@ -1,0 +1,10 @@
+Big_Blind: 50
+Little_Blind: 25
+Num_Of_Rounds: 20
+Num_Players: 2
+Starting_Chips: 20000
+Players: Jason 1000
+Maya 1000
+Jacky 1000
+Current_Round: 3
+Dealer_Index: 0

@@ -32,6 +32,7 @@ GameHandler::GameHandler(bool isRandom)
     this->settings = new Settings();
     this->playerList = new vector<Player*>;
     this->isRandom = isRandom;
+    this->loadingGame = false;
 }
 
 GameHandler::~GameHandler()
@@ -89,18 +90,7 @@ void GameHandler::runGame(istream& is, ostream& os)
             gameSetup(is, os, false);
         }
 
-
         startGame(is, os);
-
-        
-
-
-        //
-        // for (int i = 0; i < settings->getNumOfRounds(); i++)
-        // {
-        //     this->roundHandler->startRound(this->playerList);
-        // }
-
     }
 }
 
@@ -140,7 +130,9 @@ void GameHandler::startGame(istream &is, ostream &os)
 
 
     this->roundHandler->setSettings(this->settings);
-    int startRound = this->roundHandler->getRound();
+
+    // int startRound = this->roundHandler->getRound();
+    int startRound = 0;
     if(startRound > numOfRounds) {
         os << "All rounds have finished." << endl;
         return;
@@ -178,7 +170,7 @@ void GameHandler::startGame(istream &is, ostream &os)
                 delete playerList->at(i);
             }
             playerList->clear();
-
+            gameRunning = false;
             return;
         }
         
@@ -187,13 +179,19 @@ void GameHandler::startGame(istream &is, ostream &os)
         if (gameWinner)
         {
             string exit;
+            Utility::clearScreen();
             os << "THE GAME WINNER IS " << gameWinner->getName() << " WITH " << gameWinner->getBalance() << endl;
             os << "Enter anything to continue." << endl;
             is >> exit;
+
+            for (unsigned int i = 0; i < playerList->size(); i++)
+            {
+                delete playerList->at(i);
+            }
+            this->playerList->clear();
+            this->roundHandler->setRound(0);
             break;
         }
-
-
     }
 
     // credits Screen
@@ -234,11 +232,17 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
     }
     if(input == 3) {
         is.ignore();
-        os << "enter a name for the save file :" << endl;
+        os << "enter a name for the save file (no spaces) :" << endl;
         string fileName;
         getline(is, fileName);
-        saveToFile(fileName);
+        while(fileName.find(' ') != std::string::npos) {
+            os << "Contains spaces. Try again." << endl;
+            getline(is, fileName);
+        }
+        saveToFile(is, os, fileName);
+    
     }
+    this->roundHandler->setRound(0);
     return false;
 }
 
@@ -538,20 +542,30 @@ void GameHandler::cardRankingMenu(istream &is, ostream &os)
 }
 
 void GameHandler::loadMenu(istream &is, ostream &os) {
-    string input;
+    string fileName;
     os << "Enter the name of the save file." << endl;
-    is >> input;
-    loadFromFile(input);
+    is.ignore();
+
+    getline(is, fileName);
+    while(fileName.find(' ') != std::string::npos) {
+        os << "Contains spaces. Try again." << endl;
+        getline(is, fileName);
+    }
+    loadFromFile(is, os, fileName);
+
     loadingGame = true;
 }
 
 
-void GameHandler::saveToFile(string fileName) {
+void GameHandler::saveToFile(istream& is, ostream& os, string fileName) {
     string filePath = "savefiles/" + fileName;
     ofstream saveFile(filePath);
-    if(!saveFile.is_open()) {
-        cout << "Save File COULD NOT BE SAVED." << endl;
-        return;
+    while(!saveFile.is_open()) {
+        os << "FILE COULD NOT BE SAVED." << endl;
+        os << "TRY AGAIN." << endl;
+        is >> fileName;
+        filePath = "savefiles/" + fileName;
+        saveFile.open(filePath);
     }
     
     saveFile << "Big_Blind: " << settings->getBigBlindAmt() << endl;
@@ -569,16 +583,18 @@ void GameHandler::saveToFile(string fileName) {
     saveFile << getRoundHandler()->getRound() << endl;
     saveFile << "Dealer_Index: ";
     saveFile << getRoundHandler()->getDealerIndex() << endl;
-
     saveFile.close();
 }
 
-void GameHandler::loadFromFile(string fileName) {
+void GameHandler::loadFromFile(istream& is, ostream& os, string fileName) {
     string filePath = "savefiles/" + fileName;
     ifstream loadFile(filePath);
-    if(!loadFile.is_open()) {
-        cout << "LOAD FILE CANNOT BE FOUND." << endl;
-        return;
+    while(!loadFile.is_open()) {
+        os << "LOAD FILE CANNOT BE FOUND." << endl;
+        os << "TRY AGAIN." << endl;
+        is >> fileName;
+        filePath = "savefiles/" + fileName;
+        loadFile.open(filePath);
     }
 
     string str;

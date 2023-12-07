@@ -24,13 +24,15 @@ RoundHandler::~RoundHandler()
 
 vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player*> *playerList, vector<vector<string>> &roundHistory)
 {
-
     const unsigned int playerCount = playerList->size();
 
-    int smallBlindIndex = (dealerIndex + 1) % playerCount;
-    int bigBlindIndex = (dealerIndex + 2) % playerCount;
+    vector<unsigned int> startingIndices = findStartingIndices(playerList);
 
-    Player* smallBlindPlayer = playerList->at(smallBlindIndex);
+    unsigned int littleBlindIndex = startingIndices[0];
+    unsigned int bigBlindIndex = startingIndices[1];
+    unsigned int startingPlayerIndex = startingIndices[2];
+
+    Player* smallBlindPlayer = playerList->at(littleBlindIndex);
     Player* bigBlindPlayer = playerList->at(bigBlindIndex);
 
     blindInput(smallBlindPlayer, settings->getLittleBlindAmt());
@@ -48,8 +50,7 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
         }
     }
 
-    int currPlayerIndex = (bigBlindIndex + 1) % playerCount;
-    if (startBettingStage(is, os, playerList, currPlayerIndex))
+    if (startBettingStage(is, os, playerList, startingPlayerIndex))
     {
         vector<Player*> winner = lookForWinner(playerList);
         saveRoundHistory(winner, roundHistory);
@@ -84,6 +85,31 @@ vector<Player*> RoundHandler::startRound(istream &is, ostream &os, vector<Player
     saveRoundHistory(winners, roundHistory);
     return winners;
 
+}
+
+vector<unsigned int> RoundHandler::findStartingIndices(vector<Player*>* playerList) const
+{
+    const int playerCount = playerList->size();
+    unsigned int smallBlindIndex = (dealerIndex + 1) % playerCount;
+
+    while (playerList->at(smallBlindIndex)->getIsPlaying() == false)
+    {
+        smallBlindIndex = (smallBlindIndex + 1) % playerCount;
+    }
+
+    unsigned int bigBlindIndex = (smallBlindIndex + 1) % playerCount;
+    while (playerList->at(bigBlindIndex)->getIsPlaying() == false)
+    {
+        bigBlindIndex = (bigBlindIndex + 1) % playerCount;
+    }
+
+    unsigned int startingPlayerIndex = (bigBlindIndex + 1) % playerCount;
+    while(playerList->at(startingPlayerIndex)->getIsPlaying() == false)
+    {
+        startingPlayerIndex = (startingPlayerIndex + 1) % playerCount;
+    }
+
+    return {smallBlindIndex, bigBlindIndex, startingPlayerIndex};
 }
 
 void RoundHandler::saveRoundHistory(vector<Player*> &winners, vector<vector<string>> &roundHistory)
@@ -192,6 +218,11 @@ Player* RoundHandler::resetRound(vector<Player*> *playerList, bool isRandom)
         return gameWinner;
     }
     return nullptr;
+}
+
+void RoundHandler::setRound(unsigned int roundNumber)
+{
+    this->roundNumber = roundNumber;
 }
 
 void RoundHandler::blindInput(Player* currPlayer, int amount)
