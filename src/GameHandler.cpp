@@ -24,6 +24,11 @@ GameHandler::GameHandler()
     this->playerList = new vector<Player*>;
 }
 
+GameHandler::GameHandler(bool isRandom) 
+{
+        this-> isRandom = isRandom;
+}
+
 GameHandler::~GameHandler()
 {
     for (int i = playerList->size() - 1; i >= 0; i--)
@@ -128,6 +133,7 @@ void GameHandler::startGame(istream &is, ostream &os)
 {
     const unsigned int numOfRounds = this->settings->getNumOfRounds();
 
+
     this->roundHandler->setSettings(this->settings);
     int startRound = this->roundHandler->getRound();
     if(startRound > numOfRounds) {
@@ -141,8 +147,16 @@ void GameHandler::startGame(istream &is, ostream &os)
 
 
         // os << "Round " << round + 1 << "!" << endl;
+        if(isRandom)
+        {
+            roundHandler->deck->shuffleDeck(true);
+        }
+        
+        else
+        {
+            roundHandler->deck->shuffleDeck(false);
+        }
 
-        roundHandler->deck->shuffleDeck(true);
 
         vector<Player*> winners = roundHandler->startRound(is, os, this->playerList, this->roundHistory);
 

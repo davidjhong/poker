@@ -11,7 +11,7 @@ class Bot : public Player
         vector<int> actions;
     public:
         Bot(const string&, int);
-        int randomAction();
+        int randomAction(bool isSetSeed);
 };
 
 

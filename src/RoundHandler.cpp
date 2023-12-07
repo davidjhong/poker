@@ -240,7 +240,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
         if (currPlayer->getIsBot())
         {
             Bot* bot = dynamic_cast<Bot*>(currPlayer);
-            choice = bot->randomAction();
+            choice = bot->randomAction(true);
         }
         else
         {

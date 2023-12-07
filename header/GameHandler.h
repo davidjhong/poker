@@ -14,26 +14,30 @@
 class GameHandler
 {
     private:
-        Settings* settings;
+        
         RoundHandler* roundHandler;
         vector<Player*> *playerList;
         vector<vector<string>> roundHistory;
         Display* display;
         bool gameRunning;
+        bool isRandom;
 
-        void gameSetup(istream&, ostream&, bool);
-        void startGame(istream&, ostream&);
-        bool optionToLeave(istream&, ostream&);
-
+     
+       
   
         void loadMenu(istream&, ostream&);
 
         bool loadingGame = false;
     public:
         GameHandler();
+        GameHandler(bool isRandom);
         ~GameHandler();
         void runGame(istream&, ostream&);
         void addPlayer(const string &playerName, bool);
+        bool optionToLeave(istream&, ostream&);
+        void startGame(istream&, ostream&);
+        void gameSetup(istream&, ostream&, bool);
+        Settings* settings;
 
         void settingsMenu(istream&, ostream&);
         void rulesMenu(istream&, ostream&);

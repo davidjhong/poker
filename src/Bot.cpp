@@ -8,9 +8,17 @@ Bot::Bot(const string &name, int chips) : Player(name, chips, true)
     this->actions = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4};
 }
 
-int Bot::randomAction() 
+int Bot::randomAction(bool isSetSeed) 
 {
-    srand(static_cast<unsigned int>(time(nullptr))); 
-    int index = rand() % actions.size(); 
-    return actions[index];
+    if (isSetSeed) 
+    {
+        srand(static_cast<unsigned int>(time(nullptr))); 
+        int index = rand() % actions.size(); 
+        return actions[index];
+    }
+
+    else
+    {
+        return actions[0];
+    }
 }

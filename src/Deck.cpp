@@ -35,7 +35,7 @@ Deck::~Deck()
     }
 }
 
-void Deck::shuffleDeck(bool random) // bool random is whether a random seed is created
+void Deck::shuffleDeck(bool isRandom) // bool random is whether a random seed is created
 {                                   // bool random false is for testing
     if (random)
     {
