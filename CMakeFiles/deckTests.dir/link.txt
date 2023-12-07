@@ -1,0 +1,1 @@
+/usr/bin/c++ --coverage CMakeFiles/deckTests.dir/tests/deckTests.cpp.o CMakeFiles/deckTests.dir/src/Deck.cpp.o CMakeFiles/deckTests.dir/src/Card.cpp.o -o bin/deckTests  --coverage lib/libgtest_main.a lib/libgtest.a -lpthread 

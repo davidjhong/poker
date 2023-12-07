@@ -52,7 +52,17 @@ TEST(saveTests, loadHardCodedSaveTest) {
 
 }
 
-
+TEST(saveTests, thirdRoundTest) {
+  GameHandler *testGameHandler = new GameHandler();
+  testGameHandler->addPlayer("Jason", false);
+  testGameHandler->addPlayer("Maya", false);
+  testGameHandler->addPlayer("Jacky", false);
+  
+  testGameHandler->getSettings()->setStartingChips(20000);
+  testGameHandler->getRoundHandler()->setRound(3);
+  testGameHandler->getSettings()->setNumOfRounds(20);
+  testGameHandler->saveToFile("thirdRoundTest");
+}
 
 
 int main(int argc, char **argv) {

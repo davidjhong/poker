@@ -1,0 +1,1 @@
+/usr/bin/c++ --coverage CMakeFiles/settingsTests.dir/tests/settingsTests.cpp.o CMakeFiles/settingsTests.dir/src/Settings.cpp.o -o bin/settingsTests  --coverage lib/libgtest_main.a lib/libgtest.a -lpthread 

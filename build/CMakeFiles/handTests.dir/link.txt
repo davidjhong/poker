@@ -1,0 +1,1 @@
+/usr/bin/c++ --coverage -g CMakeFiles/handTests.dir/tests/handTests.cpp.o CMakeFiles/handTests.dir/src/Hand.cpp.o CMakeFiles/handTests.dir/src/Card.cpp.o CMakeFiles/handTests.dir/src/Deck.cpp.o CMakeFiles/handTests.dir/src/handRank.cpp.o -o bin/handTests  --coverage lib/libgtest_main.a lib/libgtest.a -lpthread 
