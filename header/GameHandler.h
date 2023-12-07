@@ -28,7 +28,7 @@ class GameHandler
   
         void loadMenu(istream&, ostream&);
 
-        bool loadingGame = false;
+        bool loadingGame;
     public:
         GameHandler();
         ~GameHandler();
