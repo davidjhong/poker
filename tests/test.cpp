@@ -94,20 +94,9 @@ TEST(DisplayTest, displayCommunityCardsTest)
  
 
   EXPECT_EQ(out.str(),
-  "chloe, it's your turn!\n"
-  "You have 0 chips\n"
-  "Pot: 0\n"
-  "Your hand:\n\n\n\n\n"
-  "Community cards:\n"
-  "-----     -----     -----     -----     -----     \n"     
-  "| ♦ |     | ♥ |     | ♥ |     | ♣  |    |   |     \n"     
-  "| 6 |     | 3 |     | Q |     | 10 |    | ? |     \n"     
-  "-----     -----     -----     -----     -----     \n" 
-  "1. call\n"
-  "2. raise\n"
-  "3. check\n"
-  "4. fold\n");   
+  "chloe, it's your turn!\nYou have 0 chips\nPot: 0. The current highest bet is 0!\nYour hand:\n\n\n\n\nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3  |    |   |     \n| 6 |     | 3 |     | Q |     | 10 |    | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\n");   
 }
+
 
 
 TEST(displayTest, displayCardComboTest)
@@ -227,24 +216,7 @@ TEST(DisplayTest, displayGameStatusTest)
   displayStats.displayGameStatus(out, communityCards, player, pot);
 
   EXPECT_EQ(out.str(),
-    "chloe, it's your turn!\n"
-    "You have 200 chips\n"
-    "Pot: 100\n"
-    "Your hand:\n"
-
-    "-----     -----     \n"
-    "| ♠ |     | ♠ |     \n"
-    "| A |     | 5 |     \n"
-    "-----     -----     \n"
-    "Community cards:\n"
-    "-----     -----     -----     -----     -----     \n"
-    "| ♦ |     | ♦ |     | ♥ |     | ♥ |     | ♣  |    \n"
-    "| J |     | 6 |     | 3 |     | Q |     | 10 |    \n"
-    "-----     -----     -----     -----     -----     \n"
-    "1. call\n"
-    "2. raise\n"
-    "3. check\n"
-    "4. fold\n");
+    "chloe, it's your turn!\nYou have 200 chips\nPot: 100. The current highest bet is 100!\nYour hand:\n-----     -----     \n| \xE2\x99\xA0 |     | \xE2\x99\xA0 |     \n| A |     | 5 |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3  |    \n| J |     | 6 |     | 3 |     | Q |     | 10 |    \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\n");
 }
 
 
@@ -596,6 +568,367 @@ TEST(settingsTest, tooLittleStartingChipsTest)
   delete testSettings;
 }
 
+
+// Hand Rank Test Suite
+class StubHand {
+    private: 
+      vector<Card*> hand;
+    public:
+      StubHand(vector<Card*> testCards) {
+
+        for (int i = 0; i < testCards.size(); i++)
+        {
+          hand.push_back(testCards[i]);
+        }
+      }
+      vector<Card*> getCurrentHand() const {
+        return this->hand;
+      }
+};
+
+TEST(HandRankTests, hasHighCardTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(3, "Spades", "Three of Spades", "♠");
+    Card* card3 = new Card(9, "Hearts", "Nine of Hearts", "♥");
+    Card* card4 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card5 = new Card(8, "Spades", "Eight of Spades", "♠");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 9);
+}
+
+TEST(HandRankTests, hasHighCardTest2) { // Testing with real functions instead of stubhand
+    Hand* testHand = new Hand();
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card3 = new Card(3, "Hearts", "Three of Hearts", "♥");
+    Card* card4 = new Card(9, "Spades", "Nine of Spades", "♠");
+    Card* card5 = new Card(10, "Spades", "Ten of Spades", "♠");
+    testHand->addCard(card1);
+    testHand->addCard(card2);
+
+    vector<Card*> communityCards = {card3,card4,card5};
+
+    testHand->calculateStrength(communityCards);
+    
+    EXPECT_EQ(testHand->getStrength(), 10);
+}
+
+TEST(HandRankTests, hasPairTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card3 = new Card(2, "Hearts", "Two of Hearts", "♥");
+    Card* card4 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card5 = new Card(8, "Spades", "Eight of Spades", "♠");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 55);
+}
+
+TEST(HandRankTests, hasPairTest2) { // Testing with real functions instead of stubhand
+    Hand* testHand = new Hand();
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(9, "Hearts", "Nine of Hearts", "♥");
+    Card* card3 = new Card(3, "Hearts", "Three of Hearts", "♥");
+    Card* card4 = new Card(9, "Spades", "Nine of Spades", "♠");
+    Card* card5 = new Card(10, "Spades", "Ten of Spades", "♠");
+    testHand->addCard(card1);
+    testHand->addCard(card2);
+
+    vector<Card*> communityCards = {card3,card4,card5};
+    
+    testHand->calculateStrength(communityCards);
+    
+    EXPECT_EQ(testHand->getStrength(), 59);
+}
+
+TEST(HandRankTests, hasTwoPairTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card3 = new Card(1, "Hearts", "One of Hearts", "♥");
+    Card* card4 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card5 = new Card(8, "Spades", "Eight of Spades", "♠");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 105);
+}
+
+TEST(HandRankTests, hasTwoPairTest2) { // Testing with real functions instead of stubhand
+    Hand* testHand = new Hand();
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(9, "Hearts", "Nine of Hearts", "♥");
+    Card* card3 = new Card(10, "Hearts", "Ten of Hearts", "♥");
+    Card* card4 = new Card(9, "Spades", "Nine of Spades", "♠");
+    Card* card5 = new Card(10, "Spades", "Ten of Spades", "♠");
+    testHand->addCard(card1);
+    testHand->addCard(card2);
+
+    vector<Card*> communityCards = {card3,card4,card5};
+    
+    testHand->calculateStrength(communityCards);
+    
+    EXPECT_EQ(testHand->getStrength(), 110);
+}
+
+TEST(HandRankTests, hasThreeOfKindTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(1, "Clubs", "One of Clubs", "♣");
+    Card* card3 = new Card(6, "Spades", "Six of Spades", "♠");
+    Card* card4 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card5 = new Card(1, "Hearts", "One of Hearts", "♥");
+
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 151);
+}
+
+TEST(HandRankTests, hasThreeOfKindTest2) { // Testing with real functions instead of stubhand
+    Hand* testHand = new Hand();
+    Card* card1 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card2 = new Card(5, "Hearts", "Five of Hearts", "♥");
+    Card* card3 = new Card(9, "Hearts", "Nine of Hearts", "♥");
+    Card* card4 = new Card(5, "Clubs", "Five of Clubs", "♣");
+    Card* card5 = new Card(10, "Spades", "Ten of Spades", "♠");
+    testHand->addCard(card1);
+    testHand->addCard(card2);
+
+    vector<Card*> communityCards = {card3,card4,card5};
+    
+    testHand->calculateStrength(communityCards);
+    
+    EXPECT_EQ(testHand->getStrength(), 155);
+}
+
+TEST(HandRankTests, hasStraightTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(1, "Spades", "One of Spades", "♠");
+    Card* card2 = new Card(2, "Clubs", "Two of Clubs", "♣");
+    Card* card3 = new Card(3, "Hearts", "Three of Hearts", "♥");
+    Card* card4 = new Card(4, "Spades", "Four of Spades", "♠");
+    Card* card5 = new Card(5, "Spades", "Five of Spades", "♠");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 205);
+}
+
+TEST(HandRankTests, hasStraightTest2) { // Testing with real functions instead of stubhand
+    Hand* testHand = new Hand();
+    Card* card1 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card2 = new Card(6, "Hearts", "Six of Hearts", "♥");
+    Card* card3 = new Card(7, "Hearts", "Seven of Hearts", "♥");
+    Card* card4 = new Card(8, "Clubs", "Eight of Clubs", "♣");
+    Card* card5 = new Card(9, "Spades", "Nine of Spades", "♠");
+    Card* card6 = new Card(11, "Spades", "Jack of Spades", "♠");
+    testHand->addCard(card1);
+    testHand->addCard(card2);
+
+    vector<Card*> communityCards = {card3,card4,card5,card6};
+    
+    testHand->calculateStrength(communityCards);
+    
+    EXPECT_EQ(testHand->getStrength(), 209);
+}
+
+TEST(HandRankTests, hasFullHouse) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card2 = new Card(2, "Clubs", "Two of Clubs", "♣");
+    Card* card3 = new Card(2, "Hearts", "Two of Hearts", "♥");
+    Card* card4 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
+    Card* card5 = new Card(6, "Spades", "Six of Spades", "♠");
+    Card* card6 = new Card(5, "Spades", "Five of Spades", "♠");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+    testCards.push_back(card6);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 308);
+}
+
+TEST(HandRankTests, hasFullHouseTest2) { // Testing with real functions instead of stubhand
+    Hand* testHand = new Hand();
+    Card* card1 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card2 = new Card(5, "Hearts", "Five of Hearts", "♥");
+    Card* card3 = new Card(2, "Hearts", "Two of Hearts", "♥");
+    Card* card4 = new Card(5, "Clubs", "Five of Clubs", "♣");
+    Card* card5 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card6 = new Card(11, "Spades", "Jack of Spades", "♠");
+    testHand->addCard(card1);
+    testHand->addCard(card2);
+
+    vector<Card*> communityCards = {card3,card4,card5,card6};
+    
+    testHand->calculateStrength(communityCards);
+    
+    EXPECT_EQ(testHand->getStrength(), 307);
+}
+
+TEST(HandRankTests, hasFourOfKind) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card2 = new Card(2, "Clubs", "Two of Clubs", "♣");
+    Card* card3 = new Card(2, "Hearts", "Two of Hearts", "♥");
+    Card* card4 = new Card(2, "Diamonds", "Two of Diamonds", "♦");
+    Card* card5 = new Card(6, "Spades", "Six of Spades", "♠");
+    Card* card6 = new Card(5, "Spades", "Five of Spades", "♠");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+    testCards.push_back(card6);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 352);
+}
+
+TEST(HandRankTests, hasFourOfKindTest2) { // Testing with real functions instead of stubhand
+    Hand* testHand = new Hand();
+    Card* card1 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card2 = new Card(5, "Hearts", "Five of Hearts", "♥");
+    Card* card3 = new Card(2, "Hearts", "Two of Hearts", "♥");
+    Card* card4 = new Card(5, "Clubs", "Five of Clubs", "♣");
+    Card* card5 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card6 = new Card(5, "Diamonds", "Five of Diamonds", "♦");
+    testHand->addCard(card1);
+    testHand->addCard(card2);
+
+    vector<Card*> communityCards = {card3,card4,card5,card6};
+    
+    testHand->calculateStrength(communityCards);
+    
+    ASSERT_EQ(testHand->getStrength(), 355);
+}
+
+TEST(HandRankTests, hasStraightFlushTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card2 = new Card(3, "Spades", "Three of Spades", "♠");
+    Card* card3 = new Card(4, "Spades", "Four of Spades", "♠");
+    Card* card4 = new Card(5, "Spades", "Five of Spades", "♠");
+    Card* card5 = new Card(6, "Spades", "Six of Spades", "♠");
+    Card* card6 = new Card(8, "Spades", "Five of Spades", "♠");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+    testCards.push_back(card6);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 406);
+}
+
+
+TEST(HandRankTests, hasStraightFlushTest2) { // Testing with real functions instead of stubhand
+    Hand* testHand = new Hand();
+    Card* card1 = new Card(5, "Diamonds", "Five of Diamonds", "♦");
+    Card* card2 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
+    Card* card3 = new Card(7, "Diamonds", "Seven of Diamonds", "♦");
+    Card* card4 = new Card(8, "Diamonds", "Eight of Diamonds", "♦");
+    Card* card5 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card6 = new Card(9, "Diamonds", "Nine of Diamonds", "♦");
+    testHand->addCard(card1);
+    testHand->addCard(card2);
+
+    vector<Card*> communityCards = {card3,card4,card5,card6};
+    
+    testHand->calculateStrength(communityCards);
+    
+    ASSERT_EQ(testHand->getStrength(), 409);
+}
+
+
+TEST(HandRankTests, hasRoyalFlushTest) {
+    vector<Card*> testCards;
+    Card* card1 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card2 = new Card(3, "Spades", "Three of Spades", "♠");
+    Card* card3 = new Card(10, "Diamonds", "Ten of Diamonds", "♦");
+    Card* card4 = new Card(11, "Diamonds", "Jack of Diamonds", "♦");
+    Card* card5 = new Card(12, "Diamonds", "Queen of Diamonds", "♦");
+    Card* card6 = new Card(13, "Diamonds", "King of Diamonds", "♦");
+    Card* card7 = new Card(14, "Diamonds", "Ace of Diamonds", "♦");
+    testCards.push_back(card1);
+    testCards.push_back(card2);
+    testCards.push_back(card3);
+    testCards.push_back(card4);
+    testCards.push_back(card5);
+    testCards.push_back(card6);
+    testCards.push_back(card7);
+
+    StubHand* testHand = new StubHand(testCards);
+    HandRank* handRanker = new HandRank();
+    
+    EXPECT_EQ(handRanker->getFinalRank(testHand->getCurrentHand()), 464);
+}
+
+TEST(HandRankTests, hasRoyalFlushTest2) { // Testing with real functions instead of stubhand
+    Hand* testHand = new Hand();
+    Card* card1 = new Card(9, "Spades", "Nine of Spades", "♠");
+    Card* card2 = new Card(10, "Diamonds", "Ten of Diamonds", "♦");
+    Card* card3 = new Card(11, "Diamonds", "Jack of Diamonds", "♦");
+    Card* card4 = new Card(12, "Diamonds", "Queen of Diamonds", "♦");
+    Card* card5 = new Card(2, "Spades", "Two of Spades", "♠");
+    Card* card6 = new Card(13, "Diamonds", "King of Diamonds", "♦");
+    Card* card7 = new Card(14, "Diamonds", "Ace of Diamonds", "♦");
+    testHand->addCard(card1);
+    testHand->addCard(card2);
+
+    vector<Card*> communityCards = {card3,card4,card5,card6,card7};
+    
+    testHand->calculateStrength(communityCards);
+    
+    ASSERT_EQ(testHand->getStrength(), 464);
+}
+
 // Hand Test Suite
 
 TEST(handTests, emptyHandTest)
@@ -798,7 +1131,7 @@ TEST(roundHandlerTests, startRoundTest)
     vector<Player*> winners = testHandler->startRound(testInput, out, playerList, roundHistory);
 
     EXPECT_EQ(out.str(),
-    "Jason, it's your turn!\nYou have 475 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\n"
+    "Jason, it's your turn!\nYou have 475 chips\nPot: 75. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\n"
     );
 
     vector<Player*> expectedWinners{testPlayer1, testPlayer2};
@@ -837,7 +1170,7 @@ TEST(roundHandlerTests, startRoundFoldTest)
     vector<Player*> winners = testHandler->startRound(testInput, out, playerList, roundHistory);
 
     EXPECT_EQ(out.str(),
-    "Jason, it's your turn!\nYou have 475 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has folded!\n");
+    "Jason, it's your turn!\nYou have 475 chips\nPot: 75. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has folded!\n");
 
     vector<Player*> expectedWinners{testPlayer1};
 
@@ -874,7 +1207,7 @@ TEST(roundHandlerTests, startEarlyRoundFoldTest)
     vector<Player*> winners = testHandler->startRound(testInput, out, playerList, roundHistory);
 
     EXPECT_EQ(out.str(),
-    "Jason, it's your turn!\nYou have 475 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has folded!\n");
+    "Jason, it's your turn!\nYou have 475 chips\nPot: 75. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has folded!\n");
 
     vector<Player*> expectedWinners{testPlayer2};
 
@@ -911,7 +1244,7 @@ TEST(roundHandlerTests, startLateRoundFoldTest)
     vector<Player*> winners = testHandler->startRound(testInput, out, playerList, roundHistory);
 
     EXPECT_EQ(out.str(),
-    "Jason, it's your turn!\nYou have 475 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has folded!\n");
+    "Jason, it's your turn!\nYou have 475 chips\nPot: 75. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 100.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 100.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 100. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has folded!\n");
 
     vector<Player*> expectedWinners{testPlayer2};
 
@@ -920,6 +1253,21 @@ TEST(roundHandlerTests, startLateRoundFoldTest)
 
     testHandler->resetRound(playerList, false);
     delete testHandler;
+}
+
+TEST(RoundHandlerTests, findStartingIndicesTest)
+{
+    RoundHandler* roundHandler = new RoundHandler();
+    Player* testPlayer1 = new Player("Kevin", 500, false);
+    Player* testPlayer2 = new Player("Jason", 500, false);
+    Player* testPlayer3 = new Player("David", 500, false);
+    Player* testPlayer4 = new Player("Chloe", 500, false);
+
+    vector<Player*> *playerList = new vector<Player*>{testPlayer1, testPlayer2, testPlayer3, testPlayer4};
+
+    vector<unsigned int> expectedResult{1, 2, 3};
+
+    EXPECT_EQ(roundHandler->findStartingIndices(playerList), expectedResult);
 }
 
 TEST(roundHandlerTests, startRoundRaiseTest)
@@ -948,7 +1296,7 @@ TEST(roundHandlerTests, startRoundRaiseTest)
     vector<Player*> winners = testHandler->startRound(testInput, out, playerList, roundHistory);
 
     EXPECT_EQ(out.str(),
-    "Jason, it's your turn!\nYou have 475 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nWhat would you like to raise your bet to?\nNew highest bet: 525\n0\nJason has raise to 525\nThe current pot amount is 550.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 550\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 1000.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 1000.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 1000.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 0 chips\nPot: 1000\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\n");
+    "Jason, it's your turn!\nYou have 475 chips\nPot: 75. The current highest bet is 50!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nWhat would you like to raise your bet to?\nNew highest bet: 525\n0\nJason has raise to 525\nThe current pot amount is 550.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 450 chips\nPot: 550. The current highest bet is 525!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 0 chips\nPot: 1000. The current highest bet is 525!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 1000.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 0 chips\nPot: 1000. The current highest bet is 525!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     |   |     |   |     \n| 2 |     | 2 |     | 2 |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 0 chips\nPot: 1000. The current highest bet is 525!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 1000.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 0 chips\nPot: 1000. The current highest bet is 525!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     |   |     \n| 2 |     | 2 |     | 2 |     | 2 |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\nJason, it's your turn!\nYou have 0 chips\nPot: 1000. The current highest bet is 525!\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nJason has called!\nThe current pot amount is 1000.\n\nKevin's turn!\nEnter anything to continue\nKevin, it's your turn!\nYou have 0 chips\nPot: 1000. The current highest bet is 525!\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3 |     | \xE2\x99\xA0 |     | \xE2\x99\xA6 |     \n| 2 |     | 2 |     | 2 |     | 2 |     | 3 |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nKevin has called!\nThe current pot amount is 1000.\n\nJason's turn!\nEnter anything to continue\n");
 
     vector<Player*> expectedWinners{testPlayer1, testPlayer2};
 
@@ -1298,6 +1646,63 @@ TEST(GameHandlerTests, cardComboDisplayTest)
   " ----  ----  ----  ----  ----\n| \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  | royal flush: straight flush from 10 to Ace.\n| 10 ||  J ||  Q ||  K ||  A |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  | straight flush: straight, but all cards are the same suit.\n|  5 ||  6 ||  7 ||  8 ||  9 |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA7  || \xE2\x99\xA2  | four of a kind: four of the same card, highest value wins in a tie.\n|  A ||  A ||  A ||  A ||  2 |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA7  || \xE2\x99\xA2  | full house: 3 of a kind + 2 of a kind, highest 3 of a kind wins in a tie.\n|  A ||  A ||  A ||  K ||  K |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  || \xE2\x99\xA1  | flush: 5 cards of the same suit, highest card wins in a tie.\n|  2 ||  4 ||  6 ||  8 ||  K |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA1  || \xE2\x99\xA4  | straight: 5 cards in order but not of the same suit.\n|  5 ||  6 ||  7 ||  8 ||  9 |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA1  || \xE2\x99\xA4  | three of a kind: 3 of a kind, highest card wins in a tie.\n|  A ||  A ||  A ||  2 ||  7 |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA1  || \xE2\x99\xA4  | two pair: 2 sets of pairs.\n|  K ||  K ||  Q ||  Q ||  J |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA1  || \xE2\x99\xA4  | pair: 2 of a kind, highest card wins in a tie.\n|  A ||  A ||  9 ||  8 ||  7 |\n ----  ----  ----  ----  ----\n\n ----  ----  ----  ----  ----\n| \xE2\x99\xA2  || \xE2\x99\xA1  || \xE2\x99\xA4  || \xE2\x99\xA1  || \xE2\x99\xA4  | high card: no combination, only a single high ranked card\n|  A ||  8 ||  6 ||  4 ||  2 |\n ----  ----  ----  ----  ----\nq) back to menu \n");
 
   delete gameHandler;
+}
+
+// Save and Load File Test Suite
+
+TEST(saveTests, hardCodedTest) {
+
+  GameHandler *testGameHandler = new GameHandler();
+  testGameHandler->addPlayer("Jason", false);
+  testGameHandler->addPlayer("Kevin", false);
+
+  // default big blind is 50, and little blind is 25
+
+  testGameHandler->getSettings()->setBigBlindAmt(100);
+  testGameHandler->getSettings()->setLittleBlindAmt(55);
+  testGameHandler->getSettings()->setNumOfRounds(50);
+  testGameHandler->saveToFile(cin, cout, "HardCodedSave");
+
+  ifstream file("savefiles/HardCodedSave");
+  string str;
+  int bigBlind, littleBlind, numRounds;
+  if(file >> str) {
+    file >> bigBlind;
+  }
+  if(file >> str) {
+    file >> littleBlind;
+  }
+  if(file >> str) {
+    file >> numRounds;
+  }
+  EXPECT_EQ(bigBlind, 100);
+  EXPECT_EQ(littleBlind, 55);
+  EXPECT_EQ(numRounds, 50);
+}
+
+TEST(saveTests, loadHardCodedSaveTest) {
+  GameHandler *testGameHandler = new GameHandler();
+  testGameHandler->loadFromFile(cin, cout, "HardCodedSave");
+  EXPECT_EQ(testGameHandler->getRoundHandler()->getRound(), 2);
+  EXPECT_EQ(testGameHandler->getRoundHandler()->getDealerIndex(), 1);
+  EXPECT_EQ(testGameHandler->getSettings()->getBigBlindAmt(), 100);
+  EXPECT_EQ(testGameHandler->getSettings()->getLittleBlindAmt(), 55);
+  EXPECT_EQ(testGameHandler->getSettings()->getNumOfRounds(), 50);
+  EXPECT_EQ(testGameHandler->getSettings()->getNumPlayers(), 2);
+
+}
+
+
+TEST(saveTests, thirdRoundTest) {
+  GameHandler *testGameHandler = new GameHandler();
+  testGameHandler->addPlayer("Jason", false);
+  testGameHandler->addPlayer("Maya", false);
+  testGameHandler->addPlayer("Jacky", false);
+  
+  testGameHandler->getSettings()->setStartingChips(20000);
+  testGameHandler->getRoundHandler()->setRound(3);
+  testGameHandler->getSettings()->setNumOfRounds(20);
+  testGameHandler->saveToFile(cin, cout, "thirdRoundTest");
 }
 
 int main(int argc, char **argv) {

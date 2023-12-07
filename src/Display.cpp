@@ -3,6 +3,7 @@
 #include <sstream>
 #include <ostream>
 #include "../header/Display.h"
+#include "../header/Utility.h"
 
 using namespace std;
 
@@ -152,7 +153,7 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
 {
     out << player->getName() << ", it's your turn!" << endl;
     out << "You have " << player->getBalance() << " chips" << endl;
-    out << "Pot: " << pot->getPot() << endl;
+    out << "Pot: " << pot->getPot() << ". The current highest bet is " << pot->getHighestBet() << "!" << endl;
     out << "Your hand:" << endl;
     
     
@@ -357,6 +358,7 @@ void Display::displayRoundHistory(std::ostream& out, const vector<vector<string>
 }
 void Display::displayBetweenTurns(std::ostream& out, Player* player)
 {
+    Utility::clearScreen();
     out << player->getName() << "'s turn!" << endl;
     out << "Enter anything to continue" << endl;
 }

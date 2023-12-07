@@ -27,7 +27,7 @@ class GameHandler
   
         void loadMenu(istream&, ostream&);
 
-        bool loadingGame = false;
+        bool loadingGame;
     public:
         GameHandler();
         GameHandler(bool isRandom);
@@ -45,8 +45,8 @@ class GameHandler
         void cardRankingMenu(istream&, ostream&);
         void cardComboMenu(istream&, ostream&);
 
-        void saveToFile(string);
-        void loadFromFile(string);
+        void saveToFile(istream&, ostream&, string);
+        void loadFromFile(istream&, ostream&, string);
         vector<Player*>& getPlayerList() { return *playerList;};       
         Settings* getSettings() { return settings;};
         RoundHandler* getRoundHandler() { return roundHandler;};
