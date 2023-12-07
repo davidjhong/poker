@@ -81,7 +81,17 @@ The Display class functions were updated to reflect more similarly to what the s
  > * Make sure your README file and Project board are up-to-date reflecting the current status of your project (e.g. any changes that you have made during the project such as changes to your class diagram). Previous versions should still be visible through your commit history. 
  
  ## Screenshots
- > Screenshots of the input/output after running your application
+ ![1](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/bed5d283-0554-400e-b91a-4c46c88155c2)
+ ![2](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/85fd85e8-bd02-40e8-b3ab-4bd87c44a656)
+ ![3](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/22415770-5a64-44c6-afb0-d2a19457693f)
+ ![4](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/b2f657f8-6f6c-45cf-a064-ab2541a5807c)
+ ![5](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/02b84d85-8c0c-435b-9fc4-fe60835fba91)
+ ![6](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/324a3a0a-39af-49b2-abfd-33b984c4b110)
+ ![7](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/0f5b6cc7-c8b2-47ca-94f1-4325614fc084)
+ ![8](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/f3774e93-34b0-49be-85f2-521bf563d908)
+ ![9](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/5ace449b-f171-453f-8774-d504be3cb92d)
+ ![10](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/68b243bc-125e-4c4b-8790-7b77ad299bf3)
+
  ## Installation/Usage
  > Instructions on installing and running your application
  ## Testing
