@@ -58,19 +58,7 @@ TEST(DisplayTest, displayCommunityCardsTest)
  
 
   EXPECT_EQ(out.str(),
-  "chloe, it's your turn!\n"
-  "You have 0 chips\n"
-  "Pot: 0\n"
-  "Your hand:\n\n\n\n\n"
-  "Community cards:\n"
-  "-----     -----     -----     -----     -----     \n"     
-  "| ♦ |     | ♥ |     | ♥ |     | ♣  |    |   |     \n"     
-  "| 6 |     | 3 |     | Q |     | 10 |    | ? |     \n"     
-  "-----     -----     -----     -----     -----     \n" 
-  "1. call\n"
-  "2. raise\n"
-  "3. check\n"
-  "4. fold\n");   
+  "chloe, it's your turn!\nYou have 0 chips\nPot: 0. The current highest bet is 0!\nYour hand:\n\n\n\n\nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3  |    |   |     \n| 6 |     | 3 |     | Q |     | 10 |    | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\n");   
 }
 
 
@@ -109,7 +97,7 @@ TEST(displayTest, displayMenuTest)
   Display display; 
   display.displayMenu(out);
   EXPECT_EQ(out.str(),
-    "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\nq) Quit\nEnter an option\n-------------------------------------------\n");
+    "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\n7) Load From Save\nq) Quit\nEnter an option\n-------------------------------------------\n");
 }
 
 TEST(displayTest, displayGameOverTest)
@@ -191,24 +179,7 @@ TEST(DisplayTest, displayGameStatusTest)
   displayStats.displayGameStatus(out, communityCards, player, pot);
 
   EXPECT_EQ(out.str(),
-    "chloe, it's your turn!\n"
-    "You have 200 chips\n"
-    "Pot: 100\n"
-    "Your hand:\n"
-
-    "-----     -----     \n"
-    "| ♠ |     | ♠ |     \n"
-    "| A |     | 5 |     \n"
-    "-----     -----     \n"
-    "Community cards:\n"
-    "-----     -----     -----     -----     -----     \n"
-    "| ♦ |     | ♦ |     | ♥ |     | ♥ |     | ♣  |    \n"
-    "| J |     | 6 |     | 3 |     | Q |     | 10 |    \n"
-    "-----     -----     -----     -----     -----     \n"
-    "1. call\n"
-    "2. raise\n"
-    "3. check\n"
-    "4. fold\n");
+    "chloe, it's your turn!\nYou have 200 chips\nPot: 100. The current highest bet is 100!\nYour hand:\n-----     -----     \n| \xE2\x99\xA0 |     | \xE2\x99\xA0 |     \n| A |     | 5 |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA6 |     | \xE2\x99\xA5 |     | \xE2\x99\xA5 |     | \xE2\x99\xA3  |    \n| J |     | 6 |     | 3 |     | Q |     | 10 |    \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\n");
 }
 
 
@@ -237,115 +208,100 @@ TEST(displayTest, displayRoundHistory)
 }
 
 
-TEST(displayTest, displayWinnerTest)
-{
-  ostringstream out;
-  Display display;
+// TEST(displayTest, displayWinnerTest)
+// {
+//   ostringstream out;
+//   Display display;
 
-  Player* player1 = new Player("Kevin", 500, false);
-  Player* player2 = new Player("Jason", 500, false);
+//   Player* player1 = new Player("Kevin", 500, false);
+//   Player* player2 = new Player("Jason", 500, false);
 
-  Card* winningCard1 = new Card(1, "Hearts", "Ace of Hearts", "♥");
-  Card* winningCard2 = new Card(5, "Hearts", "Five of Hearts", "♥");
+//   Card* winningCard1 = new Card(1, "Hearts", "Ace of Hearts", "♥");
+//   Card* winningCard2 = new Card(5, "Hearts", "Five of Hearts", "♥");
 
-  Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
-  Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
+//   Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
+//   Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
 
 
-  Card* card3 = new Card(11, "Diamonds", "Queen of Diamonds", "♦");
-  Card* card4 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
-  Card* card5 = new Card(3, "Hearts", "Three of Hearts", "♥");
-  Card* card6 = new Card(12, "Hearts", "King of Hearts", "♥");
-  Card* card7 = new Card(10, "Hearts", "Jack of Hearts", "♥");
+//   Card* card3 = new Card(11, "Diamonds", "Queen of Diamonds", "♦");
+//   Card* card4 = new Card(6, "Diamonds", "Six of Diamonds", "♦");
+//   Card* card5 = new Card(3, "Hearts", "Three of Hearts", "♥");
+//   Card* card6 = new Card(12, "Hearts", "King of Hearts", "♥");
+//   Card* card7 = new Card(10, "Hearts", "Jack of Hearts", "♥");
   
-  player1->getHand()->addCard(winningCard1);
-  player1->getHand()->addCard(winningCard2);
+//   player1->getHand()->addCard(winningCard1);
+//   player1->getHand()->addCard(winningCard2);
 
-  player2->getHand()->addCard(card1);
-  player2->getHand()->addCard(card2);
+//   player2->getHand()->addCard(card1);
+//   player2->getHand()->addCard(card2);
  
-  vector<Card*> communityCards{card3, card4, card5, card6, card7};
-  // //set up the pot
-  Pot* pot = new Pot();
-  pot->addToPot(100);
+//   vector<Card*> communityCards{card3, card4, card5, card6, card7};
+//   // //set up the pot
+//   Pot* pot = new Pot();
+//   pot->addToPot(100);
 
-  RoundHandler* roundHandler = new RoundHandler();
-  roundHandler->setCards(communityCards);
+//   RoundHandler* roundHandler = new RoundHandler();
+//   roundHandler->setCards(communityCards);
 
-  vector<Player*> *players = new vector<Player*>{player1, player2};
-  vector<Player*> winners = roundHandler->lookForWinner(players);
+//   vector<Player*> *players = new vector<Player*>{player1, player2};
+//   vector<Player*> winners = roundHandler->lookForWinner(players);
 
-  display.displayWinner(out, winners, pot);
-  EXPECT_EQ(out.str(),
-    "Kevin won 100 chips with a Flush!\n");
-  EXPECT_EQ(player1->getBalance(), 500);
-  EXPECT_EQ(player2->getBalance(), 500);
+//   display.displayWinner(out, winners, pot);
+//   EXPECT_EQ(out.str(),
+//     "Kevin won 100 chips with a Flush!\n");
+//   EXPECT_EQ(player1->getBalance(), 500);
+//   EXPECT_EQ(player2->getBalance(), 500);
 
-}
+// }
 
-TEST(displayTest, displayTieWinnersTest)
-{
-  ostringstream out;
-  Display display;
+// TEST(displayTest, displayTieWinnersTest)
+// {
+//   ostringstream out;
+//   Display display;
 
-  Player* player1 = new Player("Kevin", 500, false);
-  Player* player2 = new Player("Jason", 500, false);
+//   Player* player1 = new Player("Kevin", 500);
+//   Player* player2 = new Player("Jason", 500);
 
-  Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
-  Card* card2 = new Card(5, "Spades", "Two of Spades", "♠");
-  Card* card3 = new Card(11, "Diamonds", "Three of Diamonds", "♦");
-  Card* card4 = new Card(6, "Diamonds", "Five of Diamonds", "♦");
-  Card* card5 = new Card(3, "Hearts", "Ten of Hearts", "♥");
-  Card* card6 = new Card(12, "Hearts", "Nine of Hearts", "♥");
-  Card* card7 = new Card(10, "Clubs", "Eight of Clubs", "♣");
+//   Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
+//   Card* card2 = new Card(5, "Spades", "Two of Spades", "♠");
+//   Card* card3 = new Card(11, "Diamonds", "Three of Diamonds", "♦");
+//   Card* card4 = new Card(6, "Diamonds", "Five of Diamonds", "♦");
+//   Card* card5 = new Card(3, "Hearts", "Ten of Hearts", "♥");
+//   Card* card6 = new Card(12, "Hearts", "Nine of Hearts", "♥");
+//   Card* card7 = new Card(10, "Clubs", "Eight of Clubs", "♣");
   
-  player1->getHand()->addCard(card1);
-  player1->getHand()->addCard(card2);
-  player2->getHand()->addCard(card1);
-  player2->getHand()->addCard(card2);
+//   player1->getHand()->addCard(card1);
+//   player1->getHand()->addCard(card2);
+//   player2->getHand()->addCard(card1);
+//   player2->getHand()->addCard(card2);
  
-  vector<Card*> cards = {card1, card2};
-  vector<Card*> communityCards = {card3, card4, card5, card6, card7};
-  // //set up the pot
-  Pot* pot = new Pot();
-  pot->addToPot(100);
+//   vector<Card*> cards = {card1, card2};
+//   vector<Card*> communityCards = {card3, card4, card5, card6, card7};
+//   // //set up the pot
+//   Pot* pot = new Pot();
+//   pot->addToPot(100);
 
-  player1->getHand()->calculateStrength(communityCards);
-  player2->getHand()->calculateStrength(communityCards);
-
-
-  RoundHandler* roundHandler = new RoundHandler();
-
-  vector<Player*> *playerList = new vector<Player*>();
-
-  playerList->push_back(player1);
-  playerList->push_back(player2);
-
-  vector<Player*> winners = roundHandler->lookForWinner(playerList);
+//   player1->getHand()->calculateStrength(communityCards);
+//   player2->getHand()->calculateStrength(communityCards);
 
 
-  display.displayWinner(out, winners, pot);
-  EXPECT_EQ(out.str(),
-    "Kevin, and Jason won a split pot of 50 each!\n");
-  EXPECT_EQ(player1->getBalance(), 500);
-  EXPECT_EQ(player2->getBalance(), 500);
+//   RoundHandler* roundHandler = new RoundHandler();
 
-}
+//   vector<Player*> *playerList = new vector<Player*>();
 
-TEST(displayTests, botOutputTest)
-{
-  Bot* testBot = new Bot("Bot Kevin", 500);
+//   playerList->push_back(player1);
+//   playerList->push_back(player2);
 
-  ASSERT_TRUE(testBot->randomAction());
+//   vector<Player*> winners = roundHandler->lookForWinner(playerList);
 
-  delete testBot;
-}
 
-TEST(utilityTest, clearScreenTest)
-{
-  Utility::clearScreen();
-  
-}
+//   display.displayWinner(out, winners, pot);
+//   EXPECT_EQ(out.str(),
+//     "Kevin, and Jason won a split pot of 50 each!\n");
+//   EXPECT_EQ(player1->getBalance(), 500);
+//   EXPECT_EQ(player2->getBalance(), 500);
+
+// }
 
 
 

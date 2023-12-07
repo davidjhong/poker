@@ -34,10 +34,12 @@ class RoundHandler {
         Deck* deck;
         RoundHandler();
         ~RoundHandler();
+        void setRound(unsigned int);
         unsigned int getRound() const;
         unsigned int getDealerIndex() const;
         void setRound(int);
         void setDealerIndex(int);
+        vector<unsigned int> findStartingIndices(vector<Player*>*) const;
         Pot* getPot() const;
         vector<Player*> lookForWinner(vector<Player*>*);
         vector<Player*> startRound(istream&, ostream&, vector<Player*>*, vector<vector<string>> &);

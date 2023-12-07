@@ -61,6 +61,14 @@ ADD_EXECUTABLE(displayTests
     src/Bot.cpp
 )
 
+ADD_EXECUTABLE(handRankTests
+    tests/handRankTests.cpp
+    src/Hand.cpp
+    src/Card.cpp
+    src/Deck.cpp
+    src/handRank.cpp
+)
+
 ADD_EXECUTABLE(handTests
     tests/handTests.cpp
     src/Hand.cpp
@@ -120,6 +128,23 @@ ADD_EXECUTABLE(roundHandlerTests
     src/Bot.cpp
 )
 
+ADD_EXECUTABLE(gameHandlerTests
+    tests/gameHandlerTests.cpp
+    src/GameHandler.cpp
+    src/Player.cpp
+    src/RoundHandler.cpp
+    src/Settings.cpp
+    src/Pot.cpp
+    src/Display.cpp
+    src/Hand.cpp
+    src/Bot.cpp
+    src/Card.cpp
+    src/Deck.cpp
+    src/Utility.cpp
+    src/handRank.cpp
+)
+
+
 TARGET_LINK_LIBRARIES(test PRIVATE --coverage gtest)
 target_link_libraries(test PRIVATE --coverage gtest_main)
 target_link_libraries(deckTests PRIVATE --coverage gtest_main)
@@ -129,7 +154,10 @@ target_link_libraries(handTests PRIVATE --coverage gtest_main)
 target_link_libraries(playerTests PRIVATE --coverage gtest_main)
 target_link_libraries(potTests PRIVATE --coverage gtest_main)
 target_link_libraries(roundHandlerTests PRIVATE --coverage gtest_main)
+target_link_libraries(gameHandlerTests PRIVATE --coverage gtest_main)
 target_link_libraries(saveTest PRIVATE --coverage gtest_main)
+target_link_libraries(handRankTests PRIVATE --coverage gtest_main)
+
 
 
 
