@@ -297,13 +297,6 @@ void Display::displayCards(ostream& out, vector<Card*> cards)
 }
 
 
-
-void Display::displayBalanceChanges(std::ostream& out, Player* player, Pot* pot)
-{
-    out << player->getName() << "raised to "; // << bet raised
-    out << "Pot: " << pot->getPot() << endl;
-}
-
 void Display::displayGameOver(std::ostream& out)
 {
     // clearScreen();

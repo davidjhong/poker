@@ -273,7 +273,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
                 if (validChoice)
                 {
                     i = 0;
-                    os << currPlayer->getName() << " has raise to " << pot->getHighestBet() << endl;
+                    os << currPlayer->getName() << " has raised to " << pot->getHighestBet() << endl;
                     os << "The current pot amount is " << pot->getPot() << "." << endl << endl;
                 }
             }
