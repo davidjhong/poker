@@ -379,14 +379,14 @@ void GameHandler::settingsMenu(istream &is, ostream &os)
             unsigned int startingChips = 0;
             bool failedOnce = false;
 
-            while (startingChips <= 0 || startingChips > 50000)
+            while (startingChips < 100 || startingChips > 50000)
             {
                 Utility::clearScreen();
                 if (failedOnce)
                 {
                     os << "Invalid input.\n";
                 }
-                os << "Enter a number from 1 to 50000\n";
+                os << "Enter a number from 100 to 50000\n";
 
                 if (!(is >> startingChips))
                 {
@@ -408,14 +408,14 @@ void GameHandler::settingsMenu(istream &is, ostream &os)
             unsigned int bigBlindAmt = 0;
             bool failedOnce = false;
 
-            while (bigBlindAmt <= 0 || bigBlindAmt > settings->getStartingChips() / 2)
+            while (bigBlindAmt < 5 || bigBlindAmt > settings->getStartingChips() / 2)
             {
                 Utility::clearScreen();
                 if (failedOnce)
                 {
                     os << "Invalid input.\n";
                 }
-                os << "Enter a number from 1 to " << settings->getStartingChips() / 2 << "\n";
+                os << "Enter a number from 5 to " << settings->getStartingChips() / 2 << "\n";
 
                 if (!(is >> bigBlindAmt))
                 {
