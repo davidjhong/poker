@@ -20,7 +20,6 @@ class RoundHandler {
 
         bool startBettingStage(istream&, ostream&, vector<Player*>*, int);
         void saveRoundHistory(vector<Player*>&, vector<vector<string>>&);
-        vector<unsigned int> findStartingIndices(vector<Player*>*) const;
         void blindInput(Player*, int);
 
         bool call(ostream&, Player*);
@@ -40,6 +39,7 @@ class RoundHandler {
         unsigned int getDealerIndex() const;
         void setRound(int);
         void setDealerIndex(int);
+        vector<unsigned int> findStartingIndices(vector<Player*>*) const;
         Pot* getPot() const;
         vector<Player*> lookForWinner(vector<Player*>*);
         vector<Player*> startRound(istream&, ostream&, vector<Player*>*, vector<vector<string>> &);

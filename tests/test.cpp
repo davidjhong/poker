@@ -894,6 +894,21 @@ TEST(roundHandlerTests, startLateRoundFoldTest)
     delete testHandler;
 }
 
+TEST(RoundHandlerTests, findStartingIndicesTest)
+{
+    RoundHandler* roundHandler = new RoundHandler();
+    Player* testPlayer1 = new Player("Kevin", 500, false);
+    Player* testPlayer2 = new Player("Jason", 500, false);
+    Player* testPlayer3 = new Player("David", 500, false);
+    Player* testPlayer4 = new Player("Chloe", 500, false);
+
+    vector<Player*> *playerList = new vector<Player*>{testPlayer1, testPlayer2, testPlayer3, testPlayer4};
+
+    vector<unsigned int> expectedResult{1, 2, 3};
+
+    EXPECT_EQ(roundHandler->findStartingIndices(playerList), expectedResult);
+}
+
 TEST(roundHandlerTests, startRoundRaiseTest)
 {
     
