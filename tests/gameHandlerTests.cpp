@@ -66,20 +66,7 @@ TEST(GameHandlerTests, BotGameTest) {
     ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
     ostringstream out;
     GameHandler* gameHandler = new GameHandler(false);
-    // Bot* bot = new Bot("Kevin Bot", 1000);
-    // bot->randomAction(false);
-    // RoundHandler* roundHandler = new RoundHandler();
-    // roundHandler->deck->shuffleDeck(false);
-    // Player* testPlayer = new Player("chloe", 500, false);
-    // Card* card1 = new Card(1, "Spades", "Ace of Spades", "♠");
-    // Card* card2 = new Card(5, "Spades", "Five of Spades", "♠");
-    // vector<Card*> cards = {card1, card2};
-    // testPlayer->getHand()->addCard(card1);
-    // testPlayer->getHand()->addCard(card2);
- 
     gameHandler->runGame(testInput, out);
-    // gameHandler->gameSetup(testInput, out, true);
-    // cout << out.str() << endl;
     EXPECT_EQ(out.str(), 
     "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\n7) Load From Save\nq) Quit\nEnter an option\n-------------------------------------------\nEnter player username: \nBot Kevin has called!\nThe current pot amount is 100.\n\nchloe's turn!\nEnter anything to continue\nchloe, it's your turn!\nYou have 950 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nchloe has folded!\nBot Kevin won 100 chips with a High Card!\nRound 1 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nRound 1 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nInvalid input. Try again\n-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\n7) Load From Save\nq) Quit\nEnter an option\n-------------------------------------------\n");
     
