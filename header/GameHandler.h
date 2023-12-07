@@ -21,10 +21,6 @@ class GameHandler
         Display* display;
         bool gameRunning;
         bool isRandom;
-
-     
-       
-  
         void loadMenu(istream&, ostream&);
 
         bool loadingGame;

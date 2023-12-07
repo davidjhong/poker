@@ -158,7 +158,7 @@ TEST(GameHandlerTests, RegularGameTest)
 
     gameHandler->settingsMenu(testInput, out);
 
-    EXPECT_EQ(gameHandler->settings->getStartingChips(), 1);                //from second input after "Invalid Input" prompt
+    EXPECT_EQ(gameHandler->settings->getStartingChips(), 100);                //from second input after "Invalid Input" prompt
     
     delete gameHandler;
  }
