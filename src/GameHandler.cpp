@@ -152,7 +152,7 @@ void GameHandler::startGame(istream &is, ostream &os)
                 delete playerList->at(i);
             }
             playerList->clear();
-
+            gameRunning = false;
             return;
         }
         
