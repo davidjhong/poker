@@ -217,7 +217,6 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
         os << "enter a name for the save file (no spaces) :" << endl;
         string fileName;
         getline(is, fileName);
-        os << fileName;
         while(fileName.find(' ') != std::string::npos) {
             os << "Contains spaces. Try again." << endl;
             getline(is, fileName);
