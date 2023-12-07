@@ -97,7 +97,7 @@ TEST(settingsTest, tooLittleStartingChipsTest)
 {
   Settings* testSettings = new Settings();
 
-  EXPECT_DEATH(testSettings->setStartingChips(0), "Must have at least one starting chip");
+  EXPECT_DEATH(testSettings->setStartingChips(0), "Must have at least 100 starting chips");
   delete testSettings;
 }
 

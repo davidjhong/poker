@@ -560,7 +560,7 @@ TEST(settingsTest, tooLittleStartingChipsTest)
 {
   Settings* testSettings = new Settings();
 
-  EXPECT_DEATH(testSettings->setStartingChips(0), "Must have at least one starting chip");
+  EXPECT_DEATH(testSettings->setStartingChips(0), "Must have at least 100 starting chips");
   delete testSettings;
 }
 
@@ -1453,7 +1453,7 @@ TEST(GameHandlerTests, RegularGameTest)
 
     gameHandler->settingsMenu(testInput, out);
 
-    EXPECT_EQ(gameHandler->settings->getStartingChips(), 1);                //from second input after "Invalid Input" prompt
+    EXPECT_EQ(gameHandler->settings->getStartingChips(), 100);                //from second input after "Invalid Input" prompt
     
     delete gameHandler;
  }
