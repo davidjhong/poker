@@ -46,7 +46,7 @@ void Settings::setNumPlayers(unsigned int newNumPlayers)
 
 void Settings::setStartingChips(unsigned int newStartingChips)
 {
-    assert(newStartingChips >= 1 && "Must have at least one starting chip");
+    assert(newStartingChips >= 100 && "Must have at least 100 starting chips");
     assert(newStartingChips <= 50000 && "Only up to 50000 starting chips");
     this->startingChips = newStartingChips;
 }
