@@ -9,13 +9,4 @@ test
 a.out
 /build
 /lib
-playerPotTest
-deckTests
-displayTests
-handTests
-playerTests
-potTests
-saveTest
-settingsTests
-test
-handRankTests
+
