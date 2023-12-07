@@ -1019,7 +1019,7 @@ TEST(GameHandlerTests, BotGameTest)
     ostringstream out;
     GameHandler* gameHandler = new GameHandler(false);
     gameHandler->runGame(testInput, out);
-    EXPECT_EQ(out.str(), 
+    EXPECT_EQ(out.str(),
     "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\n7) Load From Save\nq) Quit\nEnter an option\n-------------------------------------------\nEnter player username: \nBot Kevin has called!\nThe current pot amount is 100.\n\nchloe's turn!\nEnter anything to continue\nchloe, it's your turn!\nYou have 950 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nchloe has folded!\nBot Kevin won 100 chips with a High Card!\nRound 1 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nRound 1 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nInvalid input. Try again\n-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\n7) Load From Save\nq) Quit\nEnter an option\n-------------------------------------------\n");
     
     delete gameHandler;
