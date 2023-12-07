@@ -22,6 +22,7 @@ GameHandler::GameHandler()
     this->gameRunning = true;
     this->settings = new Settings();
     this->playerList = new vector<Player*>;
+    this->loadingGame = false;
 }
 
 GameHandler::~GameHandler()
@@ -79,18 +80,7 @@ void GameHandler::runGame(istream& is, ostream& os)
             gameSetup(is, os, false);
         }
 
-
         startGame(is, os);
-
-        
-
-
-        //
-        // for (int i = 0; i < settings->getNumOfRounds(); i++)
-        // {
-        //     this->roundHandler->startRound(this->playerList);
-        // }
-
     }
 }
 
@@ -129,7 +119,9 @@ void GameHandler::startGame(istream &is, ostream &os)
     const unsigned int numOfRounds = this->settings->getNumOfRounds();
 
     this->roundHandler->setSettings(this->settings);
-    int startRound = this->roundHandler->getRound();
+
+    // int startRound = this->roundHandler->getRound();
+    int startRound = 0;
     if(startRound > numOfRounds) {
         os << "All rounds have finished." << endl;
         return;
@@ -169,13 +161,19 @@ void GameHandler::startGame(istream &is, ostream &os)
         if (gameWinner)
         {
             string exit;
+            Utility::clearScreen();
             os << "THE GAME WINNER IS " << gameWinner->getName() << " WITH " << gameWinner->getBalance() << endl;
             os << "Enter anything to continue." << endl;
             is >> exit;
+
+            for (unsigned int i = 0; i < playerList->size(); i++)
+            {
+                delete playerList->at(i);
+            }
+            this->playerList->clear();
+            this->roundHandler->setRound(0);
             break;
         }
-
-
     }
 
     // credits Screen
@@ -221,6 +219,7 @@ bool GameHandler::optionToLeave(istream &is, ostream &os)
         getline(is, fileName);
         saveToFile(fileName);
     }
+    this->roundHandler->setRound(0);
     return false;
 }
 
