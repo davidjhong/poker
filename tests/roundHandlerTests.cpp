@@ -46,7 +46,7 @@ TEST(roundHandlerTests, startRoundTest)
     EXPECT_EQ(winners.at(0)->getName(), "Kevin");
     EXPECT_EQ(winners.at(1)->getName(), "Jason");
 
-    testHandler->resetRound(playerList);
+    testHandler->resetRound(playerList, false);
     delete testHandler;
 }
 
@@ -83,7 +83,7 @@ TEST(roundHandlerTests, startRoundFoldTest)
     EXPECT_EQ(winners, expectedWinners);
     EXPECT_EQ(winners.at(0)->getName(), "Kevin");
 
-    testHandler->resetRound(playerList);
+    testHandler->resetRound(playerList, false);
     delete testHandler;
 }
 
@@ -120,7 +120,7 @@ TEST(roundHandlerTests, startEarlyRoundFoldTest)
     EXPECT_EQ(winners, expectedWinners);
     EXPECT_EQ(winners.at(0)->getName(), "Jason");
 
-    testHandler->resetRound(playerList);
+    testHandler->resetRound(playerList, false);
     delete testHandler;
 }
 
@@ -157,7 +157,7 @@ TEST(roundHandlerTests, startLateRoundFoldTest)
     EXPECT_EQ(winners, expectedWinners);
     EXPECT_EQ(winners.at(0)->getName(), "Jason");
 
-    testHandler->resetRound(playerList);
+    testHandler->resetRound(playerList, false);
     delete testHandler;
 }
 
@@ -195,7 +195,7 @@ TEST(roundHandlerTests, startRoundRaiseTest)
     EXPECT_EQ(winners.at(0)->getName(), "Kevin");
     EXPECT_EQ(winners.at(1)->getName(), "Jason");
 
-    testHandler->resetRound(playerList);
+    testHandler->resetRound(playerList, false);
     delete testHandler;
 }
 

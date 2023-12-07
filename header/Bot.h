@@ -8,10 +8,11 @@ using namespace std;
 class Bot : public Player
 {
     private:
+        bool isRandom;
         vector<int> actions;
     public:
-        Bot(const string&, int);
-        int randomAction(bool isSetSeed);
+        Bot(const string&, int, bool);
+        int randomAction();
 };
 
 
