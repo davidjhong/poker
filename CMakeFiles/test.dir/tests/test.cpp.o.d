@@ -227,4 +227,6 @@ CMakeFiles/test.dir/tests/test.cpp.o: \
  /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/tests/../header/Display.h \
  /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/tests/../header/Settings.h \
  /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/tests/../header/Utility.h \
+ /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/tests/../header/GameHandler.h \
+ /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/tests/../header/RoundHandler.h \
  /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/tests/../header/Bot.h

@@ -128,4 +128,5 @@ CMakeFiles/poker.dir/src/Display.cpp.o: \
  /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/src/../header/../header/../header/handRank.h \
  /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/src/../header/../header/../header/Card.h \
  /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/src/../header/../header/Settings.h \
- /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/src/../header/../header/Hand.h
+ /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/src/../header/../header/Hand.h \
+ /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctang085/src/../header/Utility.h

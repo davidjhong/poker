@@ -95,8 +95,8 @@ ADD_EXECUTABLE(settingsTests
     src/Settings.cpp
 )
 
-ADD_EXECUTABLE(saveTest
-    tests/saveTest.cpp
+ADD_EXECUTABLE(saveTests
+    tests/saveTests.cpp
     src/Pot.cpp
     src/Player.cpp
     src/handRank.cpp
@@ -155,7 +155,7 @@ target_link_libraries(playerTests PRIVATE --coverage gtest_main)
 target_link_libraries(potTests PRIVATE --coverage gtest_main)
 target_link_libraries(roundHandlerTests PRIVATE --coverage gtest_main)
 target_link_libraries(gameHandlerTests PRIVATE --coverage gtest_main)
-target_link_libraries(saveTest PRIVATE --coverage gtest_main)
+target_link_libraries(saveTests PRIVATE --coverage gtest_main)
 target_link_libraries(handRankTests PRIVATE --coverage gtest_main)
 
 

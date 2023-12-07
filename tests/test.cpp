@@ -1472,9 +1472,9 @@ TEST(saveTests, hardCodedTest) {
   testGameHandler->getSettings()->setBigBlindAmt(100);
   testGameHandler->getSettings()->setLittleBlindAmt(55);
   testGameHandler->getSettings()->setNumOfRounds(50);
-  testGameHandler->saveToFile("Hard Coded Save");
+  testGameHandler->saveToFile(cin, cout, "HardCodedSave");
 
-  ifstream file("savefiles/Hard Coded Save");
+  ifstream file("savefiles/HardCodedSave");
   string str;
   int bigBlind, littleBlind, numRounds;
   if(file >> str) {
@@ -1493,7 +1493,7 @@ TEST(saveTests, hardCodedTest) {
 
 TEST(saveTests, loadHardCodedSaveTest) {
   GameHandler *testGameHandler = new GameHandler();
-  testGameHandler->loadFromFile("Hard Coded Save");
+  testGameHandler->loadFromFile(cin, cout, "HardCodedSave");
   EXPECT_EQ(testGameHandler->getRoundHandler()->getRound(), 2);
   EXPECT_EQ(testGameHandler->getRoundHandler()->getDealerIndex(), 1);
   EXPECT_EQ(testGameHandler->getSettings()->getBigBlindAmt(), 100);
@@ -1501,6 +1501,19 @@ TEST(saveTests, loadHardCodedSaveTest) {
   EXPECT_EQ(testGameHandler->getSettings()->getNumOfRounds(), 50);
   EXPECT_EQ(testGameHandler->getSettings()->getNumPlayers(), 2);
 
+}
+
+
+TEST(saveTests, thirdRoundTest) {
+  GameHandler *testGameHandler = new GameHandler();
+  testGameHandler->addPlayer("Jason", false);
+  testGameHandler->addPlayer("Maya", false);
+  testGameHandler->addPlayer("Jacky", false);
+  
+  testGameHandler->getSettings()->setStartingChips(20000);
+  testGameHandler->getRoundHandler()->setRound(3);
+  testGameHandler->getSettings()->setNumOfRounds(20);
+  testGameHandler->saveToFile(cin, cout, "thirdRoundTest");
 }
 
 

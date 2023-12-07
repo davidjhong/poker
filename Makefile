@@ -65,37 +65,17 @@ CMAKE_BINARY_DIR = /home/csmajs/jan058/final-project-khe035-dhong050-jan058-ctan
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
 
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-.PHONY : edit_cache/fast
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # Special rule for the target install/local
 install/local: preinstall
@@ -118,17 +98,37 @@ list_install_components:
 list_install_components/fast: list_install_components
 .PHONY : list_install_components/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
 
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+.PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -162,95 +162,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named roundHandlerTests
+# Target rules for targets named displayTests
 
 # Build rule for target.
-roundHandlerTests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roundHandlerTests
-.PHONY : roundHandlerTests
+displayTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 displayTests
+.PHONY : displayTests
 
 # fast build rule for target.
-roundHandlerTests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/build
-.PHONY : roundHandlerTests/fast
+displayTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/build
+.PHONY : displayTests/fast
 
 #=============================================================================
-# Target rules for targets named potTests
+# Target rules for targets named handRankTests
 
 # Build rule for target.
-potTests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 potTests
-.PHONY : potTests
+handRankTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 handRankTests
+.PHONY : handRankTests
 
 # fast build rule for target.
-potTests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/potTests.dir/build.make CMakeFiles/potTests.dir/build
-.PHONY : potTests/fast
-
-#=============================================================================
-# Target rules for targets named test
-
-# Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
-.PHONY : test
-
-# fast build rule for target.
-test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-.PHONY : test/fast
-
-#=============================================================================
-# Target rules for targets named saveTest
-
-# Build rule for target.
-saveTest: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 saveTest
-.PHONY : saveTest
-
-# fast build rule for target.
-saveTest/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/build
-.PHONY : saveTest/fast
-
-#=============================================================================
-# Target rules for targets named poker
-
-# Build rule for target.
-poker: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 poker
-.PHONY : poker
-
-# fast build rule for target.
-poker/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/build
-.PHONY : poker/fast
-
-#=============================================================================
-# Target rules for targets named settingsTests
-
-# Build rule for target.
-settingsTests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 settingsTests
-.PHONY : settingsTests
-
-# fast build rule for target.
-settingsTests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/settingsTests.dir/build.make CMakeFiles/settingsTests.dir/build
-.PHONY : settingsTests/fast
-
-#=============================================================================
-# Target rules for targets named deckTests
-
-# Build rule for target.
-deckTests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 deckTests
-.PHONY : deckTests
-
-# fast build rule for target.
-deckTests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/build
-.PHONY : deckTests/fast
+handRankTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/build
+.PHONY : handRankTests/fast
 
 #=============================================================================
 # Target rules for targets named handTests
@@ -266,17 +201,56 @@ handTests/fast:
 .PHONY : handTests/fast
 
 #=============================================================================
-# Target rules for targets named displayTests
+# Target rules for targets named deckTests
 
 # Build rule for target.
-displayTests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 displayTests
-.PHONY : displayTests
+deckTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 deckTests
+.PHONY : deckTests
 
 # fast build rule for target.
-displayTests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/build
-.PHONY : displayTests/fast
+deckTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/build
+.PHONY : deckTests/fast
+
+#=============================================================================
+# Target rules for targets named settingsTests
+
+# Build rule for target.
+settingsTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 settingsTests
+.PHONY : settingsTests
+
+# fast build rule for target.
+settingsTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/settingsTests.dir/build.make CMakeFiles/settingsTests.dir/build
+.PHONY : settingsTests/fast
+
+#=============================================================================
+# Target rules for targets named poker
+
+# Build rule for target.
+poker: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 poker
+.PHONY : poker
+
+# fast build rule for target.
+poker/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/build
+.PHONY : poker/fast
+
+#=============================================================================
+# Target rules for targets named test
+
+# Build rule for target.
+test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
+.PHONY : test
+
+# fast build rule for target.
+test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
+.PHONY : test/fast
 
 #=============================================================================
 # Target rules for targets named playerTests
@@ -290,6 +264,58 @@ playerTests: cmake_check_build_system
 playerTests/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/build
 .PHONY : playerTests/fast
+
+#=============================================================================
+# Target rules for targets named potTests
+
+# Build rule for target.
+potTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 potTests
+.PHONY : potTests
+
+# fast build rule for target.
+potTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/potTests.dir/build.make CMakeFiles/potTests.dir/build
+.PHONY : potTests/fast
+
+#=============================================================================
+# Target rules for targets named saveTests
+
+# Build rule for target.
+saveTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 saveTests
+.PHONY : saveTests
+
+# fast build rule for target.
+saveTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/build
+.PHONY : saveTests/fast
+
+#=============================================================================
+# Target rules for targets named roundHandlerTests
+
+# Build rule for target.
+roundHandlerTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roundHandlerTests
+.PHONY : roundHandlerTests
+
+# fast build rule for target.
+roundHandlerTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/build
+.PHONY : roundHandlerTests/fast
+
+#=============================================================================
+# Target rules for targets named gameHandlerTests
+
+# Build rule for target.
+gameHandlerTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gameHandlerTests
+.PHONY : gameHandlerTests
+
+# fast build rule for target.
+gameHandlerTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/build
+.PHONY : gameHandlerTests/fast
 
 #=============================================================================
 # Target rules for targets named gmock_main
@@ -372,11 +398,12 @@ src/Bot.o: src/Bot.cpp.o
 
 # target to build an object file
 src/Bot.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Bot.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Bot.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Bot.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Bot.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Bot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Bot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Bot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Bot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Bot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Bot.cpp.o
 .PHONY : src/Bot.cpp.o
 
 src/Bot.i: src/Bot.cpp.i
@@ -384,11 +411,12 @@ src/Bot.i: src/Bot.cpp.i
 
 # target to preprocess a source file
 src/Bot.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Bot.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Bot.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Bot.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Bot.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Bot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Bot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Bot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Bot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Bot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Bot.cpp.i
 .PHONY : src/Bot.cpp.i
 
 src/Bot.s: src/Bot.cpp.s
@@ -396,11 +424,12 @@ src/Bot.s: src/Bot.cpp.s
 
 # target to generate assembly for a file
 src/Bot.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Bot.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Bot.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Bot.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Bot.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Bot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Bot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Bot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Bot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Bot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Bot.cpp.s
 .PHONY : src/Bot.cpp.s
 
 src/Card.o: src/Card.cpp.o
@@ -408,14 +437,16 @@ src/Card.o: src/Card.cpp.o
 
 # target to build an object file
 src/Card.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Card.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Card.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Card.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Card.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Card.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Card.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Card.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/Card.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Card.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Card.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Card.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Card.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/Card.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Card.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Card.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Card.cpp.o
 .PHONY : src/Card.cpp.o
 
 src/Card.i: src/Card.cpp.i
@@ -423,14 +454,16 @@ src/Card.i: src/Card.cpp.i
 
 # target to preprocess a source file
 src/Card.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Card.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Card.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Card.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Card.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Card.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Card.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Card.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/Card.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Card.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Card.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Card.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Card.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/Card.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Card.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Card.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Card.cpp.i
 .PHONY : src/Card.cpp.i
 
 src/Card.s: src/Card.cpp.s
@@ -438,14 +471,16 @@ src/Card.s: src/Card.cpp.s
 
 # target to generate assembly for a file
 src/Card.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Card.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Card.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Card.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Card.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Card.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Card.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Card.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/Card.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Card.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Card.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Card.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Card.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/Card.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Card.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Card.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Card.cpp.s
 .PHONY : src/Card.cpp.s
 
 src/Deck.o: src/Deck.cpp.o
@@ -453,13 +488,15 @@ src/Deck.o: src/Deck.cpp.o
 
 # target to build an object file
 src/Deck.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Deck.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Deck.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Deck.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Deck.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Deck.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Deck.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Deck.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/Deck.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Deck.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Deck.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Deck.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Deck.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Deck.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Deck.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Deck.cpp.o
 .PHONY : src/Deck.cpp.o
 
 src/Deck.i: src/Deck.cpp.i
@@ -467,13 +504,15 @@ src/Deck.i: src/Deck.cpp.i
 
 # target to preprocess a source file
 src/Deck.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Deck.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Deck.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Deck.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Deck.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Deck.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Deck.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Deck.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/Deck.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Deck.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Deck.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Deck.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Deck.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Deck.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Deck.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Deck.cpp.i
 .PHONY : src/Deck.cpp.i
 
 src/Deck.s: src/Deck.cpp.s
@@ -481,13 +520,15 @@ src/Deck.s: src/Deck.cpp.s
 
 # target to generate assembly for a file
 src/Deck.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Deck.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Deck.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Deck.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Deck.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Deck.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Deck.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Deck.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/Deck.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Deck.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/deckTests.dir/build.make CMakeFiles/deckTests.dir/src/Deck.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Deck.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Deck.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Deck.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Deck.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Deck.cpp.s
 .PHONY : src/Deck.cpp.s
 
 src/Display.o: src/Display.cpp.o
@@ -495,11 +536,12 @@ src/Display.o: src/Display.cpp.o
 
 # target to build an object file
 src/Display.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Display.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Display.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Display.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Display.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Display.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Display.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Display.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Display.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Display.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Display.cpp.o
 .PHONY : src/Display.cpp.o
 
 src/Display.i: src/Display.cpp.i
@@ -507,11 +549,12 @@ src/Display.i: src/Display.cpp.i
 
 # target to preprocess a source file
 src/Display.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Display.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Display.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Display.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Display.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Display.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Display.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Display.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Display.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Display.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Display.cpp.i
 .PHONY : src/Display.cpp.i
 
 src/Display.s: src/Display.cpp.s
@@ -519,11 +562,12 @@ src/Display.s: src/Display.cpp.s
 
 # target to generate assembly for a file
 src/Display.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Display.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Display.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Display.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Display.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Display.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Display.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Display.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Display.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Display.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Display.cpp.s
 .PHONY : src/Display.cpp.s
 
 src/GameHandler.o: src/GameHandler.cpp.o
@@ -531,11 +575,12 @@ src/GameHandler.o: src/GameHandler.cpp.o
 
 # target to build an object file
 src/GameHandler.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/GameHandler.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/GameHandler.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/GameHandler.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/GameHandler.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/GameHandler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/GameHandler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/GameHandler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/GameHandler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/GameHandler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/GameHandler.cpp.o
 .PHONY : src/GameHandler.cpp.o
 
 src/GameHandler.i: src/GameHandler.cpp.i
@@ -543,11 +588,12 @@ src/GameHandler.i: src/GameHandler.cpp.i
 
 # target to preprocess a source file
 src/GameHandler.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/GameHandler.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/GameHandler.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/GameHandler.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/GameHandler.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/GameHandler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/GameHandler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/GameHandler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/GameHandler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/GameHandler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/GameHandler.cpp.i
 .PHONY : src/GameHandler.cpp.i
 
 src/GameHandler.s: src/GameHandler.cpp.s
@@ -555,11 +601,12 @@ src/GameHandler.s: src/GameHandler.cpp.s
 
 # target to generate assembly for a file
 src/GameHandler.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/GameHandler.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/GameHandler.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/GameHandler.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/GameHandler.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/GameHandler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/GameHandler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/GameHandler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/GameHandler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/GameHandler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/GameHandler.cpp.s
 .PHONY : src/GameHandler.cpp.s
 
 src/Hand.o: src/Hand.cpp.o
@@ -567,13 +614,15 @@ src/Hand.o: src/Hand.cpp.o
 
 # target to build an object file
 src/Hand.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Hand.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Hand.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Hand.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Hand.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Hand.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Hand.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/Hand.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Hand.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Hand.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Hand.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/Hand.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Hand.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Hand.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Hand.cpp.o
 .PHONY : src/Hand.cpp.o
 
 src/Hand.i: src/Hand.cpp.i
@@ -581,13 +630,15 @@ src/Hand.i: src/Hand.cpp.i
 
 # target to preprocess a source file
 src/Hand.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Hand.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Hand.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Hand.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Hand.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Hand.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Hand.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/Hand.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Hand.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Hand.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Hand.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/Hand.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Hand.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Hand.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Hand.cpp.i
 .PHONY : src/Hand.cpp.i
 
 src/Hand.s: src/Hand.cpp.s
@@ -595,13 +646,15 @@ src/Hand.s: src/Hand.cpp.s
 
 # target to generate assembly for a file
 src/Hand.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Hand.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Hand.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Hand.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Hand.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Hand.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Hand.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/Hand.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/Hand.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Hand.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Hand.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/Hand.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Hand.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Hand.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Hand.cpp.s
 .PHONY : src/Hand.cpp.s
 
 src/Player.o: src/Player.cpp.o
@@ -609,12 +662,13 @@ src/Player.o: src/Player.cpp.o
 
 # target to build an object file
 src/Player.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Player.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Player.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Player.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Player.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Player.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Player.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Player.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/Player.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Player.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Player.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Player.cpp.o
 .PHONY : src/Player.cpp.o
 
 src/Player.i: src/Player.cpp.i
@@ -622,12 +676,13 @@ src/Player.i: src/Player.cpp.i
 
 # target to preprocess a source file
 src/Player.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Player.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Player.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Player.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Player.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Player.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Player.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Player.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/Player.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Player.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Player.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Player.cpp.i
 .PHONY : src/Player.cpp.i
 
 src/Player.s: src/Player.cpp.s
@@ -635,12 +690,13 @@ src/Player.s: src/Player.cpp.s
 
 # target to generate assembly for a file
 src/Player.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Player.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Player.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Player.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Player.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Player.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Player.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Player.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/Player.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Player.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Player.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Player.cpp.s
 .PHONY : src/Player.cpp.s
 
 src/Pot.o: src/Pot.cpp.o
@@ -648,12 +704,13 @@ src/Pot.o: src/Pot.cpp.o
 
 # target to build an object file
 src/Pot.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Pot.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/potTests.dir/build.make CMakeFiles/potTests.dir/src/Pot.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Pot.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Pot.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Pot.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Pot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Pot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Pot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/potTests.dir/build.make CMakeFiles/potTests.dir/src/Pot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Pot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Pot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Pot.cpp.o
 .PHONY : src/Pot.cpp.o
 
 src/Pot.i: src/Pot.cpp.i
@@ -661,12 +718,13 @@ src/Pot.i: src/Pot.cpp.i
 
 # target to preprocess a source file
 src/Pot.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Pot.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/potTests.dir/build.make CMakeFiles/potTests.dir/src/Pot.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Pot.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Pot.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Pot.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Pot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Pot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Pot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/potTests.dir/build.make CMakeFiles/potTests.dir/src/Pot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Pot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Pot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Pot.cpp.i
 .PHONY : src/Pot.cpp.i
 
 src/Pot.s: src/Pot.cpp.s
@@ -674,12 +732,13 @@ src/Pot.s: src/Pot.cpp.s
 
 # target to generate assembly for a file
 src/Pot.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Pot.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/potTests.dir/build.make CMakeFiles/potTests.dir/src/Pot.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Pot.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Pot.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Pot.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Pot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Pot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Pot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/potTests.dir/build.make CMakeFiles/potTests.dir/src/Pot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Pot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Pot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Pot.cpp.s
 .PHONY : src/Pot.cpp.s
 
 src/RoundHandler.o: src/RoundHandler.cpp.o
@@ -687,11 +746,12 @@ src/RoundHandler.o: src/RoundHandler.cpp.o
 
 # target to build an object file
 src/RoundHandler.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/RoundHandler.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/RoundHandler.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/RoundHandler.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/RoundHandler.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/RoundHandler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/RoundHandler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/RoundHandler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/RoundHandler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/RoundHandler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/RoundHandler.cpp.o
 .PHONY : src/RoundHandler.cpp.o
 
 src/RoundHandler.i: src/RoundHandler.cpp.i
@@ -699,11 +759,12 @@ src/RoundHandler.i: src/RoundHandler.cpp.i
 
 # target to preprocess a source file
 src/RoundHandler.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/RoundHandler.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/RoundHandler.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/RoundHandler.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/RoundHandler.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/RoundHandler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/RoundHandler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/RoundHandler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/RoundHandler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/RoundHandler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/RoundHandler.cpp.i
 .PHONY : src/RoundHandler.cpp.i
 
 src/RoundHandler.s: src/RoundHandler.cpp.s
@@ -711,11 +772,12 @@ src/RoundHandler.s: src/RoundHandler.cpp.s
 
 # target to generate assembly for a file
 src/RoundHandler.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/RoundHandler.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/RoundHandler.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/RoundHandler.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/RoundHandler.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/RoundHandler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/RoundHandler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/RoundHandler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/RoundHandler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/RoundHandler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/RoundHandler.cpp.s
 .PHONY : src/RoundHandler.cpp.s
 
 src/Settings.o: src/Settings.cpp.o
@@ -723,12 +785,13 @@ src/Settings.o: src/Settings.cpp.o
 
 # target to build an object file
 src/Settings.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Settings.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Settings.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Settings.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Settings.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/settingsTests.dir/build.make CMakeFiles/settingsTests.dir/src/Settings.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Settings.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/settingsTests.dir/build.make CMakeFiles/settingsTests.dir/src/Settings.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Settings.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Settings.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Settings.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Settings.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Settings.cpp.o
 .PHONY : src/Settings.cpp.o
 
 src/Settings.i: src/Settings.cpp.i
@@ -736,12 +799,13 @@ src/Settings.i: src/Settings.cpp.i
 
 # target to preprocess a source file
 src/Settings.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Settings.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Settings.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Settings.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Settings.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/settingsTests.dir/build.make CMakeFiles/settingsTests.dir/src/Settings.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Settings.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/settingsTests.dir/build.make CMakeFiles/settingsTests.dir/src/Settings.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Settings.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Settings.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Settings.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Settings.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Settings.cpp.i
 .PHONY : src/Settings.cpp.i
 
 src/Settings.s: src/Settings.cpp.s
@@ -749,12 +813,13 @@ src/Settings.s: src/Settings.cpp.s
 
 # target to generate assembly for a file
 src/Settings.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Settings.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Settings.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Settings.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Settings.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/settingsTests.dir/build.make CMakeFiles/settingsTests.dir/src/Settings.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Settings.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/settingsTests.dir/build.make CMakeFiles/settingsTests.dir/src/Settings.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Settings.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Settings.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Settings.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Settings.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Settings.cpp.s
 .PHONY : src/Settings.cpp.s
 
 src/Utility.o: src/Utility.cpp.o
@@ -762,11 +827,12 @@ src/Utility.o: src/Utility.cpp.o
 
 # target to build an object file
 src/Utility.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Utility.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Utility.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Utility.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Utility.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Utility.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Utility.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Utility.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Utility.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Utility.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Utility.cpp.o
 .PHONY : src/Utility.cpp.o
 
 src/Utility.i: src/Utility.cpp.i
@@ -774,11 +840,12 @@ src/Utility.i: src/Utility.cpp.i
 
 # target to preprocess a source file
 src/Utility.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Utility.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Utility.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Utility.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Utility.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Utility.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Utility.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Utility.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Utility.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Utility.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Utility.cpp.i
 .PHONY : src/Utility.cpp.i
 
 src/Utility.s: src/Utility.cpp.s
@@ -786,11 +853,12 @@ src/Utility.s: src/Utility.cpp.s
 
 # target to generate assembly for a file
 src/Utility.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Utility.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Utility.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/Utility.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Utility.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/Utility.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/Utility.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/Utility.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/Utility.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/Utility.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/Utility.cpp.s
 .PHONY : src/Utility.cpp.s
 
 src/handRank.o: src/handRank.cpp.o
@@ -798,13 +866,15 @@ src/handRank.o: src/handRank.cpp.o
 
 # target to build an object file
 src/handRank.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/handRank.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/handRank.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/handRank.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/handRank.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/handRank.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/handRank.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/handRank.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/handRank.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/handRank.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/handRank.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/handRank.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/handRank.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/handRank.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/handRank.cpp.o
 .PHONY : src/handRank.cpp.o
 
 src/handRank.i: src/handRank.cpp.i
@@ -812,13 +882,15 @@ src/handRank.i: src/handRank.cpp.i
 
 # target to preprocess a source file
 src/handRank.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/handRank.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/handRank.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/handRank.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/handRank.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/handRank.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/handRank.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/handRank.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/handRank.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/handRank.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/handRank.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/handRank.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/handRank.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/handRank.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/handRank.cpp.i
 .PHONY : src/handRank.cpp.i
 
 src/handRank.s: src/handRank.cpp.s
@@ -826,13 +898,15 @@ src/handRank.s: src/handRank.cpp.s
 
 # target to generate assembly for a file
 src/handRank.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/handRank.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/handRank.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/src/handRank.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/handRank.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/handRank.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/src/handRank.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/src/handRank.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handTests.dir/build.make CMakeFiles/handTests.dir/src/handRank.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/poker.dir/build.make CMakeFiles/poker.dir/src/handRank.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/handRank.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/playerTests.dir/build.make CMakeFiles/playerTests.dir/src/handRank.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/src/handRank.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/src/handRank.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/src/handRank.cpp.s
 .PHONY : src/handRank.cpp.s
 
 tests/deckTests.o: tests/deckTests.cpp.o
@@ -882,6 +956,54 @@ tests/displayTests.s: tests/displayTests.cpp.s
 tests/displayTests.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/displayTests.dir/build.make CMakeFiles/displayTests.dir/tests/displayTests.cpp.s
 .PHONY : tests/displayTests.cpp.s
+
+tests/gameHandlerTests.o: tests/gameHandlerTests.cpp.o
+.PHONY : tests/gameHandlerTests.o
+
+# target to build an object file
+tests/gameHandlerTests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/tests/gameHandlerTests.cpp.o
+.PHONY : tests/gameHandlerTests.cpp.o
+
+tests/gameHandlerTests.i: tests/gameHandlerTests.cpp.i
+.PHONY : tests/gameHandlerTests.i
+
+# target to preprocess a source file
+tests/gameHandlerTests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/tests/gameHandlerTests.cpp.i
+.PHONY : tests/gameHandlerTests.cpp.i
+
+tests/gameHandlerTests.s: tests/gameHandlerTests.cpp.s
+.PHONY : tests/gameHandlerTests.s
+
+# target to generate assembly for a file
+tests/gameHandlerTests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gameHandlerTests.dir/build.make CMakeFiles/gameHandlerTests.dir/tests/gameHandlerTests.cpp.s
+.PHONY : tests/gameHandlerTests.cpp.s
+
+tests/handRankTests.o: tests/handRankTests.cpp.o
+.PHONY : tests/handRankTests.o
+
+# target to build an object file
+tests/handRankTests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/tests/handRankTests.cpp.o
+.PHONY : tests/handRankTests.cpp.o
+
+tests/handRankTests.i: tests/handRankTests.cpp.i
+.PHONY : tests/handRankTests.i
+
+# target to preprocess a source file
+tests/handRankTests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/tests/handRankTests.cpp.i
+.PHONY : tests/handRankTests.cpp.i
+
+tests/handRankTests.s: tests/handRankTests.cpp.s
+.PHONY : tests/handRankTests.s
+
+# target to generate assembly for a file
+tests/handRankTests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/handRankTests.dir/build.make CMakeFiles/handRankTests.dir/tests/handRankTests.cpp.s
+.PHONY : tests/handRankTests.cpp.s
 
 tests/handTests.o: tests/handTests.cpp.o
 .PHONY : tests/handTests.o
@@ -979,29 +1101,29 @@ tests/roundHandlerTests.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/roundHandlerTests.dir/build.make CMakeFiles/roundHandlerTests.dir/tests/roundHandlerTests.cpp.s
 .PHONY : tests/roundHandlerTests.cpp.s
 
-tests/saveTest.o: tests/saveTest.cpp.o
-.PHONY : tests/saveTest.o
+tests/saveTests.o: tests/saveTests.cpp.o
+.PHONY : tests/saveTests.o
 
 # target to build an object file
-tests/saveTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/tests/saveTest.cpp.o
-.PHONY : tests/saveTest.cpp.o
+tests/saveTests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/tests/saveTests.cpp.o
+.PHONY : tests/saveTests.cpp.o
 
-tests/saveTest.i: tests/saveTest.cpp.i
-.PHONY : tests/saveTest.i
+tests/saveTests.i: tests/saveTests.cpp.i
+.PHONY : tests/saveTests.i
 
 # target to preprocess a source file
-tests/saveTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/tests/saveTest.cpp.i
-.PHONY : tests/saveTest.cpp.i
+tests/saveTests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/tests/saveTests.cpp.i
+.PHONY : tests/saveTests.cpp.i
 
-tests/saveTest.s: tests/saveTest.cpp.s
-.PHONY : tests/saveTest.s
+tests/saveTests.s: tests/saveTests.cpp.s
+.PHONY : tests/saveTests.s
 
 # target to generate assembly for a file
-tests/saveTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTest.dir/build.make CMakeFiles/saveTest.dir/tests/saveTest.cpp.s
-.PHONY : tests/saveTest.cpp.s
+tests/saveTests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/saveTests.dir/build.make CMakeFiles/saveTests.dir/tests/saveTests.cpp.s
+.PHONY : tests/saveTests.cpp.s
 
 tests/settingsTests.o: tests/settingsTests.cpp.o
 .PHONY : tests/settingsTests.o
@@ -1065,16 +1187,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... deckTests"
 	@echo "... displayTests"
+	@echo "... gameHandlerTests"
 	@echo "... gmock"
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... handRankTests"
 	@echo "... handTests"
 	@echo "... playerTests"
 	@echo "... poker"
 	@echo "... potTests"
 	@echo "... roundHandlerTests"
-	@echo "... saveTest"
+	@echo "... saveTests"
 	@echo "... settingsTests"
 	@echo "... test"
 	@echo "... main.o"
@@ -1122,6 +1246,12 @@ help:
 	@echo "... tests/displayTests.o"
 	@echo "... tests/displayTests.i"
 	@echo "... tests/displayTests.s"
+	@echo "... tests/gameHandlerTests.o"
+	@echo "... tests/gameHandlerTests.i"
+	@echo "... tests/gameHandlerTests.s"
+	@echo "... tests/handRankTests.o"
+	@echo "... tests/handRankTests.i"
+	@echo "... tests/handRankTests.s"
 	@echo "... tests/handTests.o"
 	@echo "... tests/handTests.i"
 	@echo "... tests/handTests.s"
@@ -1134,9 +1264,9 @@ help:
 	@echo "... tests/roundHandlerTests.o"
 	@echo "... tests/roundHandlerTests.i"
 	@echo "... tests/roundHandlerTests.s"
-	@echo "... tests/saveTest.o"
-	@echo "... tests/saveTest.i"
-	@echo "... tests/saveTest.s"
+	@echo "... tests/saveTests.o"
+	@echo "... tests/saveTests.i"
+	@echo "... tests/saveTests.s"
 	@echo "... tests/settingsTests.o"
 	@echo "... tests/settingsTests.i"
 	@echo "... tests/settingsTests.s"

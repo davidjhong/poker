@@ -704,7 +704,8 @@ CMakeFiles/test.dir/src/Display.cpp.o: src/Display.cpp \
   header/handRank.h \
   header/Card.h \
   header/Settings.h \
-  header/Hand.h
+  header/Hand.h \
+  header/Utility.h
 
 CMakeFiles/test.dir/src/GameHandler.cpp.o: src/GameHandler.cpp \
   /usr/include/stdc-predef.h \
@@ -2355,6 +2356,8 @@ CMakeFiles/test.dir/tests/test.cpp.o: tests/test.cpp \
   header/Display.h \
   header/Settings.h \
   header/Utility.h \
+  header/GameHandler.h \
+  header/RoundHandler.h \
   header/Bot.h
 
 

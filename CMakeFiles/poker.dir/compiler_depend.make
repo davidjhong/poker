@@ -906,7 +906,8 @@ CMakeFiles/poker.dir/src/Display.cpp.o: src/Display.cpp \
   header/handRank.h \
   header/Card.h \
   header/Settings.h \
-  header/Hand.h
+  header/Hand.h \
+  header/Utility.h
 
 CMakeFiles/poker.dir/src/GameHandler.cpp.o: src/GameHandler.cpp \
   /usr/include/stdc-predef.h \
