@@ -37,7 +37,7 @@ Deck::~Deck()
 
 void Deck::shuffleDeck(bool isRandom) // bool random is whether a random seed is created
 {                                   // bool random false is for testing
-    if (random)
+    if (isRandom)
     {
         srand(unsigned(time(0)));
     }

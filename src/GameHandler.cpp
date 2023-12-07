@@ -22,11 +22,16 @@ GameHandler::GameHandler()
     this->gameRunning = true;
     this->settings = new Settings();
     this->playerList = new vector<Player*>;
+    this->isRandom = true;
 }
 
 GameHandler::GameHandler(bool isRandom) 
 {
-        this-> isRandom = isRandom;
+    this->roundHandler = new RoundHandler();
+    this->gameRunning = true;
+    this->settings = new Settings();
+    this->playerList = new vector<Player*>;
+    this->isRandom = isRandom;
 }
 
 GameHandler::~GameHandler()
@@ -151,7 +156,6 @@ void GameHandler::startGame(istream &is, ostream &os)
         {
             roundHandler->deck->shuffleDeck(true);
         }
-        
         else
         {
             roundHandler->deck->shuffleDeck(false);
