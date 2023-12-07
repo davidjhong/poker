@@ -22,6 +22,16 @@ GameHandler::GameHandler()
     this->gameRunning = true;
     this->settings = new Settings();
     this->playerList = new vector<Player*>;
+    this->isRandom = true;
+}
+
+GameHandler::GameHandler(bool isRandom) 
+{
+    this->roundHandler = new RoundHandler();
+    this->gameRunning = true;
+    this->settings = new Settings();
+    this->playerList = new vector<Player*>;
+    this->isRandom = isRandom;
     this->loadingGame = false;
 }
 
@@ -45,7 +55,7 @@ void GameHandler::addPlayer(const string &playerName, bool isBot)
 
     if (isBot)
     {
-        Bot* bot = new Bot("Bot Kevin", chips);
+        Bot* bot = new Bot("Bot Kevin", chips, isRandom);
         playerList->push_back(bot);
     }
     else
@@ -118,6 +128,7 @@ void GameHandler::startGame(istream &is, ostream &os)
 {
     const unsigned int numOfRounds = this->settings->getNumOfRounds();
 
+
     this->roundHandler->setSettings(this->settings);
 
     // int startRound = this->roundHandler->getRound();
@@ -133,8 +144,15 @@ void GameHandler::startGame(istream &is, ostream &os)
 
 
         // os << "Round " << round + 1 << "!" << endl;
+        if(isRandom)
+        {
+            roundHandler->deck->shuffleDeck(true);
+        }
+        // else
+        // {
+        //     roundHandler->deck->shuffleDeck(false);
+        // }
 
-        roundHandler->deck->shuffleDeck(true);
 
         vector<Player*> winners = roundHandler->startRound(is, os, this->playerList, this->roundHistory);
 
@@ -156,7 +174,7 @@ void GameHandler::startGame(istream &is, ostream &os)
             return;
         }
         
-        Player* gameWinner = this->roundHandler->resetRound(this->playerList);
+        Player* gameWinner = this->roundHandler->resetRound(this->playerList, isRandom);
 
         if (gameWinner)
         {

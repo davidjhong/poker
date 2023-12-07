@@ -9,8 +9,10 @@
 #include "../header/Display.h"
 #include "../header/RoundHandler.h"
 #include "../header/GameHandler.h"
+#include "../header/Bot.h"
 
-TEST(GameHandlerTests, AddPlayerIndividualTest) {
+TEST(GameHandlerTests, AddPlayerIndividualTest) 
+{
     GameHandler* gameHandler = new GameHandler();
 
     gameHandler->addPlayer("chloe", false);
@@ -18,7 +20,8 @@ TEST(GameHandlerTests, AddPlayerIndividualTest) {
     delete gameHandler;
 }
 
-TEST(GameHandlerTests, AddMultiplePlayersTest) {
+TEST(GameHandlerTests, AddMultiplePlayersTest) 
+{
     GameHandler* gameHandler = new GameHandler();
 
     gameHandler->addPlayer("chloe", false);
@@ -32,7 +35,8 @@ TEST(GameHandlerTests, AddMultiplePlayersTest) {
     delete gameHandler;
 }
 
-TEST(GameHandlerTests, AddPlayerOverLimitTest) {
+TEST(GameHandlerTests, AddPlayerOverLimitTest) 
+{
     GameHandler* gameHandler = new GameHandler();
 
     gameHandler->addPlayer("chloe", false);
@@ -59,31 +63,166 @@ TEST(GameHandlerTests, AddPlayerOverLimitTest) {
     ASSERT_DEATH(gameHandler->addPlayer("gency", false), "Seven players maximum");
     delete gameHandler;
 }
-TEST(GameHandlerTests, BotGameTest) {
+
+TEST(GameHandlerTests, BotGameTest) 
+{
     ifstream testInput ("tests/testInputs/BotGameTestInput.txt");
     ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
     ostringstream out;
-    GameHandler* gameHandler = new GameHandler();
-
-    // gameHandler->addPlayer("chloe", false);
-    // gameHandler->addPlayer("Kevin Bot", true);
-
-    // EXPECT_EQ(gameHandler->settings->getNumPlayers(), 2);
-    // EXPECT_EQ(gameHandler->playerList->back()->getName(), "Bot Kevin");
-    // EXPECT_EQ(gameHandler->playerList->front()->getName(), "chloe");
-
+    GameHandler* gameHandler = new GameHandler(false);
     gameHandler->runGame(testInput, out);
-    // gameHandler->gameSetup(testInput, out, true);
-    // cout << out.str() << endl;
-    EXPECT_EQ(out.str(), "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\nq) Quit\nEnter an option\n-------------------------------------------\nEnter player username: \nBot Kevin has called!\nThe current pot amount is 100.\n\nkevin's turn!\nEnter anything to continue\nkevin, it's your turn!\nYou have 950 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA5 |     \n| 7 |     | J |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nkevin has folded!\nBot Kevin won 100 chips with a High Card!\nRound 1 complete!\nWould you like to continue playing?\n1. yes\n2. no\n-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\nq) Quit\nEnter an option\n-------------------------------------------\n");
-
+    EXPECT_EQ(out.str(),
+    "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\n7) Load From Save\nq) Quit\nEnter an option\n-------------------------------------------\nEnter player username: \nBot Kevin has called!\nThe current pot amount is 100.\n\nchloe's turn!\nEnter anything to continue\nchloe, it's your turn!\nYou have 950 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA5 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nchloe has folded!\nBot Kevin won 100 chips with a High Card!\nRound 1 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nRound 1 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nInvalid input. Try again\n-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\n7) Load From Save\nq) Quit\nEnter an option\n-------------------------------------------\n");
+    
     delete gameHandler;
-    // EXPECT_EQ(out.str(),
-    // "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\nq) Quit\nEnter an option\n-------------------------------------------\nEnter player username: \nBot Kevin has called!\nThe current pot amount is 100.\n\nkevin's turn!\nEnter anything to continue\nkevin, it's your turn!\nYou have 950 chips\nPot: 100\nYour hand:\n-----     -----     \n| \xE2\x99\xA5 |     | \xE2\x99\xA6 |     \n| 8 |     | 7 |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nkevin has folded!\nBot Kevin won 100 chips with a High Card!\nRound 1 complete!\nWould you like to continue playing?\n1. yes\n2. no\n-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\nq) Quit\nEnter an option\n-------------------------------------------\n");
- 
+  
 }
 
-TEST(GameHandlerTests, ChangeNumberOfPlayers) {
+TEST(GameHandlerTests, RegularGameTest) 
+{
+    ifstream testInput ("tests/testInputs/RegularGameTestInput.txt");
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+    ostringstream out;
+    GameHandler* gameHandler = new GameHandler(false);
+ 
+    gameHandler->runGame(testInput, out);
+
+    EXPECT_EQ(out.str(), 
+    "-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\n7) Load From Save\nq) Quit\nEnter an option\n-------------------------------------------\nEnter player 1's username: \nEnter player 2's username: \nnagi, it's your turn!\nYou have 975 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA0 |     \n| A |     | A |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nnagi has folded!\nchloe won 75 chips with a High Card!\nRound 1 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nRound 1 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nInvalid input. Try again\nchloe, it's your turn!\nYou have 1000 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA6 |     | \xE2\x99\xA0 |     \n| 2 |     | K |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nchloe has folded!\nnagi won 75 chips with a High Card!\nRound 2 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nnagi, it's your turn!\nYou have 975 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA0  |    | \xE2\x99\xA5 |     \n| 10 |    | K |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nnagi has folded!\nchloe won 75 chips with a High Card!\nRound 3 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nchloe, it's your turn!\nYou have 1000 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA3 |     | \xE2\x99\xA5 |     \n| 4 |     | Q |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nchloe has folded!\nnagi won 75 chips with a High Card!\nRound 4 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\nnagi, it's your turn!\nYou have 975 chips\nPot: 75\nYour hand:\n-----     -----     \n| \xE2\x99\xA0 |     | \xE2\x99\xA0 |     \n| 2 |     | 6 |     \n-----     -----     \nCommunity cards:\n-----     -----     -----     -----     -----     \n|   |     |   |     |   |     |   |     |   |     \n| ? |     | ? |     | ? |     | ? |     | ? |     \n-----     -----     -----     -----     -----     \n1. call\n2. raise\n3. check\n4. fold\nnagi has folded!\nchloe won 75 chips with a High Card!\nRound 5 complete!\nWould you like to continue playing?\n1. yes\n2. no\n3. save\n-------------- START MENU -----------------\n1) Start game\n2) Start bot game\n3) Settings\n4) Rules\n5) Card rankings\n6) Card combinations\n7) Load From Save\nq) Quit\nEnter an option\n-------------------------------------------\n");
+
+    delete gameHandler;
+  
+}
+
+// TEST(GameHandlerTests, NoMoreRoundsTest)
+// {
+
+//     ostringstream out;
+//     RoundHandler* roundHandler = new RoundHandler();
+//     roundHandler->setRound(5);
+//     Settings* settings = new Settings();
+//     settings->setNumOfRounds(4);
+//     cout << out.str();
+//     // EXPECT_EQ(out.str(),
+//     // "All rounds have finished\n");
+// }
+
+// TEST(GameHandlerTests, GameWinnerTest)
+// {
+//   ostringstream out;
+//   ifstream testInput("tests/testInputs/GameWinnerTestInput.txt");
+//   ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+//   // vector<Player*> winners = gameHandler->startGame(testInput, out);
+//   // testHandler->resetRound(playerList);
+
+// }
+
+  
+
+// TEST(GameHandlerTests, OptionToLeaveTest)              //INPUT ISSUE??
+// {
+//   ostringstream out;
+//   ifstream testInput("tests/testInputs/OptionToLeaveTestInput.txt");
+//   ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+//   GameHandler* gameHandler = new GameHandler();
+//   gameHandler->optionToLeave(testInput, out);
+//   EXPECT_EQ(os.str(),
+//   "copy");
+
+//   delete gameHandler;
+// }
+
+
+ TEST(GameHandlerTests, ChangeStartingChipsTest) 
+ {
+    ostringstream out;
+    GameHandler* gameHandler = new GameHandler();
+    // simulate user input 
+    ifstream testInput("tests/testInputs/ChangeStartingChipsTest.txt");
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+
+    gameHandler->settingsMenu(testInput, out);
+
+    EXPECT_EQ(gameHandler->settings->getStartingChips(), 500);
+
+    delete gameHandler;
+ }
+
+ TEST(GameHandlerTests, ChangeStartingChipsTestFail) 
+ {
+    ostringstream out;
+    GameHandler* gameHandler = new GameHandler();
+    // simulate user input 
+    ifstream testInput("tests/testInputs/ChangeStartingChipsTestFail.txt");
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+
+    gameHandler->settingsMenu(testInput, out);
+
+    EXPECT_EQ(gameHandler->settings->getStartingChips(), 1);                //from second input after "Invalid Input" prompt
+    
+    delete gameHandler;
+ }
+
+TEST(GameHandlerTests, ChangeBigBlindTest) 
+{
+    ostringstream out;
+    GameHandler* gameHandler = new GameHandler();
+    // simulate user input 
+    ifstream testInput("tests/testInputs/ChangeBigBlindTest.txt");
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+
+    gameHandler->settingsMenu(testInput, out);
+
+    EXPECT_EQ(gameHandler->settings->getBigBlindAmt(), 250);
+
+    delete gameHandler;
+ }
+
+// TEST(GameHandlerTests, ChangeBigBlindTestFail) {             //ISSUE W INPUT?
+//     ostringstream out;
+//     GameHandler* gameHandler = new GameHandler();
+//     // simulate user input 
+//     ifstream testInput("tests/testInputs/ChangeBigBlindTestFail.txt");
+//     // ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+
+//     gameHandler->settingsMenu(testInput, out);
+ 
+//     EXPECT_EQ(gameHandler->settings->getBigBlindAmt(), 450);
+//  }
+
+TEST(GameHandlerTests, ChangeLittleBlindTest) 
+{
+    ostringstream out;
+    GameHandler* gameHandler = new GameHandler();
+    // simulate user input 
+    ifstream testInput("tests/testInputs/ChangeLittleBlindTest.txt");
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+
+    gameHandler->settingsMenu(testInput, out);
+
+    EXPECT_EQ(gameHandler->settings->getLittleBlindAmt(), 20);
+
+    delete gameHandler;
+ }
+
+ TEST(GameHandlerTests, ChangeLittleBlindTestFail) 
+ {        
+    ostringstream out;
+    GameHandler* gameHandler = new GameHandler();
+    // simulate user input 
+    ifstream testInput("tests/testInputs/ChangeLittleBlindTestFail.txt");
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+
+    gameHandler->settingsMenu(testInput, out);
+
+    EXPECT_EQ(gameHandler->settings->getLittleBlindAmt(), 10);      //from second input after "Invalid Input" prompt
+
+    delete gameHandler;
+ }
+
+
+TEST(GameHandlerTests, ChangeNumberOfPlayers) 
+{
     ostringstream out;
     GameHandler* gameHandler = new GameHandler();
     // simulate user input 
@@ -112,10 +251,57 @@ TEST(GameHandlerTests, ChangeNumberOfPlayers) {
     "5) Change number of rounds\n"
     "q) Save and exit\n"
     "----------------------------------------\n");
-    EXPECT_EQ(gameHandler->getSettings()->getNumPlayers(), 3);
+    EXPECT_EQ(gameHandler->settings->getNumPlayers(), 3);
 
     delete gameHandler;
 }
+
+TEST(GameHandlerTests, ChangeNumberOfPlayersFail) 
+{
+    ostringstream out;
+    GameHandler* gameHandler = new GameHandler();
+    // simulate user input 
+    ifstream testInput("tests/testInputs/FailChangeNumPlayersTest.txt");
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+
+    gameHandler->settingsMenu(testInput, out);
+
+    EXPECT_EQ(gameHandler->settings->getNumPlayers(), 2);           //from second input after "Invalid Input" prompt
+
+    delete gameHandler;
+ }
+
+TEST(GameHandlerTests, ChangeNumRoundsTest) 
+{
+    ostringstream out;
+    GameHandler* gameHandler = new GameHandler();
+    // simulate user input 
+    ifstream testInput("tests/testInputs/ChangeNumRoundsTest.txt");
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+
+    gameHandler->settingsMenu(testInput, out);
+
+    // EXPECT_EQ(out.str(),
+    EXPECT_EQ(gameHandler->settings->getNumOfRounds(), 10);
+
+    delete gameHandler;
+ }
+
+ TEST(GameHandlerTests, ChangeNumRoundsTestFail) 
+{
+    ostringstream out;
+    GameHandler* gameHandler = new GameHandler();
+    // simulate user input 
+    ifstream testInput("tests/testInputs/ChangeNumRoundsTestFail.txt");
+    ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
+
+    gameHandler->settingsMenu(testInput, out);
+
+    EXPECT_EQ(gameHandler->settings->getNumOfRounds(), 50);               //from second input after "Invalid Input" prompt
+
+    delete gameHandler;
+ }
+
 
 TEST(GameHandlerTests, ruleDisplayTest)
 {
@@ -158,6 +344,9 @@ TEST(GameHandlerTests, cardComboDisplayTest)
 
   delete gameHandler;
 }
+
+
+
 
 
 int main(int argc, char **argv) {

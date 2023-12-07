@@ -190,12 +190,12 @@ vector<Player*> RoundHandler::lookForWinner(vector<Player*> *playerList)
 
 }
 
-Player* RoundHandler::resetRound(vector<Player*> *playerList)
+Player* RoundHandler::resetRound(vector<Player*> *playerList, bool isRandom)
 {
     this->communityCards.clear();
     this->pot->resetPot();
     this->dealerIndex = (dealerIndex + 1) % playerList->size();
-    this->deck->shuffleDeck(true);
+    this->deck->shuffleDeck(isRandom);
     this->roundNumber++;
 
     unsigned int playerCount = 0;
@@ -304,7 +304,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
                 if (validChoice)
                 {
                     i = 0;
-                    os << currPlayer->getName() << " has raise to " << pot->getHighestBet() << endl;
+                    os << currPlayer->getName() << " has raised to " << pot->getHighestBet() << endl;
                     os << "The current pot amount is " << pot->getPot() << "." << endl << endl;
                 }
             }
