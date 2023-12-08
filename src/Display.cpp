@@ -153,6 +153,7 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
 {
     out << player->getName() << ", it's your turn!" << endl;
     out << "You have " << player->getBalance() << " chips" << endl;
+    cout << "Your current bet is: " << player->getCurrentBet() << endl;
     out << "Pot: " << pot->getPot() << ". The current highest bet is " << pot->getHighestBet() << "!" << endl;
     out << "Your hand:" << endl;
     
@@ -351,7 +352,7 @@ void Display::displayRoundHistory(std::ostream& out, const vector<vector<string>
 }
 void Display::displayBetweenTurns(std::ostream& out, Player* player)
 {
-    Utility::clearScreen();
+    //Utility::clearScreen();
     out << player->getName() << "'s turn!" << endl;
     out << "Enter anything to continue" << endl;
 }
