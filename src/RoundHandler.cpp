@@ -294,15 +294,17 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             if (choice == 1)
             {
                 validChoice = call(os, currPlayer);
+                Utility::clearScreen();
                 os << currPlayer->getName() << " has called!" << endl;
                 os << "The current pot amount is " << pot->getPot() << "." << endl << endl;
             }
             else if (choice == 2)
             {
                 validChoice = raise(is, os, currPlayer);
-
+                
                 if (validChoice)
                 {
+                    Utility::clearScreen();
                     i = 0;
                     os << currPlayer->getName() << " has raised to " << pot->getHighestBet() << endl;
                     os << "The current pot amount is " << pot->getPot() << "." << endl << endl;
@@ -311,6 +313,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             else if (choice == 3)
             {
                 validChoice = check(os, currPlayer);
+                Utility::clearScreen();
                 os << currPlayer->getName() << " has checked!" << endl;
                 os << "The current pot amount is " << pot->getPot() << "." << endl << endl;
             }
@@ -318,7 +321,7 @@ bool RoundHandler::startBettingStage(istream &is, ostream &os, vector<Player*> *
             {
                 validChoice = fold(currPlayer);
                 foldCount++;
-
+                Utility::clearScreen();
                 os << currPlayer->getName() << " has folded!" << endl;
 
                 if (foldCount == playerCount - 1)
@@ -417,7 +420,7 @@ bool RoundHandler::raise(istream& is, ostream& out, Player* currPlayer) {
     }
     if (raiseTo > pot->getHighestBet()) {
         pot->addToPot(raiseTo - currPlayer->getCurrentBet());
-        pot->setHighestBet(raiseTo + currPlayer->getCurrentBet());
+        pot->setHighestBet(raiseTo);
         currPlayer->setCurrentBet(raiseTo);
 
 
