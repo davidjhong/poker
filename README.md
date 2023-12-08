@@ -59,7 +59,9 @@ The class diagram includes all the classes required to make the Poker game. Game
 
 
 ## Class Diagram Updates
-![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/83392ca5-6832-4de2-b664-45d4aab81f74)
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/660d742a-9c57-437f-bf13-e1d11d5eec4d)
+
+)
 
 The new diagram includes the creation of the MenuHandler class which improves the design of project by following the single-responsibility principle.  Originally, the GameHandler class handled all the menu functionality, which was very different from the rest of the class.  Instead, the MenuHandler class now takes control of the menu functionality and deals with the new additions to it, adhering to the open-closed principle.
 
@@ -104,7 +106,7 @@ make poker
 
 Usage:
 ```
-./poker
+./bin/poker
 ```
 
 Instructions:
