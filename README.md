@@ -59,7 +59,8 @@ The class diagram includes all the classes required to make the Poker game. Game
 
 
 ## Class Diagram Updates
-![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/660d742a-9c57-437f-bf13-e1d11d5eec4d)
+![UML Class Diagram](https://cdn.discordapp.com/attachments/1095076795524587562/1182786605933674506/Screenshot_2023-12-08_at_12.47.39_PM.png?ex=6585f6dd&is=657381dd&hm=8f9de28d45f82de9285ea82e8dd930dc2b713b8c6d1390628245d4b90e294f5f&.png)
+
 
 There was an update in the Hand class, which expanded upon the functions in Hand class so that Player class was separated from the Hand class to follow the single responsibility principle.  Rather than have a function in the Player class that handles the current Hand, the player class will store a Hand object that contains the cards within the player's Hand.  Then, the Hand can call its own functions that regarding the details in its own class.  This helped make the code more readable it separated the functions of the Hand class from the functions of the Player class, which was unclear at first.
 
