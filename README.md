@@ -95,5 +95,9 @@ The Display class functions were updated to reflect more similarly to what the s
  ## Installation/Usage
  > Instructions on installing and running your application
  ## Testing
- > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
- 
+In the development of this project, we utilized Google Test for testing and verification of the functionalities of our game.  To check our code coverage, we used Gcov.  We were able to reach about 90% code coverage, however, due to the innate randomness of Poker, some portions of the code were not directly testable. To handle this, we used specified seeds in our tests to ensure consistency and examine different game scenarios.
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/49098da6-6c1a-4444-a45f-fb3c9be1ba7d)
+In addition, we used Valgrind to confirm that there were no memory leaks within our program.  Shown below is Valgrind confirming that there are no memory leaks after testing through six rounds of Poker.
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/7ae84daf-8cd1-4a4d-9fd0-fc4fa087a274)
+
+
