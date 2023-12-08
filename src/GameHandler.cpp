@@ -130,7 +130,6 @@ void GameHandler::startGame(istream &is, ostream &os)
 
     this->roundHandler->setSettings(this->settings);
 
-    // int startRound = this->roundHandler->getRound();
     int startRound = 0;
     if(startRound > numOfRounds) {
         os << "All rounds have finished." << endl;
@@ -142,15 +141,11 @@ void GameHandler::startGame(istream &is, ostream &os)
 
 
 
-        // os << "Round " << round + 1 << "!" << endl;
+    
         if(isRandom)
         {
             roundHandler->deck->shuffleDeck(true);
         }
-        // else
-        // {
-        //     roundHandler->deck->shuffleDeck(false);
-        // }
 
 
         vector<Player*> winners = roundHandler->startRound(is, os, this->playerList, this->roundHistory);
@@ -265,13 +260,7 @@ bool GameHandler::menuOptions(istream &is, ostream &os)
 
             return false;
 
-            // gameSetup(os);
-            // unsigned int numOfRounds = settings->getNumOfRounds();
-
-            // for (int currRound = 1; currRound <= numOfRounds; currRound++)
-            // {
-            //     roundHandler->startRound(playerList);
-            // }
+        
         }
         else if (input == "2")
         {
@@ -306,23 +295,6 @@ bool GameHandler::menuOptions(istream &is, ostream &os)
         }
     }
 
-    
-    // os << "select 1 for play\n";
-    // os << "select 2 for settings\n";
-    // os << "select 3 for rules\n";
-    // os << "select 4 for quit\n";
-    // while (input != "1" && input != "2" && input != "3" && input != "4")
-    // {
-    //     // display->mainMenu(os);
-    //     os << menu 
-    //     cin >> input;
-
-    //     if (input != "1" && input != "2" && input != "3" && input != "4")
-    //     {
-    //         os << "Invalid Input. Please enter 1, 2, 3, or 4.\n";
-    //     }
-
-    // }
 
 
 }
@@ -336,12 +308,6 @@ void GameHandler::settingsMenu(istream &is, ostream &os)
     {
         Utility::clearScreen();
         display->displaySettings(os);
-        // os << "select 1 to change player count\n";
-        // os << "select 2 to change starting chips\n";
-        // os << "select 3 to change big blind amount\n";
-        // os << "select 4 to change small blind amount\n";
-        // os << "select 5 to change number of rounds\n";
-        // os << "enter q to save and exit\n\n";
 
         is >> input;
 
@@ -510,7 +476,6 @@ void GameHandler::rulesMenu(istream& is, ostream &os)
 
         is >> input;
 
-        // if (input != "q)")
 
     }
     

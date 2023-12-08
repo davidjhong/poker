@@ -94,44 +94,6 @@ TEST(GameHandlerTests, RegularGameTest)
   
 }
 
-// TEST(GameHandlerTests, NoMoreRoundsTest)
-// {
-
-//     ostringstream out;
-//     RoundHandler* roundHandler = new RoundHandler();
-//     roundHandler->setRound(5);
-//     Settings* settings = new Settings();
-//     settings->setNumOfRounds(4);
-//     cout << out.str();
-//     // EXPECT_EQ(out.str(),
-//     // "All rounds have finished\n");
-// }
-
-// TEST(GameHandlerTests, GameWinnerTest)
-// {
-//   ostringstream out;
-//   ifstream testInput("tests/testInputs/GameWinnerTestInput.txt");
-//   ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
-//   // vector<Player*> winners = gameHandler->startGame(testInput, out);
-//   // testHandler->resetRound(playerList);
-
-// }
-
-  
-
-// TEST(GameHandlerTests, OptionToLeaveTest)              //INPUT ISSUE??
-// {
-//   ostringstream out;
-//   ifstream testInput("tests/testInputs/OptionToLeaveTestInput.txt");
-//   ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
-//   GameHandler* gameHandler = new GameHandler();
-//   gameHandler->optionToLeave(testInput, out);
-//   EXPECT_EQ(os.str(),
-//   "copy");
-
-//   delete gameHandler;
-// }
-
 
  TEST(GameHandlerTests, ChangeStartingChipsTest) 
  {
@@ -178,17 +140,6 @@ TEST(GameHandlerTests, ChangeBigBlindTest)
     delete gameHandler;
  }
 
-// TEST(GameHandlerTests, ChangeBigBlindTestFail) {             //ISSUE W INPUT?
-//     ostringstream out;
-//     GameHandler* gameHandler = new GameHandler();
-//     // simulate user input 
-//     ifstream testInput("tests/testInputs/ChangeBigBlindTestFail.txt");
-//     // ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
-
-//     gameHandler->settingsMenu(testInput, out);
- 
-//     EXPECT_EQ(gameHandler->settings->getBigBlindAmt(), 450);
-//  }
 
 TEST(GameHandlerTests, ChangeLittleBlindTest) 
 {
@@ -230,8 +181,7 @@ TEST(GameHandlerTests, ChangeNumberOfPlayers)
     ASSERT_TRUE(testInput.is_open()) << "Failed to open input file" << endl;
 
     gameHandler->settingsMenu(testInput, out);
-    // gameHandler->runGame(testInput, out);
-    
+  
     EXPECT_EQ(out.str(),
     "-------------- SETTINGS -----------------\n"
     "1) Change player count\n"
