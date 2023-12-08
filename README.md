@@ -93,7 +93,20 @@ The Display class functions were updated to reflect more similarly to what the s
  ![10](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/68b243bc-125e-4c4b-8790-7b77ad299bf3)
 
  ## Installation/Usage
- > Instructions on installing and running your application
+Requires g++ compiler
+Installation:
+```
+cmake .
+make poker
+```
+
+Usage:
+```
+./poker
+```
+
+Instructions:
+To save and load a game, ...
  ## Testing
 In the development of this project, we utilized Google Test for testing and verification of the functionalities of our game.  To check our code coverage, we used Gcov.  We were able to reach about 90% code coverage, however, due to the innate randomness of Poker, some portions of the code were not directly testable. To handle this, we used specified seeds in our tests to ensure consistency and examine different game scenarios.
 ![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/49098da6-6c1a-4444-a45f-fb3c9be1ba7d)
