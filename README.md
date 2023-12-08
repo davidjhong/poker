@@ -94,6 +94,7 @@ The Display class functions were updated to reflect more similarly to what the s
 
  ## Installation/Usage
 Requires g++ compiler
+
 Installation:
 ```
 cmake .
