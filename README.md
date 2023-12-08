@@ -48,9 +48,10 @@ Authors: [Kevin He](https://github.com/kevinhehee/) [Jason An](https://github.co
 
 ### Screen Layouts
 Below are the representations of the stages of what the poker game will look like. It begins with the start menu, alongside what the settings screen would look like. Then, when a game is started, the players' names will be entered. The players' hands will be shown next to the pot, their balance, what their best combination is, and also the choice to call, raise, check, or fold. It will transition into the next player's turn, and the betting phases will go until the entire community hand is shown. At the end, the player's hands are compared to see whose combination is best and they will win the pot.
-![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/d93dbc78-6a24-4ad4-8864-e423ce038475)
-
-![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/98fc0369-a62d-4660-be56-23cdbbf0815a)
+![Untitled presentation](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/979e9950-bd27-4d80-825e-9f3d6f849a8e)
+![Untitled presentation (1)](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/9a60326a-cf03-4772-9796-72b719510778)
+![Untitled presentation (2)](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/4b1b520b-7e06-4dbc-955b-7b413b12a0ca)
+![Untitled presentation (3)](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/72a7d275-2835-46b0-b6de-8290e2a8542b)
 
 ## Class Diagram
 The class diagram includes all the classes required to make the Poker game. GameHandler is essentially the start menu and will have options leading to the use of every other class. RoundHandler specifically takes use of the Pot, Player, and Deck classes, as they are subject to change every round. For each player's hand, there will also be a combination comparator to give the user an idea of whether they will win or not. There will be a bot class that inherits from Player. The Deck class is made up of the Card class which holds the suit and rank of each card. Display will take care of outputting everything.
