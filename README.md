@@ -61,19 +61,17 @@ The class diagram includes all the classes required to make the Poker game. Game
 ## Class Diagram Updates
 ![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/660d742a-9c57-437f-bf13-e1d11d5eec4d)
 
-)
-
-The new diagram includes the creation of the MenuHandler class which improves the design of project by following the single-responsibility principle.  Originally, the GameHandler class handled all the menu functionality, which was very different from the rest of the class.  Instead, the MenuHandler class now takes control of the menu functionality and deals with the new additions to it, adhering to the open-closed principle.
-
-The creation of the SettingsHandler changes the design to help follow the single responsibility principle by changing the responsibility to editing the settings class to the SettingsHandler class.  This helps separate the responsibility of changing the settings to the SettingsHandler class and keeps the Settings class's responsibility to store the different settings that the game will use. 
-
-Another update was with the Hand class, which expanded upon the functions in Hand class so that Player class was separated from the Hand class to follow the single responsibility principle.  Rather than have a function in the Player class that handles the current Hand, the player class will store a Hand object that contains the cards within the player's Hand.  Then, the Hand can call its own functions that regarding the details in its own class.  This helped make the code more readable it separated the functions of the Hand class from the functions of the Player class, which was unclear at first.
+There was an update in the Hand class, which expanded upon the functions in Hand class so that Player class was separated from the Hand class to follow the single responsibility principle.  Rather than have a function in the Player class that handles the current Hand, the player class will store a Hand object that contains the cards within the player's Hand.  Then, the Hand can call its own functions that regarding the details in its own class.  This helped make the code more readable it separated the functions of the Hand class from the functions of the Player class, which was unclear at first.
 
 One more update was with the Combination Comparator class, which has been converted into handRank class. handRank class now also follows the single responsibility principle, reflecting its own functions to compute the final rank instead of inheriting the functions from Hand class. This helped to identify the handRank class more thoroughly and readable, and made the class's purpose more clear as it was not definitive before. 
 
 There are other functions being added to the Player and Pot classes in order to ensure they are compatible and work together. For instance, when players wish to raise, there needs to be something in order to keep track of what the highest bet in the current round is. Thus there is the addition of the int highestBet that will do that job. And also a clearPot() function to help the Roundhandler make sure that pot is reset to 0 every round.
 
-The Display class functions were updated to reflect more similarly to what the screen layout looks like (drawn above), passing variables from the Player, Pot and Hand class. 
+The Display class functions were updated to reflect more similarly to what the screen layout looks like (shown above), with prompts for the players' turns as well as their cards and the community cards. In essence, it can now output players' hands followed by revealed community cards and unrevealed community cards. It outputs everything else in between turns, after the round and can now also output round history which shows the previous rounds played, their winners and their winning combos. 
+
+The Bot class was also added to introduce a feature for single players to play against a bot. It returns a randomized number that corresponds to the action call or fold. This is an extra feature that enhances the user experience. 
+
+The Utility class was added for the clearScreen() function that could clear the terminal in between players' turns so it is overall more tidy and usable. It also ensures that players cannot see other players' cards when it's their turn. 
 
  
  > ## Final deliverable
