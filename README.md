@@ -110,7 +110,39 @@ Usage:
 ```
 
 Instructions:
-To save and load a game, ...
+
+To save your game progress, after running ./bin/poker, start playing the game. 
+
+After the round ends, you will be prompted the following: 
+
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/3ee7cfb9-8441-4424-a705-d93612eda9e7)
+
+From here, enter '3' and you will be prompted to enter a name for game progress to save: 
+
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/fc30e0cd-8b05-41ca-95fd-f86cb7adf8d0)
+
+Then you will be able to see your saved files in savefiles directory (/savefiles): 
+
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/71929826-6d69-43df-993c-5dd4b84f0330)
+
+Next time you run ./bin/poker again, if you want to continue playing from the last game choose the "Load From Save" option and enter the savefile name: 
+
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/f51fbdf8-119e-47a3-b0f4-fbf1a5422ec6)
+
+
+You will be able to play from the last game: 
+
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/1d424bcd-e606-426e-ba1a-9297b3fbb006)
+
+If you want to transfer a saved game to another computer, copy the content of the file in /savefiles you made to another computer's /savefiles: 
+
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/88b050ea-763e-4ee7-98d6-8d6ab279ab01)
+
+--> Copy the content in 'test', create a new file in /savefiles for another computer, and copy and paste the content in there. You will be able to load the new saved file when running the game.
+
+
+
+
  ## Testing
 In the development of this project, we utilized Google Test for testing and verification of the functionalities of our game.  To check our code coverage, we used Gcov.  We were able to reach about 90% code coverage, however, due to the innate randomness of Poker, some portions of the code were not directly testable. To handle this, we used specified seeds in our tests to ensure consistency and examine different game scenarios.
 ![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/49098da6-6c1a-4444-a45f-fb3c9be1ba7d)
