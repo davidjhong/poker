@@ -402,7 +402,7 @@ bool RoundHandler::call(ostream& out, Player* currPlayer) {
 bool RoundHandler::raise(istream& is, ostream& out, Player* currPlayer) {
     int raiseTo;
     out << "What would you like to raise your bet to?" << endl;
-    // is >> raiseTo;
+    
     // raise has to be bigger than highestBet
     while(!(is >> raiseTo) || raiseTo < pot->getHighestBet()) {
         is.clear();

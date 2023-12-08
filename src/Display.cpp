@@ -162,7 +162,6 @@ void Display::displayGameStatus(std::ostream& out, vector<Card*> communityCards,
 
     displayCards(out, cards);
     
-    // out << "Best combo: " << 
     out << "Community cards:" << endl;; 
 
     for (int i = 0; i < 5; i++) 
@@ -319,10 +318,7 @@ void Display::displayWinner(std::ostream& out, vector<Player*> winnerList, Pot* 
     else
     {
         int splitPot = pot->getPot() / winnerList.size();
-        // for (Player* tiePlayer: winnerList)
-        // {
-        //     out << tiePlayer->getName() << ", ";
-        // }
+ 
 
         for (int i = 0; i < winnerList.size() - 1; i++)
         {
@@ -333,7 +329,7 @@ void Display::displayWinner(std::ostream& out, vector<Player*> winnerList, Pot* 
 
         out << " won a split pot of " << splitPot << " each!" << endl;
     }
-    // clearScreen();
+
 }
 
 void Display::displayRoundHistory(std::ostream& out, const vector<vector<string>> &roundHistory)
@@ -352,7 +348,7 @@ void Display::displayRoundHistory(std::ostream& out, const vector<vector<string>
 }
 void Display::displayBetweenTurns(std::ostream& out, Player* player)
 {
-    //Utility::clearScreen();
+
     out << player->getName() << "'s turn!" << endl;
     out << "Enter anything to continue" << endl;
 }

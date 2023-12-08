@@ -98,8 +98,7 @@ string Hand::getComboName()
         return "Royal Flush";
     }
     return to_string(strength);
-    //else if() flush 
-    //
+  
 }
 
 void Hand::clearHand()

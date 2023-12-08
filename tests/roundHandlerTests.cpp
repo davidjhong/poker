@@ -29,8 +29,6 @@ TEST(roundHandlerTests, startRoundTest)
 
     vector<Player*>* playerList = new vector<Player*>{testPlayer1, testPlayer2};
 
-    // playerList.push_back(testPlayer1);
-    // playerList.push_back(testPlayer2);
 
     vector<vector<string>> roundHistory;
 
@@ -68,8 +66,6 @@ TEST(roundHandlerTests, startRoundFoldTest)
 
     vector<Player*>* playerList = new vector<Player*>{testPlayer1, testPlayer2};
 
-    // playerList.push_back(testPlayer1);
-    // playerList.push_back(testPlayer2);
 
     vector<vector<string>> roundHistory;
 
@@ -105,8 +101,6 @@ TEST(roundHandlerTests, startEarlyRoundFoldTest)
 
     vector<Player*>* playerList = new vector<Player*>{testPlayer1, testPlayer2};
 
-    // playerList.push_back(testPlayer1);
-    // playerList.push_back(testPlayer2);
 
     vector<vector<string>> roundHistory;
 
@@ -142,8 +136,6 @@ TEST(roundHandlerTests, startLateRoundFoldTest)
 
     vector<Player*>* playerList = new vector<Player*>{testPlayer1, testPlayer2};
 
-    // playerList.push_back(testPlayer1);
-    // playerList.push_back(testPlayer2);
 
     vector<vector<string>> roundHistory;
 
@@ -193,9 +185,6 @@ TEST(roundHandlerTests, startRoundRaiseTest)
     Player* testPlayer2 = new Player("Jason", 500, false);
 
     vector<Player*>* playerList = new vector<Player*>{testPlayer1, testPlayer2};
-
-    // playerList.push_back(testPlayer1);
-    // playerList.push_back(testPlayer2);
 
     vector<vector<string>> roundHistory;
 
