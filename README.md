@@ -40,54 +40,6 @@ Authors: [Kevin He](https://github.com/kevinhehee/) [Jason An](https://github.co
      * The player with the strongest hand wins the pot and receives all the chips in the pot.
      * A new round starts and play again until one person has all the chips in the game, or when players choose to exit the game.
   
-   
-## User Interface Specification
-
-### Navigation Diagram
-![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/0f54a2e8-a31c-453c-aaf3-db04cd0e659d)
-
-### Screen Layouts
-Below are the representations of the stages of what the poker game will look like. It begins with the start menu, alongside what the settings screen would look like. Then, when a game is started, the players' names will be entered. The players' hands will be shown next to the pot, their balance, what their best combination is, and also the choice to call, raise, check, or fold. It will transition into the next player's turn, and the betting phases will go until the entire community hand is shown. At the end, the player's hands are compared to see whose combination is best and they will win the pot.
-![Untitled presentation](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/979e9950-bd27-4d80-825e-9f3d6f849a8e)
-![Untitled presentation (1)](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/9a60326a-cf03-4772-9796-72b719510778)
-![Untitled presentation (2)](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/4b1b520b-7e06-4dbc-955b-7b413b12a0ca)
-![Untitled presentation (3)](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/72a7d275-2835-46b0-b6de-8290e2a8542b)
-
-## Class Diagram
-The class diagram includes all the classes required to make the Poker game. GameHandler is essentially the start menu and will have options leading to the use of every other class. RoundHandler specifically takes use of the Pot, Player, and Deck classes, as they are subject to change every round. For each player's hand, there will also be a combination comparator to give the user an idea of whether they will win or not. There will be a bot class that inherits from Player. The Deck class is made up of the Card class which holds the suit and rank of each card. Display will take care of outputting everything.
-![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/f180b8bb-d792-43a2-82e7-c4a43ebe2d68)
-
-
-## Class Diagram Updates
-![UML Class Diagram](https://cdn.discordapp.com/attachments/1095076795524587562/1182786605933674506/Screenshot_2023-12-08_at_12.47.39_PM.png?ex=6585f6dd&is=657381dd&hm=8f9de28d45f82de9285ea82e8dd930dc2b713b8c6d1390628245d4b90e294f5f&.png)
-
-
-There was an update in the Hand class, which expanded upon the functions in Hand class so that Player class was separated from the Hand class to follow the single responsibility principle.  Rather than have a function in the Player class that handles the current Hand, the player class will store a Hand object that contains the cards within the player's Hand.  Then, the Hand can call its own functions that regarding the details in its own class.  This helped make the code more readable it separated the functions of the Hand class from the functions of the Player class, which was unclear at first.
-
-One more update was with the Combination Comparator class, which has been converted into handRank class. handRank class now also follows the single responsibility principle, reflecting its own functions to compute the final rank instead of inheriting the functions from Hand class. This helped to identify the handRank class more thoroughly and readable, and made the class's purpose more clear as it was not definitive before. 
-
-There are other functions being added to the Player and Pot classes in order to ensure they are compatible and work together. For instance, when players wish to raise, there needs to be something in order to keep track of what the highest bet in the current round is. Thus there is the addition of the int highestBet that will do that job. And also a clearPot() function to help the Roundhandler make sure that pot is reset to 0 every round.
-
-The Display class functions were updated to reflect more similarly to what the screen layout looks like (shown above), with prompts for the players' turns as well as their cards and the community cards. In essence, it can now output players' hands followed by revealed community cards and unrevealed community cards. It outputs everything else in between turns, after the round and can now also output round history which shows the previous rounds played, their winners and their winning combos. 
-
-The Bot class was also added to introduce a feature for single players to play against a bot. It returns a randomized number that corresponds to the action call or fold. This is an extra feature that enhances the user experience. 
-
-The Utility class was added for the clearScreen() function that could clear the terminal in between players' turns so it is overall more tidy and usable. It also ensures that players cannot see other players' cards when it's their turn. 
-
- 
- ## Final deliverable
- 
- ## Screenshots
- ![1](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/bed5d283-0554-400e-b91a-4c46c88155c2)
- ![2](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/85fd85e8-bd02-40e8-b3ab-4bd87c44a656)
- ![3](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/22415770-5a64-44c6-afb0-d2a19457693f)
- ![4](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/b2f657f8-6f6c-45cf-a064-ab2541a5807c)
- ![5](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/02b84d85-8c0c-435b-9fc4-fe60835fba91)
- ![6](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/324a3a0a-39af-49b2-abfd-33b984c4b110)
- ![7](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/0f5b6cc7-c8b2-47ca-94f1-4325614fc084)
- ![8](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/f3774e93-34b0-49be-85f2-521bf563d908)
- ![9](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/5ace449b-f171-453f-8774-d504be3cb92d)
- ![10](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/68b243bc-125e-4c4b-8790-7b77ad299bf3)
 
  ## Installation/Usage
 Requires g++ compiler
@@ -103,7 +55,7 @@ Usage:
 ./bin/poker
 ```
 
-Instructions:
+## Saving Progress:
 
 To save your game progress, after running ./bin/poker, start playing the game. 
 
@@ -133,6 +85,52 @@ If you want to transfer a saved game to another computer, copy the content of th
 ![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/88b050ea-763e-4ee7-98d6-8d6ab279ab01)
 
 --> Copy the content in 'test', create a new file in /savefiles for another computer, and copy and paste the content in there. You will be able to load the new saved file when running the game.
+
+## User Interface Specification
+
+### Navigation Diagram
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/53993828/0f54a2e8-a31c-453c-aaf3-db04cd0e659d)
+
+### Screen Layouts
+Below are the representations of the stages of what the poker game will look like. It begins with the start menu, alongside what the settings screen would look like. Then, when a game is started, the players' names will be entered. The players' hands will be shown next to the pot, their balance, what their best combination is, and also the choice to call, raise, check, or fold. It will transition into the next player's turn, and the betting phases will go until the entire community hand is shown. At the end, the player's hands are compared to see whose combination is best and they will win the pot.
+![Untitled presentation](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/979e9950-bd27-4d80-825e-9f3d6f849a8e)
+![Untitled presentation (1)](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/9a60326a-cf03-4772-9796-72b719510778)
+![Untitled presentation (2)](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/4b1b520b-7e06-4dbc-955b-7b413b12a0ca)
+![Untitled presentation (3)](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/72a7d275-2835-46b0-b6de-8290e2a8542b)
+
+## Class Diagram
+The class diagram includes all the classes required to make the Poker game. GameHandler is essentially the start menu and will have options leading to the use of every other class. RoundHandler specifically takes use of the Pot, Player, and Deck classes, as they are subject to change every round. For each player's hand, there will also be a combination comparator to give the user an idea of whether they will win or not. There will be a bot class that inherits from Player. The Deck class is made up of the Card class which holds the suit and rank of each card. Display will take care of outputting everything.
+![image](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/112353499/f180b8bb-d792-43a2-82e7-c4a43ebe2d68)
+
+
+## Class Diagram Updates
+There was an update in the Hand class, which expanded upon the functions in Hand class so that Player class was separated from the Hand class to follow the single responsibility principle.  Rather than have a function in the Player class that handles the current Hand, the player class will store a Hand object that contains the cards within the player's Hand.  Then, the Hand can call its own functions that regarding the details in its own class.  This helped make the code more readable it separated the functions of the Hand class from the functions of the Player class, which was unclear at first.
+
+One more update was with the Combination Comparator class, which has been converted into handRank class. handRank class now also follows the single responsibility principle, reflecting its own functions to compute the final rank instead of inheriting the functions from Hand class. This helped to identify the handRank class more thoroughly and readable, and made the class's purpose more clear as it was not definitive before. 
+
+There are other functions being added to the Player and Pot classes in order to ensure they are compatible and work together. For instance, when players wish to raise, there needs to be something in order to keep track of what the highest bet in the current round is. Thus there is the addition of the int highestBet that will do that job. And also a clearPot() function to help the Roundhandler make sure that pot is reset to 0 every round.
+
+The Display class functions were updated to reflect more similarly to what the screen layout looks like (shown above), with prompts for the players' turns as well as their cards and the community cards. In essence, it can now output players' hands followed by revealed community cards and unrevealed community cards. It outputs everything else in between turns, after the round and can now also output round history which shows the previous rounds played, their winners and their winning combos. 
+
+The Bot class was also added to introduce a feature for single players to play against a bot. It returns a randomized number that corresponds to the action call or fold. This is an extra feature that enhances the user experience. 
+
+The Utility class was added for the clearScreen() function that could clear the terminal in between players' turns so it is overall more tidy and usable. It also ensures that players cannot see other players' cards when it's their turn. 
+
+ 
+ ## Final deliverable
+ 
+ ## Screenshots
+ ![1](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/bed5d283-0554-400e-b91a-4c46c88155c2)
+ ![2](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/85fd85e8-bd02-40e8-b3ab-4bd87c44a656)
+ ![3](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/22415770-5a64-44c6-afb0-d2a19457693f)
+ ![4](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/b2f657f8-6f6c-45cf-a064-ab2541a5807c)
+ ![5](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/02b84d85-8c0c-435b-9fc4-fe60835fba91)
+ ![6](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/324a3a0a-39af-49b2-abfd-33b984c4b110)
+ ![7](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/0f5b6cc7-c8b2-47ca-94f1-4325614fc084)
+ ![8](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/f3774e93-34b0-49be-85f2-521bf563d908)
+ ![9](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/5ace449b-f171-453f-8774-d504be3cb92d)
+ ![10](https://github.com/cs100/final-project-khe035-dhong050-jan058-ctang085/assets/60768753/68b243bc-125e-4c4b-8790-7b77ad299bf3)
+
 
 
 
